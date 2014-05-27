@@ -1063,7 +1063,7 @@ a.article-title:hover {
   border: 1px solid #ddd;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  text-align: left;
+  text-align: center;
   color: #999;
   overflow: hidden;
 }

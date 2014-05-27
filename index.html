@@ -8,7 +8,7 @@
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://yoursite.com/">
+<meta property="og:url" content="http://cedar-renjun.github.io//">
 <meta property="og:image">
 <meta property="og:site_name" content="Enjoy Programming">
 <meta property="og:description">
@@ -58,7 +58,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://cedar-renjun.github.io/"></form>
       </div>
     </div>
   </div>
@@ -66,16 +66,12 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-this-is-a-test-file" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-how-to-solove-sublimetext-3-chinese-encoding-problem" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/05/19/this-is-a-test-file/" class="article-date">
-  <time datetime="2014-05-19T12:49:17.000Z" itemprop="datePublished">May 19 2014</time>
+    <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" class="article-date">
+  <time datetime="2014-05-27T01:13:46.000Z" itemprop="datePublished">May 27 2014</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/测试/">测试</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -84,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/19/this-is-a-test-file/">这是一个测试文章</a>
+      <a class="article-title" href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/">解决Sublime Text 3中文乱码问题</a>
     </h1>
   
 
@@ -92,20 +88,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Hello_world">Hello world</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur libero est, vulputate nec nibh sit amet, luctus placerat diam. Aliquam sit amet est arcu.</p>
+        <ol>
+<li>打开Sublime Text 3，按<code>Ctrl+～</code>打开控制行，复制粘贴以下python代码，然后回车运行</li>
+</ol>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)
+</pre></td></tr></table></figure></p>
+<ol>
+<li><p>重启Sublime Text 3</p>
+</li>
+<li><p>按<code>Ctrl+Shift+P</code>打开命令行，输入<code>Install Package</code>，回车，然后继续输入<code>ConvertToUTF8</code>，回车</p>
+</li>
+</ol>
 
-        
-          <p class="article-more-link">
-            <a href="/2014/05/19/this-is-a-test-file/#more">Read More</a>
-          </p>
-        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/05/19/this-is-a-test-file/" data-id="f5wjj61b4qmpkk6g" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" data-id="xolzlqyojgzju96l" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime text/">sublime text</a></li></ul>
+
     </footer>
   </div>
   
@@ -170,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="22oletnvlf4zq9iy" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="3on2v27qen7nzvzc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -233,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/22/learning-method-in-it-field-6/" data-id="b1bdv6639moacrwr" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-6/" data-id="j5s3jj0p3gkg3of1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -308,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/22/learning-method-in-it-field-5/" data-id="0j6zo2ryp7twv4sg" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-5/" data-id="xv1c417mltuise0b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -374,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/22/learning-method-in-it-field-4/" data-id="rav034d4gsi95h6g" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-4/" data-id="asu82v0a30lwkyms" class="article-share-link">Share</a>
       
       
     </footer>
@@ -446,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/22/learning-method-in-it-field-3/" data-id="zmggshphoecm9z0t" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-3/" data-id="qox4era3rknq8w6o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -503,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/22/learning-method-in-it-field-2/" data-id="1wtqzkhspif4ch75" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-2/" data-id="bdyicu0yy87zkrl8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -584,7 +587,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/22/learning-method-in-it-field-1/" data-id="x7kwugvtqr2cquxe" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-1/" data-id="tv5bg3n0z16ru7rx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -636,7 +639,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/18/thinking-in-electronic-career/" data-id="1lvohzaj91i29jw3" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/18/thinking-in-electronic-career/" data-id="hr6d1i9am2766dfi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -712,7 +715,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/04/10/recommand-embedded-blog/" data-id="46jlugshtwl1yat6" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/10/recommand-embedded-blog/" data-id="lfu036cxlid1ncqw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -735,14 +738,28 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐/">推荐</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen/">教程，Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen，Markdown/">教程，Doxygen，Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈，开源/">杂谈，开源</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/测试/">测试</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载，励志/">转载，励志</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐/">推荐</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen/">教程，Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen，Markdown/">教程，Doxygen，Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈，开源/">杂谈，开源</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载，励志/">转载，励志</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime text/">sublime text</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/sublime text/" style="font-size: NaNpx;">sublime text</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -760,7 +777,7 @@
       <ul>
         
           <li>
-            <a href="/2014/05/19/this-is-a-test-file/">这是一个测试文章</a>
+            <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/">解决Sublime Text 3中文乱码问题</a>
           </li>
         
           <li>

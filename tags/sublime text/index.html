@@ -3,30 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Enjoy Programming</title>
+  <title>Tag: sublime text | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Loading...
-
-
-Searching...
-No Matches">
+  <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io//assets/2014/03/21/html_output_1/search/functions_1.html">
+<meta property="og:url" content="http://cedar-renjun.github.io//tags/sublime text/">
 <meta property="og:image">
 <meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description" content="Loading...
-
-
-Searching...
-No Matches">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Enjoy Programming">
-<meta name="twitter:description" content="Loading...
-
-
-Searching...
-No Matches">
+<meta name="twitter:description">
   
     <link rel="alternative" href="/atom.xml" title="Enjoy Programming" type="application/atom+xml">
   
@@ -76,58 +64,59 @@ No Matches">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-how-to-solove-sublimetext-3-chinese-encoding-problem" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/assets/2014/03/21/html_output_1/search/functions_1.html" class="article-date">
-  <time datetime="2014-05-26T05:43:37.000Z" itemprop="datePublished">May 26 2014</time>
+    <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" class="article-date">
+  <time datetime="2014-05-27T01:13:46.000Z" itemprop="datePublished">May 27 2014</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/">解决Sublime Text 3中文乱码问题</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title></title>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta name="generator" content="Doxygen 1.8.6">
-<link rel="stylesheet" type="text/css" href="search.css"/>
-<script type="text/javascript" src="functions_1.js"></script>
-<script type="text/javascript" src="search.js"></script>
-</head>
-<body class="SRPage">
-<div id="SRIndex">
-<div class="SRStatus" id="Loading">Loading...</div>
-<div id="SRResults"></div>
-<script type="text/javascript"><!--
-createResults();
---></script>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-<script type="text/javascript"><!--
-document.getElementById("Loading").style.display="none";
-document.getElementById("NoMatches").style.display="none";
-var searchResults = new SearchResults("searchResults");
-searchResults.Search();
---></script>
-</div>
-</body>
-</html>
+        <ol>
+<li>打开Sublime Text 3，按<code>Ctrl+～</code>打开控制行，复制粘贴以下python代码，然后回车运行</li>
+</ol>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)
+</pre></td></tr></table></figure></p>
+<ol>
+<li><p>重启Sublime Text 3</p>
+</li>
+<li><p>按<code>Ctrl+Shift+P</code>打开命令行，输入<code>Install Package</code>，回车，然后继续输入<code>ConvertToUTF8</code>，回车</p>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/assets/2014/03/21/html_output_1/search/functions_1.html" data-id="rys5hvh0df8pkdhf" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" data-id="xolzlqyojgzju96l" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime text/">sublime text</a></li></ul>
+
     </footer>
   </div>
   
-    
-  
 </article>
 
+
+  
+  
 </section>
         
           <aside id="sidebar">
