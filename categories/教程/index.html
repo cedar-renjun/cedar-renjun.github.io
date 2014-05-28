@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: github | Enjoy Programming</title>
+  <title>Category: 教程 | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io//categories/github/">
+<meta property="og:url" content="http://cedar-renjun.github.io//categories/教程/">
 <meta property="og:image">
 <meta property="og:site_name" content="Enjoy Programming">
 <meta property="og:description">
@@ -66,14 +66,14 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-how-to-build-your-blog-on-github-page-with-octopress" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-table-space-configure-in-sublime-text3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/" class="article-date">
-  <time datetime="2014-03-19T12:04:41.000Z" itemprop="datePublished">Mar 19 2014</time>
+    <a href="/2014/05/28/table-space-configure-in-sublime-text3/" class="article-date">
+  <time datetime="2014-05-28T01:21:27.000Z" itemprop="datePublished">May 28 2014</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/github/">github</a>►<a class="article-category-link" href="/categories/github/octopress/">octopress</a>
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/sublime_text/">sublime_text</a>
   </div>
 
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/">用Octopress在github上搭建自己的博客系统</a>
+      <a class="article-title" href="/2014/05/28/table-space-configure-in-sublime-text3/">在Sublime Text中设置Tab-Space</a>
     </h1>
   
 
@@ -92,25 +92,57 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>【文档修订中，随时更改】</p>
-<h2 id="写在前面的话">写在前面的话</h2>
-<p>搞软件的，一般都晓得<a href="https://github.com" target="_blank">github</a>和<a href="http://stackoverflow.com/" target="_blank">stackoverflow</a>这两个著名网站，前者是分布式代码仓库，后者是技术问答社区，这里不做过多介绍</p>
-<p>github在提供分布式代码管理功能的同时，也提供pages功能。借助于pages，程序员可以创建一个属于自己的博客</p>
-<p>接下来，我会图文并茂的展示如何在github上搭建自己的博客系统</p>
-<p>进行正式介绍之前，先界定适用人群和技术基础，免得浪费您的时间</p>
-<p><strong>适用人群</strong><br>喜欢折腾的IT攻城狮</p>
-<p><strong>技术基础</strong><br>了解git常用操作，熟悉markdown语法，熟悉HTML，CSS更好</p>
-<p><strong>操作环境</strong><br>windows7 32位</p>
+        <h3 id="1:_概述">1: 概述</h3>
+<p>缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。</p>
+<h3 id="2:_设置">2: 设置</h3>
+<pre><code>|---------------------------|--------------------------------------------------------------------------------------------------------------|
+<span class="localvars">|tab_size                   |</span> 数字。插入的空格数                                                                                           |
+<span class="localvars">|translate_tabs_to_spaces   |</span> <span class="class">Boolean</span>, 如果为<span class="keyword">true</span>，按tab键将会输入空格替代，而不是tab字符                                                  |
+<span class="localvars">|detect_indentation         |</span> <span class="class">Boolean</span>, 默认为<span class="keyword">true</span>, tab_size和translate_tabs_to_spaces将会在文件载入是自动计算                              |
+<span class="localvars">|use_tab_stops              |</span> <span class="class">Boolean</span>, 如果translate_tabs_to_spaces为<span class="keyword">true</span>, use_tab_stops将会使tab和backspace在下一个tab停止时insert/delete |
+</code></pre><h3 id="3:_配置文件">3: 配置文件</h3>
+<p>配置文件将会按下面这个顺序应用：</p>
+<ol>
+<li>Packages/Default/Preferences.sublime-settings</li>
+<li>Packages/Default/Preferences (<platform>).sublime-settings</li>
+<li>Packages/User/Preferences.sublime-settings</li>
+<li>Packages/<syntax>/<syntax>.sublime-settings</li>
+<li>Packages/User/<syntax>.sublime-settings</li>
+</ol>
+<p>通常情况下，你应该把你的配置放在<code>Packages/User/Preferences.sublime-settings</code>里。如果你要给特定的文件类型指定配置，比如，Python, 应该放在<code>Packages/User/Python.sublime-settings</code>文件中</p>
+<h3 id="4:_配置文件示例">4: 配置文件示例</h3>
+<p>试着把这些保存为<code>Packages/User/Preferences.sublime-settings</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>{
+    "<span class="attribute">tab_size</span>": <span class="value"><span class="number">4</span></span>,
+    "<span class="attribute">translate_tabs_to_spaces</span>": <span class="value"><span class="literal">false</span>
+</span>}
+</pre></td></tr></table></figure>
 
-        
-          <p class="article-more-link">
-            <a href="/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/#more">Read More</a>
-          </p>
-        
+<h3 id="5:_单独语法配置">5: 单独语法配置</h3>
+<p>可以在基础配置之上指定单独的语法配置。在<code>Preferences/Settings - More/Syntax Specific - User</code>菜单下</p>
+<h3 id="6:_缩进的检测">6: 缩进的检测</h3>
+<p>当一个文件载入时，它的内容会被检查，<code>tab_size</code>和<code>translate_tabs_to_spaces</code>设置将会应用到该文件。状态栏将会报告发了什么。尽管编辑器会处理的很好，如果想要把它禁用的话，可以通过<code>detect_indentation</code>来设置</p>
+<p>缩进检测可以手动执行，通过<code>View/Indentation/Guess Settings From Buffer</code>菜单执行<code>detect_indentation</code>命令</p>
+<h3 id="7:_Tab和空格之间转换">7: Tab和空格之间转换</h3>
+<p><code>View/Indentation</code>菜单里有命令可以将当前文件中的空白在tab符和空格符之间转换。这几个菜单项执行的是<code>expand_tabs</code>和<code>unexpand_tabs</code>命令</p>
+<h3 id="8:_自动缩进">8: 自动缩进</h3>
+<p>自动缩进猜测会在换行时给每一行添加一定数量空白符。由下面这个配置控制：</p>
+<pre><code>|-------------------------------|-----------------------------------------------------------------------------------------------------------|
+<span class="localvars">| auto_indent                   |</span> <span class="class">Boolean</span>, 默认是开启                                                                                       |
+<span class="localvars">| smart_indent                  |</span> <span class="class">Boolean</span>, 默认是开启。具有一点小聪明的自动缩进，比如，在一个if语法片段的下一行进行缩进                     |
+<span class="localvars">| trim_automatic_white_space    |</span> <span class="class">Boolean</span>, 默认开启。当断行时由auto_indent去除行头尾的空白                                                  |
+<span class="localvars">| indent_to_bracket             |</span> <span class="class">Boolean</span>, 默认禁用。缩进时根据第一个前括号来空白数。像下面这样：use_indent_to_bracket(to_indent,like_this) |
+</code></pre><h3 id="9：注意事项">9：注意事项</h3>
+<font color="red" > 修改配置文件后，需要关闭所有打开的文件，然后重启Sublime Text </font>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/" data-id="ux7jucn61cohgrde" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/" data-id="x9akmivt2irxg371" class="article-share-link">Share</a>
       
       
     </footer>
