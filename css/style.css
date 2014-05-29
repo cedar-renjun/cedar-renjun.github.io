@@ -602,6 +602,10 @@ a.article-title:hover {
   line-height: 1.1em;
   margin: 1.1em 0;
 }
+.article-entry p {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
 .article-entry a {
   color: #258fb8;
   text-decoration: none;
