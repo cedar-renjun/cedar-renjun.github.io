@@ -66,6 +66,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-can-not-read-cpuid-via-jlink-in-iar" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" class="article-date">
+  <time datetime="2014-06-04T07:18:27.000Z" itemprop="datePublished">Jun 4 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/IAR/">IAR</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/">IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt;</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="问题描述">问题描述</h3>
+<p>在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错</p>
+<pre><code>Can <span class="operator">not</span> <span class="built_in">read</span> CPUID
+</code></pre><p>为CPU重新上电，则可以正常进入调试状态</p>
+<h3 id="出现原因">出现原因</h3>
+<p>IAR Jlink DLL版本过低</p>
+<h3 id="解决方案">解决方案</h3>
+<p>用最新版的<code>JlinkARM.dll</code>替换掉IAR安装目录下默认的<code>JLinkARM.dll</code></p>
+<p>附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分</p>
+<p>1：Jlink软件JlinkARM.dll路径</p>
+<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\SEGGER</span><span class="command">\JLinkARM</span>_V474b
+</code></pre><p>2：IAR安装目录JlinkARM.dll路径</p>
+<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\IAR</span> Systems<span class="command">\Embedded</span> Workbench 6.0<span class="command">\arm</span><span class="command">\bin</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="ys2gtulh8xlrd0xp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-sublimetext-plug-doxydoc" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/05/29/sublimetext-plug-doxydoc/" class="article-date">
@@ -117,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/29/sublimetext-plug-doxydoc/" data-id="gf5m2d9jfsdzx3t6" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/29/sublimetext-plug-doxydoc/" data-id="q1y0jst05k731gn8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -203,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/" data-id="rp9eq6ukpjcke0yq" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/" data-id="mmfof6ksv8jyr3fu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -222,7 +277,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐/">推荐</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen/">教程，Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen，Markdown/">教程，Doxygen，Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈，开源/">杂谈，开源</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载，励志/">转载，励志</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐/">推荐</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen/">教程，Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen，Markdown/">教程，Doxygen，Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈，开源/">杂谈，开源</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载，励志/">转载，励志</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -231,7 +286,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime text/">sublime text</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IAR/">IAR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jlink/">Jlink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime text/">sublime text</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -240,7 +295,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/sublime text/" style="font-size: NaNpx;">sublime text</a>
+      <a href="/tags/IAR/" style="font-size: NaNpx;">IAR</a><a href="/tags/Jlink/" style="font-size: NaNpx;">Jlink</a><a href="/tags/sublime text/" style="font-size: NaNpx;">sublime text</a>
     </div>
   </div>
 
@@ -249,7 +304,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
     </div>
   </div>
 
@@ -259,6 +314,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/">IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt;</a>
+          </li>
         
           <li>
             <a href="/2014/05/29/personal-and-platform/">个人与平台</a>
@@ -274,10 +333,6 @@
         
           <li>
             <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/">解决Sublime Text 3中文乱码问题</a>
-          </li>
-        
-          <li>
-            <a href="/2014/04/22/promotion-of-arm-cortex-m-mcu/">ARM CMSIS-M芯片推广文案分析</a>
           </li>
         
       </ul>

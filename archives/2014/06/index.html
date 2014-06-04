@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2014/6 | Enjoy Programming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Enjoy Programming">
+<meta property="og:url" content="http://cedar-renjun.github.io//archives/2014/06/">
+<meta property="og:image">
+<meta property="og:site_name" content="Enjoy Programming">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Enjoy Programming">
+<meta name="twitter:description">
+  
+    <link rel="alternative" href="/atom.xml" title="Enjoy Programming" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Enjoy Programming</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Focus On Embedded System</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://cedar-renjun.github.io/"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-can-not-read-cpuid-via-jlink-in-iar" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" class="article-date">
+  <time datetime="2014-06-04T07:18:27.000Z" itemprop="datePublished">Jun 4 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/IAR/">IAR</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/">IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt;</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="问题描述">问题描述</h3>
+<p>在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错</p>
+<pre><code>Can <span class="operator">not</span> <span class="built_in">read</span> CPUID
+</code></pre><p>为CPU重新上电，则可以正常进入调试状态</p>
+<h3 id="出现原因">出现原因</h3>
+<p>IAR Jlink DLL版本过低</p>
+<h3 id="解决方案">解决方案</h3>
+<p>用最新版的<code>JlinkARM.dll</code>替换掉IAR安装目录下默认的<code>JLinkARM.dll</code></p>
+<p>附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分</p>
+<p>1：Jlink软件JlinkARM.dll路径</p>
+<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\SEGGER</span><span class="command">\JLinkARM</span>_V474b
+</code></pre><p>2：IAR安装目录JlinkARM.dll路径</p>
+<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\IAR</span> Systems<span class="command">\Embedded</span> Workbench 6.0<span class="command">\arm</span><span class="command">\bin</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="ys2gtulh8xlrd0xp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐/">推荐</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen/">教程，Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程，Doxygen，Markdown/">教程，Doxygen，Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈，开源/">杂谈，开源</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载，励志/">转载，励志</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IAR/">IAR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jlink/">Jlink</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime text/">sublime text</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/IAR/" style="font-size: NaNpx;">IAR</a><a href="/tags/Jlink/" style="font-size: NaNpx;">Jlink</a><a href="/tags/sublime text/" style="font-size: NaNpx;">sublime text</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/">IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt;</a>
+          </li>
+        
+          <li>
+            <a href="/2014/05/29/personal-and-platform/">个人与平台</a>
+          </li>
+        
+          <li>
+            <a href="/2014/05/29/sublimetext-plug-doxydoc/">SublimeText 插件 -- DoxyDoc</a>
+          </li>
+        
+          <li>
+            <a href="/2014/05/28/table-space-configure-in-sublime-text3/">在Sublime Text中设置Tab-Space</a>
+          </li>
+        
+          <li>
+            <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/">解决Sublime Text 3中文乱码问题</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Cedar<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script type="text/javascript" src="/js/script.js"></script>
+  </div>
+</body>
+</html>
