@@ -3,30 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Enjoy Programming</title>
+  <title>Category: Markdown | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Loading...
-
-
-Searching...
-No Matches">
+  <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io//assets/2014/03/21/html_output_2/search/files_1.html">
+<meta property="og:url" content="http://cedar-renjun.github.io//categories/教程/Doxygen/Markdown/">
 <meta property="og:image">
 <meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description" content="Loading...
-
-
-Searching...
-No Matches">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Enjoy Programming">
-<meta name="twitter:description" content="Loading...
-
-
-Searching...
-No Matches">
+<meta name="twitter:description">
   
   
   <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -74,58 +62,72 @@ No Matches">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-use-markdown-in-doxygen" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/assets/2014/03/21/html_output_2/search/files_1.html" class="article-date">
-  <time datetime="2014-05-26T05:43:37.000Z" itemprop="datePublished">May 26 2014</time>
+    <a href="/2014/03/27/use-markdown-in-doxygen/" class="article-date">
+  <time datetime="2014-03-27T01:34:57.000Z" itemprop="datePublished">Mar 27 2014</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/Doxygen/">Doxygen</a>►<a class="article-category-link" href="/categories/教程/Doxygen/Markdown/">Markdown</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/27/use-markdown-in-doxygen/">在Doxygen中使用Markdown</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title></title>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta name="generator" content="Doxygen 1.8.6">
-<link rel="stylesheet" type="text/css" href="search.css"/>
-<script type="text/javascript" src="files_1.js"></script>
-<script type="text/javascript" src="search.js"></script>
-</head>
-<body class="SRPage">
-<div id="SRIndex">
-<div class="SRStatus" id="Loading">Loading...</div>
-<div id="SRResults"></div>
-<script type="text/javascript"><!--
-createResults();
---></script>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-<script type="text/javascript"><!--
-document.getElementById("Loading").style.display="none";
-document.getElementById("NoMatches").style.display="none";
-var searchResults = new SearchResults("searchResults");
-searchResults.Search();
---></script>
-</div>
-</body>
-</html>
+        <p>开源爱好者和官方API库经常会使用Doxygen来为代码添加注释，只需要维护一份代码文件，便可以生成代码和文档功能，从而避免文档和代码严重不一致的情况</p>
+<p>但Doxygen的缺点也非常明显，注释规则复杂，直接看不容易看懂，不适合生成专业文档</p>
+<p>很多时候，我们既希望生成漂亮的文档，又想在文档内不含有复杂的语法规则，普通人也能直接看懂原文档，有没有这种东西呢？</p>
+<p>有！ Markdown便是这样一种文档书写语言，用户只需要关心文档内容，不需要关心具体表现形式，Markdown编辑器会帮你做这些工作</p>
+<p>Markdown官方解释如下：</p>
+<blockquote>
+<p><strong>宗旨</strong></p>
+<p>Markdown 的目标是实现「易读易写」。</p>
+<p>可读性，无论如何，都是最重要的。一份使用Markdown格式撰写的文件应该可以直接以纯文本发布，<br>并且看起来不会像是由许多标签或是格式指令所构成。</p>
+<p>Markdown 语法受到一些既有 text-to-HTML 格式的影响，包括 Setext、atx、Textile、reStructuredText、<br>Grutatext和EtText，而最大灵感来源其实是纯文本电子邮件的格式。</p>
+<p>总之， Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。<br>比如：在文字两旁加上星号，看起来就像<em>强调</em>。Markdown 的列表看起来，嗯，就是列表。<br>Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样</p>
+</blockquote>
+<p>貌似很不错的样子，是吧，事实上，github上很多文档都是按照Markdown语法来写的。</p>
+<p>如果您是第一次听说Markdown，这里有一个简短的中文入门教程</p>
+<p><a href="http://wowubuntu.com/markdown/basic.html" target="_blank">http://wowubuntu.com/markdown/basic.html</a></p>
+<p>既然Markdown这么好用，如果Doxygen中也能使用Markdown就更好了，既能方便的为代码注释，也能脱离代码，编写大型专业文档，即使以后不用Doxygen输出文档，我们也可以采用其他的markdown编辑器来输出文档</p>
+<p>ok，下面让我们来看看如何在Doxygen中使用Markdown</p>
+<p><strong>注：</strong>在继续阅读之前，请确保您熟悉Doxygen的基本操作和常用语法；如果您没接触过Doxygen，请先阅读《Doxygen 10分钟入门教程》</p>
 
+        
+          <p class="article-more-link">
+            <a href="/2014/03/27/use-markdown-in-doxygen/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/assets/2014/03/21/html_output_2/search/files_1.html" data-id="fxm145p67yjfrb8c" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/03/27/use-markdown-in-doxygen/" data-id="hw91fnrtem7ay63s" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
-    
-  
 </article>
 
+
+  
+  
 </section>
         
           <aside id="sidebar">
