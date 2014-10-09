@@ -3,45 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt; | Enjoy Programming</title>
+  <title>定时备份Blog源文件到github | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="问题描述
-在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错
-Can not read CPUID
-为CPU重新上电，则可以正常进入调试状态
-出现原因
-IAR Jlink DLL版本过低
-解决方案
-用最新版的JlinkARM.dll替换掉IAR安装目录下默认的JLinkARM.dll
-附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分
-1：">
+  <meta name="description" content="前言
+hexo框架是一款非常好用的blog生成工具，可以方便的将markdown转换成HTML网页，并传到github.io网站。但是hexo在push的时候，只会推送public目录下的文件到远程master分支，而不会保存源文件和网站主题，这样会导致风险，万一哪天我们的markdown文件挂掉，就仅仅剩github的网页文件了，所以定时将源文件备份到github是个好习惯
+1：创建本地仓库
+c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IAR环境下，Jlink调试报错，提示<无法读取CPUID>">
-<meta property="og:url" content="http://cedar-renjun.github.io//2014/06/04/can-not-read-cpuid-via-jlink-in-iar/">
+<meta property="og:title" content="定时备份Blog源文件到github">
+<meta property="og:url" content="http://cedar-renjun.github.io//2014/10/09/push-blog-source-to-github/">
 <meta property="og:image">
 <meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description" content="问题描述
-在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错
-Can not read CPUID
-为CPU重新上电，则可以正常进入调试状态
-出现原因
-IAR Jlink DLL版本过低
-解决方案
-用最新版的JlinkARM.dll替换掉IAR安装目录下默认的JLinkARM.dll
-附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分
-1：">
+<meta property="og:description" content="前言
+hexo框架是一款非常好用的blog生成工具，可以方便的将markdown转换成HTML网页，并传到github.io网站。但是hexo在push的时候，只会推送public目录下的文件到远程master分支，而不会保存源文件和网站主题，这样会导致风险，万一哪天我们的markdown文件挂掉，就仅仅剩github的网页文件了，所以定时将源文件备份到github是个好习惯
+1：创建本地仓库
+c">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IAR环境下，Jlink调试报错，提示<无法读取CPUID>">
-<meta name="twitter:description" content="问题描述
-在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错
-Can not read CPUID
-为CPU重新上电，则可以正常进入调试状态
-出现原因
-IAR Jlink DLL版本过低
-解决方案
-用最新版的JlinkARM.dll替换掉IAR安装目录下默认的JLinkARM.dll
-附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分
-1：">
+<meta name="twitter:title" content="定时备份Blog源文件到github">
+<meta name="twitter:description" content="前言
+hexo框架是一款非常好用的blog生成工具，可以方便的将markdown转换成HTML网页，并传到github.io网站。但是hexo在push的时候，只会推送public目录下的文件到远程master分支，而不会保存源文件和网站主题，这样会导致风险，万一哪天我们的markdown文件挂掉，就仅仅剩github的网页文件了，所以定时将源文件备份到github是个好习惯
+1：创建本地仓库
+c">
   
   
   <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -89,14 +71,14 @@ IAR Jlink DLL版本过低
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-can-not-read-cpuid-via-jlink-in-iar" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-push-blog-source-to-github" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" class="article-date">
-  <time datetime="2014-06-04T07:18:27.000Z" itemprop="datePublished">Jun 4 2014</time>
+    <a href="/2014/10/09/push-blog-source-to-github/" class="article-date">
+  <time datetime="2014-10-09T15:17:25.000Z" itemprop="datePublished">Oct 9 2014</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/IAR/">IAR</a>
+    <a class="article-category-link" href="/categories/github/">github</a>
   </div>
 
   </div>
@@ -107,7 +89,7 @@ IAR Jlink DLL版本过低
         
   
     <h1 class="article-title" itemprop="name">
-      IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt;
+      定时备份Blog源文件到github
     </h1>
   
 
@@ -115,47 +97,47 @@ IAR Jlink DLL版本过低
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="问题描述">问题描述</h3>
-<p>在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错</p>
-<pre><code>Can <span class="operator">not</span> <span class="built_in">read</span> CPUID
-</code></pre><p>为CPU重新上电，则可以正常进入调试状态</p>
-<h3 id="出现原因">出现原因</h3>
-<p>IAR Jlink DLL版本过低</p>
-<h3 id="解决方案">解决方案</h3>
-<p>用最新版的<code>JlinkARM.dll</code>替换掉IAR安装目录下默认的<code>JLinkARM.dll</code></p>
-<p>附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分</p>
-<p>1：Jlink软件JlinkARM.dll路径</p>
-<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\SEGGER</span><span class="command">\JLinkARM</span>_V474b
-</code></pre><p>2：IAR安装目录JlinkARM.dll路径</p>
-<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\IAR</span> Systems<span class="command">\Embedded</span> Workbench 6.0<span class="command">\arm</span><span class="command">\bin</span>
-</code></pre>
+        <h2 id="前言">前言</h2>
+<p>hexo框架是一款非常好用的blog生成工具，可以方便的将markdown转换成HTML网页，并传到github.io网站。<br>但是hexo在push的时候，只会推送public目录下的文件到远程master分支，而不会保存源文件和网站主题，<br>这样会导致风险，万一哪天我们的markdown文件挂掉，就仅仅剩github的网页文件了，所以定时将源文件备份到github是个好习惯</p>
+<h3 id="1：创建本地仓库">1：创建本地仓库</h3>
+<p><code>cd</code>进blog所在目录，输入下面命令将文件纳入git管理系统</p>
+<pre><code>git init
+git add .
+git <span class="operator"><span class="keyword">commit</span> -m <span class="string">"first commit"</span>    </span>
+</code></pre><h3 id="2:_删除远程source分支">2: 删除远程source分支</h3>
+<p>如果您是从octopress转过来的，那远程仓库中，默认会存在一个source分支；而hexo不会自动push到source，所以<br>这个分支是很久以前的文件，这里我们将删掉</p>
+<pre><code>git push &lt;远程仓库地址&gt; :<span class="built_in">source</span>
+</code></pre><p>比如我的地址是<code>https://github.com/cedar-renjun/cedar-renjun.github.io.git</code>，则上述命令是</p>
+<pre><code>git <span class="keyword">push</span> https://github<span class="preprocessor">.com</span>/cedar-renjun/cedar-renjun<span class="preprocessor">.github</span><span class="preprocessor">.io</span><span class="preprocessor">.git</span> :source
+</code></pre><p><strong>注意</strong> <code>:</code>之前有一个空格</p>
+<p>上面的命令太长了，不好输入，我们可以用<code>remote</code>来简化输入</p>
+<pre><code>git remote <span class="keyword">add</span> blog https://github<span class="preprocessor">.com</span>/cedar-renjun/cedar-renjun<span class="preprocessor">.github</span><span class="preprocessor">.io</span><span class="preprocessor">.git</span>
+</code></pre><p>这样，blog就是远程的仓库地址，我们可以用下面命令来检测是否生效</p>
+<pre><code>git <span class="comment">remote -v</span>
+</code></pre><h3 id="3：创建本地分支">3：创建本地分支</h3>
+<pre><code>git branch -b <span class="built_in">source</span>
+</code></pre><p>这个命令，创建了一个souce分支，并切换到source分支了</p>
+<h3 id="4：推送到远程分支">4：推送到远程分支</h3>
+<pre><code>git push blog <span class="built_in">source</span>:<span class="built_in">source</span>
+</code></pre><p>前一个<code>source</code>表示本地分支名字，后一个表示远程仓库名字，名字可以变，但位置不能变</p>
+<p>至此，我们已经将source文件推送到远程分支，可以高枕无忧了 ^_^</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="35a8e4jy1fm45xnr" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="wcuognywupz1e9lg" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2014/09/01/missing-you/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          那些人，珍重便好
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/05/29/personal-and-platform/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2014/10/09/mbed-iot-device-platform/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">个人与平台</div>
+      <div class="article-nav-title">Mbed IoT Device Platform</div>
     </a>
   
 </nav>
