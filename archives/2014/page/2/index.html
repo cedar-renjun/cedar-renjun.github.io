@@ -64,6 +64,92 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-table-space-configure-in-sublime-text3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/28/table-space-configure-in-sublime-text3/" class="article-date">
+  <time datetime="2014-05-28T01:21:27.000Z" itemprop="datePublished">May 28 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/28/table-space-configure-in-sublime-text3/">在Sublime Text中设置Tab-Space</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1:_概述">1: 概述</h3>
+<p>缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。</p>
+<h3 id="2:_设置">2: 设置</h3>
+<pre><code>|---------------------------|--------------------------------------------------------------------------------------------------------------|
+<span class="localvars">|tab_size                   |</span> 数字。插入的空格数                                                                                           |
+<span class="localvars">|translate_tabs_to_spaces   |</span> <span class="class">Boolean</span>, 如果为<span class="keyword">true</span>，按tab键将会输入空格替代，而不是tab字符                                                  |
+<span class="localvars">|detect_indentation         |</span> <span class="class">Boolean</span>, 默认为<span class="keyword">true</span>, tab_size和translate_tabs_to_spaces将会在文件载入是自动计算                              |
+<span class="localvars">|use_tab_stops              |</span> <span class="class">Boolean</span>, 如果translate_tabs_to_spaces为<span class="keyword">true</span>, use_tab_stops将会使tab和backspace在下一个tab停止时insert/delete |
+</code></pre><h3 id="3:_配置文件">3: 配置文件</h3>
+<p>配置文件将会按下面这个顺序应用：</p>
+<ol>
+<li>Packages/Default/Preferences.sublime-settings</li>
+<li>Packages/Default/Preferences (<platform>).sublime-settings</li>
+<li>Packages/User/Preferences.sublime-settings</li>
+<li>Packages/<syntax>/<syntax>.sublime-settings</li>
+<li>Packages/User/<syntax>.sublime-settings</li>
+</ol>
+<p>通常情况下，你应该把你的配置放在<code>Packages/User/Preferences.sublime-settings</code>里。如果你要给特定的文件类型指定配置，比如，Python, 应该放在<code>Packages/User/Python.sublime-settings</code>文件中</p>
+<h3 id="4:_配置文件示例">4: 配置文件示例</h3>
+<p>试着把这些保存为<code>Packages/User/Preferences.sublime-settings</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>{
+    "<span class="attribute">tab_size</span>": <span class="value"><span class="number">4</span></span>,
+    "<span class="attribute">translate_tabs_to_spaces</span>": <span class="value"><span class="literal">false</span>
+</span>}
+</pre></td></tr></table></figure>
+
+<h3 id="5:_单独语法配置">5: 单独语法配置</h3>
+<p>可以在基础配置之上指定单独的语法配置。在<code>Preferences/Settings - More/Syntax Specific - User</code>菜单下</p>
+<h3 id="6:_缩进的检测">6: 缩进的检测</h3>
+<p>当一个文件载入时，它的内容会被检查，<code>tab_size</code>和<code>translate_tabs_to_spaces</code>设置将会应用到该文件。状态栏将会报告发了什么。尽管编辑器会处理的很好，如果想要把它禁用的话，可以通过<code>detect_indentation</code>来设置</p>
+<p>缩进检测可以手动执行，通过<code>View/Indentation/Guess Settings From Buffer</code>菜单执行<code>detect_indentation</code>命令</p>
+<h3 id="7:_Tab和空格之间转换">7: Tab和空格之间转换</h3>
+<p><code>View/Indentation</code>菜单里有命令可以将当前文件中的空白在tab符和空格符之间转换。这几个菜单项执行的是<code>expand_tabs</code>和<code>unexpand_tabs</code>命令</p>
+<h3 id="8:_自动缩进">8: 自动缩进</h3>
+<p>自动缩进猜测会在换行时给每一行添加一定数量空白符。由下面这个配置控制：</p>
+<pre><code>|-------------------------------|-----------------------------------------------------------------------------------------------------------|
+<span class="localvars">| auto_indent                   |</span> <span class="class">Boolean</span>, 默认是开启                                                                                       |
+<span class="localvars">| smart_indent                  |</span> <span class="class">Boolean</span>, 默认是开启。具有一点小聪明的自动缩进，比如，在一个if语法片段的下一行进行缩进                     |
+<span class="localvars">| trim_automatic_white_space    |</span> <span class="class">Boolean</span>, 默认开启。当断行时由auto_indent去除行头尾的空白                                                  |
+<span class="localvars">| indent_to_bracket             |</span> <span class="class">Boolean</span>, 默认禁用。缩进时根据第一个前括号来空白数。像下面这样：use_indent_to_bracket(to_indent,like_this) |
+</code></pre><h3 id="9：注意事项">9：注意事项</h3>
+<font color="red" > 修改配置文件后，需要关闭所有打开的文件，然后重启Sublime Text </font>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/" data-id="wcb1qn7m3xu88566" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-how-to-solove-sublimetext-3-chinese-encoding-problem" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" class="article-date">
@@ -102,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" data-id="vc2uifqmwufikbin" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" data-id="vrmhqs52xodtv0pr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime text/">sublime text</a></li></ul>
@@ -171,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="2fzexjki372s09ff" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="e9ns8lsm2759288u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -234,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-6/" data-id="slirsllhsritiovh" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-6/" data-id="2mqezdc1o8evolsi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -309,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-5/" data-id="f1fgvmqq7p7z27qv" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-5/" data-id="38ls6yd82e70bqa1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -375,7 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-4/" data-id="uuo7s3fnopc7nvv5" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-4/" data-id="gg6sxcs7o79z9xcm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -447,7 +533,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-3/" data-id="4xv7d0sg8tqj8bm6" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-3/" data-id="4kg67zsjkz3b8kw9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -504,7 +590,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-2/" data-id="rvlr7wffwydzthzd" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-2/" data-id="iyt8kvl2f3isej97" class="article-share-link">Share</a>
       
       
     </footer>
@@ -585,7 +671,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-1/" data-id="67vjmu7zbirac2gp" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-1/" data-id="y7e0h3di9gfq1wqt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -637,83 +723,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/18/thinking-in-electronic-career/" data-id="lmfgrftwqtrzbtuu" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-recommand-embedded-blog" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/04/10/recommand-embedded-blog/" class="article-date">
-  <time datetime="2014-04-10T09:05:38.000Z" itemprop="datePublished">Apr 10 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/10/recommand-embedded-blog/">开源爱好者Martin</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天在看<a href="http://mbed.org/" target="_blank">Mbed</a>时，偶然发现竟然Mbed可以导出CoIDE工程了，很是惊喜，可是CooCox这边并没有做这个工作啊！</p>
-<p>谁做的呢？找了半天，终于在Mbed上面找出来一个帖子</p>
-<blockquote>
-
-
-<p>I just published on my blog how to setup KL25Z board with mbed in CoIDE. CMSIS-DAP using as default debugger. The CooCox CoIDE brings you open source IDE which enables debugging your application ! Another option how to get your application running quicker!</p>
-<p>Link to the tutorial <a href="http://embeddedworldweb.blogspot.com/2014/01/coide-with-kl25z-and-mbed-c-tutorial.html" target="_blank">http://embeddedworldweb.blogspot.com/2014/01/coide-with-kl25z-and-mbed-c-tutorial.html</a></p>
-<p>Happy debugging!</p>
-<p>Update: I am working on exporters for CoIDE, I’ll share my branch soon , so you can test it out. Update2 : CoIDE exporters done, please test. Find an example below, for testing:</p>
-<p>The Hello world example for CoIDE: /media/uploads/Kojto/mbed_10_coide_kl25z.zip</p>
-<p>13th of January 2014: exporters are on mbed master repository, KL25Z supported at the time. Please test and provide feedback!</p>
-<footer><strong>Martin Kojtal</strong></footer></blockquote>
-
-
-<p>原来一个叫Martin Kojtal的小伙儿默默的为CooCox做了很多工作，强烈赞一个！</p>
-<p>同时，2楼也提了一份非常好的建议</p>
-<blockquote>
-
-
-<p>Thats good news. I have used CooIde with some other ARM devices and it is getting increasingly better. Exporters for mbed would make it a suitable offline tool. Now if we could only get the CooCox and mbed community to work together on a common open source device library….</p>
-<footer><strong>Wim Huiskamp</strong></footer></blockquote>
-
-
-<p>PS: 原帖地址 <a href="http://mbed.org/users/Kojto/notebook/coide-with-mbed-tutorial/" target="_blank">http://mbed.org/users/Kojto/notebook/coide-with-mbed-tutorial/</a></p>
-<p>再次真正的感受到国外小伙儿的热情和认真踏实，赞一个</p>
-<p>这里贴出Martin的个人介绍</p>
-<blockquote>
-
-
-<p>My main interest in my spare time are open source communities, helping various projects to expand to new targets, fixing bugs, interact with users, creating new software libraries and writing tutorials.</p>
-<p>To see my contribution, visit my github <a href="https://github.com/0xc0170" target="_blank">https://github.com/0xc0170</a>, or my mbed profile <a href="http://mbed.org/users/Kojto/" target="_blank">http://mbed.org/users/Kojto/</a></p>
-<footer><strong>Martin</strong><cite><a href="http://embeddedworldweb.blogspot.com/" target="_blank">Embedded Stuff Around The Web</a></cite></footer></blockquote>
-
-
-<p>他的个人博客地址是：<a href="http://embeddedworldweb.blogspot.com/" target="_blank">http://embeddedworldweb.blogspot.com/</a></p>
-<p><strong>注：</strong>博客需翻墙，请自带梯子</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/10/recommand-embedded-blog/" data-id="1u4ahvjp8520bryg" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/18/thinking-in-electronic-career/" data-id="rmgqy3g0ixx79h8t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -736,7 +746,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/Markdown/">Markdown</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/Markdown/">Markdown</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -745,7 +755,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10">October 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
     </div>
   </div>
 

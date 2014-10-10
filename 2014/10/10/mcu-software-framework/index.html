@@ -3,30 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Enjoy Programming</title>
+  <title>嵌入式软件裸机框架 | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Loading...
-
-
-Searching...
-No Matches">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io//assets/2014/03/21/html_output_1/search/all_2.html">
+  <meta name="description" content="嵌入式平台和PC平台的很大区别是定制化，可以不用操作系统来执行代码，这就带来了一个问题：软件中，需要延时时，死等会让MCU空转，其它任务无法执行，因此，很多人着手解决这个问题。
+大致的思路是：将长时间延时分解为小段，然后设置标志位和记录状态，不断查询，在需要延时等待的时候，主动放弃MCU；让其它任务得以执行；不同模块间用消息来传递专业术语叫做：状态机+消息分发
+这是一个引子，后面会详细来写文章分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="嵌入式软件裸机框架">
+<meta property="og:url" content="http://cedar-renjun.github.io//2014/10/10/mcu-software-framework/">
 <meta property="og:image">
 <meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description" content="Loading...
-
-
-Searching...
-No Matches">
+<meta property="og:description" content="嵌入式平台和PC平台的很大区别是定制化，可以不用操作系统来执行代码，这就带来了一个问题：软件中，需要延时时，死等会让MCU空转，其它任务无法执行，因此，很多人着手解决这个问题。
+大致的思路是：将长时间延时分解为小段，然后设置标志位和记录状态，不断查询，在需要延时等待的时候，主动放弃MCU；让其它任务得以执行；不同模块间用消息来传递专业术语叫做：状态机+消息分发
+这是一个引子，后面会详细来写文章分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Enjoy Programming">
-<meta name="twitter:description" content="Loading...
-
-
-Searching...
-No Matches">
+<meta name="twitter:title" content="嵌入式软件裸机框架">
+<meta name="twitter:description" content="嵌入式平台和PC平台的很大区别是定制化，可以不用操作系统来执行代码，这就带来了一个问题：软件中，需要延时时，死等会让MCU空转，其它任务无法执行，因此，很多人着手解决这个问题。
+大致的思路是：将长时间延时分解为小段，然后设置标志位和记录状态，不断查询，在需要延时等待的时候，主动放弃MCU；让其它任务得以执行；不同模块间用消息来传递专业术语叫做：状态机+消息分发
+这是一个引子，后面会详细来写文章分析">
   
   
   <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -74,55 +68,56 @@ No Matches">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mcu-software-framework" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/assets/2014/03/21/html_output_1/search/all_2.html" class="article-date">
-  <time datetime="2014-05-26T05:43:37.000Z" itemprop="datePublished">May 26 2014</time>
+    <a href="/2014/10/10/mcu-software-framework/" class="article-date">
+  <time datetime="2014-10-10T13:35:15.000Z" itemprop="datePublished">Oct 10 2014</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      嵌入式软件裸机框架
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title></title>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta name="generator" content="Doxygen 1.8.6">
-<link rel="stylesheet" type="text/css" href="search.css"/>
-<script type="text/javascript" src="all_2.js"></script>
-<script type="text/javascript" src="search.js"></script>
-</head>
-<body class="SRPage">
-<div id="SRIndex">
-<div class="SRStatus" id="Loading">Loading...</div>
-<div id="SRResults"></div>
-<script type="text/javascript"><!--
-createResults();
---></script>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-<script type="text/javascript"><!--
-document.getElementById("Loading").style.display="none";
-document.getElementById("NoMatches").style.display="none";
-var searchResults = new SearchResults("searchResults");
-searchResults.Search();
---></script>
-</div>
-</body>
-</html>
+        <p>嵌入式平台和PC平台的很大区别是定制化，可以不用操作系统来执行代码，这就带来了一个问题：软件中，需要延时时，死等会让MCU空转，其它任务无法执行，因此，很多人着手解决这个问题。</p>
+<p>大致的思路是：将长时间延时分解为小段，然后设置标志位和记录状态，不断查询，在需要延时等待的时候，主动放弃MCU；让其它任务得以执行；不同模块间用消息来传递<br><strong>专业术语叫做：状态机+消息分发</strong></p>
+<p>这是一个引子，后面会详细来写文章分析各类框架的利弊，以助大家在实际项目中，合理使用</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/assets/2014/03/21/html_output_1/search/all_2.html" data-id="9okund8ddbrjbdrg" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="epen8lz5hpyn4y2v" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2014/10/09/push-blog-source-to-github/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">定时备份Blog源文件到github</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
