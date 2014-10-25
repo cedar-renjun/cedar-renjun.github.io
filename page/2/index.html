@@ -64,6 +64,87 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-state-machine-timer-resource-management" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/17/state-machine-timer-resource-management/" class="article-date">
+  <time datetime="2014-09-17T07:00:29.000Z" itemprop="datePublished">Sep 17 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/框架/">框架</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/17/state-machine-timer-resource-management/">在状态机中管理时间资源</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面的话">写在前面的话</h2>
+<p>在嵌入式系统中，经常会使用到延时(Delay)函数，延时有长，有短；500us以下的延时，可以完全用软件来做；较长的延时，可以用硬件Timer或者调用RTOS的时间管理函数。</p>
+<p>在简单的MCU中，由于资源限制，无法使用常规的RTOS，这时就需要自己写相应的协调式调度算法，常见的有协程和时间片轮询机制等，万变不离其宗，它们其中的核心是状态机，在状态机中一个核心原则是：<strong>函数不能长时间阻塞MCU</strong>，否则就会导致整个系统调度失效。也就是说：<strong>无法使用纯软件延时</strong></p>
+<p>例如，在系统中严禁出现下面代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="code"><pre>
+<span class="keyword">void</span> delay_s(uint8_t tick_s)
+{
+    ...
+}
+
+
+...
+
+
+<span class="comment">// Code Snippet 1</span>
+
+delay_s(<span class="number">2</span>);
+
+<span class="comment">// Code Snippet 2</span>
+</pre></td></tr></table></figure>
+
+
+        
+          <p class="article-more-link">
+            <a href="/2014/09/17/state-machine-timer-resource-management/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/09/17/state-machine-timer-resource-management/" data-id="y48qy97d0msqq4v4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-missing-you" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/09/01/missing-you/" class="article-date">
@@ -114,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/01/missing-you/" data-id="0yjei6cwln19osdv" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/01/missing-you/" data-id="5popaac2va5dg168" class="article-share-link">Share</a>
       
       
     </footer>
@@ -167,7 +248,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="ldkephw6bf7m0c3a" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="iixct4y9pcrvdk89" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
@@ -251,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/29/personal-and-platform/" data-id="zvpzmyzju402uzxx" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/29/personal-and-platform/" data-id="wykxd667n3k6ctqv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -312,7 +393,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/29/sublimetext-plug-doxydoc/" data-id="khcuo5s6n8wk6cpa" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/29/sublimetext-plug-doxydoc/" data-id="0ncf2k83scufw00o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -398,7 +479,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/" data-id="ceilhtaca6g0chl1" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/" data-id="z6jr9ld6yasmr548" class="article-share-link">Share</a>
       
       
     </footer>
@@ -446,7 +527,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" data-id="ukckrpcgwmwz9k6i" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" data-id="n7z3bdw7qx55ioxi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime text/">sublime text</a></li></ul>
@@ -515,7 +596,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="lyfruq6srjqxnhx7" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="1vqqkeihq4cm21ki" class="article-share-link">Share</a>
       
       
     </footer>
@@ -578,7 +659,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-6/" data-id="g4wo8wxrprsgb2z0" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-6/" data-id="ujif8297lva215ea" class="article-share-link">Share</a>
       
       
     </footer>
@@ -653,73 +734,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-5/" data-id="xick7bueqwn3xym1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-learning-method-in-it-field-4" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/04/22/learning-method-in-it-field-4/" class="article-date">
-  <time datetime="2014-04-22T02:50:00.000Z" itemprop="datePublished">Apr 22 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/转载/">转载</a>►<a class="article-category-link" href="/categories/转载/方法论/">方法论</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/22/learning-method-in-it-field-4/">IT人的学习方法论-4 一些重要的能力</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>注：<br>    1）本文出自 “喻勇的博客” 博客，转载请务必保留此出处 <a href="http://yongyu2000.blog.51cto.com/962342/211567" target="_blank">http://yongyu2000.blog.51cto.com/962342/211567</a><br>    2）在原文基础上略有修改<br>    3）原系列共7篇文章，这里将其整理为6篇</p>
-<p><strong>独立思考的能力和获得观点的能力</strong></p>
-<p>我们已经谈过了学什么，学习的误区和怎么学的问题。学习的目标和结果之一，就是知识的积累和能力的提高。其中，对于IT人来说，有两种能力非常重要，一种是独立思考的能力，另一种是获得观点的能力。</p>
-<p>先说独立思考。目前的各类IT媒体、网站、博客很多，大量的信息扑面而来，很多人被一些“流行的”、“大众的”、“别人都在做的”、“看上去很酷”的观点或者行为所左右，做一些盲目的事情。举一些身边的例子：</p>
-<p>*）考证热潮—-XX公司的认证通过后是金饭碗，看了别人的学习和考试历程后，立刻热血沸腾，义无反顾地加入考证大军。</p>
-<p>*）排错能力差—-只知道按照手册操作，不知道故障出现后如何抽丝剥茧的解决它。</p>
-<p>*）盲目的技术崇拜—-前些年C++热，市面上大量的C++图书，于是乎认定C++是学编程的不二法门，一头扎进去就出不来了。</p>
-<p>*）盲目的偶像崇拜—-看了XX大牛发的XYZ技术学习笔记和心路历程后，立刻也如法炮制，毫不犹豫地跟进。</p>
-<p><br/><br>独立思考很重要，可以让你做出正确的判断和选择，能够可以审时度势，把握好大局。如何做到独立思考，你需要：</p>
-<p>1）<strong>积累</strong></p>
-<p>见多才能识广，读万卷书，行万里路，有了一定的积累，看问题和思考也会随着更加的深入</p>
-<p>2）<strong>思考</strong></p>
-<p>不要做被动的信息接收者，要停下来想想为什么。从对方的角度想为什么，自己的角度想为什么，从全局的角度想为什么。把独立思考作为一种习惯，每当你感觉自己即将头脑发热时，请提醒自己静下心来，多思考一些为什么</p>
-<p>3）<strong>了解自己</strong></p>
-<p>知己才能知彼，独立思考的独立二字，是基于人的自我认识的前提下的。所以你一定要了解自己，才能够把自己跟周围独立开来，才可能进行独立的思考。照一照镜子，从自己的性格、习惯、能力、经历、环境等等全方位的给自己画一个像</p>
-<p>有个叫Allen Galbraith的老外总结了培养独立思考能力的十个窍门，经过独立思考后，我觉得挺靠谱的，引用如下：</p>
-<blockquote>
-<p>1) 有疑问就发问。不要害怕问问题，即便是别人都没问过的问题<br>2）经验比权威更重要。如果有专家、权威人士要让你相信什么和你的实际经验向抵触的东西，<br>   不要被他们吓倒<br>3）理解对方的意图。别人找你谈话的意图是什么？他们对你所说的话有没有什么背后的原因？<br>4）<strong>不要觉得你必须随大流</strong><br>5）相信自己的感觉。如果你觉得不对头，很可能真的有什么不对的地方<br>6）保持冷静。保持冷静和客观可以让你头脑更清醒<br>7）积累事实。事实是验证真理的唯一标准<br>8）从不同的角度看问题。每个事物都有其多面性，尝试从不同的角度去认识问题解决问题<br>9）设身处地。了解对方的处境才能更好的了解对方的想法<br>10）勇敢。鼓励自己站起来说我不同意。不要害怕，经过磨练才能成长  </p>
-</blockquote>
-<p>这十条里面，我选几个来说一说：保持冷静是我们尤其缺乏的，不要头脑发热；了解对方的意图，需要你换位思考；相信自己的感觉，前提是你必须认识自己，否则没感觉。(您在读我的博客时，也不妨思考一下，作者为什么这样写，为什么要反复强调一些观点，哪些对我是有帮助的，哪些观点可能还不够成熟，等等）</p>
-<p>我们再说说获得观点的能力。不要等着别人把“十大诀窍”“六大趋势”写好了放在你面前，你需要自己获得这些观点。在独立思考的基础之上，你可以将自己的所思所想汇总提炼成为自己的观点，进而用来影响他人。中学写议论文的时候，老师常教我们要善于“提炼观点”，这是一种洞察力，一种深入事物或问题的能力。如何才能“获得观点”？你需要：</p>
-<p>1）<strong>基础扎实</strong></p>
-<p>厚积才能薄发，武林高手从来都是先积累了浑厚的内力，然后才可能一夜之间练成绝世武功的(参考张无忌练习乾坤大那多)。所以话又绕回我第一篇文章写的内容了，基础知识真的很重要。搞Windows的一定要懂操作系统、搞开发的一定要熟算法、搞网络的必须把协议倒背如流。</p>
-<p>2）<strong>善于总结</strong></p>
-<p>总结可以使你摆脱皮毛，抓住要领。有些时候表面的东西很复杂，比如一些产品，功能狂多，架构暴复杂。这个时候你需要把复杂问题简单化，总结提炼之。透过现象看本质。</p>
-<p>你可以不会一门技术，但是拥有“获得观点”的能力，其实也就代表“打通任都二脉”了。你可以自信的对别人说：“这项技术我现在不熟悉，但是请给我一个很短的时间，我看一下之后，告诉你我的想法”。这句话传达了两个层面的意思，第一、你学一样陌生东西很快可以抓住要点，第二、你马上能把所学内容转化为自己的想法来与人交流</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-4/" data-id="mku2ni6q4km41owf" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-5/" data-id="k8mx65tsauul84qh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -742,7 +757,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C 语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/Markdown/">Markdown</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C 语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/Markdown/">Markdown</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -751,7 +766,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10">October 2014</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10">October 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
     </div>
   </div>
 

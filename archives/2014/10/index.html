@@ -64,6 +64,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-qt-chinese-decoder" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/25/qt-chinese-decoder/" class="article-date">
+  <time datetime="2014-10-25T15:25:19.000Z" itemprop="datePublished">Oct 25 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/QT/">QT</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/25/qt-chinese-decoder/">QT5 VS2013 中文乱码问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题">问题</h2>
+<p>QT4中的中文乱码问题，可以通过在实例前增加下面代码来解决</p>
+<pre><code><span class="tag">QTextCodec</span><span class="pseudo">::setCodecForTr(QTextCodec</span><span class="pseudo">::codecForLocale())</span>;
+</code></pre><p>但QT5中，取消了这个函数，又该如何解决呢</p>
+<h2 id="解决方案">解决方案</h2>
+<p>经测试，只要是源代码文件采用UTF8编码（不带签名）保存，不需要添加任何代码，就可以显示中文</p>
+<p>VS2013需要设置如下</p>
+<pre><code><span class="type">FILE</span>-&gt;<span class="type">Advanced</span> <span class="type">Save</span> <span class="type">Option</span>-&gt;<span class="type">Encoding</span>-&gt; <span class="type">UTF8</span> without signature - <span class="type">Codepage</span> <span class="number">65001</span>
+</code></pre><p><img src="/images/2014/10/25/vs2013_utf8.png" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/10/25/qt-chinese-decoder/" data-id="gm3okzr9wb1i3dz4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-iar-keep-unused-section" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/10/16/iar-keep-unused-section/" class="article-date">
@@ -121,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="xfnndpkhht0ql7n5" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="i6zol6cqucgvib9l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -176,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/use-swd-interface-to-measure-time/" data-id="ng79nm78ebt6zfza" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/use-swd-interface-to-measure-time/" data-id="nfft0hpm29k5iu60" class="article-share-link">Share</a>
       
       
     </footer>
@@ -290,7 +339,7 @@ index = index%<span class="number">8</span>;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/preinc-and-postinc-problem/" data-id="2ao1n813qcgcheu6" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/preinc-and-postinc-problem/" data-id="4knijf0dbtsfs42z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -343,7 +392,7 @@ index = index%<span class="number">8</span>;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/11/knowledge-about-oscilloscope-probe/" data-id="tkj602e3717ayej1" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/11/knowledge-about-oscilloscope-probe/" data-id="vygdyent00aatghi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -386,7 +435,7 @@ index = index%<span class="number">8</span>;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="m9km74tdo341xvgt" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="ql6za0iy4dpzts41" class="article-share-link">Share</a>
       
       
     </footer>
@@ -450,7 +499,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="h3rdq6203yhc3ywb" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="cbkono50wews9amw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -502,7 +551,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/09/mbed-iot-device-platform/" data-id="sbbtkwg3b4n684z6" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/09/mbed-iot-device-platform/" data-id="8n9mgrycmvznak33" class="article-share-link">Share</a>
       
       
     </footer>
@@ -521,7 +570,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C 语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/Markdown/">Markdown</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C 语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/Markdown/">Markdown</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -530,7 +579,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10">October 2014</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10">October 2014</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
     </div>
   </div>
 
