@@ -96,18 +96,20 @@
 </code></pre><h2 id="解决方案">解决方案</h2>
 <p>在对应的SECTION声明中，添加<code>NOROOT</code>修饰信息，如下所示</p>
 <p>由</p>
-<pre><code>    <span class="tag">PUBWEAK</span> <span class="tag">MemManage_Handler</span>
-    <span class="tag">SECTION</span> <span class="class">.text</span><span class="pseudo">:CODE</span><span class="pseudo">:REORDER(1)</span>
-</code></pre><p>MemManage_Handler<br>        B MemManage_Handler</p>
-<p>改为</p>
-<pre><code>    <span class="tag">PUBWEAK</span> <span class="tag">MemManage_Handler</span>
-    <span class="tag">SECTION</span> <span class="class">.text</span><span class="pseudo">:CODE</span><span class="pseudo">:REORDER</span><span class="pseudo">:NOROOT(1)</span>
-</code></pre><p>MemManage_Handler<br>        B MemManage_Handler</p>
-
+<pre><code>        <span class="tag">PUBWEAK</span> <span class="tag">MemManage_Handler</span>
+        <span class="tag">SECTION</span> <span class="class">.text</span><span class="pseudo">:CODE</span><span class="pseudo">:REORDER(1)</span>
+<span class="tag">MemManage_Handler</span>
+        <span class="tag">B</span> <span class="tag">MemManage_Handler</span>
+</code></pre><p>改为</p>
+<pre><code>        <span class="tag">PUBWEAK</span> <span class="tag">MemManage_Handler</span>
+        <span class="tag">SECTION</span> <span class="class">.text</span><span class="pseudo">:CODE</span><span class="pseudo">:REORDER</span><span class="pseudo">:NOROOT(1)</span>
+<span class="tag">MemManage_Handler</span>
+        <span class="tag">B</span> <span class="tag">MemManage_Handler</span>
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="0q2fwwrklaw5jnrf" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="oe2ahruf27a3ewca" class="article-share-link">Share</a>
       
       
     </footer>
@@ -174,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="9siywee78x0l82pb" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="0ojvhw4ok88djzk3" class="article-share-link">Share</a>
       
       
     </footer>
