@@ -3,30 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Enjoy Programming</title>
+  <title>IAR Warming 25 Problem | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Loading...
-
-
-Searching...
-No Matches">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io//assets/2014/03/21/html_output_1/search/functions_0.html">
+  <meta name="description" content="出现问题
+IAR版本之间不兼容是臭名昭著的问题，在IAR7.0版本完全正常的代码，放到IAR7.10版本中编译，会出现下面的警告
+Warning[25]: Label 'MemManage_Handler' is defined pubweak in a section implicitly declared root
+解决方案
+在对应的SECTION声明中，添加NOROOT修饰信息，如下所示
+由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IAR Warming 25 Problem">
+<meta property="og:url" content="http://cedar-renjun.github.io//2014/10/28/iar-warming-25-problem/">
 <meta property="og:image">
 <meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description" content="Loading...
-
-
-Searching...
-No Matches">
+<meta property="og:description" content="出现问题
+IAR版本之间不兼容是臭名昭著的问题，在IAR7.0版本完全正常的代码，放到IAR7.10版本中编译，会出现下面的警告
+Warning[25]: Label 'MemManage_Handler' is defined pubweak in a section implicitly declared root
+解决方案
+在对应的SECTION声明中，添加NOROOT修饰信息，如下所示
+由">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Enjoy Programming">
-<meta name="twitter:description" content="Loading...
-
-
-Searching...
-No Matches">
+<meta name="twitter:title" content="IAR Warming 25 Problem">
+<meta name="twitter:description" content="出现问题
+IAR版本之间不兼容是臭名昭著的问题，在IAR7.0版本完全正常的代码，放到IAR7.10版本中编译，会出现下面的警告
+Warning[25]: Label 'MemManage_Handler' is defined pubweak in a section implicitly declared root
+解决方案
+在对应的SECTION声明中，添加NOROOT修饰信息，如下所示
+由">
   
   
   <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -74,55 +77,66 @@ No Matches">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-iar-warming-25-problem" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/assets/2014/03/21/html_output_1/search/functions_0.html" class="article-date">
-  <time datetime="2014-05-26T05:43:37.000Z" itemprop="datePublished">May 26 2014</time>
+    <a href="/2014/10/28/iar-warming-25-problem/" class="article-date">
+  <time datetime="2014-10-28T12:30:05.000Z" itemprop="datePublished">Oct 28 2014</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/IAR/">IAR</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      IAR Warming 25 Problem
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title></title>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta name="generator" content="Doxygen 1.8.6">
-<link rel="stylesheet" type="text/css" href="search.css"/>
-<script type="text/javascript" src="functions_0.js"></script>
-<script type="text/javascript" src="search.js"></script>
-</head>
-<body class="SRPage">
-<div id="SRIndex">
-<div class="SRStatus" id="Loading">Loading...</div>
-<div id="SRResults"></div>
-<script type="text/javascript"><!--
-createResults();
---></script>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-<script type="text/javascript"><!--
-document.getElementById("Loading").style.display="none";
-document.getElementById("NoMatches").style.display="none";
-var searchResults = new SearchResults("searchResults");
-searchResults.Search();
---></script>
-</div>
-</body>
-</html>
+        <h2 id="出现问题">出现问题</h2>
+<p>IAR版本之间不兼容是臭名昭著的问题，在IAR7.0版本完全正常的代码，放到IAR7.10版本中编译，会出现下面的警告</p>
+<pre><code>Warning[<span class="number">25</span>]: <span class="keyword">Label</span> <span class="attribute">'MemManage_Handler</span>' <span class="keyword">is</span> defined pubweak <span class="keyword">in</span> a section implicitly declared root
+</code></pre><h2 id="解决方案">解决方案</h2>
+<p>在对应的SECTION声明中，添加<code>NOROOT</code>修饰信息，如下所示</p>
+<p>由</p>
+<pre><code>    <span class="tag">PUBWEAK</span> <span class="tag">MemManage_Handler</span>
+    <span class="tag">SECTION</span> <span class="class">.text</span><span class="pseudo">:CODE</span><span class="pseudo">:REORDER(1)</span>
+</code></pre><p>MemManage_Handler<br>        B MemManage_Handler</p>
+<p>改为</p>
+<pre><code>    <span class="tag">PUBWEAK</span> <span class="tag">MemManage_Handler</span>
+    <span class="tag">SECTION</span> <span class="class">.text</span><span class="pseudo">:CODE</span><span class="pseudo">:REORDER</span><span class="pseudo">:NOROOT(1)</span>
+</code></pre><p>MemManage_Handler<br>        B MemManage_Handler</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/assets/2014/03/21/html_output_1/search/functions_0.html" data-id="rlyhj75l44cjjzfx" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="0q2fwwrklaw5jnrf" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2014/10/25/qt-chinese-decoder/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">QT5 VS2013 中文乱码问题</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
