@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Category: 杂谈 | Enjoy Programming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Enjoy Programming">
+<meta property="og:url" content="http://cedar-renjun.github.io/categories/杂谈/index.html">
+<meta property="og:site_name" content="Enjoy Programming">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Enjoy Programming">
+<meta name="twitter:description">
+  
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Enjoy Programming</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Focus On Embedded System</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/plan">Plan</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cedar-renjun.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-mcu-software-framework" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/10/mcu-software-framework/" class="article-date">
+  <time datetime="2014-10-10T13:35:15.000Z" itemprop="datePublished">Oct 10 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/10/mcu-software-framework/">嵌入式软件裸机框架</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>嵌入式平台和PC平台的很大区别是定制化，可以不用操作系统来执行代码，这就带来了一个问题：软件中，需要延时时，死等会让MCU空转，其它任务无法执行，因此，很多人着手解决这个问题。</p>
+<p>大致的思路是：将长时间延时分解为小段，然后设置标志位和记录状态，不断查询，在需要延时等待的时候，主动放弃MCU；让其它任务得以执行；不同模块间用消息来传递<br><strong>专业术语叫做：状态机+消息分发</strong></p>
+<p>这是一个引子，后面会详细来写文章分析各类框架的利弊，以助大家在实际项目中，合理使用</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="cif85bn1w004hp2xnys70lxl6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-missing-you" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/01/missing-you/" class="article-date">
+  <time datetime="2014-09-01T14:33:39.000Z" itemprop="datePublished">Sep 1 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/01/missing-you/">那些人，珍重便好</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote><p>“人生有时候，总是很讽刺。一转身可能就是一世。说好永远的，不知怎么就散了。最后自己想来想去竟然也搞不清当初是什么原因分开彼此的。然后，你忽然醒悟，感情原来是这么脆弱的。经得起风雨，却经不起平凡；风雨同船，天晴便各自散了。也许只是赌气，也许只是因为小小的事。幻想着和好的甜蜜，或重逢时的拥抱，那个时候会是边流泪边捶打对方，还傻笑着。该是多美的画面。没想到的是，一别竟是一辈子了。”</p>
+<footer><strong>张爱玲 《有些人我们一直在错过》</strong></footer></blockquote>
+<pre><code>有些人，渐行渐远
+有些人，来去如风
+有些人，或许不会再见
+有些人，珍重便好
+</code></pre><p>某年回家，在车上偶遇多年未见的同学，一路上聊起来，我问他是怎么认出我来的，他说：“这些年你都没有怎么变”，我笑笑说：“还是跟以前一样傻逼吧”，他也笑笑。他说：“你现在在哪工作”，“武汉读书”，忽然他就提高了音调，“还在读书呀，读大学吧，你看你都读老了，不要读成书呆子”，接着自顾自地说了一堆，“我们打工的那个厂里面一堆大学生，你看现在，什么都缺，就是不缺大学生，读书有什么用，你读出来还不是跟我一样去打工……”听着他唠叨了一大堆，我就只有颔首而笑的份，我明白，我只有用笑容来表示我对他的尊重。下车前，我们互留了电话号码，告别以留下“常联系”这句话后的背影作为结束。号码也只是藏在电话本里的某个角落，只有在过年的时候才会互道一声问候，虽然想打电话联系，但是不知道说什么好，怕尴尬，怕那种只能挤出牙缝的陌生，索性在某次清理通讯录的时候，我把他从我的通讯录里删除了。</p>
+<p>这让我想起了我一位高中同学，很长一段时间，我和他坐同桌。他平时就是打篮球，上网和睡觉，篮球打得很棒，各方面也不错，但是有一点，就是不喜欢学习，考试都是比较糟糕。曾想过帮他，但是后来发现这是一件很难的事情，人各有志，命里无时莫强求，也许学习这条路对于每个人并不是都是合适的，每个人都有适合自己的事做，最后高考考完他就消失了，填志愿的时候他也没来，还没来得及道别，后来QQ上也没见他上过线。常言道“天下没有不散的宴席”，但有时却是，宴席还没有摆上，还没来得及陪君醉笑三千场，不诉离殇，就有人抽身而去，连一个身影都没有留下。后来有一次，辗转了解到毕业后他就回家了，之后喜当爹了，现在孩子应该可以打酱油了吧，也不知道他现在在做什么，希望应该比学习有趣吧。</p>
+<p>打开邮箱，看到同学发来的这样一份邮件，“毕业的，没毕业的，上班的，没上班的，我们都开始忙碌了；好像越来越少有时间，去问候和想念；会不会有天，我们真的都忘记了彼此，遗忘了那些最美丽的回忆？我们曾在某个时间相遇，曾在某个时段某个时候，在一起。然后，因为这样那样的原因，我们不常联系。只是想轻轻地告诉你：我很好，希望你也很好。”看到这个心里觉得矫情，但我们终究会明白，每个人总会走上自己选择的路，不管怎样，还是希望听到他们的好消息。</p>
+<p>在一个地方待得太久，就会渐渐的忘记时间，曾经以为这样的日子会长久，但终究在这样一个宁静的午后戛然而止。我们各自背上行囊，或许道一声珍重，或许相顾无言，各自奔走天涯。多年以后，你是否会记得那个喧嚣或者沉默的下午，那个远去的背影消失在遥远的尽头，那趟踏上远方的列车，我们各自转身，不再回头。可叹人世多错过，两人彼此遍寻不着，只存一份念想；淡淡的眷恋潜浮于眸，深深的情愫隐藏于心，在时间里慢慢发酵，酝酿出那一番醇香。王家卫导演在解释《一代宗师》张震的戏份太少时曾说过，有时候生命中遇见一些人，但之后就再也没见到过了，这是一部分的人生。</p>
+<p>我们从久远走来，相濡以沫或者相忘于江湖，江南说：江湖是这么一个地方，你在这里生，也不介意在这里死去。可你想过没有，多年以后，或许江湖还是那个江湖，你已不是当年的那个你，曾经的那些美好都成为了过往，就算时光真的可以倒流，你会发现，一切早已经面目全非。所有的相遇，都是久别重逢，那么所有的重逢，都是时光之约，里面装满了风尘与岁月。</p>
+<p>最后，这些东西都慢慢的幻化成回忆，这个世界有太多我们无能为力的东西，回不到的过去，无法预知的未来，以及那些那些再也没有见到过的人……</p>
+<p>如果哪天那些人和你从此不会再见了，不是有一些新的人取而代之了，新的阶段出现了，就是遥远的我们都“懒”了。</p>
+<p>曲终人会散，人走茶会凉，最后，收拾心情，背上行囊，继续上路。</p>
+<p>文/阿飞 <a href="http://www.douban.com/note/295698799/" target="_blank" rel="external">http://www.douban.com/note/295698799/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/09/01/missing-you/" data-id="cif85bn270050p2xnt5e822i3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-promotion-of-arm-cortex-m-mcu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/22/promotion-of-arm-cortex-m-mcu/" class="article-date">
+  <time datetime="2014-04-22T07:16:22.000Z" itemprop="datePublished">Apr 22 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/22/promotion-of-arm-cortex-m-mcu/">ARM CMSIS-M芯片推广文案分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ARM Cortex-M主页有个栏目叫：<strong><a href="http://www.arm.com/zh/products/processors/cortex-m/index.php" target="_blank" rel="external">为什么选择Cortex-M</a></strong></p>
+<p>一般情况下，特定产品都有目标群体，群体有自己的利益点，同时各方利益互有冲突。怎么有效抓住各方利益点，同时不引起冲突，这里面有个巧妙的平衡关系，非常难以把握</p>
+<p>而ARM的推广语，目标定位精准，同时抓住各方利益点和兴趣点，不失为一个经典案例</p>
+<p>下面对此做一个简略分析</p>
+<p>首先分析ARM Cortex-M的目标群，目标群离不开生态环境，ARM的生态环境构成包括：</p>
+<p>上游：各大半导体厂商<br>中游：开发工具，供应链，代工厂<br>下游：开发者，IT公司，消费者</p>
+<p>各方利益点和兴趣点：<br>上游：借助ARM生态环境，推广自己的Cortex-M芯片<br>中游：成为中间不可或缺的一环，类似拦河大坝的角色<br>下游：开发难度，代码重用性，快速上市</p>
+<p>ARM Cortex-M的标准推出，方便了开发者，削减了差异化程度，从而减低上游和中游的进入门槛</p>
+<p>也就是说，ARM的核心思路是想法设法画牢笼（制规则，标准），同时利用利益吸引更多的人进入牢笼，从而造成各方相互抗衡局面，ARM坐收渔利。上游和中游是被逼无奈，不得不接受标准，加入战斗；下游有机会进入中上游，从而知道推广的重点群体是：</p>
+<p>1）下游开发者<br>2）希望进入中上游的群体</p>
+<p>下游的进入，势必威胁中上游生态，从而起到倒逼半导体和开发工具效果</p>
+<p>那么，二者的利益点是什么呢？</p>
+<p>1） 下游开发者的核心利益是：快速出产品，降低产品开发难度和后期维护成本<br>当然，这是站在老板的角度来说的，对于IT工程师，怎么避免学习成本才是他们关心的</p>
+<p>2） 希望进入中上游的群体<br>更关心IC的成本，也就是硅面积；同时关心这个MCU的市场热度</p>
+<p>ok，分析到这里，再看看ARM是怎么宣传Cortex-M芯片的</p>
+<blockquote>
+<p><strong>业界标准</strong><br>ARM Cortex-M 处理器树立了全球微控制器的标准，40 多个 ARM 合作伙伴已获得这些处理器的使用许可，其中包括 Freescale、NXP Semiconductors、STMicroelectronics、Texas Instruments 和 Toshiba 等领先供应商。通过采用标准处理器，ARM 合作伙伴可制造出具有统一架构的设备，同时能够专注于各自差异化的设计。</p>
+<p><strong>更小的代码处理器芯片</strong><br>更低的硅成本<br>高密度指令集<br>比 8/16 位设备每字节完成更多操作<br>更小的 RAM、ROM 或闪存要求</p>
+<p><strong>高性能</strong><br>更有竞争力的产品<br>Powerful Cortex-M processor<br>每 MHz 提供更高的性能<br>能够以更低的功耗实现更丰富的功能</p>
+<p><strong>能效能效</strong><br>更低的功耗，更长的电池寿命<br>以更低的 MHz 或更短的活动时段运行<br>基于架构的睡眠模式支持<br>比 8/16 位设备的工作方式更智能、睡眠时间更长</p>
+<p><strong>易用使用</strong><br>更快的软件开发和重用<br>多个供应商之间的全球标准<br>代码兼容性<br>统一的工具和操作系统支持</p>
+</blockquote>
+<p><strong>高性能</strong>，<strong>能效能效</strong>，<strong>易用使用</strong> 主要针对目标群1）的利益点和关切点</p>
+<p><strong>业界标准</strong>，<strong>更小的代码处理器芯片</strong> 主要针对目标群2）的利益点和关切点</p>
+<p><strong>附：ARM Cortex-M主页</strong></p>
+<p><a href="http://www.arm.com/zh/products/processors/cortex-m/index.php" target="_blank" rel="external">http://www.arm.com/zh/products/processors/cortex-m/index.php</a></p>
+<p>全文完</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="cif85bn2l005mp2xnhwgkr7k2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-recommand-embedded-blog" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/10/recommand-embedded-blog/" class="article-date">
+  <time datetime="2014-04-10T09:05:38.000Z" itemprop="datePublished">Apr 10 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/10/recommand-embedded-blog/">开源爱好者Martin</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天在看<a href="http://mbed.org/" target="_blank" rel="external">Mbed</a>时，偶然发现竟然Mbed可以导出CoIDE工程了，很是惊喜，可是CooCox这边并没有做这个工作啊！</p>
+<p>谁做的呢？找了半天，终于在Mbed上面找出来一个帖子</p>
+<blockquote><p>I just published on my blog how to setup KL25Z board with mbed in CoIDE. CMSIS-DAP using as default debugger. The CooCox CoIDE brings you open source IDE which enables debugging your application ! Another option how to get your application running quicker!</p>
+<p>Link to the tutorial <a href="http://embeddedworldweb.blogspot.com/2014/01/coide-with-kl25z-and-mbed-c-tutorial.html" target="_blank" rel="external">http://embeddedworldweb.blogspot.com/2014/01/coide-with-kl25z-and-mbed-c-tutorial.html</a></p>
+<p>Happy debugging!</p>
+<p>Update: I am working on exporters for CoIDE, I’ll share my branch soon , so you can test it out. Update2 : CoIDE exporters done, please test. Find an example below, for testing:</p>
+<p>The Hello world example for CoIDE: /media/uploads/Kojto/mbed_10_coide_kl25z.zip</p>
+<p>13th of January 2014: exporters are on mbed master repository, KL25Z supported at the time. Please test and provide feedback!</p>
+<footer><strong>Martin Kojtal</strong></footer></blockquote>
+<p>原来一个叫Martin Kojtal的小伙儿默默的为CooCox做了很多工作，强烈赞一个！</p>
+<p>同时，2楼也提了一份非常好的建议</p>
+<blockquote><p>Thats good news. I have used CooIde with some other ARM devices and it is getting increasingly better. Exporters for mbed would make it a suitable offline tool. Now if we could only get the CooCox and mbed community to work together on a common open source device library….</p>
+<footer><strong>Wim Huiskamp</strong></footer></blockquote>
+<p>PS: 原帖地址 <a href="http://mbed.org/users/Kojto/notebook/coide-with-mbed-tutorial/" target="_blank" rel="external">http://mbed.org/users/Kojto/notebook/coide-with-mbed-tutorial/</a></p>
+<p>再次真正的感受到国外小伙儿的热情和认真踏实，赞一个</p>
+<p>这里贴出Martin的个人介绍</p>
+<blockquote><p>My main interest in my spare time are open source communities, helping various projects to expand to new targets, fixing bugs, interact with users, creating new software libraries and writing tutorials.</p>
+<p>To see my contribution, visit my github <a href="https://github.com/0xc0170" target="_blank" rel="external">https://github.com/0xc0170</a>, or my mbed profile <a href="http://mbed.org/users/Kojto/" target="_blank" rel="external">http://mbed.org/users/Kojto/</a></p>
+<footer><strong>Martin</strong><cite><a href="http://embeddedworldweb.blogspot.com/" target="_blank" rel="external">Embedded Stuff Around The Web</a></cite></footer></blockquote>
+<p>他的个人博客地址是：<a href="http://embeddedworldweb.blogspot.com/" target="_blank" rel="external">http://embeddedworldweb.blogspot.com/</a></p>
+<p><strong>注：</strong>博客需翻墙，请自带梯子</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/04/10/recommand-embedded-blog/" data-id="cif85bn33006dp2xnjkznvt1r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-idea-with-12306" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/08/idea-with-12306/" class="article-date">
+  <time datetime="2014-04-08T05:26:06.000Z" itemprop="datePublished">Apr 8 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/08/idea-with-12306/">功能构想：为12306增加转乘功能</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>毕业后，一直奔波于城市之间，火车便成为最常用的交通工具。很多时候，城市A到城市B之间，直达车的票<br>卖完了，只好在某个城市中转一下，查时间，查车次，自己手工分析可以做哪个车，操作异常麻烦。</p>
+<p>在深圳回武汉的火车上，尝试着思考以下几个问题：</p>
+<p>1：转乘步骤操作过于繁杂，这算是问题吗？必须要解决吗？<br>2：是我自己觉得繁琐，还是其它人也觉得繁琐？<br>3：这是谁的问题？12306的问题还是乘客的问题？<br>4：谁应该去解决这个问题，顾客个人，12306，购票软件？<br>5：怎么解决？尝试性的思路是？  </p>
+<p>下面逐个讨论</p>
+<p><strong>Q1：转乘步骤操作过于繁杂，这算是问题吗？必须要解决吗？</strong><br><strong>A1：</strong><br>划定为<strong>问题</strong>，过于严重。不妨认为，<strong>转乘属于锦上添花功能</strong></p>
+<p><strong>Q2：是我自己觉得繁琐，还是其它人也觉得繁琐？</strong><br><strong>A2：</strong><br>我觉得繁琐，原因如下：<br>1：需要确定城市A到城市B之间主要城市<br>2：确定城市后，需要再次访问12306去查询对应车次，同时确定转乘时间<br>3：某些情况下，火车会晚点（KTL系列晚点较频繁，DG系列基本正点达到），这时便需要<br>考虑增加额外时间来应对潜在的晚点危险<br>4：也许城市A到城市B的</p>
+<p>暂时没有对其它人做访问和调研，其它人感受情况待定</p>
+<p><strong>Q3：这是谁的问题？12306的问题还是乘客的问题？</strong><br><strong>A3：</strong><br>属于12306公司的问题，将原本需要自己解决的事情，搁置不理，推给了单独个体来解决</p>
+<p><strong>Q4：谁应该去解决这个问题，顾客个人，12306，购票软件？</strong><br><strong>A4：</strong><br>分析如下：</p>
+<p>1：顾客个人<br>力量薄弱，技术和眼界有限，解决这个问题，有较大难度；但不排除某些黑客或IT狂人去<br>做这个功能</p>
+<p>2：购票软件<br>有需求，就有利益；在利益驱动下，购票软件是最可能做这个功能的<br>具体来说，有两个团队可能参与：<br>一是地图软件整合购票和线路规划功能；二是现有的火车票插件或者手机端购票软件</p>
+<p>3：12306铁路公司<br>对于政府机构，从来都是“危机倒逼改革”，极少会出现主动创新的情况</p>
+<p>在购票软件增加<strong>换乘查询</strong>功能后，顾客一旦习惯这种方式，便会通过各种途径向12306施压，<br>在这种情况下，12306不得不增加该功能，这是最可能出现的情况；类似原来的抢票插件事件</p>
+<p><strong>Q5：怎么解决？尝试性的思路是？</strong><br><strong>A5：</strong><br>说实话，这个问题不好解决，主要的困难是涉及的变量因素太多：</p>
+<p>1：火车可用状态信息复杂</p>
+<p>城市A到城市B可能没有直达座，但某个中间段是空闲的</p>
+<p>2：城市A到城市B之间途径站信息复杂</p>
+<p>中间可能有很多城市，到哪个城市中转，决定因素是什么？</p>
+<p>3：中转时间信息不确定</p>
+<p>某些情况，到达中转站城市和下一趟车的发车时间，仅有30分钟的时间差，如果出现晚点的情况，怎么办？</p>
+<p>上面列举了一些潜在的问题，这些变数决定了中转过程不可能完全自动化，只能半自动化</p>
+<p>我暂时没想到完整的解决方案，只能提部分的解决措施</p>
+<p>1：如果没有城市A到城市B，没有直达座了，则将该车次的其余站点区间车票情况显示出来<br>2：尽量选择大站点作为中转站<br>3：晚点的时间，可以用大数据来统计处理，整理出一个平均晚点时间，供决策分析</p>
+<p>【全文完】</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/04/08/idea-with-12306/" data-id="cif85bn34006fp2xn7g09djp1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-how-to-attract-more-developers-to-join-in-open-source-actives" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/02/how-to-attract-more-developers-to-join-in-open-source-actives/" class="article-date">
+  <time datetime="2014-04-02T07:16:50.000Z" itemprop="datePublished">Apr 2 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>►<a class="article-category-link" href="/categories/杂谈/开源/">开源</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/02/how-to-attract-more-developers-to-join-in-open-source-actives/">如何吸引用户主动参与开源活动</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>很多时候，开源工作者做了很多工作，希望用户积极参与进来，但开发者响应寥寥，参与者也没有太高的积极性</p>
+<p><strong>why &amp; how</strong></p>
+<p>在回答这个问题之前，先考虑下面一个场景</p>
+<blockquote>
+<p>如果你喜欢某女生</p>
+<p>如果你是有钱人，恭喜你，随便说下面一句话就可以了：</p>
+<p>我有房，做我GF吧<br>我有宝马，做我GF吧<br>我家卖切糕的，做我GF吧<br>我家做茶叶蛋的，做我GF吧  </p>
+<p>如果很不幸，你投错胎，成为一个屌丝，没有高富帅强大的物质保障</p>
+<p><strong>你该怎么办呢？</strong></p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2014/04/02/how-to-attract-more-developers-to-join-in-open-source-actives/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/04/02/how-to-attract-more-developers-to-join-in-open-source-actives/" data-id="cif85bn36006hp2xn3baek2it" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-learn-from-taxi-driver" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/30/learn-from-taxi-driver/" class="article-date">
+  <time datetime="2014-03-30T13:06:48.000Z" itemprop="datePublished">Mar 30 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/30/learn-from-taxi-driver/">从出租车司机身上学到的东西</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面的话">写在前面的话</h2><p>周六和小猪出去玩，出门的时候刚好有个出租车，随便就拦下来了，在路上，顺便和司机聊了一会儿，期间谈到打车软件和武汉交通问题，司机大叔非常有见地，不仅发现了问题，而且提出了自己的解决方案，非常佩服大叔的慎密思维</p>
+<p>如此优秀的思想，不记录下来可惜了，特写此文记录之</p>
+<h2 id="关于打车软件">关于打车软件</h2><blockquote><p>现在的打车软件是单纯的靠定位，来通知附近的出租车司机，没有方向性</p>
+<p>很多时候，乘客打车的地方在车的后方或者街对面，我们需要转个很大的弯才能掉头去接乘客，遇到这种情况，我们就直接不接单了</p>
+<p>现在的选择权在于司机，如果将选择权交给乘客就好了，需要打车时，不仅会显示附近的出租车，而且会显示出租车的方向，这样乘客就可以选择特定方向的出租车，司机也可以避免接收很多无效信息</p>
+</blockquote>
+<h2 id="关于武汉交通">关于武汉交通</h2><blockquote><p>现在武汉的交通，某些路上的车流量大，堵车严重；某些路的车流量小，不堵车；</p>
+<p>能不能</p>
+<p>1）根据道路车流量，自动调节红绿灯时间，车流量高，红灯时间长；反之亦然；从而起到缓解交通压力的效果</p>
+<p>2）将打车软件和地图软件结合起来，实时通知司机前方交通路段的车流量状况，辅助司机选择不堵车的路段，从而避免增加交通压力</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2014/03/30/learn-from-taxi-driver/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/03/30/learn-from-taxi-driver/" data-id="cif85bn38006np2xnjy9sp6zu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-we-lost-something-special-in-the-precess-grow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/30/we-lost-something-special-in-the-precess-grow/" class="article-date">
+  <time datetime="2014-03-30T12:32:18.000Z" itemprop="datePublished">Mar 30 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/30/we-lost-something-special-in-the-precess-grow/">成长的代价</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote><p>如果有一天</p>
+<p>让你心动的再也感动不了你<br>让你愤怒的再也激怒不了你<br>让你悲伤的再也不能让你流泪</p>
+<p>你便知道</p>
+<p>这时光，这生活给了你什么<br>你为了成长<br>付出了什么</p>
+<footer><strong>刀刀狗漫画故事</strong></footer></blockquote>
+<p>今天无意间在微博上看到这句话</p>
+<p>顷刻间知道自己为了成长，失去了很多很多</p>
+<p>某些事情，只能做一次，以后就再没机会或者再没心情去做了</p>
+<p>珍惜现在，珍惜身边人</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/03/30/we-lost-something-special-in-the-precess-grow/" data-id="cif85bn37006lp2xn3qspfxa6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-review-about-tangjun" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/22/review-about-tangjun/" class="article-date">
+  <time datetime="2014-03-22T04:51:52.000Z" itemprop="datePublished">Mar 22 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/22/review-about-tangjun/">关于唐骏的一点看法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下是youku 2014-03-20 做的一期访谈节目，节目的主角是唐骏</p>
+<div class="video-container"><br>    <embed src="http://player.youku.com/player.php/sid/XNjg1MDgyNDEy/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"><br>    </embed><br></div>
+
+<p>关于唐骏，百度百科介绍如下：</p>
+<blockquote>
+<p>   唐骏为中国职业经理人。曾留学日本和美国，有“打工皇帝”之称。1994年加入微软公司美国总部，先后担任微软全球技术中心总经理，微软中国公司总裁。唐骏是微软公司历史上唯一两次获得比尔盖茨杰出奖，最高荣誉奖的员工，还获得微软公司的杰出管理奖，被微软公司定为未来微软公司的未来领袖之一。唐骏也获得了微软公司历史上唯一的微软中国终身荣誉总裁的称号，2004年出任中国最大的互动娱乐公司盛大网络公司总裁，并帮助盛大公司在美国纳斯达克成功上市，被华尔街誉为中国资本的第一人。2008年唐骏先生以“十亿“身价转会新华都集团出任总裁兼CEO。同时唐骏被中国媒体广泛誉为中国“第一职业经理人”和中国第一CEO。2013年1月28日，唐骏通过个人微博向外界宣布卸任新华都，专注港澳资讯，任董事长兼CEO。</p>
+</blockquote>
+<p>其实很多人是从方舟子打假开始才知道唐骏这个人的，打假这方面的报道很多很多，各位可以自行搜索</p>
+<p>这里想谈一下我的观点</p>
+        
+          <p class="article-more-link">
+            <a href="/2014/03/22/review-about-tangjun/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/03/22/review-about-tangjun/" data-id="cif85bn3b006sp2xnxt5x82ml" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ued-team-collection" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/21/ued-team-collection/" class="article-date">
+  <time datetime="2014-03-21T02:23:38.000Z" itemprop="datePublished">Mar 21 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/21/ued-team-collection/">国内UED(User Experience Design)团队汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概要">概要</h2><p>随着移动互联网的发展，用户个性化需求也变得越来越重要，各大互联网公司都有专门的用户体验设计（User Experience Design）设计部，专门来研究用户行为心理，从而设计出更好用户体验的应用</p>
+<p>本文旨在收集汇总国内外的著名UED设计设计团队，供大家参考</p>
+<h2 id="UED_Teams">UED Teams</h2><p>1  <strong><a href="http://cdc.tencent.com/">腾讯CDC</a></strong></p>
+<p>CDC成立于2006年5月18日<br>全称是Customer Research &amp; User Experience Design Center（即用户研究与体验设计中心）作为腾讯的核心部门之一。CDC自成立以来，就一直向着“做世界一流的互联网设计团队，为用户创造优质‘在线生活’体验”这一愿景努力，致力于不断提升腾讯全线产品的用户体验。</p>
+        
+          <p class="article-more-link">
+            <a href="/2014/03/21/ued-team-collection/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/03/21/ued-team-collection/" data-id="cif85bn3d006up2xnfsqpdz3v" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/categories/杂谈/page/2/">2</a><a class="extend next" rel="next" href="/categories/杂谈/page/2/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Cedar<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/plan" class="mobile-nav-link">Plan</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

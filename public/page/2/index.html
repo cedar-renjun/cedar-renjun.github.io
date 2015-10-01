@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Enjoy Programming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Enjoy Programming">
+<meta property="og:url" content="http://cedar-renjun.github.io/page/2/index.html">
+<meta property="og:site_name" content="Enjoy Programming">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Enjoy Programming">
+<meta name="twitter:description">
+  
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Enjoy Programming</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Focus On Embedded System</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/plan">Plan</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cedar-renjun.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-analysis-of-zigbee-led-module" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/23/analysis-of-zigbee-led-module/" class="article-date">
+  <time datetime="2014-09-23T10:23:26.000Z" itemprop="datePublished">Sep 23 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/Zigbee/">Zigbee</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/23/analysis-of-zigbee-led-module/">Z-Stack协议栈分析-LED模块</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>TI的Zigbee协议（Z-Stack）是典型的事件驱动系统，整个系统分为多个任务，各自任务内部采用状态机非阻塞似的完成任务，<br>完成后，主动释放MCU控制权；下层的任务或异步事件产生的事件，将其封装成事件消息+数据，然后发送到事件处理函数，<br>在事件处理函数中，也是采用状态机的形式分发消息并处理。</p>
+<p>这就是所谓的协作式调度器，它的好处，是避免了传统RTOS的重型线程调度和资源保护机制，从而可以做到无锁资源保护机制<br>和极度轻量化，节省RAM/ROM</p>
+<p>关于这点，后面会详细的讨论，这里重点讨论HAL层的LED机制</p>
+<p><strong>注：对于HAL层的实现机制，会另有专门的文章来讨论这个话题</strong></p>
+        
+          <p class="article-more-link">
+            <a href="/2014/09/23/analysis-of-zigbee-led-module/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/09/23/analysis-of-zigbee-led-module/" data-id="cif85bn21004pp2xnklwog0lu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-good-blog-about-coroutines" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/21/good-blog-about-coroutines/" class="article-date">
+  <time datetime="2014-09-21T09:07:39.000Z" itemprop="datePublished">Sep 21 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/转载/">转载</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/21/good-blog-about-coroutines/">谈谈协程和C语言的协程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>注：</strong> 本文转自 <a href="http://www.yeolar.com/note/2013/02/17/coroutines/">http://www.yeolar.com/note/2013/02/17/coroutines/</a></p>
+<p>晚上在整理我的 $HOME 的时候，发现了一段有趣的代码，它被保存为了a.c并存在了差不多半年之久。种种迹象表明，它很重要。其实我记得它，当初在网上看到，觉得它包含了一个巧妙的技巧，就让它长住在我的硬盘上了，今天我决定把它搬到这篇文章中。好吧，我是打算谈一谈协程的概念。</p>
+<h2 id="一个例子">一个例子</h2><p>先给大家看一下这段代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">int</span> state;</span><br><span class="line">&#125; task;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> crBegin(state) \</span><br><span class="line">        switch (state) &#123; case <span class="number">0</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> crReturn(state, ret) \</span><br><span class="line">        (state) = __LINE__; return (ret); case __LINE__:</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> crEnd() \</span><br><span class="line">        &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cb</span><span class="params">(task *t)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    crBegin(t-&gt;state);</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        t-&gt;num = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (t-&gt;i = <span class="number">0</span>; t-&gt;i &lt; <span class="number">20</span>; t-&gt;i++) &#123;</span><br><span class="line">            crReturn(t-&gt;state, t-&gt;num);</span><br><span class="line">            t-&gt;num += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    crEnd();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    task t;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    t.state = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, cb(&amp;t));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2014/09/21/good-blog-about-coroutines/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/09/21/good-blog-about-coroutines/" data-id="cif85bn23004tp2xn7ncww5td" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-state-machine-timer-resource-management" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/17/state-machine-timer-resource-management/" class="article-date">
+  <time datetime="2014-09-17T07:00:29.000Z" itemprop="datePublished">Sep 17 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/框架/">框架</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/17/state-machine-timer-resource-management/">在状态机中管理时间资源</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面的话">写在前面的话</h2><p>在嵌入式系统中，经常会使用到延时(Delay)函数，延时有长，有短；500us以下的延时，可以完全用软件来做；较长的延时，可以用硬件Timer或者调用RTOS的时间管理函数。</p>
+<p>在简单的MCU中，由于资源限制，无法使用常规的RTOS，这时就需要自己写相应的协调式调度算法，常见的有协程和时间片轮询机制等，万变不离其宗，它们其中的核心是状态机，在状态机中一个核心原则是：<strong>函数不能长时间阻塞MCU</strong>，否则就会导致整个系统调度失效。也就是说：<strong>无法使用纯软件延时</strong></p>
+<p>例如，在系统中严禁出现下面代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay_s</span><span class="params">(uint8_t tick_s)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Code Snippet 1</span></span><br><span class="line"></span><br><span class="line">delay_s(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Code Snippet 2</span></span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2014/09/17/state-machine-timer-resource-management/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/09/17/state-machine-timer-resource-management/" data-id="cif85bn25004wp2xnoddc1uzs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-missing-you" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/01/missing-you/" class="article-date">
+  <time datetime="2014-09-01T14:33:39.000Z" itemprop="datePublished">Sep 1 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/01/missing-you/">那些人，珍重便好</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote><p>“人生有时候，总是很讽刺。一转身可能就是一世。说好永远的，不知怎么就散了。最后自己想来想去竟然也搞不清当初是什么原因分开彼此的。然后，你忽然醒悟，感情原来是这么脆弱的。经得起风雨，却经不起平凡；风雨同船，天晴便各自散了。也许只是赌气，也许只是因为小小的事。幻想着和好的甜蜜，或重逢时的拥抱，那个时候会是边流泪边捶打对方，还傻笑着。该是多美的画面。没想到的是，一别竟是一辈子了。”</p>
+<footer><strong>张爱玲 《有些人我们一直在错过》</strong></footer></blockquote>
+<pre><code>有些人，渐行渐远
+有些人，来去如风
+有些人，或许不会再见
+有些人，珍重便好
+</code></pre><p>某年回家，在车上偶遇多年未见的同学，一路上聊起来，我问他是怎么认出我来的，他说：“这些年你都没有怎么变”，我笑笑说：“还是跟以前一样傻逼吧”，他也笑笑。他说：“你现在在哪工作”，“武汉读书”，忽然他就提高了音调，“还在读书呀，读大学吧，你看你都读老了，不要读成书呆子”，接着自顾自地说了一堆，“我们打工的那个厂里面一堆大学生，你看现在，什么都缺，就是不缺大学生，读书有什么用，你读出来还不是跟我一样去打工……”听着他唠叨了一大堆，我就只有颔首而笑的份，我明白，我只有用笑容来表示我对他的尊重。下车前，我们互留了电话号码，告别以留下“常联系”这句话后的背影作为结束。号码也只是藏在电话本里的某个角落，只有在过年的时候才会互道一声问候，虽然想打电话联系，但是不知道说什么好，怕尴尬，怕那种只能挤出牙缝的陌生，索性在某次清理通讯录的时候，我把他从我的通讯录里删除了。</p>
+<p>这让我想起了我一位高中同学，很长一段时间，我和他坐同桌。他平时就是打篮球，上网和睡觉，篮球打得很棒，各方面也不错，但是有一点，就是不喜欢学习，考试都是比较糟糕。曾想过帮他，但是后来发现这是一件很难的事情，人各有志，命里无时莫强求，也许学习这条路对于每个人并不是都是合适的，每个人都有适合自己的事做，最后高考考完他就消失了，填志愿的时候他也没来，还没来得及道别，后来QQ上也没见他上过线。常言道“天下没有不散的宴席”，但有时却是，宴席还没有摆上，还没来得及陪君醉笑三千场，不诉离殇，就有人抽身而去，连一个身影都没有留下。后来有一次，辗转了解到毕业后他就回家了，之后喜当爹了，现在孩子应该可以打酱油了吧，也不知道他现在在做什么，希望应该比学习有趣吧。</p>
+<p>打开邮箱，看到同学发来的这样一份邮件，“毕业的，没毕业的，上班的，没上班的，我们都开始忙碌了；好像越来越少有时间，去问候和想念；会不会有天，我们真的都忘记了彼此，遗忘了那些最美丽的回忆？我们曾在某个时间相遇，曾在某个时段某个时候，在一起。然后，因为这样那样的原因，我们不常联系。只是想轻轻地告诉你：我很好，希望你也很好。”看到这个心里觉得矫情，但我们终究会明白，每个人总会走上自己选择的路，不管怎样，还是希望听到他们的好消息。</p>
+<p>在一个地方待得太久，就会渐渐的忘记时间，曾经以为这样的日子会长久，但终究在这样一个宁静的午后戛然而止。我们各自背上行囊，或许道一声珍重，或许相顾无言，各自奔走天涯。多年以后，你是否会记得那个喧嚣或者沉默的下午，那个远去的背影消失在遥远的尽头，那趟踏上远方的列车，我们各自转身，不再回头。可叹人世多错过，两人彼此遍寻不着，只存一份念想；淡淡的眷恋潜浮于眸，深深的情愫隐藏于心，在时间里慢慢发酵，酝酿出那一番醇香。王家卫导演在解释《一代宗师》张震的戏份太少时曾说过，有时候生命中遇见一些人，但之后就再也没见到过了，这是一部分的人生。</p>
+<p>我们从久远走来，相濡以沫或者相忘于江湖，江南说：江湖是这么一个地方，你在这里生，也不介意在这里死去。可你想过没有，多年以后，或许江湖还是那个江湖，你已不是当年的那个你，曾经的那些美好都成为了过往，就算时光真的可以倒流，你会发现，一切早已经面目全非。所有的相遇，都是久别重逢，那么所有的重逢，都是时光之约，里面装满了风尘与岁月。</p>
+<p>最后，这些东西都慢慢的幻化成回忆，这个世界有太多我们无能为力的东西，回不到的过去，无法预知的未来，以及那些那些再也没有见到过的人……</p>
+<p>如果哪天那些人和你从此不会再见了，不是有一些新的人取而代之了，新的阶段出现了，就是遥远的我们都“懒”了。</p>
+<p>曲终人会散，人走茶会凉，最后，收拾心情，背上行囊，继续上路。</p>
+<p>文/阿飞 <a href="http://www.douban.com/note/295698799/" target="_blank" rel="external">http://www.douban.com/note/295698799/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/09/01/missing-you/" data-id="cif85bn270050p2xnt5e822i3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-can-not-read-cpuid-via-jlink-in-iar" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" class="article-date">
+  <time datetime="2014-06-04T07:18:27.000Z" itemprop="datePublished">Jun 4 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/IAR/">IAR</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/">IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt;</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="问题描述">问题描述</h3><p>在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错</p>
+<pre><code>Can <span class="keyword">not</span> <span class="command">read</span> CPUID
+</code></pre><p>为CPU重新上电，则可以正常进入调试状态</p>
+<h3 id="出现原因">出现原因</h3><p>IAR Jlink DLL版本过低</p>
+<h3 id="解决方案">解决方案</h3><p>用最新版的<code>JlinkARM.dll</code>替换掉IAR安装目录下默认的<code>JLinkARM.dll</code></p>
+<p>附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分</p>
+<p>1：Jlink软件JlinkARM.dll路径</p>
+<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\SEGGER</span><span class="command">\JLinkARM</span>_V474b
+</code></pre><p>2：IAR安装目录JlinkARM.dll路径</p>
+<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\IAR</span> Systems<span class="command">\Embedded</span> Workbench 6.0<span class="command">\arm</span><span class="command">\bin</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="cif85bn2a0052p2xnd8zvxzew" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-personal-and-platform" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/29/personal-and-platform/" class="article-date">
+  <time datetime="2014-05-29T04:48:16.000Z" itemprop="datePublished">May 29 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/转载/">转载</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/29/personal-and-platform/">个人与平台</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote><p>总结自己短暂却又不失跌宕的职业生活（没敢说生涯），尤其到了今年，所有重要抑或不重要的故事勾勒出一幅画面。随着自己的不断进步，却发现越来越多的无奈，不断坚持后，又随着事务的不断解决，越来越悟出一个道理：个人，要想进步，必须要有个适合你的平台。</p>
+<footer><strong>divivy</strong><cite><a href="http://blog.sina.com.cn/divivy" target="_blank" rel="external">Divivy's Heaven</a></cite></footer></blockquote>
+<pre><code>注：原文转载自 &lt;<span class="string">http:</span><span class="comment">//blog.sina.com.cn/s/blog_414bbec30100gepf.html&gt; ，转载请注明原出处</span>
+</code></pre><p>有朋友EMAIL我说：“我现在在的公司里我能力最强（我笑），每天干的最多，老板是很倚重我，但又不肯给我想要的待遇。不想做了，跳一跳，到时候让老板知道没我了他会多后悔。”  </p>
+<p>我没正面回应他，因为我知道那种感觉不是几句话能够说动的。后来他告诉我说，他走了，去了另外一个公司，发现事情有些不按照自己想法前进。新的公司更加过分，原来的公司在自己走了后自己本来一个部门的竞争对手竟然升到了部门经理，待遇直接翻倍了。不胜后悔！</p>
+<p>对于这种事情，我个人是有着切身体会的。在毕业后第一个公司时，每天我做的最多的事情就是感慨自己的“怀才不遇”，认为自己应该是理所应当的领导，为什么却要天天去做那些随便一个初中生都可以做的琐碎工作。于是消极抵抗，甚至无心工作，最后结果是一些小的事情都做不好，却让领导更加反感。最后选择离开！</p>
+<p>公司的老总在我离职后也许嗅到了一些味道，两个同来的都迅速的升职，一个做项目经理一个做了技术部副经理，待遇也是随之上涨。当然我并不后悔，不过这也是后话了。当时还是有些小后悔的！</p>
+<p>以上两个故事说明一个什么问题呢？那就是：<strong> 对于一个公司，你自己远远没有你想的那么重要！</strong></p>
+<p>如果有合作公司老板打电话给你要你过去，待遇要比现在高，你怎么办？我的直观反应会是：“你要知道你是凭借什么才有这种资格接到这种电话。当然，你的努力和能力很重要，但是如果没有公司这个大平台，你会有今天吗？没有今天，你怎么能让别人认可你。人要学会感恩。即使对方开出的价码实在让你无法拒绝，但是你还要考虑一个你过去后能够适应的问题。”</p>
+<p>再就是在个体中表现最为强烈的一种“意识形态”了。对于成立时间并不长的公司，人才，尤其是合适的人才是非常重要的。不一定要求对方的能力强到世界第一，而是要合适。公司从成立到现在，发掘了很多“合适”的人才。他们在进公司后，凭借自身努力和公司提供的宽松环境，将自己的能力发挥的淋漓尽致，为公司成长立下了汗马功劳的同时，个人能力也不断进步。</p>
+<p>新公司局限于资源和自身条件，很难去储备较多的管理人才。所以招来的每个人都是依据公司缺人的职位，不断甄选，最终找到符合该职位的人选，可谓“一个钉子一个铆”。这样造成的结果有正反方面两个，一是这个人越来越合适这个工作，工作手法越来越熟练，越来越得心应手，效率更高；另一方面，随着公司的更加倚重，他听到的夸赞越来越多。这种夸赞渐渐就让人内心深处出现了“骄傲”的情绪，滋长着“没我不行”的呐喊。<br>这时候对于双方，无论公司或者个人，都是比较危险的时刻。</p>
+<p>对于个人，因为觉得自己的“不可或缺”，就会产生多种复杂思维。就好像一个得了“肥胖症”的患者，接下来就会诱发如高血压、高血脂、高血糖、糖尿病等各类并发症。他们会理所当然的认为自己既然如此重要，那么老板你要提高我的职位，你要给我更高的待遇，你要给我更大的管理权力，你要给予我更多的尊重；他们会在和同事相处时表现的更加咄咄逼人，更加的骄傲和难以接受；他们会在处理工作时表现的更加眼高手低，觉得自己应该做更高一层的职位。武断的自我抬高会让自己的虚荣心不断上升，处理事务更加的独断和难以接受，他们会尝试着插手别人的分内事务，从而引起同事的不满，继而是失误的增多和更多的人心向背。</p>
+<p>对于公司，培养一个合适的人选不容易。看着自己辛苦培养出来的人如此的自我膨胀，却无计可施。因为你不可能答应他的条件，否则以后他会更加不可一世，别人看到后也会群起而仿效。但是看着他越滑越远，最难过的应该是公司一方。如果这个人走了，结果应该是“双输”。</p>
+<p>但是个人请永远不能低估公司作为一个平台的强大造血功能和新陈代谢能力。新公司对于一个“合适”的人离去是可以接受的，因为所有“合适”的人在同时间离开可能性不是没有，但概率却是很小的。你走了，我需要做的也许只是去再招人。也许短时间内会有些贫血，但只要人找到了，再经过培养，依然可用，造血只是个迟早的过程。而平台其他血细胞，在这种关键时刻也是完全可以到达失血位置支援的。</p>
+<p>这个时候我们返回来去思索一下，作为一个个体，应该如何正确处理自己作为一个和公司这个平台的关系。总结自己的个人经验，提出如下几点：</p>
+<h3 id="一、打倒自己心中的鬼，让自己变得一文不值">一、打倒自己心中的鬼，让自己变得一文不值</h3><p><strong>记住，不管到哪里，什么时候，自己永远没有自己想的那么重要</strong>。没有那个地方没你不行，没你地球照转，太阳天天东升西落。千万不要让自己觉得自己可以扭转地球自转的规律。平台是个大机器，而且随着不断进步，内部机械运转更加趋于合理，强大的机制才是真正的内核和发动机。个体只不过是这个巨大机器上的一颗螺丝钉，螺丝钉之于发动机，相差了N个数量级样的光年。平台和个人同时发展，大家各司其职，发动机性能更加优越，螺丝钉越来越牢固，机器运转才会越来越稳定。你有没有想起雷锋叔叔？</p>
+<h3 id="二、做好自己分内的事，先把平台推上去">二、做好自己分内的事，先把平台推上去</h3><p>一个人的价值体现是随着平台的不断进步而不断提高的。试想现在你是一个一文不名的小公司项目经理，没人知道你，你说出去别人会说：“你们能按月发工资吗？”若干年后，你的公司成了万科级别的公司，别人看你那叫高山仰止。要想自己站得高，首先要先努力把平台推上去。做好自己分内的工作，同时尽量站在自己上一级领导的位置去思考，你能取得平台和个人同步提升。</p>
+<h3 id="三、平台有多高，你就能看多远">三、平台有多高，你就能看多远</h3><p>也就是常说的“屁股决定脑袋”。如果你仅仅是个小职员，你认识的人就很难有项目经理或者部门主管。如果你是项目经理，你也很难接触到其他公司的高管或者老总。但是如果把你放在高官的位置，你处理事务时，思路就会比站在项目经理或者普通职员位置上更加开阔。这时，你就能理解，为什么有时候接到上边的指令之初会觉得难以执行，但做着做着就渐渐的开始佩服。当然，给你这个平台，前提是你要有相当的能力。给一个科员水平的人去坐处长的位子，那叫勉为其难，那不是在提拔人，是在糟践人。</p>
+<h3 id="四、永远不要骄傲">四、永远不要骄傲</h3><font color="red"> <strong> 一个人成功的程度，取决于其控制性格中不好方面的能力。</strong> </font>
+
+<p>骄傲，是所有人都有的性格。但是就像自负和自信一样，稍不留意，你就会骄傲的让自己摸不到头脑。骄傲，会让你失去细心，严谨，脚踏实地等一系列的优秀性格，你会觉得自己不可一世。</p>
+<p>也许你还没有到觉得“没你不行”的地步，但是你自己想想自己是否有以下表现中的一种或者几种：</p>
+<ul>
+<li>你是不是越来越不想听你上级的指令了，越来越觉得他是错的</li>
+<li>你是不是越来越懈怠，可以玩物丧志，可以不重视公司的纪律</li>
+<li>你是不是越来越听不进别人的话了，对上级的指令感觉越来越刺耳</li>
+<li>你是不是越来越开始游离于公司管理制度的灰色地带</li>
+<li>你是不是开始对同级或者下属在生活中开始更多“命令式”的说话</li>
+</ul>
+<p>自控和自我反省能力是一个人要做好事情的基本前提。尤其对于“塑形期”的年轻人。尤其现代社会，压力大，人会变得越来越浮躁，没有方向感和归属感。所以要多看书，多学习，多做有意义的事情，切忌不要沉迷于某种不好的事物或者情绪中。</p>
+<p>世界因你而动，follow your heart，多倾听自己内心的声音，让自己变得更加的强大后，你才会有更多维和正确的选择观。</p>
+<p>让我们一起努力吧！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/05/29/personal-and-platform/" data-id="cif85bn2f005ep2xnm2x5303m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sublimetext-plug-doxydoc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/29/sublimetext-plug-doxydoc/" class="article-date">
+  <time datetime="2014-05-29T00:18:37.000Z" itemprop="datePublished">May 29 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/29/sublimetext-plug-doxydoc/">SublimeText 插件 -- DoxyDoc</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介">简介</h2><p>DoxyDoc是一款C++语言的Doxygen插件，有了它，你可以在SublimeText中快速插入注释，极大的提高效率</p>
+<p>其它同类的插件有 <a href="https://github.com/SublimeText/PhpDoc" target="_blank" rel="external">PhpDoc</a> 和 <a href="https://github.com/spadgos/sublime-jsdocs" target="_blank" rel="external">DocBlockr</a></p>
+<h2 id="安装">安装</h2><ol>
+<li>按<code>Ctrl+Shift+P</code> 调出命令栏</li>
+<li>输入<code>Install Package</code>执行包安装命令</li>
+<li>输入<code>DoxyDoc</code>，然后点击确定，等待安装结束</li>
+</ol>
+<h2 id="用法">用法</h2><p>DoxyDoc会自动判断上下文环境，添加不同的注释格式，具体来说，包括两种</p>
+<ol>
+<li>注释处没有函数或变量，则自动创建空白注释</li>
+</ol>
+<p><img src="!--￼0--&gt;/images/2014/05/29/01.gif" alt=""></p>
+<ol>
+<li>注释处有函数或变量，则根据函数信息自动填充对应的注释部分<br>其中函数信息包括：函数名，传入参数，返回值</li>
+</ol>
+<p><img src="!--￼1--&gt;/images/2014/05/29/02.gif" alt=""><br><img src="!--￼2--&gt;/images/2014/05/29/03.gif" alt=""><br><img src="!--￼3--&gt;/images/2014/05/29/04.gif" alt=""><br><img src="!--￼4--&gt;/images/2014/05/29/05.gif" alt=""></p>
+<h2 id="更多信息">更多信息</h2><p>请参考：<a href="https://sublime.wbond.net/packages/DoxyDoc" target="_blank" rel="external">https://sublime.wbond.net/packages/DoxyDoc</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/05/29/sublimetext-plug-doxydoc/" data-id="cif85bn2e005ap2xnxgb2bk0p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-table-space-configure-in-sublime-text3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/28/table-space-configure-in-sublime-text3/" class="article-date">
+  <time datetime="2014-05-28T01:21:27.000Z" itemprop="datePublished">May 28 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/28/table-space-configure-in-sublime-text3/">在Sublime Text中设置Tab-Space</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1:_概述">1: 概述</h3><p>缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。</p>
+<h3 id="2:_设置">2: 设置</h3><pre><code>|<span class="string">---------------------------</span>|<span class="string">--------------------------------------------------------------------------------------------------------------</span>|
+|<span class="string">tab_size                   </span>|<span class="string"> 数字。插入的空格数                                                                                           </span>|
+|<span class="string">translate_tabs_to_spaces   </span>|<span class="string"> Boolean, 如果为true，按tab键将会输入空格替代，而不是tab字符                                                  </span>|
+|<span class="string">detect_indentation         </span>|<span class="string"> Boolean, 默认为true, tab_size和translate_tabs_to_spaces将会在文件载入是自动计算                              </span>|
+|<span class="string">use_tab_stops              </span>|<span class="string"> Boolean, 如果translate_tabs_to_spaces为true, use_tab_stops将会使tab和backspace在下一个tab停止时insert/delete </span>|
+</code></pre><h3 id="3:_配置文件">3: 配置文件</h3><p>配置文件将会按下面这个顺序应用：</p>
+<ol>
+<li>Packages/Default/Preferences.sublime-settings</li>
+<li>Packages/Default/Preferences (<platform>).sublime-settings</platform></li>
+<li>Packages/User/Preferences.sublime-settings</li>
+<li>Packages/<syntax>/<syntax>.sublime-settings</syntax></syntax></li>
+<li>Packages/User/<syntax>.sublime-settings</syntax></li>
+</ol>
+<p>通常情况下，你应该把你的配置放在<code>Packages/User/Preferences.sublime-settings</code>里。如果你要给特定的文件类型指定配置，比如，Python, 应该放在<code>Packages/User/Python.sublime-settings</code>文件中</p>
+<h3 id="4:_配置文件示例">4: 配置文件示例</h3><p>试着把这些保存为<code>Packages/User/Preferences.sublime-settings</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;    &#34;tab_size&#34;: 4,&#10;    &#34;translate_tabs_to_spaces&#34;: false&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5:_单独语法配置">5: 单独语法配置</h3><p>可以在基础配置之上指定单独的语法配置。在<code>Preferences/Settings - More/Syntax Specific - User</code>菜单下</p>
+<h3 id="6:_缩进的检测">6: 缩进的检测</h3><p>当一个文件载入时，它的内容会被检查，<code>tab_size</code>和<code>translate_tabs_to_spaces</code>设置将会应用到该文件。状态栏将会报告发了什么。尽管编辑器会处理的很好，如果想要把它禁用的话，可以通过<code>detect_indentation</code>来设置</p>
+<p>缩进检测可以手动执行，通过<code>View/Indentation/Guess Settings From Buffer</code>菜单执行<code>detect_indentation</code>命令</p>
+<h3 id="7:_Tab和空格之间转换">7: Tab和空格之间转换</h3><p><code>View/Indentation</code>菜单里有命令可以将当前文件中的空白在tab符和空格符之间转换。这几个菜单项执行的是<code>expand_tabs</code>和<code>unexpand_tabs</code>命令</p>
+<h3 id="8:_自动缩进">8: 自动缩进</h3><p>自动缩进猜测会在换行时给每一行添加一定数量空白符。由下面这个配置控制：</p>
+<pre><code>|<span class="string">-------------------------------</span>|<span class="string">-----------------------------------------------------------------------------------------------------------</span>|
+|<span class="string"> auto_indent                   </span>|<span class="string"> Boolean, 默认是开启                                                                                       </span>|
+|<span class="string"> smart_indent                  </span>|<span class="string"> Boolean, 默认是开启。具有一点小聪明的自动缩进，比如，在一个if语法片段的下一行进行缩进                     </span>|
+|<span class="string"> trim_automatic_white_space    </span>|<span class="string"> Boolean, 默认开启。当断行时由auto_indent去除行头尾的空白                                                  </span>|
+|<span class="string"> indent_to_bracket             </span>|<span class="string"> Boolean, 默认禁用。缩进时根据第一个前括号来空白数。像下面这样：use_indent_to_bracket(to_indent,like_this) </span>|
+</code></pre><h3 id="9：注意事项">9：注意事项</h3><font color="red"> 修改配置文件后，需要关闭所有打开的文件，然后重启Sublime Text </font>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/" data-id="cif85bn2i005gp2xnbox325wj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-how-to-solove-sublimetext-3-chinese-encoding-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" class="article-date">
+  <time datetime="2014-05-27T01:13:46.000Z" itemprop="datePublished">May 27 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/">解决Sublime Text 3中文乱码问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>打开Sublime Text 3，按<code>Ctrl+～</code>打开控制行，复制粘贴以下python代码，然后回车运行</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>重启Sublime Text 3</p>
+</li>
+<li><p>按<code>Ctrl+Shift+P</code>打开命令行，输入<code>Install Package</code>，回车，然后继续输入<code>ConvertToUTF8</code>，回车</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" data-id="cif85bn2k005jp2xn06gkp87m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime-text/">sublime text</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-promotion-of-arm-cortex-m-mcu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/22/promotion-of-arm-cortex-m-mcu/" class="article-date">
+  <time datetime="2014-04-22T07:16:22.000Z" itemprop="datePublished">Apr 22 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/22/promotion-of-arm-cortex-m-mcu/">ARM CMSIS-M芯片推广文案分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ARM Cortex-M主页有个栏目叫：<strong><a href="http://www.arm.com/zh/products/processors/cortex-m/index.php" target="_blank" rel="external">为什么选择Cortex-M</a></strong></p>
+<p>一般情况下，特定产品都有目标群体，群体有自己的利益点，同时各方利益互有冲突。怎么有效抓住各方利益点，同时不引起冲突，这里面有个巧妙的平衡关系，非常难以把握</p>
+<p>而ARM的推广语，目标定位精准，同时抓住各方利益点和兴趣点，不失为一个经典案例</p>
+<p>下面对此做一个简略分析</p>
+<p>首先分析ARM Cortex-M的目标群，目标群离不开生态环境，ARM的生态环境构成包括：</p>
+<p>上游：各大半导体厂商<br>中游：开发工具，供应链，代工厂<br>下游：开发者，IT公司，消费者</p>
+<p>各方利益点和兴趣点：<br>上游：借助ARM生态环境，推广自己的Cortex-M芯片<br>中游：成为中间不可或缺的一环，类似拦河大坝的角色<br>下游：开发难度，代码重用性，快速上市</p>
+<p>ARM Cortex-M的标准推出，方便了开发者，削减了差异化程度，从而减低上游和中游的进入门槛</p>
+<p>也就是说，ARM的核心思路是想法设法画牢笼（制规则，标准），同时利用利益吸引更多的人进入牢笼，从而造成各方相互抗衡局面，ARM坐收渔利。上游和中游是被逼无奈，不得不接受标准，加入战斗；下游有机会进入中上游，从而知道推广的重点群体是：</p>
+<p>1）下游开发者<br>2）希望进入中上游的群体</p>
+<p>下游的进入，势必威胁中上游生态，从而起到倒逼半导体和开发工具效果</p>
+<p>那么，二者的利益点是什么呢？</p>
+<p>1） 下游开发者的核心利益是：快速出产品，降低产品开发难度和后期维护成本<br>当然，这是站在老板的角度来说的，对于IT工程师，怎么避免学习成本才是他们关心的</p>
+<p>2） 希望进入中上游的群体<br>更关心IC的成本，也就是硅面积；同时关心这个MCU的市场热度</p>
+<p>ok，分析到这里，再看看ARM是怎么宣传Cortex-M芯片的</p>
+<blockquote>
+<p><strong>业界标准</strong><br>ARM Cortex-M 处理器树立了全球微控制器的标准，40 多个 ARM 合作伙伴已获得这些处理器的使用许可，其中包括 Freescale、NXP Semiconductors、STMicroelectronics、Texas Instruments 和 Toshiba 等领先供应商。通过采用标准处理器，ARM 合作伙伴可制造出具有统一架构的设备，同时能够专注于各自差异化的设计。</p>
+<p><strong>更小的代码处理器芯片</strong><br>更低的硅成本<br>高密度指令集<br>比 8/16 位设备每字节完成更多操作<br>更小的 RAM、ROM 或闪存要求</p>
+<p><strong>高性能</strong><br>更有竞争力的产品<br>Powerful Cortex-M processor<br>每 MHz 提供更高的性能<br>能够以更低的功耗实现更丰富的功能</p>
+<p><strong>能效能效</strong><br>更低的功耗，更长的电池寿命<br>以更低的 MHz 或更短的活动时段运行<br>基于架构的睡眠模式支持<br>比 8/16 位设备的工作方式更智能、睡眠时间更长</p>
+<p><strong>易用使用</strong><br>更快的软件开发和重用<br>多个供应商之间的全球标准<br>代码兼容性<br>统一的工具和操作系统支持</p>
+</blockquote>
+<p><strong>高性能</strong>，<strong>能效能效</strong>，<strong>易用使用</strong> 主要针对目标群1）的利益点和关切点</p>
+<p><strong>业界标准</strong>，<strong>更小的代码处理器芯片</strong> 主要针对目标群2）的利益点和关切点</p>
+<p><strong>附：ARM Cortex-M主页</strong></p>
+<p><a href="http://www.arm.com/zh/products/processors/cortex-m/index.php" target="_blank" rel="external">http://www.arm.com/zh/products/processors/cortex-m/index.php</a></p>
+<p>全文完</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="cif85bn2l005mp2xnhwgkr7k2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Cedar<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/plan" class="mobile-nav-link">Plan</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

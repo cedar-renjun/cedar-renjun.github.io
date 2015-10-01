@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用Octopress在github上搭建自己的博客系统 | Enjoy Programming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="【文档修订中，随时更改】
+写在前面的话搞软件的，一般都晓得github和stackoverflow这两个著名网站，前者是分布式代码仓库，后者是技术问答社区，这里不做过多介绍
+github在提供分布式代码管理功能的同时，也提供pages功能。借助于pages，程序员可以创建一个属于自己的博客
+接下来，我会图文并茂的展示如何在github上搭建自己的博客系统
+进行正式介绍之前，先界定适用人群和技术基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Octopress在github上搭建自己的博客系统">
+<meta property="og:url" content="http://cedar-renjun.github.io/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/index.html">
+<meta property="og:site_name" content="Enjoy Programming">
+<meta property="og:description" content="【文档修订中，随时更改】
+写在前面的话搞软件的，一般都晓得github和stackoverflow这两个著名网站，前者是分布式代码仓库，后者是技术问答社区，这里不做过多介绍
+github在提供分布式代码管理功能的同时，也提供pages功能。借助于pages，程序员可以创建一个属于自己的博客
+接下来，我会图文并茂的展示如何在github上搭建自己的博客系统
+进行正式介绍之前，先界定适用人群和技术基础">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2014/03/20/git_signup.jpg">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2014/03/20/git_signup_conform.jpg">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2014/03/20/Create_new_repository_1.jpg">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2014/03/20/Create_new_repository_2.jpg">
+<meta property="og:updated_time" content="2015-10-01T09:47:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Octopress在github上搭建自己的博客系统">
+<meta name="twitter:description" content="【文档修订中，随时更改】
+写在前面的话搞软件的，一般都晓得github和stackoverflow这两个著名网站，前者是分布式代码仓库，后者是技术问答社区，这里不做过多介绍
+github在提供分布式代码管理功能的同时，也提供pages功能。借助于pages，程序员可以创建一个属于自己的博客
+接下来，我会图文并茂的展示如何在github上搭建自己的博客系统
+进行正式介绍之前，先界定适用人群和技术基础">
+  
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Enjoy Programming</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Focus On Embedded System</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/plan">Plan</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cedar-renjun.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-how-to-build-your-blog-on-github-page-with-octopress" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/" class="article-date">
+  <time datetime="2014-03-19T12:04:41.000Z" itemprop="datePublished">Mar 19 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/github/">github</a>►<a class="article-category-link" href="/categories/github/octopress/">octopress</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用Octopress在github上搭建自己的博客系统
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>【文档修订中，随时更改】</p>
+<h2 id="写在前面的话">写在前面的话</h2><p>搞软件的，一般都晓得<a href="https://github.com" target="_blank" rel="external">github</a>和<a href="http://stackoverflow.com/" target="_blank" rel="external">stackoverflow</a>这两个著名网站，前者是分布式代码仓库，后者是技术问答社区，这里不做过多介绍</p>
+<p>github在提供分布式代码管理功能的同时，也提供pages功能。借助于pages，程序员可以创建一个属于自己的博客</p>
+<p>接下来，我会图文并茂的展示如何在github上搭建自己的博客系统</p>
+<p>进行正式介绍之前，先界定适用人群和技术基础，免得浪费您的时间</p>
+<p><strong>适用人群</strong><br>喜欢折腾的IT攻城狮</p>
+<p><strong>技术基础</strong><br>了解git常用操作，熟悉markdown语法，熟悉HTML，CSS更好</p>
+<p><strong>操作环境</strong><br>windows7 32位</p>
+<a id="more"></a>
+<h2 id="1-_部署git">1.    部署git</h2><p>git是所有操作的基石，让我们来在本地部署git</p>
+<p>注：  </p>
+<ul>
+<li>如果您是git新手，请严格按照操作步骤，一步一步进行；  </li>
+<li>如果您非常熟悉git，请直接阅读1.4章节(配置)部分</li>
+</ul>
+<h3 id="1-1_创建git账户和启用page空间">1.1  创建git账户和启用page空间</h3><p>首先我们需要有一个github的账户，在浏览器中敲入下面网址：  </p>
+<pre><code><span class="string">https:</span><span class="comment">//github.com/</span>
+</code></pre><p>您会看到github的主页，</p>
+<p><img src="/images/2014/03/20/git_signup.jpg" alt="Git signup" title="Git Signup"></p>
+<p>这里我们注册一个新的账号，账户信息如下：</p>
+<pre><code>账号名称：Git-Octopress-Demo
+账号密码：Git-Octopress-<span class="number">123</span>
+邮箱地址：git_octopress_demo@<span class="number">163.</span>com
+</code></pre><p>点击<code>sigin Up for GitHub</code>后，出现下面界面</p>
+<p><img src="/images/2014/03/20/git_signup_conform.jpg" alt="Git Signup Conform" title="Git Signup Conform"></p>
+<p>首先确认<code>Choose your personal plan</code>一栏中选择的是<code>Free</code>，然后直接点击<code>Finsh sign up</code>即可<br>在接下来的界面中，点击<code>New repository</code>按钮来创建一个新仓库  </p>
+<p><img src="/images/2014/03/20/Create_new_repository_1.jpg" alt="Create new repository 1" title="Create new repository 1"></p>
+<p>点击后，出现下面github仓库信息界面</p>
+<p><img src="/images/2014/03/20/Create_new_repository_2.jpg" alt="Create new repository 2" title="Create new repository 2"></p>
+<p>这里，仓库名称为必选项，且名字格式是固定的，为</p>
+<pre><code>XXX<span class="class">.github</span><span class="class">.io</span>
+</code></pre><p>形式，XXX是用户的github账户名，所以，我们在仓库名一栏填写如下信息</p>
+<pre><code>Git-Octopress-Demo<span class="class">.github</span><span class="class">.io</span>
+</code></pre><p>接下来是仓库描述和README信息，为可选项，可以不填  </p>
+<p>填写完成后，点击<code>Create Repository</code>完成创建工作，接下来到邮箱里面去验证信息，这里不做过多介绍</p>
+<p>至此，我们已经成功的创建了一个github账户，并创建了一个page空间。其实，git上的博客系统分为两类  </p>
+<p><strong>用户page空间</strong><br>该空间是以用户名创建的page空间，挂载在master主分支上，每个用户最多只能有一个该空间</p>
+<p><strong>仓库page空间</strong><br>该空间是github为每个仓库创建的page空间，必须挂载在gh-pages分支上，用户创建任意数量的仓库空间</p>
+<p>更多信息，请参考<a href="https://help.github.com/articles/user-organization-and-project-pages" target="_blank" rel="external">github page帮助页</a></p>
+<h3 id="1-2_下载和安装git客户端">1.2  下载和安装git客户端</h3><p>注册github账户后，我们需要在本地PC上安装git客户端<br>您可以通过下面网址来下载最新windows版本git，并获得相应帮助</p>
+<pre><code>http<span class="variable">s:</span>//<span class="keyword">help</span>.github.<span class="keyword">com</span>/articles/<span class="keyword">set</span>-<span class="keyword">up</span>-git
+</code></pre><p>这个是在线安装的，过程很简单，不过因为git软件部署在亚马逊的AWS上，所以下载时间稍微有点长，请耐心等待</p>
+<p>安装过程中，可能会输入用户名和用户密码</p>
+<p>接下来，我们再配置全局用户名</p>
+<pre><code>git config --<span class="keyword">global</span> user.name <span class="string">"Git-Octopress-Demo"</span>
+<span class="preprocessor"># Git-Octopress-Demo 表示用户名，这里填写您自己的名字</span>
+</code></pre><p>配置全局邮箱地址</p>
+<pre><code>git config --<span class="keyword">global</span> user.email <span class="string">"git_octopress_demo@163.com"</span>
+<span class="preprocessor"># git_octopress_demo@163.com 表示用户邮箱地址，这里替换为您自己的邮箱地址</span>
+</code></pre><p><strong>注：命令中的两个双引号是可选的</strong></p>
+<h3 id="1-3_配置">1.3  配置</h3><h2 id="部署Ruby">部署Ruby</h2><p>Octopress是用Ruby语言编写的，所以我们在本机上需要安装Ruby环境和DevKit</p>
+<p><strong>特别注意:</strong> Ruby和DevKit的安装目录不能含有空格</p>
+<h3 id="下载Ruby_for_windows">下载Ruby for windows</h3><p>rubyinstaller号称是windows上最简单的ruby安装方式，官方网址如下所示：</p>
+<pre><code><span class="label">http:</span>//rubyinstaller<span class="preprocessor">.org</span>/
+</code></pre><p>我们首先安装Ruby 1.9.3版本，这里要特别注意，必须是1.9.3版本，其它版本的不能很好的和octopress协同工作<br>下载链接如下所示：</p>
+<pre><code><span class="symbol">http:</span>/<span class="regexp">/dl.bintray.com/oneclick</span><span class="regexp">/rubyinstaller/rubyinstaller</span>-<span class="number">1.9</span>.<span class="number">3</span>-p545.exe
+</code></pre><p>占位符，图示安装过程</p>
+<p>在安装快结束时，请确保勾选这3个选项</p>
+<h3 id="安装Dev_Kit">安装Dev Kit</h3><p>因为后面会大量用到gem命令，所以需要Dev Kit</p>
+<p><strong>特别注意：</strong><br>无论您的系统是32位还是64位，这里的DevKit必须是32位版本，下载链接如下所示：</p>
+<pre><code>http<span class="variable">s:</span>//github.<span class="keyword">com</span>/downloads/oneclick/rubyinstaller/DevKit-tdm-<span class="number">32</span>-<span class="number">4.5</span>.<span class="number">2</span>-<span class="number">20111229</span>-<span class="number">1559</span>-sfx.<span class="keyword">exe</span>
+</code></pre><p>下载完成后，您会发现DevKit是一个自解压文件包，需要手工输入一些命令才能正确安装，这里我们先把DevKit解压到任何一个固定目录，假设为DevKit_Dir，接下来打开一个CMD窗口并CD到DevKit_Dir目录下</p>
+<p><strong>Tips：</strong>如果你用的是win7，可以先选中DevKit_Dir文件夹，按住shift，然后鼠标右键，这时菜单项中会出现<code>在此处打开命令窗口</code>，选择该命令，就可以直接开启一个终端，并自动CD到选中的文件夹目录下，非常好用</p>
+<p>在CMD终端里输入以下两条指令</p>
+<pre><code>ruby dk<span class="class">.rb</span> init
+ruby dk<span class="class">.rb</span> install
+</code></pre><p>如果输完命令后，终端出现以下提示文字，则说明DevKit安装成功</p>
+<p>占位符：官方Devkit提示文字</p>
+<p>另官方提供的验证方法如下，供参考：</p>
+<blockquote>
+<p>   Confirm your Ruby environment is correctly using the DevKit by running gem install json –platform=ruby. JSON should install correctly and you should see with native extensions in the screen messages. Next run ruby -rubygems -e “require ‘json’; puts JSON.load(‘[42]’).inspect” to confirm that the json gem is working.</p>
+</blockquote>
+<p>关于Devkit的更多详细信息，请参考：<br><a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit" target="_blank" rel="external">https://github.com/oneclick/rubyinstaller/wiki/Development-Kit</a></p>
+<h2 id="部署Python">部署Python</h2><p>octopress官方没有说要安装python，但如果您需要代码高亮功能，则必须安装python，为了避免后期麻烦，我们建议安装ActivePython-2.7.6.9-win32-x86.msi，下载链接如下：</p>
+<pre><code>http://downloads.activestate.com/ActivePython/releases/<span class="number">2.7.6.9</span>/ActivePython-<span class="number">2.7.6.9</span>-win32-x86.msi
+</code></pre><p>在安装后，手工将python可执行路径添加到系统环境变量</p>
+<p>至此，我们完成了Python的部署</p>
+<h2 id="部署Octopress">部署Octopress</h2><h3 id="下载和安装octopress">下载和安装octopress</h3><p>CD到MyBlog目录下，然后输入下面的指令</p>
+<pre><code>git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/imathis/octopress.git octopress
+<span class="keyword">cd</span> octopress
+</code></pre><p>octopress下载完毕，下面安装依赖项</p>
+<pre><code><span class="label">gem</span> install <span class="keyword">bundler </span>   
+<span class="keyword">bundle </span>install
+</code></pre><p>安装过程中需要从网上下载一些更新包，第一次时间稍微有些长，请耐心等待</p>
+<h3 id="配置slash主题">配置slash主题</h3><p>slash主题是专为octopress设计的极简风格主题，不仅具有默认主题所有功能，还能自适应各种终端设备，自动调整图片和视频大小，同时具有丰富的插件</p>
+<p>在终端中输入如下命令来下载并安装slash主题</p>
+<pre><code>git clone <span class="string">git:</span><span class="comment">//github.com/tommy351/Octopress-Theme-Slash.git .themes/slash</span>
+rake install [<span class="string">'slash'</span>] 
+rake generate
+</code></pre><p><strong>特别注意</strong>  如果使用上面命令后，无法正确显示主题，请用下面命令</p>
+<pre><code>git clone <span class="string">git:</span><span class="comment">//github.com/tommy351/Octopress-Theme-Slash.git .themes/slash</span>
+rake install \[<span class="string">'slash'</span>\]
+rake generate
+</code></pre><p>来代替</p>
+<p>至此，octopress和对应主题安装完毕</p>
+<h2 id="发布博客系统">发布博客系统</h2><p>接下来让我们发布我们的第一个博客文章</p>
+<pre><code>gem <span class="keyword">new</span><span class="number">_p</span>ost[<span class="string">"Hello world"</span>]
+</code></pre><p>进入<code>\source\_post</code>文件夹下，就可以看到<code>2014-03-19-Hello-world.markdown</code>文件，这时，您可以使用任何顺手的文本编辑工具来编辑该文件，同时需要记得将该文件的编码格式调整为<code>UTF-8 无BOM</code></p>
+<p>编辑完成后，接下来，我们输入下面的指令还生成相应的静态网站</p>
+<pre><code><span class="title">rake</span> generate  <span class="comment"># 生成静态网站</span>
+</code></pre><p>我们可以通过下面的指令来在本地预览网站</p>
+<pre><code><span class="title">rake</span> preview <span class="comment"># 预览网站</span>
+</code></pre><p>不用关闭窗口，直接在浏览器中打开<code>http://localhost:4000/</code><br>这时，当我们修改*.markdown文件后，octopress会自动重新生成静态网站，这时，我们只需要在浏览器中手工刷新界面，就可以看到修改后的效果</p>
+<p>当我们编写成满意的网站之后，便可以用下面指令，把新作的修改推送到github服务器上</p>
+<pre><code><span class="title">rake</span> deploy <span class="comment"># 推送更新</span>
+</code></pre><p>这仅仅是将master分支推送到了github服务器，我们可以通过下面指令来手工将source分支也推送到github服务器上去</p>
+<pre><code>git add .                      # 添加所有更新
+git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"First Commit"</span>   # 编写<span class="keyword">commit</span>记录     
+git push origin <span class="keyword">source</span>         # 推送<span class="keyword">source</span>分支到github <span class="keyword">source</span>分支</span>
+</code></pre><h2 id="注意事项">注意事项</h2><p><strong>1 正确显示中文文档的方法</strong></p>
+<ul>
+<li>md文件采用英文命名方式  </li>
+<li>md中title项可以为中文，同时用双引号包括中文字符串  </li>
+<li>md正文可以采用中文  </li>
+<li>md文件编码格式为UTF-8，无BOM</li>
+</ul>
+<p><strong>2 输入<code>rake preview</code>命令后，在浏览器中打开<code>localhost:4000</code>，打开速度非常慢或者完全打不开</strong></p>
+<ul>
+<li>请检测浏览器是否设置代理模式，如果有，则取消</li>
+</ul>
+<p><strong>3 代码无高亮或者markdown中含有代码高亮部分时，博客系统无法显示，或者输出一片空白</strong><br>请考虑</p>
+<ul>
+<li>python的版本是不是2.7.X  </li>
+<li>python路径是不是添加环境变量到系统中</li>
+</ul>
+<p><strong>4 出现Error:invalid byte sequence in GB2312</strong></p>
+<p>这是中文编码的错误，如果是写英文博客就不会出错，这似乎是 Jekyll 的一个 bug，解决方法是将 Ruby 安装文件路径下的 .\lib\ruby\gems\1.9.1\gems\jekyll-1.1.2\lib\jekyll\convertible.rb 文件第 31 行：</p>
+<pre><code>self<span class="class">.content</span> = File.<span class="function"><span class="title">read</span><span class="params">(File.join(base, name)</span></span>)
+</code></pre><p>修改为：</p>
+<pre><code>self<span class="class">.content</span> = File.<span class="function"><span class="title">read</span><span class="params">(File.join(base, name)</span></span>, :encoding =&gt; <span class="string">"utf-8"</span>)
+</code></pre><p>这样便可成功启动本地服务器进行调试。</p>
+<p><strong>5 代码高亮中的linenos和mark无效</strong></p>
+<p>这个暂时无解</p>
+<h2 id="参考资料">参考资料</h2><ol>
+<li><a href="https://github.com/" target="_blank" rel="external">github主页</a></li>
+<li><a href="http://pages.github.com/" target="_blank" rel="external">github pages</a></li>
+<li><a href="http://github.github.com/github-flavored-markdown/" target="_blank" rel="external">markdown语法</a></li>
+<li><a href="https://stackedit.io/" target="_blank" rel="external">markdown在线编辑器，stackio</a></li>
+<li><a href="http://jekyllrb.com" target="_blank" rel="external">jekyll项目主页</a></li>
+<li><a href="http://www.w3cschool.cn/" target="_blank" rel="external">w3cschool网络技术培训</a></li>
+<li><a href="http://octopress.org" target="_blank" rel="external">octopress项目主页</a></li>
+<li><a href="http://zespia.tw/Octopress-Theme-Slash/index.html" target="_blank" rel="external">slash主题</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/" data-id="cif85bmx00000p2xn3t0t50tv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/21/ued-team-collection/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          国内UED(User Experience Design)团队汇总
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/19/rebuild-hospital-via-it-information/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">医院信息化建设</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Cedar<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/plan" class="mobile-nav-link">Plan</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>
