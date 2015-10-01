@@ -80,190 +80,7 @@ function getScript(scriptName,func,show)
   script.type = 'text/javascript';
   script.onload = func; 
   script.src = scriptName+'.js'; 
-  if ($.browser.msie && $.browser.version<=8) { 
-    // script.onload does not work with older versions of IE
-    script.onreadystatechange = function() {
-      if (script.readyState=='complete' || script.readyState=='loaded') { 
-        func(); if (show) showRoot(); 
-      }
-    }
-  }
-  head.appendChild(script); 
-}
-
-function createIndent(o,domNode,node,level)
-{
-  var level=-1;
-  var n = node;
-  while (n.parentNode) { level++; n=n.parentNode; }
-  if (node.childrenData) {
-    var imgNode = document.createElement("img");
-    imgNode.style.paddingLeft=(16*level).toString()+'px';
-    imgNode.width  = 16;
-    imgNode.height = 22;
-    imgNode.border = 0;
-    node.plus_img = imgNode;
-    node.expandToggle = document.createElement("a");
-    node.expandToggle.href = "javascript:void(0)";
-    node.expandToggle.onclick = function() {
-      if (node.expanded) {
-        $(node.getChildrenUL()).slideUp("fast");
-        node.plus_img.src = node.relpath+"ftv2pnode.png";
-        node.expanded = false;
-      } else {
-        expandNode(o, node, false, false);
-      }
-    }
-    node.expandToggle.appendChild(imgNode);
-    domNode.appendChild(node.expandToggle);
-    imgNode.src = node.relpath+"ftv2pnode.png";
-  } else {
-    var span = document.createElement("span");
-    span.style.display = 'inline-block';
-    span.style.width   = 16*(level+1)+'px';
-    span.style.height  = '22px';
-    span.innerHTML = '&#160;';
-    domNode.appendChild(span);
-  } 
-}
-
-var animationInProgress = false;
-
-function gotoAnchor(anchor,aname,updateLocation)
-{
-  var pos, docContent = $('#doc-content');
-  if (anchor.parent().attr('class')=='memItemLeft' ||
-      anchor.parent().attr('class')=='fieldtype' ||
-      anchor.parent().is(':header')) 
-  {
-    pos = anchor.parent().position().top;
-  } else if (anchor.position()) {
-    pos = anchor.position().top;
-  }
-  if (pos) {
-    var dist = Math.abs(Math.min(
-               pos-docContent.offset().top,
-               docContent[0].scrollHeight-
-               docContent.height()-docContent.scrollTop()));
-    animationInProgress=true;
-    docContent.animate({
-      scrollTop: pos + docContent.scrollTop() - docContent.offset().top
-    },Math.max(50,Math.min(500,dist)),function(){
-      if (updateLocation) window.location.href=aname;
-      animationInProgress=false;
-    });
-  }
-}
-
-function newNode(o, po, text, link, childrenData, lastNode)
-{
-  var node = new Object();
-  node.children = Array();
-  node.childrenData = childrenData;
-  node.depth = po.depth + 1;
-  node.relpath = po.relpath;
-  node.isLast = lastNode;
-
-  node.li = document.createElement("li");
-  po.getChildrenUL().appendChild(node.li);
-  node.parentNode = po;
-
-  node.itemDiv = document.createElement("div");
-  node.itemDiv.className = "item";
-
-  node.labelSpan = document.createElement("span");
-  node.labelSpan.className = "label";
-
-  createIndent(o,node.itemDiv,node,0);
-  node.itemDiv.appendChild(node.labelSpan);
-  node.li.appendChild(node.itemDiv);
-
-  var a = document.createElement("a");
-  node.labelSpan.appendChild(a);
-  node.label = document.createTextNode(text);
-  node.expanded = false;
-  a.appendChild(node.label);
-  if (link) {
-    var url;
-    if (link.substring(0,1)=='^') {
-      url = link.substring(1);
-      link = url;
-    } else {
-      url = node.relpath+link;
-    }
-    a.className = stripPath(link.replace('#',':'));
-    if (link.indexOf('#')!=-1) {
-      var aname = '#'+link.split('#')[1];
-      var srcPage = stripPath($(location).attr('pathname'));
-      var targetPage = stripPath(link.split('#')[0]);
-      a.href = srcPage!=targetPage ? url : "javascript:void(0)"; 
-      a.onclick = function(){
-        storeLink(link);
-        if (!$(a).parent().parent().hasClass('selected'))
-        {
-          $('.item').removeClass('selected');
-          $('.item').removeAttr('id');
-          $(a).parent().parent().addClass('selected');
-          $(a).parent().parent().attr('id','selected');
-        }
-        var anchor = $(aname);
-        gotoAnchor(anchor,aname,true);
-      };
-    } else {
-      a.href = url;
-      a.onclick = function() { storeLink(link); }
-    }
-  } else {
-    if (childrenData != null) 
-    {
-      a.className = "nolink";
-      a.href = "javascript:void(0)";
-      a.onclick = node.expandToggle.onclick;
-    }
-  }
-
-  node.childrenUL = null;
-  node.getChildrenUL = function() {
-    if (!node.childrenUL) {
-      node.childrenUL = document.createElement("ul");
-      node.childrenUL.className = "children_ul";
-      node.childrenUL.style.display = "none";
-      node.li.appendChild(node.childrenUL);
-    }
-    return node.childrenUL;
-  };
-
-  return node;
-}
-
-function showRoot()
-{
-  var headerHeight = $("#top").height();
-  var footerHeight = $("#nav-path").height();
-  var windowHeight = $(window).height() - headerHeight - footerHeight;
-  (function (){ // retry until we can scroll to the selected item
-    try {
-      var navtree=$('#nav-tree');
-      navtree.scrollTo('#selected',0,{offset:-windowHeight/2});
-    } catch (err) {
-      setTimeout(arguments.callee, 0);
-    }
-  })();
-}
-
-function expandNode(o, node, imm, showRoot)
-{
-  if (node.childrenData && !node.expanded) {
-    if (typeof(node.childrenData)==='string') {
-      var varName    = node.childrenData;
-      getScript(node.relpath+varName,function(){
-        node.childrenData = getData(varName);
-        expandNode(o, node, imm, showRoot);
-      }, showRoot);
-    } else {
-      if (!node.childrenVisited) {
-        getNode(o, node);
-      } if (imm || ($.browser.msie && $.browser.version>8)) { 
+  if ($.browser.msie && $.browser.version<=8) {="" script.onload="" does="" not="" work="" with="" older="" versions="" of="" ie="" script.onreadystatechange="function()" if="" (script.readystate="='complete'" ||="" script.readystate="='loaded')" func();="" (show)="" showroot();="" }="" head.appendchild(script);="" function="" createindent(o,domnode,node,level)="" var="" level="-1;" n="node;" while="" (n.parentnode)="" level++;="" (node.childrendata)="" imgnode="document.createElement("img");" imgnode.style.paddingleft="(16*level).toString()+'px';" imgnode.width="16;" imgnode.height="22;" imgnode.border="0;" node.plus_img="imgNode;" node.expandtoggle="document.createElement("a");" node.expandtoggle.href="javascript:void(0)" ;="" node.expandtoggle.onclick="function()" (node.expanded)="" $(node.getchildrenul()).slideup("fast");="" node.plus_img.src="node.relpath+"ftv2pnode.png";" node.expanded="false;" else="" expandnode(o,="" node,="" false,="" false);="" node.expandtoggle.appendchild(imgnode);="" domnode.appendchild(node.expandtoggle);="" imgnode.src="node.relpath+"ftv2pnode.png";" span="document.createElement("span");" span.style.display="inline-block" span.style.width="16*(level+1)+'px';" span.style.height="22px" span.innerhtml="&#160;" domnode.appendchild(span);="" animationinprogress="false;" gotoanchor(anchor,aname,updatelocation)="" pos,="" doccontent="$('#doc-content');" (anchor.parent().attr('class')="='memItemLeft'" anchor.parent().attr('class')="='fieldtype'" anchor.parent().is(':header'))="" pos="anchor.parent().position().top;" (anchor.position())="" (pos)="" dist="Math.abs(Math.min(" pos-doccontent.offset().top,="" doccontent[0].scrollheight-="" doccontent.height()-doccontent.scrolltop()));="" doccontent.animate({="" scrolltop:="" +="" doccontent.scrolltop()="" -="" doccontent.offset().top="" },math.max(50,math.min(500,dist)),function(){="" (updatelocation)="" window.location.href="aname;" });="" newnode(o,="" po,="" text,="" link,="" childrendata,="" lastnode)="" node="new" object();="" node.children="Array();" node.childrendata="childrenData;" node.depth="po.depth" 1;="" node.relpath="po.relpath;" node.islast="lastNode;" node.li="document.createElement("li");" po.getchildrenul().appendchild(node.li);="" node.parentnode="po;" node.itemdiv="document.createElement("div");" node.itemdiv.classname="item" node.labelspan="document.createElement("span");" node.labelspan.classname="label" createindent(o,node.itemdiv,node,0);="" node.itemdiv.appendchild(node.labelspan);="" node.li.appendchild(node.itemdiv);="" a="document.createElement("a");" node.labelspan.appendchild(a);="" node.label="document.createTextNode(text);" a.appendchild(node.label);="" (link)="" url;="" (link.substring(0,1)="='^')" url="link.substring(1);" link="url;" a.classname="stripPath(link.replace('#',':'));" (link.indexof('#')!="-1)" aname="#" +link.split('#')[1];="" srcpage="stripPath($(location).attr('pathname'));" targetpage="stripPath(link.split('#')[0]);" a.href="srcPage!=targetPage" ?="" :="" "javascript:void(0)";="" a.onclick="function(){" storelink(link);="" (!$(a).parent().parent().hasclass('selected'))="" $('.item').removeclass('selected');="" $('.item').removeattr('id');="" $(a).parent().parent().addclass('selected');="" $(a).parent().parent().attr('id','selected');="" anchor="$(aname);" gotoanchor(anchor,aname,true);="" };="" (childrendata="" !="null)" node.childrenul="null;" node.getchildrenul="function()" (!node.childrenul)="" node.childrenul.classname="children_ul" node.childrenul.style.display="none" node.li.appendchild(node.childrenul);="" return="" node.childrenul;="" node;="" showroot()="" headerheight="$("#top").height();" footerheight="$("#nav-path").height();" windowheight="$(window).height()" footerheight;="" (function="" (){="" retry="" until="" we="" can="" scroll="" to="" the="" selected item="" try="" navtree="$('#nav-tree');" navtree.scrollto('#selected',0,{offset:-windowheight="" 2});="" catch="" (err)="" settimeout(arguments.callee,="" 0);="" })();="" imm,="" showroot)="" (node.childrendata="" &&="" !node.expanded)="" (typeof(node.childrendata)="=='string')" varname="node.childrenData;" getscript(node.relpath+varname,function(){="" showroot);="" },="" (!node.childrenvisited)="" getnode(o,="" node);="" (imm="" ($.browser.msie="" $.browser.version="">8)) { 
         // somehow slideDown jumps to the start of tree for IE9 :-(
         $(node.getChildrenUL()).show();
       } else {
@@ -350,78 +167,7 @@ function showNode(o, node, index, hash)
       }
       node.expanded = true;
       var n = node.children[o.breadcrumbs[index]];
-      if (index+1<o.breadcrumbs.length) {
-        showNode(o,n,index+1,hash);
-      } else {
-        if (typeof(n.childrenData)==='string') {
-          var varName = n.childrenData;
-          getScript(n.relpath+varName,function(){
-            n.childrenData = getData(varName);
-            node.expanded=false;
-            showNode(o,node,index,hash); // retry with child node expanded
-          },true);
-        } else {
-          var rootBase = stripPath(o.toroot.replace(/\..+$/, ''));
-          if (rootBase=="index" || rootBase=="pages" || rootBase=="search") {
-            expandNode(o, n, true, true);
-          }
-          selectAndHighlight(hash,n);
-        }
-      }
-    }
-  } else {
-    selectAndHighlight(hash);
-  }
-}
-
-function removeToInsertLater(element) {
-  var parentNode = element.parentNode;
-  var nextSibling = element.nextSibling;
-  parentNode.removeChild(element);
-  return function() {
-    if (nextSibling) {
-      parentNode.insertBefore(element, nextSibling);
-    } else {
-      parentNode.appendChild(element);
-    }
-  };
-}
-
-function getNode(o, po)
-{
-  var insertFunction = removeToInsertLater(po.li);
-  po.childrenVisited = true;
-  var l = po.childrenData.length-1;
-  for (var i in po.childrenData) {
-    var nodeData = po.childrenData[i];
-    po.children[i] = newNode(o, po, nodeData[0], nodeData[1], nodeData[2],
-      i==l);
-  }
-  insertFunction();
-}
-
-function gotoNode(o,subIndex,root,hash,relpath)
-{
-  var nti = navTreeSubIndices[subIndex][root+hash];
-  o.breadcrumbs = $.extend(true, [], nti ? nti : navTreeSubIndices[subIndex][root]);
-  if (!o.breadcrumbs && root!=NAVTREE[0][1]) { // fallback: show index
-    navTo(o,NAVTREE[0][1],"",relpath);
-    $('.item').removeClass('selected');
-    $('.item').removeAttr('id');
-  }
-  if (o.breadcrumbs) {
-    o.breadcrumbs.unshift(0); // add 0 for root node
-    showNode(o, o.node, 0, hash);
-  }
-}
-
-function navTo(o,root,hash,relpath)
-{
-  var link = cachedLink();
-  if (link) {
-    var parts = link.split('#');
-    root = parts[0];
-    if (parts.length>1) hash = '#'+parts[1];
+      if (index+1<o.breadcrumbs.length) 0="" {="" shownode(o,n,index+1,hash);="" }="" else="" if="" (typeof(n.childrendata)="=='string')" var="" varname="n.childrenData;" getscript(n.relpath+varname,function(){="" n.childrendata="getData(varName);" node.expanded="false;" shownode(o,node,index,hash);="" retry="" with="" child="" node="" expanded="" },true);="" rootbase="stripPath(o.toroot.replace(/\..+$/," ''));="" (rootbase="="index"" ||="" expandnode(o,="" n,="" true,="" true);="" selectandhighlight(hash,n);="" selectandhighlight(hash);="" function="" removetoinsertlater(element)="" parentnode="element.parentNode;" nextsibling="element.nextSibling;" parentnode.removechild(element);="" return="" function()="" (nextsibling)="" parentnode.insertbefore(element,="" nextsibling);="" parentnode.appendchild(element);="" };="" getnode(o,="" po)="" insertfunction="removeToInsertLater(po.li);" po.childrenvisited="true;" l="po.childrenData.length-1;" for="" (var="" i="" in="" po.childrendata)="" nodedata="po.childrenData[i];" po.children[i]="newNode(o," po,="" nodedata[0],="" nodedata[1],="" nodedata[2],="" insertfunction();="" gotonode(o,subindex,root,hash,relpath)="" nti="navTreeSubIndices[subIndex][root+hash];" o.breadcrumbs="$.extend(true," [],="" ?="" :="" navtreesubindices[subindex][root]);="" (!o.breadcrumbs="" &&="" root!="NAVTREE[0][1])" fallback:="" show="" index="" navto(o,navtree[0][1],"",relpath);="" $('.item').removeclass('selected');="" $('.item').removeattr('id');="" (o.breadcrumbs)="" o.breadcrumbs.unshift(0);="" add="" root="" shownode(o,="" o.node,="" 0,="" hash);="" navto(o,root,hash,relpath)="" link="cachedLink();" (link)="" parts="link.split('#');" (parts.length="">1) hash = '#'+parts[1];
     else hash='';
   }
   if (hash.match(/^#l\d+$/)) {
@@ -432,28 +178,12 @@ function navTo(o,root,hash,relpath)
   }
   var url=root+hash;
   var i=-1;
-  while (NAVTREEINDEX[i+1]<=url) i++;
-  if (i==-1) { i=0; root=NAVTREE[0][1]; } // fallback: show index
-  if (navTreeSubIndices[i]) {
-    gotoNode(o,i,root,hash,relpath)
-  } else {
-    getScript(relpath+'navtreeindex'+i,function(){
-      navTreeSubIndices[i] = eval('NAVTREEINDEX'+i);
-      if (navTreeSubIndices[i]) {
-        gotoNode(o,i,root,hash,relpath);
-      }
-    },true);
-  }
-}
-
-function showSyncOff(n,relpath)
-{
-    n.html('<img src="'+relpath+'sync_off.png" title="'+SYNCOFFMSG+'"/>');
+  while (NAVTREEINDEX[i+1]<=url) i++;="" if="" (i="=-1)" {="" i="0;" root="NAVTREE[0][1];" }="" fallback:="" show="" index="" (navtreesubindices[i])="" gotonode(o,i,root,hash,relpath)="" else="" getscript(relpath+'navtreeindex'+i,function(){="" navtreesubindices[i]="eval('NAVTREEINDEX'+i);" gotonode(o,i,root,hash,relpath);="" },true);="" function="" showsyncoff(n,relpath)="" n.html('<img="" src="'+relpath+'sync_off.png" title="'+SYNCOFFMSG+'">');
 }
 
 function showSyncOn(n,relpath)
 {
-    n.html('<img src="'+relpath+'sync_on.png" title="'+SYNCONMSG+'"/>');
+    n.html('<img src="'+relpath+'sync_on.png" title="'+SYNCONMSG+'">');
 }
 
 function toggleSyncButton(relpath)
@@ -529,3 +259,4 @@ function initNavTree(toroot,relpath)
   })
 }
 
+</=url)></o.breadcrumbs.length)></=8)>

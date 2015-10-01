@@ -8,8 +8,7 @@
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io//archives/">
-<meta property="og:image">
+<meta property="og:url" content="http://cedar-renjun.github.io/archives/index.html">
 <meta property="og:site_name" content="Enjoy Programming">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -56,13 +55,79 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://cedar-renjun.github.io/"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cedar-renjun.github.io"></form>
       </div>
     </div>
   </div>
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Introduce-Raspberry-2B" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/01/Introduce-Raspberry-2B/" class="article-date">
+  <time datetime="2015-10-01T13:25:40.000Z" itemprop="datePublished">Oct 1 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/树莓派/">树莓派</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/01/Introduce-Raspberry-2B/">“树莓派2B＋学习笔记-开篇”</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>github这个博客好久更新了，大概有一年吧，期间各种事情，其实主要原因还是自己懒<br>终究发现做技术的，还是要常常做一些笔记，不然就会容易忘记，所以今天重抄旧业，将hexo升级到了3.1.0</p>
+<p>接下来会不断更新蓝牙4.0和linux，USB相关知识</p>
+<p>先拿树莓派开刀吧^_^</p>
+<h2 id="1_致谢">1 致谢</h2><p>最近一直想学linux驱动编程和学习内核，刚好得到一块儿树莓派2B，所以准备用心搞一下<br>在此特意感谢21ic 小跑堂美女和may美女</p>
+<p><img src="!--￼0--&gt;/images/2015/10/1/Pi_2_Model_B.png" alt="树莓派图片"></p>
+<h2 id="2_树莓派2B升级了什么">2 树莓派2B升级了什么</h2><p>下面是官方网站展示的2B的性能参数：</p>
+<ul>
+<li>A 900MHz quad-core ARM Cortex-A7 CPU</li>
+<li>1GB RAM</li>
+<li>4 USB ports</li>
+<li>40 GPIO pins</li>
+<li>Full HDMI port</li>
+<li>Ethernet port</li>
+<li>Combined 3.5mm audio jack and composite video</li>
+<li>Camera interface (CSI)</li>
+<li>Display interface (DSI)</li>
+<li>Micro SD card slot</li>
+<li>VideoCore IV 3D graphics core</li>
+</ul>
+<p>相比于前代的树莓派，2B采用TF卡，尺寸更小，也去掉了不常用的RCA接口（俗称AV接口），完全采用HDMI接口<br>这么改，最大的好处就是树莓派形状变得很整齐，不再像原来那样突起一部分</p>
+<p>从处理器来说，将原来的高通BCM2835更新到了BCM2836，增大RAM到1G，估计你对这些也不太感冒，只要知道速度提高了6倍就好了</p>
+<p>因为处理器架构从ARM7TMDI变成了4核A7，所以能跑标准的操作系统，比如安卓或者ubuntu或者win10</p>
+<p>大致看了win10烧录内核的步骤，看到“首先你需要一台运行win10的笔记本”，看到这里就没继续看了，哪位有兴趣的可以自己根据官方博客来实战游戏</p>
+<p><a href="https://www.raspberrypi.org/blog/windows-10-for-iot/" target="_blank" rel="external">https://www.raspberrypi.org/blog/windows-10-for-iot/</a> <br><br><a href="https://dev.windows.com/zh-cn/iot" target="_blank" rel="external">https://dev.windows.com/zh-cn/iot</a> <br></p>
+<p>对了，树莓派2B支持DSI显示接口和CSI相机接口，从而可以直接高速视频输入和屏幕输出<br>这个有什么用呢？理论上来说，你可以拿树莓派做一个平板电脑</p>
+<p>树莓派的简单介绍到这里，接下来介绍烧录系统，更新内核，跑opencv做人脸识别</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2015/10/01/Introduce-Raspberry-2B/" data-id="cif8aw6dp003x3uxn559xhfkx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-coding-standard" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -90,490 +155,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="0_头文件注释">0 头文件注释</h2>
-<p><strong>原则</strong><br>用于说明本文件的用途，作者，协议等信息</p>
+        <h2 id="0_头文件注释">0 头文件注释</h2><p><strong>原则</strong><br>用于说明本文件的用途，作者，协议等信息</p>
 <p><strong>示例</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-</pre></td><td class="code"><pre><span class="comment">//******************************************************************************************</span>
-<span class="comment">//!</span>
-<span class="comment">//! \file   FIFO.h</span>
-<span class="comment">//! \brief  Genernal FIFO Model Interface.</span>
-<span class="comment">//!         You can use uniform FIFO Model to manager Any type of data element.</span>
-<span class="comment">//! \author cedar</span>
-<span class="comment">//! \date   2013-12-16</span>
-<span class="comment">//! \email  xuesong5825718@gmail.com</span>
-<span class="comment">//!</span>
-<span class="comment">//! \license</span>
-<span class="comment">//!</span>
-<span class="comment">//! Copyright (c) 2013 Cedar MIT License</span>
-<span class="comment">//!</span>
-<span class="comment">//! Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="comment">//! of this software and associated documentation files (the "Software"), to deal</span>
-<span class="comment">//! in the Software without restriction, including without limitation the rights to</span>
-<span class="comment">//! use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of</span>
-<span class="comment">//! the Software, and to permit persons to whom the Software is furnished to do so,</span>
-<span class="comment">//! subject to the following conditions:</span>
-<span class="comment">//!</span>
-<span class="comment">//! The above copyright notice and this permission notice shall be included in all</span>
-<span class="comment">//! copies or substantial portions of the Software.</span>
-<span class="comment">//!</span>
-<span class="comment">//! THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="comment">//! IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="comment">//! FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="comment">//! AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="comment">//! LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="comment">//! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS</span>
-<span class="comment">//! IN THE SOFTWARE.</span>
-<span class="comment">///</span>
-<span class="comment">//******************************************************************************************</span>
-</pre></td></tr></table></figure>
-
-<h2 id="1_头文件防冲突宏">1 头文件防冲突宏</h2>
-<p><strong>原则</strong><br>用于防止头文件被多次包含，从而导致编译，链接错误</p>
-<p><strong>示例</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-</pre></td><td class="code"><pre><span class="preprocessor">#ifndef __XXX_H__    <span class="comment">// XXX是模块名字</span></span>
-<span class="preprocessor">#ifdef  __XXX_H__    </span>
-
-<span class="comment">// 头文件实现代码</span>
-
-<span class="preprocessor">#endif  <span class="comment">//__XXX_H__</span></span>
-</pre></td></tr></table></figure>
-
-<h2 id="2_C++保护宏">2 C++保护宏</h2>
-<p><strong>原则</strong><br>每个头文件中，必须包含该保护宏，从而避免C++的重命名机制导致C链接失败</p>
-<p><strong>示例</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-</pre></td><td class="code"><pre><span class="preprocessor">#ifndef __XXX_H__    <span class="comment">// XXX是模块名字</span></span>
-<span class="preprocessor">#ifdef  __XXX_H__    </span>
-
-<span class="preprocessor">#ifdef  __cpluscplus</span>
-<span class="keyword">extern</span> <span class="string">"C"</span>
-{
-<span class="preprocessor">#endif</span>
-
-<span class="comment">// 头文件实现代码</span>
-
-<span class="preprocessor">#ifdef  __cpluscplus</span>
-{
-<span class="preprocessor">#endif</span>
-
-<span class="preprocessor">#endif  <span class="comment">//__XXX_H__</span></span>
-</pre></td></tr></table></figure>
-
-<h2 id="3_宏函数">3 宏函数</h2>
-<p><strong>原则</strong><br>一般情况下，建议用内联函数代替宏函数，如果必须使用，则</p>
-<ul>
-<li>代码中使用到的任何入口参数，都必须包含<code>（）</code></li>
-<li>如果代码行数大于一行，则必须用<code>do{ }while(0)</code>包裹</li>
-</ul>
-<p><strong>示例1</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre>
-<span class="preprocessor">#define MAX(a, b) (a)&gt;(b)?(a):(b)</span>
-</pre></td></tr></table></figure>
-
-<p><strong>示例2</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="code"><pre>
-<span class="preprocessor">#define RESET_CPU()                              \</span>
-<span class="keyword">do</span>                                               \
-{                                                \
-    __disable_fault_irq();                       \
-    NVIC_SystemReset();                          \
-}<span class="keyword">while</span>(<span class="number">0</span>)
-</pre></td></tr></table></figure>
-
-<h2 id="4_函数命名规范">4 函数命名规范</h2>
-<p><strong>原则</strong></p>
-<ul>
-<li>包含模块名</li>
-<li>包含功能类型</li>
-</ul>
-<p>模块名全部大写，功能类型采用驼峰式命名法</p>
-<p><strong>示例</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre><span class="keyword">void</span> LED_SetState(eState state);
-eState LED_GetState(<span class="keyword">void</span>);
-</pre></td></tr></table></figure>
-
-<p>这里<code>LED</code>表示模块的名称，<code>SetState</code>和<code>GetState</code>分别表示对应的操作</p>
-<h2 id="5_函数注释模板">5 函数注释模板</h2>
-<p><strong>原则</strong><br>采用标准Doxygen注释风格，必须包含</p>
-<ul>
-<li>函数名字</li>
-<li>函数功能</li>
-<li>函数入口参数</li>
-<li>函数返回值</li>
-</ul>
-<p>可适当包含下面信息</p>
-<ul>
-<li>函数使用条件</li>
-<li>函数注意事项</li>
-</ul>
-<p><strong>注：</strong> 如果没有入口参数或者出口参数，则写<code>无</code></p>
-<p><strong>示例</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="code"><pre><span class="comment">//******************************************************************************************</span>
-<span class="comment">//</span>
-<span class="comment">//! \brief  Get an element from FIFO.</span>
-<span class="comment">//!</span>
-<span class="comment">//! \param  [in]  pFIFO is the pointer of valid FIFO.</span>
-<span class="comment">//! \param  [out] pElement is the address of element you want to get</span>
-<span class="comment">//!</span>
-<span class="comment">//! \retval 0 if operate successfully, otherwise return -1.</span>
-<span class="comment">//</span>
-<span class="comment">//******************************************************************************************</span>
-<span class="keyword">extern</span> <span class="keyword">int</span> FIFO_Get(FIFO_t* pFIFO, <span class="keyword">void</span>* pElement);
-</pre></td></tr></table></figure>
-
-<h2 id="6_代码注释">6 代码注释</h2>
-<p><strong>原则</strong></p>
-<ul>
-<li>函数注释，使用标准Markdown注释风格</li>
-<li>宏变量后，使用<code>//</code>注释</li>
-<li>头文件中，同类符号的注释起始位置，需保持一致，从而保证代码整洁</li>
-</ul>
-<p><strong>示例1</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-</pre></td><td class="code"><pre><span class="comment">//! FIFO Memory Model</span>
-<span class="keyword">typedef</span> <span class="keyword">struct</span>
-{
-    uint8_t* pStartAddr;                   <span class="comment">//!&lt; FIFO Memory Pool Start Address</span>
-    uint8_t* pEndAddr;                     <span class="comment">//!&lt; FIFO Memory Pool End Address</span>
-    uint32_t Free;                         <span class="comment">//!&lt; The capacity of FIFO</span>
-    uint32_t Used;                         <span class="comment">//!&lt; The number of elements in FIFO</span>
-    uint8_t  UnitSize;                     <span class="comment">//!&lt; FIFO Element Size(Unit: Byte)</span>
-    uint8_t* pReadIndex;                   <span class="comment">//!&lt; FIFO Data Read Index Pointer</span>
-    uint8_t* pWriteIndex;                  <span class="comment">//!&lt; FIFO Data Write Index Pointer</span>
-}FIFO_t;
-
-<span class="comment">//! FIFO Memory Model (Single Byte Mode)</span>
-<span class="keyword">typedef</span> <span class="keyword">struct</span>
-{
-    uint8_t* pStartAddr;                   <span class="comment">//!&lt; FIFO Memory Pool Start Address</span>
-    uint8_t* pEndAddr;                     <span class="comment">//!&lt; FIFO Memory Pool End Address</span>
-    uint32_t Free;                         <span class="comment">//!&lt; The capacity of FIFO</span>
-    uint32_t Used;                         <span class="comment">//!&lt; The number of elements in FIFO</span>
-    uint8_t* pReadIndex;                   <span class="comment">//!&lt; FIFO Data Read Index Pointer</span>
-    uint8_t* pWriteIndex;                  <span class="comment">//!&lt; FIFO Data Write Index Pointer</span>
-}FIFO_S_t;
-</pre></td></tr></table></figure>
-
-<h2 id="7_switch">7 switch</h2>
-<p><strong>原则</strong><br>在switch中，一般情况下，</p>
-<ul>
-<li>条件分支中必须包含<code>break</code></li>
-<li>条件分支中，无论语句块，都必须包含完整的<code>{}</code></li>
-<li>最后一个必须包含default</li>
-</ul>
-<p>从而避免因为忘记break造成的bug，减轻调试负担</p>
-<p>如下所示</p>
-<p><strong>示例1</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-</pre></td><td class="code"><pre>
-<span class="keyword">switch</span>(Status)
-{
-    <span class="keyword">case</span> POWER_ON:
-        {
-            <span class="comment">// 上电自检</span>
-        }
-        <span class="keyword">break</span>;
-    <span class="keyword">case</span> POWER_OFF:
-        {
-            <span class="comment">// 掉电处理代码</span>
-        }
-        <span class="keyword">break</span>;
-    <span class="keyword">case</span> EVENT_TIMER:
-        {
-            <span class="comment">// 定时器事件处理代码</span>
-        }
-        <span class="keyword">break</span>;        
-    <span class="keyword">default</span>:
-        {
-            <span class="comment">// 默认处理规则</span>
-        }
-}
-</pre></td></tr></table></figure>
-
-<p>在某些情况下，需要将多个分支合并，这时要求：</p>
-<ul>
-<li>在原分支包含break处，编写特殊注释，说明这里是特意省去break</li>
-</ul>
-<p>如下所示<br>上电自检后，进入系统初始化，初始化各种外设，所以这里不需要break<br>直接从<code>POWER_ON</code>进入<code>SYS_INIT</code></p>
-<p><strong>示例2</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-</pre></td><td class="code"><pre>
-<span class="keyword">switch</span>(Status)
-{
-    <span class="keyword">case</span> POWER_ON:
-        {
-            <span class="comment">// 上电自检</span>
-        }
-        <span class="comment">//break; NOTE：上电自检后，进入系统初始化，初始化各种外设，所以这里不需要break</span>
-    <span class="keyword">case</span> SYS_INIT:
-        {
-            <span class="comment">// 初始化代码</span>
-        }
-        <span class="keyword">break</span>;
-    <span class="keyword">case</span> POWER_OFF:
-        {
-            <span class="comment">// 掉电处理代码</span>
-        }
-        <span class="keyword">break</span>;
-    <span class="keyword">case</span> EVENT_TIMER:
-        {
-            <span class="comment">// 定时器事件处理代码</span>
-        }
-        <span class="keyword">break</span>;        
-    <span class="keyword">default</span>:
-        {
-            <span class="comment">// 默认处理规则</span>
-        }
-}
-</pre></td></tr></table></figure>
-
-
-<h2 id="8_if">8 if</h2>
-<p><strong>原则</strong><br>在任何情况下，如果出现<code>if</code>或<code>else</code>或<code>else if</code>，其后面无论语句块的长短，都必须包含完整的<code>{}</code><br>从而有效避免一些潜在bug</p>
-<p><strong>示例</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-</pre></td><td class="code"><pre>
-<span class="comment">// 例子1</span>
-<span class="keyword">if</span>(LED_OFF == LedStatus)
-{
-    LedStatus = LED_ON;
-}
-
-<span class="comment">// 例子2</span>
-<span class="keyword">if</span>(LED_OFF == LedStatus)
-{
-    LedStatus = LED_ON;
-}
-<span class="keyword">else</span>
-{
-    LedStatus = LED_OFF;
-}
-</pre></td></tr></table></figure>
-
-
-<h2 id="9_goto">9 goto</h2>
-<p><strong>原则</strong><br>一般情况下，不允许使用goto语句，因为复杂的跳转会导致：</p>
-<ul>
-<li>可读性变差</li>
-<li>后期维护困难</li>
-</ul>
-<p>但在错误处理时，goto可以极大的简化编程逻辑，所以我们规定<br><strong> 只能在错误处理中使用goto</strong></p>
-<p>同时要求：</p>
-<ul>
-<li>标号必须大写</li>
-<li>标号第一个字母为L</li>
-</ul>
-<p><strong>示例</strong></p>
-<figure class="highlight C"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-</pre></td><td class="code"><pre>
-<span class="keyword">if</span>(步骤<span class="number">1</span>)
-{
-    <span class="comment">//发生错误</span>
-    <span class="keyword">goto</span> L_ERROR:
-}
-
-<span class="keyword">if</span>(步骤<span class="number">2</span>)
-{
-    <span class="comment">//发生错误</span>
-    <span class="keyword">goto</span> L_ERROR:
-}
-
-<span class="keyword">if</span>(步骤<span class="number">3</span>)
-{
-    <span class="comment">//发生错误</span>
-    <span class="keyword">goto</span> L_ERROR:
-}
-
-L_ERROR:
-<span class="comment">//错误处理代码</span>
-<span class="comment">//退出函数</span>
-</pre></td></tr></table></figure>
-
-
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \file   FIFO.h</span></span><br><span class="line"><span class="comment">//! \brief  Genernal FIFO Model Interface.</span></span><br><span class="line"><span class="comment">//!         You can use uniform FIFO Model to manager Any type of data element.</span></span><br><span class="line"><span class="comment">//! \author cedar</span></span><br><span class="line"><span class="comment">//! \date   2013-12-16</span></span><br><span class="line"><span class="comment">//! \email  xuesong5825718@gmail.com</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \license</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! Copyright (c) 2013 Cedar MIT License</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! Permission is hereby granted, free of charge, to any person obtaining a copy</span></span><br><span class="line"><span class="comment">//! of this software and associated documentation files (the "Software"), to deal</span></span><br><span class="line"><span class="comment">//! in the Software without restriction, including without limitation the rights to</span></span><br><span class="line"><span class="comment">//! use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of</span></span><br><span class="line"><span class="comment">//! the Software, and to permit persons to whom the Software is furnished to do so,</span></span><br><span class="line"><span class="comment">//! subject to the following conditions:</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! The above copyright notice and this permission notice shall be included in all</span></span><br><span class="line"><span class="comment">//! copies or substantial portions of the Software.</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span></span><br><span class="line"><span class="comment">//! IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span></span><br><span class="line"><span class="comment">//! FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span></span><br><span class="line"><span class="comment">//! AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span></span><br><span class="line"><span class="comment">//! LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span></span><br><span class="line"><span class="comment">//! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS</span></span><br><span class="line"><span class="comment">//! IN THE SOFTWARE.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br></pre></td></tr></table></figure>
+<h2 id="1_头文件防冲突宏">1 头文件防冲突宏</h2><p><strong>原则</strong><br>用于防止头文件被多次包含，从而导致编译，链接错误</p>
+        
+          <p class="article-more-link">
+            <a href="/2014/11/16/coding-standard/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/11/16/coding-standard/" data-id="avzu8lkv647kgk6s" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/11/16/coding-standard/" data-id="cif8aw6dr00403uxnrbzlhdot" class="article-share-link">Share</a>
       
       
     </footer>
@@ -609,26 +203,24 @@ L_ERROR:
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="出现问题">出现问题</h2>
-<p>IAR版本之间不兼容是臭名昭著的问题，在IAR7.0版本完全正常的代码，放到IAR7.10版本中编译，会出现下面的警告</p>
-<pre><code>Warning[<span class="number">25</span>]: <span class="keyword">Label</span> <span class="attribute">'MemManage_Handler</span>' <span class="keyword">is</span> defined pubweak <span class="keyword">in</span> a section implicitly declared root
-</code></pre><h2 id="解决方案">解决方案</h2>
-<p>在对应的SECTION声明中，添加<code>NOROOT</code>修饰信息，如下所示</p>
+        <h2 id="出现问题">出现问题</h2><p>IAR版本之间不兼容是臭名昭著的问题，在IAR7.0版本完全正常的代码，放到IAR7.10版本中编译，会出现下面的警告</p>
+<pre><code>Warning[<span class="number">25</span>]: Label <span class="string">'MemManage_Handler'</span> is defined pubweak <span class="keyword">in</span> <span class="tag">a</span> <span class="tag">section</span> implicitly declared root
+</code></pre><h2 id="解决方案">解决方案</h2><p>在对应的SECTION声明中，添加<code>NOROOT</code>修饰信息，如下所示</p>
 <p>由</p>
-<pre><code>        <span class="tag">PUBWEAK</span> <span class="tag">MemManage_Handler</span>
-        <span class="tag">SECTION</span> <span class="class">.text</span><span class="pseudo">:CODE</span><span class="pseudo">:REORDER(1)</span>
-<span class="tag">MemManage_Handler</span>
-        <span class="tag">B</span> <span class="tag">MemManage_Handler</span>
+<pre><code>        PUBWEAK MemManage_Handler
+        SECTION <span class="class">.text</span>:CODE:<span class="function"><span class="title">REORDER</span><span class="params">(<span class="number">1</span>)</span></span>
+MemManage_Handler
+        B MemManage_Handler
 </code></pre><p>改为</p>
-<pre><code>        <span class="tag">PUBWEAK</span> <span class="tag">MemManage_Handler</span>
-        <span class="tag">SECTION</span> <span class="class">.text</span><span class="pseudo">:CODE</span><span class="pseudo">:REORDER</span><span class="pseudo">:NOROOT(1)</span>
-<span class="tag">MemManage_Handler</span>
-        <span class="tag">B</span> <span class="tag">MemManage_Handler</span>
+<pre><code>        PUBWEAK MemManage_Handler
+        SECTION <span class="class">.text</span>:CODE:REORDER:<span class="function"><span class="title">NOROOT</span><span class="params">(<span class="number">1</span>)</span></span>
+MemManage_Handler
+        B MemManage_Handler
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="kgn8ilcy1lnn7057" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="cif8aw6dt00433uxnv4xnmrvb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -664,20 +256,18 @@ L_ERROR:
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="问题">问题</h2>
-<p>QT4中的中文乱码问题，可以通过在实例前增加下面代码来解决</p>
-<pre><code><span class="tag">QTextCodec</span><span class="pseudo">::setCodecForTr(QTextCodec</span><span class="pseudo">::codecForLocale())</span>;
+        <h2 id="问题">问题</h2><p>QT4中的中文乱码问题，可以通过在实例前增加下面代码来解决</p>
+<pre><code><span class="rule"><span class="attribute">QTextCodec</span>:<span class="value">:<span class="function">setCodecForTr</span>(QTextCodec::<span class="function">codecForLocale</span>())</span></span>;
 </code></pre><p>但QT5中，取消了这个函数，又该如何解决呢</p>
-<h2 id="解决方案">解决方案</h2>
-<p>经测试，只要是源代码文件采用UTF8编码（不带签名）保存，不需要添加任何代码，就可以显示中文</p>
+<h2 id="解决方案">解决方案</h2><p>经测试，只要是源代码文件采用UTF8编码（不带签名）保存，不需要添加任何代码，就可以显示中文</p>
 <p>VS2013需要设置如下</p>
-<pre><code><span class="type">FILE</span>-&gt;<span class="type">Advanced</span> <span class="type">Save</span> <span class="type">Option</span>-&gt;<span class="type">Encoding</span>-&gt; <span class="type">UTF8</span> without signature - <span class="type">Codepage</span> <span class="number">65001</span>
-</code></pre><p><img src="/images/2014/10/25/vs2013_utf8.png" alt=""></p>
+<pre><code>FILE-&gt;Advanced Save <span class="built_in">Option</span>-&gt;Encoding-&gt; UTF8 without signature - Codepage <span class="number">65001</span>
+</code></pre><p><img src="!--￼0--&gt;/images/2014/10/25/vs2013_utf8.png" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/25/qt-chinese-decoder/" data-id="8qjt3p826di2jy1w" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/25/qt-chinese-decoder/" data-id="cif8aw6dv00463uxngaynrklf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -713,38 +303,23 @@ L_ERROR:
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="现有问题">现有问题</h2>
-<p>在嵌入式软件中，经常会用数组保存一些备用信息，也许会存在Flash里面，在Application中用偏移地址来访问这些数据，那么问题就来了，当提高优化级别的时候，编译器会将无用的符号（变量/函数/数组）优化掉，这不是我们所希望看到的结果。</p>
+        <h2 id="现有问题">现有问题</h2><p>在嵌入式软件中，经常会用数组保存一些备用信息，也许会存在Flash里面，在Application中用偏移地址来访问这些数据，那么问题就来了，当提高优化级别的时候，编译器会将无用的符号（变量/函数/数组）优化掉，这不是我们所希望看到的结果。</p>
 <p>该如何解决这个问题呢？</p>
-<h2 id="解决方案">解决方案</h2>
-<p>在IAR中，有4个解决方法</p>
-<h3 id="1：keep">1：keep</h3>
-<p>在链接器里面手工添加需要保留的符号<br><img src="/images/2014/10/16/Link Keep.png" alt=""></p>
-<h3 id="2：_root">2： root</h3>
-<figure class="highlight C"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>__root <span class="keyword">int</span> UnusedData[<span class="number">10</span>];
-</pre></td></tr></table></figure>
-
-<h3 id="3：_required">3： required</h3>
-<figure class="highlight C"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre><span class="keyword">int</span> UnusedData[<span class="number">10</span>];
-<span class="preprocessor">#pragma required=UnusedData</span>
-</pre></td></tr></table></figure>
-
-<h3 id="4_：_禁用编译器Remove优化">4 ： 禁用编译器Remove优化</h3>
-<p>可以在链接器配置extra options页中，通过输入下面的选项来禁用编译器remove优化</p>
+<h2 id="解决方案">解决方案</h2><p>在IAR中，有4个解决方法</p>
+<h3 id="1：keep">1：keep</h3><p>在链接器里面手工添加需要保留的符号<br><img src="!--￼2--&gt;/images/2014/10/16/Link Keep.png" alt=""></p>
+<h3 id="2：_root">2： root</h3><figure class="highlight c"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__root <span class="keyword">int</span> UnusedData[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="3：_required">3： required</h3><figure class="highlight c"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> UnusedData[<span class="number">10</span>];</span><br><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> required=UnusedData</span></span><br></pre></td></tr></table></figure>
+<h3 id="4_：_禁用编译器Remove优化">4 ： 禁用编译器Remove优化</h3><p>可以在链接器配置extra options页中，通过输入下面的选项来禁用编译器remove优化</p>
 <pre><code>-<span class="ruby">-no_remove
 </span>-<span class="ruby">-no_fragments</span>
-</code></pre><p>如图所示<br><img src="/images/2014/10/16/Disable Remove Option.png" alt=""></p>
-<h2 id="注意事项">注意事项</h2>
-<p>1：本文仅适用于IAR，如果您适用MDK，请参考编译器手册<br>2：如果您希望测试是否生效，请将编译器优化级别提高到最高(O3)，然后在调试模式下，查看变量，如果不存在，则被编译器优化掉；反之，则符号存在。<br>3：如果您有任何疑问，欢迎交流</p>
+</code></pre><p>如图所示<br><img src="!--￼3--&gt;/images/2014/10/16/Disable Remove Option.png" alt=""></p>
+<h2 id="注意事项">注意事项</h2><p>1：本文仅适用于IAR，如果您适用MDK，请参考编译器手册<br>2：如果您希望测试是否生效，请将编译器优化级别提高到最高(O3)，然后在调试模式下，查看变量，如果不存在，则被编译器优化掉；反之，则符号存在。<br>3：如果您有任何疑问，欢迎交流</p>
 <p><strong>全文完，希望本文对您有帮助^_^</strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="qdpctvv08mjc51v1" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="cif8aw6e1004f3uxnhz0ybvsx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -780,17 +355,14 @@ L_ERROR:
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="关于时间测量的种种问题">关于时间测量的种种问题</h2>
-<p>在嵌入式中，我们经常需要测量某段代码的执行时间或测量事件触发的时间，常规的思路是：</p>
+        <h2 id="关于时间测量的种种问题">关于时间测量的种种问题</h2><p>在嵌入式中，我们经常需要测量某段代码的执行时间或测量事件触发的时间，常规的思路是：</p>
 <p>1：在测量起始点，反转电平<br>2：在测量结束点，再次反转电平</p>
 <p>然后通过示波器或者逻辑分析仪来测量反转间隔，也就是代码时间</p>
 <p>这种方法，在测量两个或多个时间信号同步的时候，非常有用，实际上，这也是唯一的方法。</p>
 <p>但是如果在测量中，其它代码也会控制这个管脚电平或者周期性动作，这时便需要在&lt;动作1&gt;之前<br>增加前导码，从而便于在繁杂的波形中，一眼识别出需要特定的波形</p>
 <p>同时，如果测量的时间值非常小，那么用示波器即便可以识别，但不容易捕获</p>
-<h2 id="SWD解决方案">SWD解决方案</h2>
-<p>在ARM Cortex-M 芯片中，用SWD调试接口取代了传统的JTAG调试接口，从而占用MCU更少的管脚，同时提高了调试性能。</p>
+<h2 id="SWD解决方案">SWD解决方案</h2><p>在ARM Cortex-M 芯片中，用SWD调试接口取代了传统的JTAG调试接口，从而占用MCU更少的管脚，同时提高了调试性能。</p>
 <p>SWD由四根线组成，SWO，SWDIO，SWCLK，GND；SWDIO和SWCLK组成了基本的串行调试接口，SWO则提供一个信息输出通道，<br>可以输出很多信息，比如指令的执行时间或者ISR触发事件，所以我们可以通过SWD接口配合IDE来获取代码执行时间，从而在某种程度上取代示波器</p>
-
         
           <p class="article-more-link">
             <a href="/2014/10/16/use-swd-interface-to-measure-time/#more">Read More</a>
@@ -799,7 +371,7 @@ L_ERROR:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/use-swd-interface-to-measure-time/" data-id="wg8ngrvj32bjea9k" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/use-swd-interface-to-measure-time/" data-id="cif8aw6dx00493uxn469gjcf0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -816,7 +388,7 @@ L_ERROR:
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/C 语言/">C 语言</a>
+    <a class="article-category-link" href="/categories/C-语言/">C 语言</a>
   </div>
 
   </div>
@@ -836,84 +408,29 @@ L_ERROR:
     <div class="article-entry" itemprop="articleBody">
       
         <p>在很多时候，我们需要循环序列，比如循环读取数组的8个元素，便需要索引指针(index)从0-7-0变化，<br>常规而言，会写出下面的代码</p>
-<figure class="highlight C"><figcaption><span>if 语句</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="keyword">if</span> (++index &gt;= <span class="number">8</span>)
-{
-    index = <span class="number">0</span>;
-}
-</pre></td></tr></table></figure>
-
+<figure class="highlight c"><figcaption><span>if 语句</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (++index &gt;= <span class="number">8</span>)</span><br><span class="line">&#123;</span><br><span class="line">    index = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>或者</p>
-<figure class="highlight C"><figcaption><span>？表达式</span></figcaption><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>index = (++index &gt;= <span class="number">8</span>)? <span class="number">0</span>:index;
-</pre></td></tr></table></figure>
-
+<figure class="highlight c"><figcaption><span>？表达式</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = (++index &gt;= <span class="number">8</span>)? <span class="number">0</span>:index;</span><br></pre></td></tr></table></figure>
 <p>观察到这是连续循环操作，所以我们可以用<code>%</code>的方式，来省掉一个判断语句，如下所示</p>
-<figure class="highlight C"><figcaption><span>取余语句</span></figcaption><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>index = (++index)%<span class="number">8</span>;
-</pre></td></tr></table></figure>
-
-<p>因为<code>++</code>优先级高于<code>%</code>，所以进而简化为</p>
-<figure class="highlight C"><figcaption><span>正确写法</span></figcaption><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>index = ++index%<span class="number">8</span>;
-</pre></td></tr></table></figure>
-
-<p><strong>特别注意：</strong> 这里是前置递加操作，不要写成后置，如下所示</p>
-<figure class="highlight C"><figcaption><span>错误写法</span></figcaption><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>index = index++%<span class="number">8</span>;
-</pre></td></tr></table></figure>
-
+<figure class="highlight c"><figcaption><span>取余语句</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = (++index)%<span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+<p>因为<code>++</code>优先级高于<code>%</code>，所以进而简化为<br><figure class="highlight c"><figcaption><span>正确写法</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = ++index%<span class="number">8</span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>特别注意：</strong> 这里是前置递加操作，不要写成后置，如下所示<br><figure class="highlight c"><figcaption><span>错误写法</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = index++%<span class="number">8</span>;</span><br></pre></td></tr></table></figure></p>
 <p>如果写成后置的，会出现什么情况呢？</p>
 <p>分别将二者反汇编（ARM反汇编），如下所示</p>
-<figure class="highlight C"><figcaption><span>错误写法 index = index++%8</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-</pre></td><td class="code"><pre>MOVS      R1, <span class="preprocessor">#8</span>
-MOVS      R0, R4
-UDIV      R4, R0, R1
-MLS       R4, R4, R1, R0
-ADDS      R4, R4, <span class="preprocessor">#1</span>
-</pre></td></tr></table></figure>
-
-<figure class="highlight C"><figcaption><span>正确写法 index = ++index%8</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-</pre></td><td class="code"><pre>ADDS      R4, R4, <span class="preprocessor">#1</span>
-MOVS      R0, <span class="preprocessor">#8</span>
-UDIV      R1, R4, R0
-MLS       R1, R1, R0, R4
-MOVS      R4, R1
-</pre></td></tr></table></figure>
-
+<figure class="highlight c"><figcaption><span>错误写法 index = index++%8</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MOVS      R1, <span class="preprocessor">#<span class="number">8</span></span></span><br><span class="line">MOVS      R0, R4</span><br><span class="line">UDIV      R4, R0, R1</span><br><span class="line">MLS       R4, R4, R1, R0</span><br><span class="line">ADDS      R4, R4, <span class="preprocessor">#<span class="number">1</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>正确写法 index = ++index%8</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ADDS      R4, R4, <span class="preprocessor">#<span class="number">1</span></span></span><br><span class="line">MOVS      R0, <span class="preprocessor">#<span class="number">8</span></span></span><br><span class="line">UDIV      R1, R4, R0</span><br><span class="line">MLS       R1, R1, R0, R4</span><br><span class="line">MOVS      R4, R1</span><br></pre></td></tr></table></figure>
 <p>翻译成C语言如下</p>
-<figure class="highlight C"><figcaption><span>错误</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre>index = index%<span class="number">8</span>;
-index = index + <span class="number">1</span>;
-</pre></td></tr></table></figure>
-
-<figure class="highlight C"><figcaption><span>正确</span></figcaption><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre>index = index + <span class="number">1</span>;
-index = index%<span class="number">8</span>;
-</pre></td></tr></table></figure>
-
+<figure class="highlight c"><figcaption><span>错误</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index = index%<span class="number">8</span>;</span><br><span class="line">index = index + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>正确</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index = index + <span class="number">1</span>;</span><br><span class="line">index = index%<span class="number">8</span>;</span><br></pre></td></tr></table></figure>
 <p>编译器不支持取余运算，所以需要数学计算，取余等于</p>
-<pre><code>A<span class="variable">%B</span> = A - (A/B）<span class="variable">*B</span>
+<pre><code><span class="keyword">A</span>%B = <span class="keyword">A</span> - (<span class="keyword">A</span>/B）*B
 </code></pre><p>对此，不做过多解释，重点关注ADD那句的位置，正确的表达式会先计算index的值，然后再取余；<br>而错误的，则先取余，再递增；</p>
 <p>所以，正确的语句<code>index = ++index%8</code>会输出<code>0 - 1 - 2 ... 7 - 0</code>序列，错误的会输出<code>1 - 2 ... 7 - 8 - 1</code>序列</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/preinc-and-postinc-problem/" data-id="2ix0fadb6wronbns" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/preinc-and-postinc-problem/" data-id="cif8aw6dz004c3uxnwo4dfymr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -958,15 +475,14 @@ index = index%<span class="number">8</span>;
 </li>
 </ul>
 <p>更高衰减率的探头归类为<strong>无源高压探头</strong>， 适合测量高压，超高压电信号</p>
-<h3 id="参考资料">参考资料</h3>
-<ul>
-<li><a href="/assets/2014/10/11/Oscilloscope_Art.pdf">示波器的艺术</a></li>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="!--￼0--&gt;/assets/2014/10/11/Oscilloscope_Art.pdf">示波器的艺术</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/11/knowledge-about-oscilloscope-probe/" data-id="eqtxt3u2im4geuif" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/11/knowledge-about-oscilloscope-probe/" data-id="cif8aw6e3004h3uxnrf038981" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1009,7 +525,7 @@ index = index%<span class="number">8</span>;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="7r63z28n052ydvm2" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="cif8aw6e5004k3uxnj5ifo1uz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1045,87 +561,30 @@ index = index%<span class="number">8</span>;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言">前言</h2>
-<p>hexo框架是一款非常好用的blog生成工具，可以方便的将markdown转换成HTML网页，并传到github.io网站。<br>但是hexo在push的时候，只会推送public目录下的文件到远程master分支，而不会保存源文件和网站主题，<br>这样会导致风险，万一哪天我们的markdown文件挂掉，就仅仅剩github的网页文件了，所以定时将源文件备份到github是个好习惯</p>
-<h3 id="1：创建本地仓库">1：创建本地仓库</h3>
-<p><code>cd</code>进blog所在目录，输入下面命令将文件纳入git管理系统</p>
+        <h2 id="前言">前言</h2><p>hexo框架是一款非常好用的blog生成工具，可以方便的将markdown转换成HTML网页，并传到github.io网站。<br>但是hexo在push的时候，只会推送public目录下的文件到远程master分支，而不会保存源文件和网站主题，<br>这样会导致风险，万一哪天我们的markdown文件挂掉，就仅仅剩github的网页文件了，所以定时将源文件备份到github是个好习惯</p>
+<h3 id="1：创建本地仓库">1：创建本地仓库</h3><p><code>cd</code>进blog所在目录，输入下面命令将文件纳入git管理系统</p>
 <pre><code>git init
 git add .
-git <span class="operator"><span class="keyword">commit</span> -m <span class="string">"first commit"</span>    </span>
-</code></pre><h3 id="2:_删除远程source分支">2: 删除远程source分支</h3>
-<p>如果您是从octopress转过来的，那远程仓库中，默认会存在一个source分支；而hexo不会自动push到source，所以<br>这个分支是很久以前的文件，这里我们将删掉</p>
-<pre><code>git push &lt;远程仓库地址&gt; :<span class="built_in">source</span>
+git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"first commit"</span>    </span>
+</code></pre><h3 id="2:_删除远程source分支">2: 删除远程source分支</h3><p>如果您是从octopress转过来的，那远程仓库中，默认会存在一个source分支；而hexo不会自动push到source，所以<br>这个分支是很久以前的文件，这里我们将删掉</p>
+<pre><code>git <span class="keyword">push</span> &lt;远程仓库地址&gt; :<span class="keyword">source</span>
 </code></pre><p>比如我的地址是<code>https://github.com/cedar-renjun/cedar-renjun.github.io.git</code>，则上述命令是</p>
-<pre><code>git <span class="keyword">push</span> https://github<span class="preprocessor">.com</span>/cedar-renjun/cedar-renjun<span class="preprocessor">.github</span><span class="preprocessor">.io</span><span class="preprocessor">.git</span> :source
+<pre><code>git push <span class="symbol">https:</span>/<span class="regexp">/github.com/cedar</span>-renjun/cedar-renjun.github.io.git <span class="symbol">:source</span>
 </code></pre><p><strong>注意</strong> <code>:</code>之前有一个空格</p>
 <p>上面的命令太长了，不好输入，我们可以用<code>remote</code>来简化输入</p>
-<pre><code>git remote <span class="keyword">add</span> blog https://github<span class="preprocessor">.com</span>/cedar-renjun/cedar-renjun<span class="preprocessor">.github</span><span class="preprocessor">.io</span><span class="preprocessor">.git</span>
+<pre><code>git remote <span class="built_in">add</span> blog http<span class="variable">s:</span>//github.<span class="keyword">com</span>/cedar-renjun/cedar-renjun.github.io.git
 </code></pre><p>这样，blog就是远程的仓库地址，我们可以用下面命令来检测是否生效</p>
-<pre><code>git <span class="comment">remote -v</span>
-</code></pre><h3 id="3：创建本地分支">3：创建本地分支</h3>
-<pre><code>git branch -b <span class="built_in">source</span>
+<pre><code><span class="title">git</span> remote -v
+</code></pre><h3 id="3：创建本地分支">3：创建本地分支</h3><pre><code><span class="label">git</span> <span class="keyword">branch </span>-<span class="keyword">b </span>source
 </code></pre><p>这个命令，创建了一个souce分支，并切换到source分支了</p>
-<h3 id="4：推送到远程分支">4：推送到远程分支</h3>
-<pre><code>git push blog <span class="built_in">source</span>:<span class="built_in">source</span>
+<h3 id="4：推送到远程分支">4：推送到远程分支</h3><pre><code>git <span class="keyword">push</span> blog <span class="keyword">source</span>:<span class="keyword">source</span>
 </code></pre><p>前一个<code>source</code>表示本地分支名字，后一个表示远程仓库名字，名字可以变，但位置不能变</p>
 <p>至此，我们已经将source文件推送到远程分支，可以高枕无忧了 ^_^</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="7vnec50es2a032lm" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mbed-iot-device-platform" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/10/09/mbed-iot-device-platform/" class="article-date">
-  <time datetime="2014-10-09T14:23:27.000Z" itemprop="datePublished">Oct 9 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Mbed/">Mbed</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/09/mbed-iot-device-platform/">Mbed IoT Device Platform</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong><br>Mark：ARM推出了Mbed平台，试图统一IOT平台，原来看过Mbed的源码，写的很赞，用C++做封装，事件调度机制，非常适合小型系统，最近又看到它们支持各种协议栈，和Thread一样，借助大企业平台的优势，Mbed以后会发展的很好，特此转发ARM文章
-</strong></p>
-<p><br/></p>
-<p><img src="/images/2014/10/09/ARM-mbed-IoT-platform.png" alt=""></p>
-<h2 id="About_Mbed">About Mbed</h2>
-<p>The Internet of Things (IoT) is about devices and services delivering end-to-end solutions. <a href="http://mbed.org/" target="_blank">The ARM® mbed™ IoT Device Platform</a> is the fastest way to create commercial and interoperable connected IoT devices based on ARM microcontrollers. Interoperability between nodes and cloud services across market segments will unleash the full potential of the IoT. Although the IoT market is made up of many vertical segments, most applications that can make use of Internet connected devices have a common foundation. For example - smart cities, basic wearables and smart home devices require basic OS functionality like drivers, device security and provisioning support. In addition, network connectivity varies from application to application, in general however, the IP networking, security, application layer and device management needs are all common.</p>
-<p>The ARM mbed IoT Device Platform provides all the key ingredients to build secure and efficient IoT applications through ARM’s mbed OS, mbed Device Server and mbed Community Ecosystem.</p>
-
-        
-          <p class="article-more-link">
-            <a href="/2014/10/09/mbed-iot-device-platform/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/09/mbed-iot-device-platform/" data-id="2b2y8x7bvscvief0" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="cif8aw6e6004n3uxnuticj123" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1137,7 +596,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" href="/archives/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -1148,7 +607,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C 语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">8</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/Markdown/">Markdown</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -1157,7 +616,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -1169,7 +628,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2014 Cedar<br>
+      &copy; 2015 Cedar<br>
       Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -1192,7 +651,7 @@ git <span class="operator"><span class="keyword">commit</span> -m <span class="s
 
 
 
-<script type="text/javascript" src="/js/script.js"></script>
+<script src="/js/script.js" type="text/javascript"></script>
   </div>
 </body>
 </html>
