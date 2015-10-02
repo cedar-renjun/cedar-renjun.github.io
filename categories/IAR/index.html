@@ -63,6 +63,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-IAR-projects-template" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/02/IAR-projects-template/" class="article-date">
+  <time datetime="2015-10-02T02:35:55.000Z" itemprop="datePublished">Oct 2 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/IAR/">IAR</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/02/IAR-projects-template/">IAR 工程模版</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>注意：下文以IAR 7.2 For ARM版本来分析XML工程文件</p>
+<h3 id="初衷">初衷</h3><p>IAR工程中添加文件，一直很麻烦，最近发现RTT用Scons能自动生成IAR模版，并添加源文件，为此分析了IAR工程管理结构，重点在于源文件管理结构</p>
+<h3 id="构建语法">构建语法</h3><p>采用标准XML形式来构建工程</p>
+<p>在新建工程后，IAR默认包含debug和release两个模版，在XML文件中，有所体现，我们可以在XML中删掉release的配置信息，减轻我们分析的负担</p>
+<h3 id="IAR_工程结构">IAR 工程结构</h3><ul>
+<li>*.ewp IAR工程文件，包含配置项和文件列表</li>
+<li>*.ewt IAR配置文件，包含C-STAT和RuntimeChecking的信息</li>
+<li>*.dep IAR调试信息配置，主要用于描述源文件和obj文件的关联信息</li>
+<li>*.eww IAR workspace，用于管理多个project</li>
+<li>*.ewd 调试相关，比如选择的调试器和调试器ID等等</li>
+</ul>
+<p>简单介绍一下用途<br>1）如果只是保留基本工程信息，不需要调试器和链接器的信息，只保留<code>eww</code>和<code>ewp</code>文件即可<br>2）如果需要保存链接器和调试器信息，保留<code>ewp</code>, <code>ewt</code>, <code>dep</code>, <code>eww</code>四个文件即可<br>3）<code>ewt</code>主要包含一些静态检查和动态检查，可以不用这些配置项</p>
+<p>也就是说，在复制IAR工程时，只需要保留这几个文件，其它的文件（夹）都可以删掉，比如setting, Debug，Release文件夹</p>
+<p>因为分析IAR主要是为了自动生成模版文件，所以下面重点分析<code>ewp</code>文件结构</p>
+<h3 id="ewp文件分析">ewp文件分析</h3><p>打开文件，可以看到顶层结构为<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">project</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">fileVersion</span>&gt;</span>2<span class="tag">&lt;/<span class="title">fileVersion</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>Debug工程配置<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>Release工程配置<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span>工程文件结构<span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里加注了行号，第3/4行为工程具体配置，包括<code>Debug</code>和<code>Release</code>版本配置，还可以添加其它配置页，为了简化分析，我删掉了<code>Release</code>配置项，再次打开IAR工程，如下所示：<br>［占位符］</p>
+<p>第5行是工程文件目录结构，也是我们重点分析的部分，主要分为两块</p>
+<ol>
+<li>单个文件</li>
+<li>目录组织结构</li>
+</ol>
+<p>我在创建IAR工程时，只包含一个main.c文件，XML对应结构如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>尝试添加两个源文件<code>test.c</code> <code>test.h</code>, XML 结构变成下面的形式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.h<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可见每一个文件对应一个file结构，我们尝试新建一个group，然后将test.c和test.h文件放到里面</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>test<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.h<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">group</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可见增加了一个<code>group</code>结构，并用<code>name</code>来表示group的名字<br>OK，分析到这里，我们就可以利用python来编写脚本自动添加文件到IAR工程中了</p>
+<p>至于<code>Debug</code>配置项的细节信息，等有机会慢慢研究</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cif9402qc003xjyxnj1zximjb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-iar-warming-25-problem" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/10/28/iar-warming-25-problem/" class="article-date">
@@ -106,7 +173,7 @@ MemManage_Handler
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="cif8bm3pk0043fhxncmbylhpz" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="cif9402qi0046jyxnup64cwpy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -158,7 +225,7 @@ MemManage_Handler
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="cif8bm3pq004ffhxnwl7lqluc" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="cif9402qt004hjyxnjbrxmuy0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -177,7 +244,7 @@ MemManage_Handler
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -186,7 +253,7 @@ MemManage_Handler
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
