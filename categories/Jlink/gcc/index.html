@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Category: gcc | Enjoy Programming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Enjoy Programming">
+<meta property="og:url" content="http://cedar-renjun.github.io/categories/Jlink/gcc/index.html">
+<meta property="og:site_name" content="Enjoy Programming">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Enjoy Programming">
+<meta name="twitter:description">
+  
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Enjoy Programming</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Focus On Embedded System</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/plan">Plan</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cedar-renjun.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" class="article-date">
+  <time datetime="2015-10-04T12:17:54.000Z" itemprop="datePublished">Oct 4 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Jlink/">Jlink</a>►<a class="article-category-link" href="/categories/Jlink/gcc/">gcc</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/">用gdb调试Cortex-M系列芯片</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="准备工作">准备工作</h3><p>本文假设读者</p>
+<ol>
+<li>已经熟悉arm gcc工具链</li>
+<li>已经在win中安装好mingw或者arm-none-eabi-gcc工具</li>
+<li>具有合适的代码工程和编译脚本，且编译输出elf文件时，已添加<code>-g</code>选项来生成调试信息</li>
+<li>安装jlink调试工具和对应驱动</li>
+<li>有对应的硬件电路</li>
+</ol>
+<p>如果其中任何一项不满足，请自行google相关文档，完成基础准备工作</p>
+<h3 id="启动jlink_gdb_server">启动jlink gdb server</h3><ol>
+<li>开始 -&gt; SEGGER -&gt; Jlink V4.90e -&gt; Jlink GDB Server</li>
+<li>Jlink会显示GDB config配置选项，如下图配置<br><img src="http://cedar-renjun.github.io/images/2015/10/4/1.png" alt="GDB Server配置选项"><br><img src="http://cedar-renjun.github.io/images/2015/10/4/2.png" alt="GDB Server配置完成"></li>
+<li>点击OK，启动GDB server，在J-Link一栏会显示<code>Connected</code>字符，表示成功连接硬件，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/10/4/3.png" alt="GDB Server"></li>
+</ol>
+<h3 id="启动GDB">启动GDB</h3><ol>
+<li>打开CMD，输入<code>arm-none-eabi-gdb</code>，打开后，如下图所示；如果没有显示对应信息，属于没有配置环境变量的path，请添加gcc<br>tools的路径进去</li>
+<li>输入<code>file Demo.elf</code>加载调试文件，这里以<code>Demo.elf</code>为例，实际你可以替换为自己的elf文件</li>
+<li>输入<code>target remote localhost:2331</code>，连接gdb server，连接成功后，会在Jlink GDB server中显示对应的状态，如下所示</li>
+<li>输入<code>monitor reset</code>来复位MCU，从而让MCU处于确定的状态</li>
+<li>输入<code>load</code>往MCU中加载调试文件，也就是常见的烧录过程</li>
+<li>输入<code>break main</code>设置main断点，让MCU执行到main中停止</li>
+</ol>
+<p>下面是使用Power shell的交互过程</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&#62; arm-none-eabi-gdb&#10;GNU gdb (GNU Tools for ARM Embedded Processors) 7.8.0.20150604-cvs&#10;Copyright (C) 2014 Free Software Foundation, Inc.&#10;License GPLv3+: GNU GPL version 3 or later &#60;http://gnu.org/licenses/gpl.html&#62;&#10;This is free software: you are free to change and redistribute it.&#10;There is NO WARRANTY, to the extent permitted by law.  Type &#34;show copying&#34;&#10;and &#34;show warranty&#34; for details.&#10;This GDB was configured as &#34;--host=i686-w64-mingw32 --target=arm-none-eabi&#34;.&#10;Type &#34;show configuration&#34; for configuration details.&#10;For bug reporting instructions, please see:&#10;&#60;http://www.gnu.org/software/gdb/bugs/&#62;.&#10;Find the GDB manual and other documentation resources online at:&#10;&#60;http://www.gnu.org/software/gdb/documentation/&#62;.&#10;For help, type &#34;help&#34;.&#10;Type &#34;apropos word&#34; to search for commands related to &#34;word&#34;.&#10;(gdb) file Demo.elf&#10;Reading symbols from Demo.elf...done.&#10;(gdb) target remote localhost:2331&#10;Remote debugging using localhost:2331&#10;0x00000000 in ?? ()&#10;(gdb) monitor reset&#10;Resetting target&#10;(gdb) load&#10;Loading section .text, size 0x434 lma 0x8000000&#10;Loading section .data, size 0x14 lma 0x8000434&#10;Start address 0x80003ec, load size 1096&#10;Transfer rate: 59 KB/sec, 548 bytes/write.&#10;(gdb) break main&#10;Breakpoint 1 at 0x8000112: file src\App\main.c, line 27.&#10;(gdb) c&#10;Continuing.&#10;&#10;Breakpoint 1, main () at src\App\main.c:27&#10;27              int i = 0;&#10;(gdb) l&#10;22      /* Includes ------------------------------------------------------------------*/&#10;23      #include &#34;stm32f10x.h&#34;&#10;24      #include &#60;stdio.h&#62;&#10;25      int main(void)&#10;26      &#123;&#10;27              int i = 0;&#10;28&#10;29&#10;30              for(int m = 0; m &#60; 100; m++)&#10;31              &#123;&#10;(gdb) l&#10;32                      i = m + i;&#10;33              &#125;&#10;34&#10;35              return 0;&#10;36      &#125;&#10;(gdb) s&#10;30              for(int m = 0; m &#60; 100; m++)&#10;(gdb) s&#10;32                      i = m + i;&#10;(gdb) s&#10;30              for(int m = 0; m &#60; 100; m++)&#10;(gdb) s&#10;32                      i = m + i;&#10;(gdb) p m&#10;$1 = 1&#10;(gdb) break 35&#10;Breakpoint 2 at 0x8000130: file src\App\main.c, line 35.&#10;(gdb) c&#10;Continuing.&#10;&#10;Breakpoint 2, main () at src\App\main.c:35&#10;35              return 0;&#10;(gdb) p i&#10;$2 = 4950&#10;(gdb) q&#10;A debugging session is active.&#10;&#10;        Inferior 1 [Remote target] will be killed.&#10;&#10;Quit anyway? (y or n) y</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料：">参考资料：</h3><ol>
+<li>gcc manual</li>
+<li>gdb manual</li>
+<li>jlink user manual, charapter 3.3 J-link GDB Server</li>
+<li>scons user guide</li>
+<li>scons manual</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifcilji0003xq5xnh1kt7jel" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Cedar<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/plan" class="mobile-nav-link">Plan</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>
