@@ -3,72 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Enjoy Programming</title>
+  <title>Category: gcc | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
+  <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io/assets/2014/03/21/html_output_1/search/files_0.html">
+<meta property="og:url" content="http://cedar-renjun.github.io/categories/gcc/index.html">
 <meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
-<meta property="og:updated_time" content="2015-10-06T03:36:27.000Z">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Enjoy Programming">
-<meta name="twitter:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
+<meta name="twitter:description">
   
   
   <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -116,58 +61,63 @@ do">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-Port-to-gcc" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/assets/2014/03/21/html_output_1/search/files_0.html" class="article-date">
-  <time datetime="2015-10-06T03:36:27.000Z" itemprop="datePublished">Oct 6 2015</time>
+    <a href="/2015/10/06/Port-to-gcc/" class="article-date">
+  <time datetime="2015-10-06T03:39:47.000Z" itemprop="datePublished">Oct 6 2015</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/gcc/">gcc</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/06/Port-to-gcc/">ARM GCC移植指导</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title></title>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8">
-<meta name="generator" content="Doxygen 1.8.6">
-<link rel="stylesheet" type="text/css" href="search.css">
-<script type="text/javascript" src="files_0.js"></script>
-<script type="text/javascript" src="search.js"></script>
-</head>
-<body class="SRPage">
-<div id="SRIndex">
-<div class="SRStatus" id="Loading">Loading...</div>
-<div id="SRResults"></div>
-<script type="text/javascript"><!--
-createResults();
---></script>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-<script type="text/javascript"><!--
-document.getElementById("Loading").style.display="none";
-document.getElementById("NoMatches").style.display="none";
-var searchResults = new SearchResults("searchResults");
-searchResults.Search();
---></script>
-</div>
-</body>
-</html>
-
+        <h3 id="概述">概述</h3><p>本文主要介绍MDK代码移植到ARM GCC中的注意事项，以及对应的编译器指令</p>
+<p>主要包括</p>
+<ul>
+<li>启动文件</li>
+<li>链接脚本</li>
+<li>汇编文件</li>
+<li>编译器指令</li>
+<li>其它</li>
+</ul>
+<h3 id="启动文件">启动文件</h3><p>选择适用于gcc as汇编器的启动文件，并注意添加bss的清零和data的复制代码，用于初始化C<br>runtime，如果使用到了C++，还需要手工复制构造函数表和全局变量表，并调用_start函数来初始化C lib</p>
+        
+          <p class="article-more-link">
+            <a href="/2015/10/06/Port-to-gcc/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/assets/2014/03/21/html_output_1/search/files_0.html" data-id="cifetjxxn0033o5xnv3qboiiq" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifetjxym0040o5xnw1tv58t9" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
-    
-  
 </article>
 
+
+  
+  
 </section>
         
           <aside id="sidebar">

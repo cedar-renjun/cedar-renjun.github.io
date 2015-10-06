@@ -3,72 +3,45 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Enjoy Programming</title>
+  <title>ARM GCC移植指导 | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+  <meta name="description" content="概述本文主要介绍MDK代码移植到ARM GCC中的注意事项，以及对应的编译器指令
+主要包括
 
+启动文件
+链接脚本
+汇编文件
+编译器指令
+其它
 
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io/assets/2014/03/21/html_output_1/search/files_0.html">
+启动文件选择适用于gcc as汇编器的启动文件，并注意添加bss的清零和data的复制代码，用于初始化Cruntime，如果使用到了C++，还需要手工复制构造函数表和全局变量表，并调用_start函数来初始化C lib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARM GCC移植指导">
+<meta property="og:url" content="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/index.html">
 <meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+<meta property="og:description" content="概述本文主要介绍MDK代码移植到ARM GCC中的注意事项，以及对应的编译器指令
+主要包括
 
+启动文件
+链接脚本
+汇编文件
+编译器指令
+其它
 
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
-<meta property="og:updated_time" content="2015-10-06T03:36:27.000Z">
+启动文件选择适用于gcc as汇编器的启动文件，并注意添加bss的清零和data的复制代码，用于初始化Cruntime，如果使用到了C++，还需要手工复制构造函数表和全局变量表，并调用_start函数来初始化C lib">
+<meta property="og:updated_time" content="2015-10-06T03:40:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Enjoy Programming">
-<meta name="twitter:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+<meta name="twitter:title" content="ARM GCC移植指导">
+<meta name="twitter:description" content="概述本文主要介绍MDK代码移植到ARM GCC中的注意事项，以及对应的编译器指令
+主要包括
 
+启动文件
+链接脚本
+汇编文件
+编译器指令
+其它
 
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
+启动文件选择适用于gcc as汇编器的启动文件，并注意添加bss的清零和data的复制代码，用于初始化Cruntime，如果使用到了C++，还需要手工复制构造函数表和全局变量表，并调用_start函数来初始化C lib">
   
   
   <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -116,55 +89,74 @@ do">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Port-to-gcc" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/assets/2014/03/21/html_output_1/search/files_0.html" class="article-date">
-  <time datetime="2015-10-06T03:36:27.000Z" itemprop="datePublished">Oct 6 2015</time>
+    <a href="/2015/10/06/Port-to-gcc/" class="article-date">
+  <time datetime="2015-10-06T03:39:47.000Z" itemprop="datePublished">Oct 6 2015</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/gcc/">gcc</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ARM GCC移植指导
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title></title>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8">
-<meta name="generator" content="Doxygen 1.8.6">
-<link rel="stylesheet" type="text/css" href="search.css">
-<script type="text/javascript" src="files_0.js"></script>
-<script type="text/javascript" src="search.js"></script>
-</head>
-<body class="SRPage">
-<div id="SRIndex">
-<div class="SRStatus" id="Loading">Loading...</div>
-<div id="SRResults"></div>
-<script type="text/javascript"><!--
-createResults();
---></script>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-<script type="text/javascript"><!--
-document.getElementById("Loading").style.display="none";
-document.getElementById("NoMatches").style.display="none";
-var searchResults = new SearchResults("searchResults");
-searchResults.Search();
---></script>
-</div>
-</body>
-</html>
+        <h3 id="概述">概述</h3><p>本文主要介绍MDK代码移植到ARM GCC中的注意事项，以及对应的编译器指令</p>
+<p>主要包括</p>
+<ul>
+<li>启动文件</li>
+<li>链接脚本</li>
+<li>汇编文件</li>
+<li>编译器指令</li>
+<li>其它</li>
+</ul>
+<h3 id="启动文件">启动文件</h3><p>选择适用于gcc as汇编器的启动文件，并注意添加bss的清零和data的复制代码，用于初始化C<br>runtime，如果使用到了C++，还需要手工复制构造函数表和全局变量表，并调用_start函数来初始化C lib</p>
+<a id="more"></a>
+<h3 id="链接脚本">链接脚本</h3><p>可以参考ST给的案例或者arm-none-eabi-gcc自带的范例，注意修改FLASH和ROM，stack和heap这些参数来适配到对应的板子</p>
+<h3 id="汇编文件">汇编文件</h3><p>参考gcc as汇编手册，将对应的MDK汇编代码转换成gcc汇编，一般MDK工程中，涉及到汇编的有启动代码和OS移植文件，以及某些lib的汇编级优化代码</p>
+<h3 id="编译器指令">编译器指令</h3><p>主要涉及到packed, align, at绝对定位指令，对应解决方案如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 移植packed</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> defined ( __CC_ARM   )</span></span><br><span class="line">__packed <span class="keyword">typedef</span> <span class="keyword">struct</span> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">elif</span> defined   (  __GNUC__  )</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __attribute__ ((__packed__))</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 移植align</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> defined ( __CC_ARM   )</span></span><br><span class="line">__align(<span class="number">8</span>) <span class="keyword">static</span> OS_STK START_TASK_STK[START_STK_SIZE];</span><br><span class="line"><span class="preprocessor">#<span class="keyword">elif</span> defined   (  __GNUC__  )</span></span><br><span class="line"><span class="keyword">static</span> OS_STK START_TASK_STK[START_STK_SIZE] __attribute__ ((aligned (<span class="number">8</span>)));</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>至于mdk中的AT这类绝对定位指令，IAR和MDK均可以用<code>@</code>,<br>    <code>at</code>,<code>location</code>等指令，但gcc中没有这类指令，解决方案是在链接文件中，手工分配段，并指定段的地址，然后在C代码中，显式指定使用的section</p>
+<h3 id="其它">其它</h3><p><strong>1 const常量</strong><br>MDK中，默认将const常量放在FLASH中，但其它编译器不一定会这么做，也可能放到RAM中，所以默认const不保险，建议显式指定section，如下所示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> asc2_1608[<span class="number">95</span>][<span class="number">16</span>]</span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> defined   (  __GNUC__  )</span></span><br><span class="line">__attribute__ ((section (<span class="string">".text"</span>)))</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2 内存映射</strong><br>通过FSMC的机制，可以映射外部RAM，建议用指针的形式或者在链接脚本中，增加对应的RAM区域，而不是简单的分配大数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//内存管理表</span></span><br><span class="line">u16 mem1mapbase[MEM1_ALLOC_TABLE_SIZE];													<span class="comment">//内部SRAM内存池MAP</span></span><br><span class="line">u16 mem2mapbase[MEM2_ALLOC_TABLE_SIZE] __attribute__((at(<span class="number">0X68000000</span>+MEM2_MAX_SIZE)));	<span class="comment">//外部SRAM内存池MAP</span></span><br></pre></td></tr></table></figure>
+<p>对于gcc来说，由于本身不支持at指令，所以会忽略指令，然后将数组默认分配到RAM中，从而导致overflow或者内存不够等错误</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/assets/2014/03/21/html_output_1/search/files_0.html" data-id="cifetjxxn0033o5xnv3qboiiq" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifetjxym0040o5xnw1tv58t9" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/06/Set-Up-scons-environment/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">建立scons开发环境</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
