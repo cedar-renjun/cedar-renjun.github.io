@@ -15,7 +15,7 @@ We’ve spend a great deal of time talking about Rendezvous in the previous two 
 <meta property="og:description" content="by Michael Beam12/27/2002
 原文链接: http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1
 We’ve spend a great deal of time talking about Rendezvous in the previous two columns, but Rendezvous">
-<meta property="og:updated_time" content="2015-10-07T18:09:45.000Z">
+<meta property="og:updated_time" content="2015-10-07T18:15:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Networking and the BSD Sockets APIs">
 <meta name="twitter:description" content="by Michael Beam12/27/2002
@@ -107,6 +107,7 @@ We’ve spend a great deal of time talking about Rendezvous in the previous two 
 <p>When a server process starts up, it must create a socket; bind it to a local, unused port; tell that socket to listen for new connections from clients; and finally, begin waiting for new connections. This socket is often referred to as a listening socket, or a passive socket, or a server socket. All of these names suggest that the role of the socket is to sit patiently while listening to its assigned port for clients requesting a connection with the server. In the analogy of the telephone, creating the socket is like buying a phone, binding is akin to getting a hookup from the phone company, listening is plugging your phone into the wall, and finally, accepting is the act of answering the phone when it rings.</p>
 <p>When a connection is received by the listening socket, the server must accept the connection and return a new connected socket that is used to communicate with the client. This new socket has an established connection to the client’s remote socket. By creating a new socket to handle the new connection, the listening socket is free to continue doing its thing, listening for connections from other clients.</p>
 <p>Clients use sockets in a different way. A client creates a socket in the same way as a server; however, after the socket is created the use of the socket differs. With a socket in hand, the client uses that socket to attempt to connect to a server. Once the connection has been accepted by the server, the client can begin sending and receiving data from the server. Referring back to our phone analogy, connecting is no different than dialing a phone number for someone you want to talk to.</p>
+<a id="more"></a>
 <h4 id="Our_Sockets_Toolkit">Our Sockets Toolkit</h4><p>What are all of these functions that we have been alluding to without mentioning? They are the functions of the BSD Sockets API, which is primarily defined in the header sys/socket.h (header file paths are always referenced relative to the path /usr/include). There are seven functions that we will discuss, three of which are part of the standard library. They are:</p>
 <ul>
 <li><p><code>int socket( int domain, int type, int protocol )</code><br>Creates a new socket and returns the socket file descriptor. The domain argument is a constant to specify the address family of the socket; we will use AF_INET, which is IPv4 addressing. The argument type specifies the socket type; we will pass the constant SOCK_STREAM here, which is a TCP stream socket. The protocol argument does not concern us here, so we pass 0. Returns -1 if there is an error.</p>
@@ -166,7 +167,7 @@ We’ve spend a great deal of time talking about Rendezvous in the previous two 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifh445m400401gxnzipwpr58" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifh497c500405qxnfurfhgbq" class="article-share-link">Share</a>
       
       
     </footer>
