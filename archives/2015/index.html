@@ -90,7 +90,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="安装MDK5开发环境">安装MDK5开发环境</h3><ol>
-<li>下载最新版<a href="http://www2.keil.com/mdk5/" target="_blank" rel="external">]MDK5</a></li>
+<li>下载最新版<a href="http://www2.keil.com/mdk5/" target="_blank" rel="external">MDK5</a></li>
 <li>利用<a href="http://cedar-renjun.github.io/assets/2015/10/8/Keil_ARM_MDK_5.00_Keygen_serial_Crack.exe.zip">工具</a> 破解MDK5</li>
 </ol>
 <p>以上两步比较简单，不详描述</p>
@@ -109,22 +109,16 @@
 <li>找一根mini USB线，插入<code>CN14</code></li>
 <li>插入电脑USB口，这时系统会枚举出ST-link设备，然后F7会启动固件，在屏幕上显示图标</li>
 </ol>
-<h3 id="常见问题">常见问题</h3><ol>
-<li>插入USB后，屏幕没亮；将USB插入充电器口，屏幕不亮</li>
-</ol>
-<p>因为默认通过ST-link来供电，插入电脑USB接口后，只有枚举成功后，才会开启MCU的供电系统<br>枚举的时候，100mA；枚举成功后，才能供电500mA，如果电脑USB不接受500mA或者使用USB，就会枚举失败<br>详细的信息，请参考<a href="http://www.st.com/st-web-ui/static/active/en/resource/technical/document/user_manual/DM00190424.pdf" target="_blank" rel="external">手册Power章节</a></p>
+<h3 id="常见问题">常见问题</h3><h4 id="1_插入USB后，屏幕没亮；将USB插入充电器口，屏幕不亮">1 插入USB后，屏幕没亮；将USB插入充电器口，屏幕不亮</h4><p>因为默认通过ST-link来供电，插入电脑USB接口后，只有枚举成功后，才会开启MCU的供电系统<br>枚举的时候，100mA；枚举成功后，才能供电500mA，如果电脑USB不接受500mA或者使用USB，就会枚举失败<br>详细的信息，请参考<a href="http://www.st.com/st-web-ui/static/active/en/resource/technical/document/user_manual/DM00190424.pdf" target="_blank" rel="external">手册Power章节</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STM32F746G-DISCO discovery board can be powered from ST-LINK USB connector CN14 (5V link), but only ST-LINK circuit has&#10;the power before USB enumeration, because the host PC only provides 100mA to the board at that time. During the USB&#10;enumeration, STM32F746G-DISCO board asks for the 500mA power to the host PC. If the host is able to provide the required&#10;power, the enumeration finishes by a &#8220;SetConfiguration&#8221; command and then, the power transistor U8 (ST890) is switched&#10;ON, the red LED LD2 is turned ON, thus STM32F746G-DISCO board can consume maximum 500mA current, but no more. If the&#10;host is not able to provide the requested current, the enumeration fails. Therefore the ST890 (U8) remains OFF and the&#10;MCU part including the extension board won&#8217;t be powered. As a consequence the red LED LD2 remains turned OFF. In this&#10;case it is mandatory to use an external power supply.</span><br></pre></td></tr></table></figure>
-<ol>
-<li>用MDK5编译工程后，下载到板子，图标显示不正常</li>
-</ol>
-<p>MDK的download工具，默认没有支持外部Flash的算法，所以会导致没有图标的部分，没有烧录到FLASH芯片</p>
+<h4 id="2_用MDK5编译工程后，下载到板子，图标显示不正常">2 用MDK5编译工程后，下载到板子，图标显示不正常</h4><p>MDK的download工具，默认没有支持外部Flash的算法，所以会导致没有图标的部分，没有烧录到FLASH芯片</p>
 <p>解决方案</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- Open STM32 ST-Link Utility V3.<span class="number">6</span>, click on "External Loader" from the bar menu then check "N25Q128A_STM32F746G-DISCO" box </span><br><span class="line">- Connect the STM32746G-DISCOVERY board to PC with USB cable through CN14</span><br><span class="line">- Use "STM32CubeDemo_STM32746G-DISCO_V1.<span class="number">0</span>.<span class="number">1</span>.hex" file with STM32 ST-Link Utility to program both internal Flash and external QSPI memory</span><br><span class="line">- Run the demonstration</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/08/Setup-STM32F7-develop-environment/" data-id="cifh3uno9003xwsxn83ca8to5" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/08/Setup-STM32F7-develop-environment/" data-id="cifh445m2003x1gxnesdykq0d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -232,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifh3unoc0040wsxnuk19ol4i" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifh445m400401gxnzipwpr58" class="article-share-link">Share</a>
       
       
     </footer>
@@ -286,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifh3unoo0046wsxn957hzqqy" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifh445m700461gxnrgj4cwlt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -344,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/" data-id="cifh3unoe0043wsxnhws670or" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/" data-id="cifh445m600431gxn2uvf6usu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -415,7 +409,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifh3unor0049wsxnpbclvlcg" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifh445m900491gxn1iiq8x6j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -501,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="cifh3unou004hwsxnsn5tgddn" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="cifh445mc004h1gxnu7poglwc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -568,7 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cifh3unos004ewsxnwh1krakv" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cifh445mb004e1gxn8s01awad" class="article-share-link">Share</a>
       
       
     </footer>
@@ -634,7 +628,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/01/Introduce-Raspberry-2B/" data-id="cifh3unow004jwsxnu3hbl8vn" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/01/Introduce-Raspberry-2B/" data-id="cifh445md004j1gxntq6sk2op" class="article-share-link">Share</a>
       
       
     </footer>
