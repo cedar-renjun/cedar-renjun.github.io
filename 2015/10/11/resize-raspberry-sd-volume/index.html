@@ -3,66 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Enjoy Programming</title>
+  <title>充分使用树莓派SD卡容量 | Enjoy Programming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-My Project: File Members
-
-
-
-
-
-
-
-  $(document).ready(initResizable);
-  $(w">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io/assets/2014/03/21/html_output_2/globals_defs.html">
+  <meta name="description" content="前言在编译opencv的时候，出现内存不够的情况，/root使用率100%，导致编译错误，所以需要拓展SD卡容量
+google了一下，发现树莓派在默认情况下，仅仅使用了SD卡的4G容量，剩下的空间，属于空白分区，完全没有利用起来所以，我们可以通过df命令，来调整linux分区的size
+操作步骤
+重新树莓派，进入命令行页面
+登陆树莓派，用户名pi，密码raspberry
+sudo su切换至超级用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="充分使用树莓派SD卡容量">
+<meta property="og:url" content="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/index.html">
 <meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-My Project: File Members
-
-
-
-
-
-
-
-  $(document).ready(initResizable);
-  $(w">
-<meta property="og:image" content="http://cedar-renjun.github.io/search/mag_sel.png">
-<meta property="og:image" content="http://cedar-renjun.github.io/search/close.png">
-<meta property="og:image" content="http://cedar-renjun.github.io/doxygen.png">
-<meta property="og:updated_time" content="2015-10-10T17:24:50.000Z">
+<meta property="og:description" content="前言在编译opencv的时候，出现内存不够的情况，/root使用率100%，导致编译错误，所以需要拓展SD卡容量
+google了一下，发现树莓派在默认情况下，仅仅使用了SD卡的4G容量，剩下的空间，属于空白分区，完全没有利用起来所以，我们可以通过df命令，来调整linux分区的size
+操作步骤
+重新树莓派，进入命令行页面
+登陆树莓派，用户名pi，密码raspberry
+sudo su切换至超级用">
+<meta property="og:updated_time" content="2015-10-11T10:35:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Enjoy Programming">
-<meta name="twitter:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-My Project: File Members
-
-
-
-
-
-
-
-  $(document).ready(initResizable);
-  $(w">
+<meta name="twitter:title" content="充分使用树莓派SD卡容量">
+<meta name="twitter:description" content="前言在编译opencv的时候，出现内存不够的情况，/root使用率100%，导致编译错误，所以需要拓展SD卡容量
+google了一下，发现树莓派在默认情况下，仅仅使用了SD卡的4G容量，剩下的空间，属于空白分区，完全没有利用起来所以，我们可以通过df命令，来调整linux分区的size
+操作步骤
+重新树莓派，进入命令行页面
+登陆树莓派，用户名pi，密码raspberry
+sudo su切换至超级用">
   
   
   <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -110,123 +77,78 @@ My Project: File Members
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-resize-raspberry-sd-volume" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/assets/2014/03/21/html_output_2/globals_defs.html" class="article-date">
-  <time datetime="2015-10-10T17:24:50.000Z" itemprop="datePublished">Oct 11 2015</time>
+    <a href="/2015/10/11/resize-raspberry-sd-volume/" class="article-date">
+  <time datetime="2015-10-11T10:10:36.000Z" itemprop="datePublished">Oct 11 2015</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/树莓派/">树莓派</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      充分使用树莓派SD卡容量
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta name="generator" content="Doxygen 1.8.6">
-<title>My Project: File Members</title>
-<link href="tabs.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-  $(window).load(resizeHeight);
-</script>
-<link href="search/search.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() { searchBox.OnSelectItem(0); });
-</script>
-<link href="doxygen.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr style="height: 56px;">
-  <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
-   </div>
-  </td>
-   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <img id="MSearchSelect" src="search/mag_sel.png" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()" alt="">
-          <input type="text" id="MSearchField" value="Search" accesskey="S" onfocus="searchBox.OnSearchFieldFocus(true)" onblur="searchBox.OnSearchFieldFocus(false)" onkeyup="searchBox.OnSearchFieldChange(event)">
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()" target="_blank" rel="external"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""></a>
-          </span>
-        </div>
-</td>
- </tr>
- </tbody>
-</table>
-</div>
-<!-- end header part -->
-<!-- Generated by Doxygen 1.8.6 -->
-<script type="text/javascript">
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
-</script>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('globals_defs.html','');});
-</script>
-<div id="doc-content">
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()" onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>Macros</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" name="MSearchResults" id="MSearchResults">
-</iframe>
-</div>
-
-<div class="contents">
-&#160;<ul>
-<li>CNT_MAX
-: <a class="el" href="main_8c.html#aeb2ca287f73963c14992471631d357b1">main.c</a>
-</li>
-</ul>
-</div><!-- contents -->
-</div><!-- doc-content -->
-<!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated on Sat Mar 22 2014 20:20:15 for My Project by
-    <a href="http://www.doxygen.org/index.html" target="_blank" rel="external">
-    <img class="footer" src="doxygen.png" alt="doxygen"></a> 1.8.6 </li>
-  </ul>
-</div>
-</body>
-</html>
+        <h3 id="前言">前言</h3><p>在编译opencv的时候，出现内存不够的情况，/root使用率100%，导致编译错误，所以需要拓展SD卡容量</p>
+<p>google了一下，发现树莓派在默认情况下，仅仅使用了SD卡的4G容量，剩下的空间，属于空白分区，完全没有利用起来<br>所以，我们可以通过<code>df</code>命令，来调整linux分区的size</p>
+<h3 id="操作步骤">操作步骤</h3><ol>
+<li>重新树莓派，进入命令行页面</li>
+<li>登陆树莓派，用户名<code>pi</code>，密码<code>raspberry</code></li>
+<li><code>sudo su</code><br>切换至超级用户</li>
+<li><code>df -h</code><br>显示出当前分区的状态和使用率</li>
+<li>输入<code>fdisk /dev/mmcblk0</code> 加载SD卡</li>
+<li><code>p</code>打印当前分区<br>你应该会看到三个分区(mmcblk0, mmcblk0p1, mmcblk0p2)，现在把分区2的信息写下来（/dev/mmcblk0p2）<br>我主要记录了开始扇区（122880）和结束扇区（8447999）的数值</li>
+<li>按<code>d</code>开始删除分区</li>
+<li>系统提示输入删除分区号，输入<code>2</code></li>
+<li>按<code>n</code>新建分区，然后依次输入<code>p</code>, <code>2</code></li>
+<li>接下来输入原来记录的2扇区开始号(122880)，记得替换成你自己的数字</li>
+<li>按<code>w</code>保持配置</li>
+<li>输入<code>reboot</code>重启树莓派</li>
+<li>输入<code>sudo resize2fs /dev/mmcblk0p2</code> 更新系统</li>
+<li>输入<code>df -h</code>看看，是不是已经完全使用了剩余空间</li>
+</ol>
+<h3 id="参考文档">参考文档</h3><ol>
+<li><a href="http://ray.dotnetage.com/posts/2015-5-15/rpi-resize-sd/" target="_blank" rel="external">http://ray.dotnetage.com/posts/2015-5-15/rpi-resize-sd/</a></li>
+<li><a href="http://m.blog.csdn.net/blog/lichao_ustc/46740443" target="_blank" rel="external">http://m.blog.csdn.net/blog/lichao_ustc/46740443</a></li>
+<li><a href="http://www.rs-online.com/designspark/electronics/knowledge-item/raspberry-pi---%E8%B0%83%E6%95%B4%E4%BD%A0%E7%9A%84sd%E5%8D%A1%E5%88%86%E5%89%B2%E5%8C%BA%E7%9A%84%E5%A4%A7%E5%B0%8F" target="_blank" rel="external">http://www.rs-online.com/designspark/electronics/knowledge-item/raspberry-pi---%E8%B0%83%E6%95%B4%E4%BD%A0%E7%9A%84sd%E5%8D%A1%E5%88%86%E5%89%B2%E5%8C%BA%E7%9A%84%E5%A4%A7%E5%B0%8F</a></li>
+<li><a href="http://www.computerhope.com/unix/udf.htm" target="_blank" rel="external">http://www.computerhope.com/unix/udf.htm</a></li>
+<li><a href="http://www.cnblogs.com/peida/archive/2012/12/07/2806483.html" target="_blank" rel="external">http://www.cnblogs.com/peida/archive/2012/12/07/2806483.html</a></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/assets/2014/03/21/html_output_2/globals_defs.html" data-id="cifmerdiw002h56xnosydploi" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/" data-id="cifmerdkq003x56xncquxqyw5" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/11/Build-Raspberry-Kernel/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">编译树莓派内核</div>
+    </a>
+  
+</nav>
+
   
 </article>
 

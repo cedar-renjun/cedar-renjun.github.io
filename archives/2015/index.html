@@ -63,6 +63,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-resize-raspberry-sd-volume" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/11/resize-raspberry-sd-volume/" class="article-date">
+  <time datetime="2015-10-11T10:10:36.000Z" itemprop="datePublished">Oct 11 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/树莓派/">树莓派</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/11/resize-raspberry-sd-volume/">充分使用树莓派SD卡容量</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>在编译opencv的时候，出现内存不够的情况，/root使用率100%，导致编译错误，所以需要拓展SD卡容量</p>
+<p>google了一下，发现树莓派在默认情况下，仅仅使用了SD卡的4G容量，剩下的空间，属于空白分区，完全没有利用起来<br>所以，我们可以通过<code>df</code>命令，来调整linux分区的size</p>
+<h3 id="操作步骤">操作步骤</h3><ol>
+<li>重新树莓派，进入命令行页面</li>
+<li>登陆树莓派，用户名<code>pi</code>，密码<code>raspberry</code></li>
+<li><code>sudo su</code><br>切换至超级用户</li>
+<li><code>df -h</code><br>显示出当前分区的状态和使用率</li>
+<li>输入<code>fdisk /dev/mmcblk0</code> 加载SD卡</li>
+<li><code>p</code>打印当前分区<br>你应该会看到三个分区(mmcblk0, mmcblk0p1, mmcblk0p2)，现在把分区2的信息写下来（/dev/mmcblk0p2）<br>我主要记录了开始扇区（122880）和结束扇区（8447999）的数值</li>
+<li>按<code>d</code>开始删除分区</li>
+<li>系统提示输入删除分区号，输入<code>2</code></li>
+<li>按<code>n</code>新建分区，然后依次输入<code>p</code>, <code>2</code></li>
+<li>接下来输入原来记录的2扇区开始号(122880)，记得替换成你自己的数字</li>
+<li>按<code>w</code>保持配置</li>
+<li>输入<code>reboot</code>重启树莓派</li>
+<li>输入<code>sudo resize2fs /dev/mmcblk0p2</code> 更新系统</li>
+<li>输入<code>df -h</code>看看，是不是已经完全使用了剩余空间</li>
+</ol>
+<h3 id="参考文档">参考文档</h3><ol>
+<li><a href="http://ray.dotnetage.com/posts/2015-5-15/rpi-resize-sd/" target="_blank" rel="external">http://ray.dotnetage.com/posts/2015-5-15/rpi-resize-sd/</a></li>
+<li><a href="http://m.blog.csdn.net/blog/lichao_ustc/46740443" target="_blank" rel="external">http://m.blog.csdn.net/blog/lichao_ustc/46740443</a></li>
+<li><a href="http://www.rs-online.com/designspark/electronics/knowledge-item/raspberry-pi---%E8%B0%83%E6%95%B4%E4%BD%A0%E7%9A%84sd%E5%8D%A1%E5%88%86%E5%89%B2%E5%8C%BA%E7%9A%84%E5%A4%A7%E5%B0%8F" target="_blank" rel="external">http://www.rs-online.com/designspark/electronics/knowledge-item/raspberry-pi---%E8%B0%83%E6%95%B4%E4%BD%A0%E7%9A%84sd%E5%8D%A1%E5%88%86%E5%89%B2%E5%8C%BA%E7%9A%84%E5%A4%A7%E5%B0%8F</a></li>
+<li><a href="http://www.computerhope.com/unix/udf.htm" target="_blank" rel="external">http://www.computerhope.com/unix/udf.htm</a></li>
+<li><a href="http://www.cnblogs.com/peida/archive/2012/12/07/2806483.html" target="_blank" rel="external">http://www.cnblogs.com/peida/archive/2012/12/07/2806483.html</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/" data-id="cifmerdkq003x56xncquxqyw5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Build-Raspberry-Kernel" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/11/Build-Raspberry-Kernel/" class="article-date">
@@ -128,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/11/Build-Raspberry-Kernel/" data-id="ciflchspp003x2afysw3kq45h" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/11/Build-Raspberry-Kernel/" data-id="cifmerdks004056xnhrjo93s1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/08/Setup-STM32F7-develop-environment/" data-id="ciflchspr00402afyrt8q75ro" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/08/Setup-STM32F7-develop-environment/" data-id="cifmerdkt004256xnq23bx3ny" class="article-share-link">Share</a>
       
       
     </footer>
@@ -250,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="ciflchspt00432afy7yhuum37" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifmerdkv004556xnfr9lv924" class="article-share-link">Share</a>
       
       
     </footer>
@@ -304,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="ciflchspw00492afyme8jggo7" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifmerdky004b56xndp4sd2uh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -362,7 +427,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/" data-id="ciflchspu00462afyyylkk17z" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/" data-id="cifmerdkw004856xn8929q2ai" class="article-share-link">Share</a>
       
       
     </footer>
@@ -433,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="ciflchspx004c2afyfry0bvz5" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifmerdkz004e56xnc7t1n1z2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -519,7 +584,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="ciflchsq1004k2afy6jdytvth" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="cifmerdl2004m56xnb9ipqhpe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -586,7 +651,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="ciflchspz004h2afy2fvdh0fv" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cifmerdl1004j56xndazana3i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -652,7 +717,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/01/Introduce-Raspberry-2B/" data-id="ciflchsq4004m2afyohxaewi3" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/01/Introduce-Raspberry-2B/" data-id="cifmerdl4004o56xn475uubft" class="article-share-link">Share</a>
       
       
     </footer>
@@ -671,7 +736,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -680,7 +745,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
