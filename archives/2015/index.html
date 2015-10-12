@@ -63,6 +63,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-install-opencv-on-raspberry2B" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/12/install-opencv-on-raspberry2B/" class="article-date">
+  <time datetime="2015-10-12T11:14:59.000Z" itemprop="datePublished">Oct 12 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/树莓派/">树莓派</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/12/install-opencv-on-raspberry2B/">安装opencv</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>一直对opencv比较好奇，所以就尝试着在树莓派上面编译安装了opencv，参考了网上不少资料，各种折腾，最终搞定<br>最大的体会是要有耐心，装opencv折腾了2天多，下文主要记录安装步骤和注意事项</p>
+<p>树莓派系统4.1.7</p>
+<h3 id="开始折腾">开始折腾</h3><p>首先参考了这个 <a href="http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/" target="_blank" rel="external">http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/</a><br>文章，老外讲如何在树莓派上面利用opencv操纵CSI接口的摄像头，他用的是2.7版本的python和2.4版本的opencv，刚开始进行很顺利</p>
+<p>到第二步的时候，找不到<code>libjpeg8-dev libtiff4-dev</code>这两个源，提示可以用<code>libjpeg-dev
+libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果到最后编译时，提示找不到<code>libtiff4-dev</code>的库文件，编译失败，，，，，</p>
+<p>又卸载了各种安装包，参考官网教程安装了oepncv3.0和相关的库，这里就不贴步骤了，请参考<a href="http://docs.opencv.org/3.0-last-rst/doc/tutorials/introduction/linux_install/linux_install.html" target="_blank" rel="external">http://docs.opencv.org/3.0-last-rst/doc/tutorials/introduction/linux_install/linux_install.html</a></p>
+<p>注意一点，在下面步骤之后<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/&lt;my_working_directory&gt;</span><br><span class="line">git clone https://github.com/Itseez/opencv.git</span><br><span class="line">git clone https://github.com/Itseez/opencv_contrib.git</span><br></pre></td></tr></table></figure></p>
+<p>下载的两个目录文件，要合并到同一个目录中，比如<code>source</code>目录，然后在source同级目录下建立<code>build</code>目录，然后按照官方的编译步骤，一步步来进行<br>这些步骤耗时比较长，可以通过PC用迅雷下载好，然后scp拷贝到树莓派中，进行编译<br>消耗的大致时间，请参考资料1中的耗时，还是比较准确的</p>
+<p>编译完成后，install进行安装</p>
+<p>然后通过编译读取图片的例子，参考C语言版本的 <a href="http://blog.csdn.net/moc062066/article/details/6312216" target="_blank" rel="external">http://blog.csdn.net/moc062066/article/details/6312216</a></p>
+<p>编译完成后，记得terminal ssh<br>无法执行这个文件或者执行后看不到窗口，需要进入桌面环境来打开，如果你直接有一个显示器，那就可以直接运行，显示出来图片<br>没有的话，可以用VNC来远程显示桌面，不过记得要用realvnc的viewer和server，网上流行的tightvncserver会导致显示时出现RAND错误</p>
+<p>当你按照步骤，执行完，opencv环境就搭建完毕</p>
+<p>接下来，enjoy opencv</p>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/" target="_blank" rel="external">install-opencv-and-python-on-your-raspberry-pi-2-and-b</a></li>
+<li><a href="http://opencv.org/" target="_blank" rel="external">opencv官网</a></li>
+<li><a href="http://docs.opencv.org/3.0-last-rst/doc/tutorials/introduction/linux_install/linux_install.html" target="_blank" rel="external">官方编译指导</a></li>
+<li><a href="http://docs.opencv.org/doc/tutorials/introduction/display_image/display_image.html" target="_blank" rel="external">Opencv例程显示图片</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2015/10/12/install-opencv-on-raspberry2B/" data-id="cifnzru1n003x92xnr8fmysnu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-resize-raspberry-sd-volume" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/11/resize-raspberry-sd-volume/" class="article-date">
@@ -118,7 +177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/" data-id="cifmerdkq003x56xncquxqyw5" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/" data-id="cifnzru1u004092xnuiqapfzy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/11/Build-Raspberry-Kernel/" data-id="cifmerdks004056xnhrjo93s1" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/11/Build-Raspberry-Kernel/" data-id="cifnzru1w004292xnhe4rzjtk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -258,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/08/Setup-STM32F7-develop-environment/" data-id="cifmerdkt004256xnq23bx3ny" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/08/Setup-STM32F7-develop-environment/" data-id="cifnzru1x004492xn6l6bk8fi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -315,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifmerdkv004556xnfr9lv924" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifnzru1z004792xn4j2hp6n8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -369,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifmerdky004b56xndp4sd2uh" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifnzru22004d92xnummqw699" class="article-share-link">Share</a>
       
       
     </footer>
@@ -427,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/" data-id="cifmerdkw004856xn8929q2ai" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/" data-id="cifnzru20004a92xn6iv3ihfo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -498,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifmerdkz004e56xnc7t1n1z2" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifnzru23004g92xnwsq1c7f2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -584,7 +643,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="cifmerdl2004m56xnb9ipqhpe" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="cifnzru26004o92xnlrrbq1gv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -651,7 +710,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cifmerdl1004j56xndazana3i" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cifnzru25004l92xn2dmti7mi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -661,72 +720,10 @@
 
 
   
-    <article id="post-Introduce-Raspberry-2B" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/01/Introduce-Raspberry-2B/" class="article-date">
-  <time datetime="2015-10-01T13:25:40.000Z" itemprop="datePublished">Oct 1 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/树莓派/">树莓派</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/01/Introduce-Raspberry-2B/">“树莓派2B＋学习笔记-开篇”</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><p>github这个博客好久更新了，大概有一年吧，期间各种事情，其实主要原因还是自己懒<br>终究发现做技术的，还是要常常做一些笔记，不然就会容易忘记，所以今天重抄旧业，将hexo升级到了3.1.0</p>
-<p>接下来会不断更新蓝牙4.0和linux，USB相关知识</p>
-<p>先拿树莓派开刀吧^_^</p>
-<h2 id="1_致谢">1 致谢</h2><p>最近一直想学linux驱动编程和学习内核，刚好得到一块儿树莓派2B，所以准备用心搞一下<br>在此特意感谢21ic 小跑堂美女和may美女</p>
-<p><img src="http://cedar-renjun.github.io/images/2015/10/1/Pi_2_Model_B.png" alt="树莓派图片"></p>
-<h2 id="2_树莓派2B升级了什么">2 树莓派2B升级了什么</h2><p>下面是官方网站展示的2B的性能参数：</p>
-<ul>
-<li>A 900MHz quad-core ARM Cortex-A7 CPU</li>
-<li>1GB RAM</li>
-<li>4 USB ports</li>
-<li>40 GPIO pins</li>
-<li>Full HDMI port</li>
-<li>Ethernet port</li>
-<li>Combined 3.5mm audio jack and composite video</li>
-<li>Camera interface (CSI)</li>
-<li>Display interface (DSI)</li>
-<li>Micro SD card slot</li>
-<li>VideoCore IV 3D graphics core</li>
-</ul>
-<p>相比于前代的树莓派，2B采用TF卡，尺寸更小，也去掉了不常用的RCA接口（俗称AV接口），完全采用HDMI接口<br>这么改，最大的好处就是树莓派形状变得很整齐，不再像原来那样突起一部分</p>
-<p>从处理器来说，将原来的高通BCM2835更新到了BCM2836，增大RAM到1G，估计你对这些也不太感冒，只要知道速度提高了6倍就好了</p>
-<p>因为处理器架构从ARM7TMDI变成了4核A7，所以能跑标准的操作系统，比如安卓或者ubuntu或者win10</p>
-<p>大致看了win10烧录内核的步骤，看到“首先你需要一台运行win10的笔记本”，看到这里就没继续看了，哪位有兴趣的可以自己根据官方博客来实战游戏</p>
-<p><a href="https://www.raspberrypi.org/blog/windows-10-for-iot/" target="_blank" rel="external">https://www.raspberrypi.org/blog/windows-10-for-iot/</a> <br><br><a href="https://dev.windows.com/zh-cn/iot" target="_blank" rel="external">https://dev.windows.com/zh-cn/iot</a> <br></p>
-<p>对了，树莓派2B支持DSI显示接口和CSI相机接口，从而可以直接高速视频输入和屏幕输出<br>这个有什么用呢？理论上来说，你可以拿树莓派做一个平板电脑</p>
-<p>树莓派的简单介绍到这里，接下来介绍烧录系统，更新内核，跑opencv做人脸识别</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/01/Introduce-Raspberry-2B/" data-id="cifmerdl4004o56xn475uubft" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2015/page/2/">2</a><a class="extend next" rel="next" href="/archives/2015/page/2/">Next &raquo;</a>
+    </nav>
   
 </section>
         
@@ -736,7 +733,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -745,7 +742,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
