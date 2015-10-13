@@ -63,6 +63,104 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-raspberry-2B-feedback" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/13/raspberry-2B-feedback/" class="article-date">
+  <time datetime="2015-10-13T15:52:21.000Z" itemprop="datePublished">Oct 13 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/树莓派/">树莓派</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/raspberry-2B-feedback/">试用树莓派2B</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-_致谢">1. 致谢</h3><p>最近一直想学linux驱动编程和学习内核，刚好得到一块儿树莓派2B，所以准备用心搞一下<br>在此特意感谢21ic 小跑堂美女和may美女，刘sir</p>
+<h3 id="2-_树莓派2B升级了什么">2. 树莓派2B升级了什么</h3><p>提到树莓派，大家都知道是什么东西，这里就不做背景介绍了，感兴趣的，可以参考树莓派官网介绍 <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b/" target="_blank" rel="external">https://www.raspberrypi.org/products/raspberry-pi-2-model-b/</a></p>
+<p>这次拿到的是2B板子，主要升级了内存和CPU<br>下面是官方网站展示的2B的性能参数：</p>
+<ul>
+<li>A 900MHz quad-core ARM Cortex-A7 CPU</li>
+<li>1GB RAM</li>
+<li>4 USB ports</li>
+<li>40 GPIO pins</li>
+<li>Full HDMI port</li>
+<li>Ethernet port</li>
+<li>Combined 3.5mm audio jack and composite video</li>
+<li>Camera interface (CSI)</li>
+<li>Display interface (DSI)</li>
+<li>Micro SD card slot</li>
+<li>VideoCore IV 3D graphics core</li>
+</ul>
+<p>相比于前代的树莓派，2B采用TF卡，尺寸更小，也去掉了不常用的RCA接口（俗称AV接口），完全采用HDMI接口<br>这么改，最大的好处就是树莓派形状变得很整齐，不再像原来那样突起一部分</p>
+<p>从处理器来说，将原来的高通BCM2835更新到了BCM2836，增大RAM到1G，估计你对这些也不太感冒，只要知道速度提高了6倍就好了</p>
+<p>6倍，6倍，6倍，重要的事情说三遍</p>
+<p>因为处理器架构从ARM7TMDI变成了4核A7，所以能跑标准的操作系统，比如安卓或者ubuntu或者win10</p>
+<p>大致看了win10烧录内核的步骤，看到“首先你需要一台运行win10的笔记本”，看到这里就没继续看了，哪位有兴趣的可以根据微软IOT团队官方博客来实战<br><a href="https://www.raspberrypi.org/blog/windows-10-for-iot/" target="_blank" rel="external">https://www.raspberrypi.org/blog/windows-10-for-iot/</a><br><a href="https://dev.windows.com/zh-cn/iot" target="_blank" rel="external">https://dev.windows.com/zh-cn/iot</a> </p>
+<p>对了，树莓派2B支持DSI显示接口和CSI相机接口，从而可以直接高速视频输入和屏幕输出<br>这个有什么用呢？理论上来说，你可以拿树莓派做一个平板电脑</p>
+<h3 id="无图无真相">无图无真相</h3><p>一个图片胜千言，show me the images now</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/13/0.png" alt="树莓派宣传图"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/1.jpg" alt="树莓派包装正面"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/2.jpg" alt="树莓派包装反面"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/3.jpg" alt="树莓派正面"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/4.jpg" alt="树莓派反面"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/5.jpg" alt="树莓派合照"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/6.jpg" alt="树莓派大眼睛"></p>
+<p>那个神秘的大眼睛是什么？？？<br>红外夜视摄像头，准备拿来做opencv人脸识别和视频监控，更多信息暂时保密</p>
+<p>树莓派的简单介绍到这里，接下来介绍烧录系统，更新内核，跑opencv做人脸识别</p>
+<h3 id="树莓派性能体验">树莓派性能体验</h3><p>试用了一个星期，最大的体验是树莓派性能有显著提高，6X绝对不是夸大<br>主要体现在</p>
+<ol>
+<li>编译opencv的时候，速度有很大提升</li>
+<li>播放1080P的高清视频，硬解码，CPU占用率在2%左右，可以忽略不计</li>
+</ol>
+<p>前几代树莓派产品，据说跑视觉算法的时候，总是卡顿，树莓派2B在这方面有极大的提升，适合做视觉和图像处理相关的任务</p>
+<p>如果您在做这方面的工作，可以尝试树莓派2B，也欢迎和我交流</p>
+<h3 id="体验步骤">体验步骤</h3><p>我玩树莓派的步骤大致包括</p>
+<ol>
+<li>安装串口工具</li>
+<li>连接树莓派串口，通过串口控制树莓派</li>
+<li>连接无线网卡（360Wi-Fi），配置开机自动上网</li>
+<li>通过SSH连接树莓派</li>
+<li>如果你有屏幕和HDMI接口线，请连接树莓派；如果没有，则用realvnc在笔记本上显示远程桌面</li>
+<li>编译源码，安装opencv</li>
+<li>编写opencv测试程序</li>
+<li>使用500W摄像头进行动作捕捉（进行中）</li>
+</ol>
+<p>这里仅仅做一个简要性的概述，列出注意事项，详细的命令和步骤，请参考blog文章或者网站上的文章</p>
+<p>注意事项：</p>
+<ol>
+<li>树莓派2B的IO变为40Pin，但前26pin仍然兼容原来的树莓派，详细的GPIO列表，请参考<a href="http://www.element14.com/community/docs/DOC-73950/l/raspberry-pi-2-model-b-gpio-40-pin-block-pinout" target="_blank" rel="external">http://www.element14.com/community/docs/DOC-73950/l/raspberry-pi-2-model-b-gpio-40-pin-block-pinout</a></li>
+<li>最近的树莓派内核（4.0以上），直接支持360Wi-Fi 2代（MT7601芯片），所以不需要进行重新编译内核和驱动；网上很多教程都是以3.x版本的内核为案例来讲述编译Wi-Fi网卡驱动和内核，请有取舍的参考</li>
+<li>SSH连接，mac下可以直接用terminal，windows下可以用secure CRT</li>
+<li>在编译opencv的时候，使用树莓派来wget或者git下载源码，可能会很慢；建议用PC机下载，然后通过scp命令来复制到树莓派主机上，实测Wi-Fi数据速率可以达到6M/S</li>
+<li>编译opencv时，请参考opencv的官网3.0版本编译安装指南，网上教程很多是以opencv 2.4版本来介绍，因为新内核不在支持libtif4版本的库，所以会导致后面编译失败，，，切记，切记，我因为这个点，折腾了两天时间</li>
+<li>安装VNC远程桌面时，请尽量使用realvnc server和viewer，网上很多人用tightvnc server，实际测试中，这个VNC会导致显示UI界面时，出现RANDER错误</li>
+<li>在编译opencv时，会因为内存不够导致编译错误，显示4G内存完全用完，无法继续编译；解决方案就是重新调整linux扇区，来完全使用SD卡的8G内存，详情请参考<a href="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/">http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/</a></li>
+<li>播放1080P视频时，请使用omxplayer，这个播放器专门优化过，CPU占用率非常低，可以忽略不计，，，性能突出</li>
+</ol>
+<h3 id="最后">最后</h3><p>总体而言，树莓派2B的性能，有了显著的提升，可以跑各种操作系统，跑视觉和图像处理，值得购买</p>
+<p>我正在通过树莓派学习opencv，欢迎交流</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2015/10/13/raspberry-2B-feedback/" data-id="cifpk1eu2003xzfxnotmteii6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-install-opencv-on-raspberry2B" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/12/install-opencv-on-raspberry2B/" class="article-date">
@@ -112,7 +210,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/12/install-opencv-on-raspberry2B/" data-id="cifnzru1n003x92xnr8fmysnu" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/12/install-opencv-on-raspberry2B/" data-id="cifpk1eu50040zfxn4k3j0ixf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -177,7 +275,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/" data-id="cifnzru1u004092xnuiqapfzy" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/" data-id="cifpk1eu60042zfxnh2fkxupo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,7 +350,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/11/Build-Raspberry-Kernel/" data-id="cifnzru1w004292xnhe4rzjtk" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/11/Build-Raspberry-Kernel/" data-id="cifpk1eu80044zfxnhdllc90z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -317,7 +415,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/08/Setup-STM32F7-develop-environment/" data-id="cifnzru1x004492xn6l6bk8fi" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/08/Setup-STM32F7-develop-environment/" data-id="cifpk1eu90046zfxnbo78s3dv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -374,7 +472,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifnzru1z004792xn4j2hp6n8" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifpk1eub0049zfxnoipqdnyt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -428,7 +526,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifnzru22004d92xnummqw699" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Port-to-gcc/" data-id="cifpk1eue004fzfxnbnjfs0zx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -486,7 +584,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/" data-id="cifnzru20004a92xn6iv3ihfo" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/" data-id="cifpk1euc004czfxnpwso2v49" class="article-share-link">Share</a>
       
       
     </footer>
@@ -557,7 +655,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifnzru23004g92xnwsq1c7f2" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifpk1euf004izfxnqbiu33dr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -643,74 +741,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="cifnzru26004o92xnlrrbq1gv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-IAR-projects-template" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/02/IAR-projects-template/" class="article-date">
-  <time datetime="2015-10-02T02:35:55.000Z" itemprop="datePublished">Oct 2 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/IAR/">IAR</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/02/IAR-projects-template/">IAR 工程文件分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>注意：下文以IAR 7.2 For ARM版本来分析XML工程文件</p>
-<h3 id="初衷">初衷</h3><p>IAR工程中添加文件，一直很麻烦，最近发现RTT用Scons能自动生成IAR模版，并添加源文件，为此分析了IAR工程管理结构，重点在于源文件管理结构</p>
-<h3 id="构建语法">构建语法</h3><p>采用标准XML形式来构建工程</p>
-<p>在新建工程后，IAR默认包含debug和release两个模版，在XML文件中，有所体现，我们可以在XML中删掉release的配置信息，减轻我们分析的负担</p>
-<h3 id="IAR_工程结构">IAR 工程结构</h3><ul>
-<li>*.ewp IAR工程文件，包含配置项和文件列表</li>
-<li>*.ewt IAR配置文件，包含C-STAT和RuntimeChecking的信息</li>
-<li>*.dep IAR调试信息配置，主要用于描述源文件和obj文件的关联信息</li>
-<li>*.eww IAR workspace，用于管理多个project</li>
-<li>*.ewd 调试相关，比如选择的调试器和调试器ID等等</li>
-</ul>
-<p>简单介绍一下用途<br>1）如果只是保留基本工程信息，不需要调试器和链接器的信息，只保留<code>eww</code>和<code>ewp</code>文件即可<br>2）如果需要保存链接器和调试器信息，保留<code>ewp</code>, <code>ewt</code>, <code>dep</code>, <code>eww</code>四个文件即可<br>3）<code>ewt</code>主要包含一些静态检查和动态检查，可以不用这些配置项</p>
-<p>也就是说，在复制IAR工程时，只需要保留这几个文件，其它的文件（夹）都可以删掉，比如setting, Debug，Release文件夹</p>
-<p>因为分析IAR主要是为了自动生成模版文件，所以下面重点分析<code>ewp</code>文件结构</p>
-<h3 id="ewp文件分析">ewp文件分析</h3><p>打开文件，可以看到顶层结构为<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">project</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">fileVersion</span>&gt;</span>2<span class="tag">&lt;/<span class="title">fileVersion</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>Debug工程配置<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>Release工程配置<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span>工程文件结构<span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这里加注了行号，第3/4行为工程具体配置，包括<code>Debug</code>和<code>Release</code>版本配置，还可以添加其它配置页，为了简化分析，我删掉了<code>Release</code>配置项，再次打开IAR工程，如下所示：</p>
-<p>第5行是工程文件目录结构，也是我们重点分析的部分，主要分为两块</p>
-<ol>
-<li>单个文件</li>
-<li>目录组织结构</li>
-</ol>
-<p>我在创建IAR工程时，只包含一个main.c文件，XML对应结构如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>尝试添加两个源文件<code>test.c</code> <code>test.h</code>, XML 结构变成下面的形式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.h<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>可见每一个文件对应一个file结构，我们尝试新建一个group，然后将test.c和test.h文件放到里面</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>test<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.h<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">group</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>可见增加了一个<code>group</code>结构，并用<code>name</code>来表示group的名字<br>OK，分析到这里，我们就可以利用python来编写脚本自动添加文件到IAR工程中了</p>
-<p>至于<code>Debug</code>配置项的细节信息，等有机会慢慢研究</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cifnzru25004l92xn2dmti7mi" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="cifpk1euj004qzfxnx8g3u44k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -733,7 +764,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -742,7 +773,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 

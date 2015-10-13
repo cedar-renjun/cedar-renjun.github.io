@@ -63,6 +63,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-how-to-solove-sublimetext-3-chinese-encoding-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" class="article-date">
+  <time datetime="2014-05-27T01:13:46.000Z" itemprop="datePublished">May 27 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/">解决Sublime Text 3中文乱码问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>打开Sublime Text 3，按<code>Ctrl+～</code>打开控制行，复制粘贴以下python代码，然后回车运行</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>重启Sublime Text 3</p>
+</li>
+<li><p>按<code>Ctrl+Shift+P</code>打开命令行，输入<code>Install Package</code>，回车，然后继续输入<code>ConvertToUTF8</code>，回车</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" data-id="cifpk1evo006fzfxnyt0tzq1t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime-text/">sublime text</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-promotion-of-arm-cortex-m-mcu" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/04/22/promotion-of-arm-cortex-m-mcu/" class="article-date">
@@ -120,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="cifnzru3d006g92xn1m3b1qev" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/promotion-of-arm-cortex-m-mcu/" data-id="cifpk1evq006izfxny4s70htx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -186,7 +234,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-6/" data-id="cifnzru3e006i92xnjwppsdjc" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-6/" data-id="cifpk1evs006kzfxncpnrsucz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -262,7 +310,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-5/" data-id="cifnzru3g006m92xnf9cmixee" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-5/" data-id="cifpk1evz006ozfxngs040imf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -331,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-4/" data-id="cifnzru3i006p92xnh5wibt22" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-4/" data-id="cifpk1ew0006rzfxnchgh2yp0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -406,7 +454,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-3/" data-id="cifnzru3k006s92xnogodwyqe" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-3/" data-id="cifpk1ew2006uzfxnv3vnn4yd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -466,7 +514,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-2/" data-id="cifnzru3m006v92xn357q2avv" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-2/" data-id="cifpk1ew3006xzfxnwwt01wam" class="article-share-link">Share</a>
       
       
     </footer>
@@ -550,7 +598,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-1/" data-id="cifnzru3o006y92xn0waubtdc" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/22/learning-method-in-it-field-1/" data-id="cifpk1ew50070zfxnn29klzcs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -602,7 +650,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/18/thinking-in-electronic-career/" data-id="cifnzru3r007192xnla32tyyk" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/18/thinking-in-electronic-career/" data-id="cifpk1ew70073zfxn13ha9axz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -663,62 +711,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/10/recommand-embedded-blog/" data-id="cifnzru3v007792xnurjo6ujv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-self-manage-method" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/04/10/self-manage-method/" class="article-date">
-  <time datetime="2014-04-10T01:45:52.000Z" itemprop="datePublished">Apr 10 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/转载/">转载</a>►<a class="article-category-link" href="/categories/转载/管理/">管理</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/10/self-manage-method/">阿里内贸团队敏捷实践---自组织管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote><p>实现团队的自组织管理，非常有助于团队形成合力，极大地提升团队整体的工作效率。本文结合原阿里ITU内贸团队的敏捷实践经历，阐释了何为自组织管理、为什么进行自组织管理、如何进行自组织管理等内容，同时给出了团队实施自组织管理的效果</p>
-<footer><strong>方腾飞</strong></footer></blockquote>
-<pre><code>【注】本文转载自：<span class="symbol">http:</span>/<span class="regexp">/ifeve.com/ali</span>-itu-agile-manage-by-<span class="keyword">self</span>/
-
-作者：方腾飞
-
-花名清英，英文名kiral，并发编程网创始人。目前工作于支付宝创新金融事业部，关注互联网金融，并发编程和敏捷实践
-</code></pre><p>在《射雕英雄传》里，以全真七子的武功是打不过东邪黄药师的，但当他们摆出了“天罡北斗阵”时，却能和黄药师打成平手。这就是团队合作形成合力的威力。</p>
-<p>自组织管理是原阿里ITU内贸团队采取的一种敏捷实践，该实践旨在帮助团队成员加强团队合作，形成团队的合力，从而提高团队整体的工作效率。</p>
-<hr>
-<h2 id="何为自组织管理">何为自组织管理</h2><p>我们提倡的自组织管理是指团队中的<strong>每一位成员都是团队的Owner，都为团队的目标负责</strong>，在团队事务上没有一位绝对的管理者，每位团队成员都可以作为团队事务的管理者，组织团队中的所有成员一起完成团队事务。</p>
-        
-          <p class="article-more-link">
-            <a href="/2014/04/10/self-manage-method/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/04/10/self-manage-method/" data-id="cifnzru3t007392xnw6n77sxz" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/04/10/recommand-embedded-blog/" data-id="cifpk1ewc0079zfxnbm571y6h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -741,7 +734,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -750,7 +743,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
