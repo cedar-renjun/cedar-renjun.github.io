@@ -63,6 +63,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-preinc-and-postinc-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/16/preinc-and-postinc-problem/" class="article-date">
+  <time datetime="2014-10-16T09:27:18.000Z" itemprop="datePublished">Oct 16 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/C-语言/">C 语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/16/preinc-and-postinc-problem/">C语言获取循环数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在很多时候，我们需要循环序列，比如循环读取数组的8个元素，便需要索引指针(index)从0-7-0变化，<br>常规而言，会写出下面的代码</p>
+<figure class="highlight c"><figcaption><span>if 语句</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (++index &gt;= <span class="number">8</span>)</span><br><span class="line">&#123;</span><br><span class="line">    index = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight c"><figcaption><span>？表达式</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = (++index &gt;= <span class="number">8</span>)? <span class="number">0</span>:index;</span><br></pre></td></tr></table></figure>
+<p>观察到这是连续循环操作，所以我们可以用<code>%</code>的方式，来省掉一个判断语句，如下所示</p>
+<figure class="highlight c"><figcaption><span>取余语句</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = (++index)%<span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+<p>因为<code>++</code>优先级高于<code>%</code>，所以进而简化为<br><figure class="highlight c"><figcaption><span>正确写法</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = ++index%<span class="number">8</span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>特别注意：</strong> 这里是前置递加操作，不要写成后置，如下所示<br><figure class="highlight c"><figcaption><span>错误写法</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index = index++%<span class="number">8</span>;</span><br></pre></td></tr></table></figure></p>
+<p>如果写成后置的，会出现什么情况呢？</p>
+<p>分别将二者反汇编（ARM反汇编），如下所示</p>
+<figure class="highlight c"><figcaption><span>错误写法 index = index++%8</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MOVS      R1, <span class="preprocessor">#<span class="number">8</span></span></span><br><span class="line">MOVS      R0, R4</span><br><span class="line">UDIV      R4, R0, R1</span><br><span class="line">MLS       R4, R4, R1, R0</span><br><span class="line">ADDS      R4, R4, <span class="preprocessor">#<span class="number">1</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>正确写法 index = ++index%8</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ADDS      R4, R4, <span class="preprocessor">#<span class="number">1</span></span></span><br><span class="line">MOVS      R0, <span class="preprocessor">#<span class="number">8</span></span></span><br><span class="line">UDIV      R1, R4, R0</span><br><span class="line">MLS       R1, R1, R0, R4</span><br><span class="line">MOVS      R4, R1</span><br></pre></td></tr></table></figure>
+<p>翻译成C语言如下</p>
+<figure class="highlight c"><figcaption><span>错误</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index = index%<span class="number">8</span>;</span><br><span class="line">index = index + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>正确</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index = index + <span class="number">1</span>;</span><br><span class="line">index = index%<span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+<p>编译器不支持取余运算，所以需要数学计算，取余等于</p>
+<pre><code><span class="keyword">A</span>%B = <span class="keyword">A</span> - (<span class="keyword">A</span>/B）*B
+</code></pre><p>对此，不做过多解释，重点关注ADD那句的位置，正确的表达式会先计算index的值，然后再取余；<br>而错误的，则先取余，再递增；</p>
+<p>所以，正确的语句<code>index = ++index%8</code>会输出<code>0 - 1 - 2 ... 7 - 0</code>序列，错误的会输出<code>1 - 2 ... 7 - 8 - 1</code>序列</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/preinc-and-postinc-problem/" data-id="cifsf8p4a005b9dxn14ub834h" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-knowledge-about-oscilloscope-probe" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/10/11/knowledge-about-oscilloscope-probe/" class="article-date">
@@ -105,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/11/knowledge-about-oscilloscope-probe/" data-id="cifry19ke005e7nxnw3fhbwi3" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/11/knowledge-about-oscilloscope-probe/" data-id="cifsf8p4c005g9dxn9sjqlx81" class="article-share-link">Share</a>
       
       
     </footer>
@@ -148,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="cifry19kf005h7nxnmrsatumq" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="cifsf8p4e005j9dxnd6odnh6r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -207,7 +266,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="cifry19kh005k7nxnxwwbabew" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="cifsf8p4g005m9dxn9z82p845" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,7 +316,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/09/mbed-iot-device-platform/" data-id="cifry19kk005m7nxnutbimufm" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/09/mbed-iot-device-platform/" data-id="cifsf8p4i005o9dxn2b88ub6f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -305,7 +364,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/23/analysis-of-zigbee-led-module/" data-id="cifry19km005p7nxnkdfmqde6" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/23/analysis-of-zigbee-led-module/" data-id="cifsf8p4k005r9dxnvwni1m7d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -353,7 +412,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/21/good-blog-about-coroutines/" data-id="cifry19kp005t7nxnk9exm8e6" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/21/good-blog-about-coroutines/" data-id="cifsf8p4o005v9dxn75km99vu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -401,7 +460,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/17/state-machine-timer-resource-management/" data-id="cifry19ks005w7nxn4s301p8h" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/17/state-machine-timer-resource-management/" data-id="cifsf8p4q005y9dxn09fyh40z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -456,7 +515,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/01/missing-you/" data-id="cifry19ku00607nxn0w261zcw" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/01/missing-you/" data-id="cifsf8p4r00629dxnqxvyb7rz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -506,83 +565,11 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="cifry19kv00627nxncxrkp8f5" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="cifsf8p4t00649dxnuxihbnef" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-personal-and-platform" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/05/29/personal-and-platform/" class="article-date">
-  <time datetime="2014-05-29T04:48:16.000Z" itemprop="datePublished">May 29 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/转载/">转载</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/29/personal-and-platform/">个人与平台</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote><p>总结自己短暂却又不失跌宕的职业生活（没敢说生涯），尤其到了今年，所有重要抑或不重要的故事勾勒出一幅画面。随着自己的不断进步，却发现越来越多的无奈，不断坚持后，又随着事务的不断解决，越来越悟出一个道理：个人，要想进步，必须要有个适合你的平台。</p>
-<footer><strong>divivy</strong><cite><a href="http://blog.sina.com.cn/divivy" target="_blank" rel="external">Divivy's Heaven</a></cite></footer></blockquote>
-<pre><code>注：原文转载自 &lt;<span class="string">http:</span><span class="comment">//blog.sina.com.cn/s/blog_414bbec30100gepf.html&gt; ，转载请注明原出处</span>
-</code></pre><p>有朋友EMAIL我说：“我现在在的公司里我能力最强（我笑），每天干的最多，老板是很倚重我，但又不肯给我想要的待遇。不想做了，跳一跳，到时候让老板知道没我了他会多后悔。”  </p>
-<p>我没正面回应他，因为我知道那种感觉不是几句话能够说动的。后来他告诉我说，他走了，去了另外一个公司，发现事情有些不按照自己想法前进。新的公司更加过分，原来的公司在自己走了后自己本来一个部门的竞争对手竟然升到了部门经理，待遇直接翻倍了。不胜后悔！</p>
-<p>对于这种事情，我个人是有着切身体会的。在毕业后第一个公司时，每天我做的最多的事情就是感慨自己的“怀才不遇”，认为自己应该是理所应当的领导，为什么却要天天去做那些随便一个初中生都可以做的琐碎工作。于是消极抵抗，甚至无心工作，最后结果是一些小的事情都做不好，却让领导更加反感。最后选择离开！</p>
-<p>公司的老总在我离职后也许嗅到了一些味道，两个同来的都迅速的升职，一个做项目经理一个做了技术部副经理，待遇也是随之上涨。当然我并不后悔，不过这也是后话了。当时还是有些小后悔的！</p>
-<p>以上两个故事说明一个什么问题呢？那就是：<strong> 对于一个公司，你自己远远没有你想的那么重要！</strong></p>
-<p>如果有合作公司老板打电话给你要你过去，待遇要比现在高，你怎么办？我的直观反应会是：“你要知道你是凭借什么才有这种资格接到这种电话。当然，你的努力和能力很重要，但是如果没有公司这个大平台，你会有今天吗？没有今天，你怎么能让别人认可你。人要学会感恩。即使对方开出的价码实在让你无法拒绝，但是你还要考虑一个你过去后能够适应的问题。”</p>
-<p>再就是在个体中表现最为强烈的一种“意识形态”了。对于成立时间并不长的公司，人才，尤其是合适的人才是非常重要的。不一定要求对方的能力强到世界第一，而是要合适。公司从成立到现在，发掘了很多“合适”的人才。他们在进公司后，凭借自身努力和公司提供的宽松环境，将自己的能力发挥的淋漓尽致，为公司成长立下了汗马功劳的同时，个人能力也不断进步。</p>
-<p>新公司局限于资源和自身条件，很难去储备较多的管理人才。所以招来的每个人都是依据公司缺人的职位，不断甄选，最终找到符合该职位的人选，可谓“一个钉子一个铆”。这样造成的结果有正反方面两个，一是这个人越来越合适这个工作，工作手法越来越熟练，越来越得心应手，效率更高；另一方面，随着公司的更加倚重，他听到的夸赞越来越多。这种夸赞渐渐就让人内心深处出现了“骄傲”的情绪，滋长着“没我不行”的呐喊。<br>这时候对于双方，无论公司或者个人，都是比较危险的时刻。</p>
-<p>对于个人，因为觉得自己的“不可或缺”，就会产生多种复杂思维。就好像一个得了“肥胖症”的患者，接下来就会诱发如高血压、高血脂、高血糖、糖尿病等各类并发症。他们会理所当然的认为自己既然如此重要，那么老板你要提高我的职位，你要给我更高的待遇，你要给我更大的管理权力，你要给予我更多的尊重；他们会在和同事相处时表现的更加咄咄逼人，更加的骄傲和难以接受；他们会在处理工作时表现的更加眼高手低，觉得自己应该做更高一层的职位。武断的自我抬高会让自己的虚荣心不断上升，处理事务更加的独断和难以接受，他们会尝试着插手别人的分内事务，从而引起同事的不满，继而是失误的增多和更多的人心向背。</p>
-<p>对于公司，培养一个合适的人选不容易。看着自己辛苦培养出来的人如此的自我膨胀，却无计可施。因为你不可能答应他的条件，否则以后他会更加不可一世，别人看到后也会群起而仿效。但是看着他越滑越远，最难过的应该是公司一方。如果这个人走了，结果应该是“双输”。</p>
-<p>但是个人请永远不能低估公司作为一个平台的强大造血功能和新陈代谢能力。新公司对于一个“合适”的人离去是可以接受的，因为所有“合适”的人在同时间离开可能性不是没有，但概率却是很小的。你走了，我需要做的也许只是去再招人。也许短时间内会有些贫血，但只要人找到了，再经过培养，依然可用，造血只是个迟早的过程。而平台其他血细胞，在这种关键时刻也是完全可以到达失血位置支援的。</p>
-<p>这个时候我们返回来去思索一下，作为一个个体，应该如何正确处理自己作为一个和公司这个平台的关系。总结自己的个人经验，提出如下几点：</p>
-<h3 id="一、打倒自己心中的鬼，让自己变得一文不值">一、打倒自己心中的鬼，让自己变得一文不值</h3><p><strong>记住，不管到哪里，什么时候，自己永远没有自己想的那么重要</strong>。没有那个地方没你不行，没你地球照转，太阳天天东升西落。千万不要让自己觉得自己可以扭转地球自转的规律。平台是个大机器，而且随着不断进步，内部机械运转更加趋于合理，强大的机制才是真正的内核和发动机。个体只不过是这个巨大机器上的一颗螺丝钉，螺丝钉之于发动机，相差了N个数量级样的光年。平台和个人同时发展，大家各司其职，发动机性能更加优越，螺丝钉越来越牢固，机器运转才会越来越稳定。你有没有想起雷锋叔叔？</p>
-<h3 id="二、做好自己分内的事，先把平台推上去">二、做好自己分内的事，先把平台推上去</h3><p>一个人的价值体现是随着平台的不断进步而不断提高的。试想现在你是一个一文不名的小公司项目经理，没人知道你，你说出去别人会说：“你们能按月发工资吗？”若干年后，你的公司成了万科级别的公司，别人看你那叫高山仰止。要想自己站得高，首先要先努力把平台推上去。做好自己分内的工作，同时尽量站在自己上一级领导的位置去思考，你能取得平台和个人同步提升。</p>
-<h3 id="三、平台有多高，你就能看多远">三、平台有多高，你就能看多远</h3><p>也就是常说的“屁股决定脑袋”。如果你仅仅是个小职员，你认识的人就很难有项目经理或者部门主管。如果你是项目经理，你也很难接触到其他公司的高管或者老总。但是如果把你放在高官的位置，你处理事务时，思路就会比站在项目经理或者普通职员位置上更加开阔。这时，你就能理解，为什么有时候接到上边的指令之初会觉得难以执行，但做着做着就渐渐的开始佩服。当然，给你这个平台，前提是你要有相当的能力。给一个科员水平的人去坐处长的位子，那叫勉为其难，那不是在提拔人，是在糟践人。</p>
-<h3 id="四、永远不要骄傲">四、永远不要骄傲</h3><font color="red"> <strong> 一个人成功的程度，取决于其控制性格中不好方面的能力。</strong> </font>
-
-<p>骄傲，是所有人都有的性格。但是就像自负和自信一样，稍不留意，你就会骄傲的让自己摸不到头脑。骄傲，会让你失去细心，严谨，脚踏实地等一系列的优秀性格，你会觉得自己不可一世。</p>
-<p>也许你还没有到觉得“没你不行”的地步，但是你自己想想自己是否有以下表现中的一种或者几种：</p>
-<ul>
-<li>你是不是越来越不想听你上级的指令了，越来越觉得他是错的</li>
-<li>你是不是越来越懈怠，可以玩物丧志，可以不重视公司的纪律</li>
-<li>你是不是越来越听不进别人的话了，对上级的指令感觉越来越刺耳</li>
-<li>你是不是越来越开始游离于公司管理制度的灰色地带</li>
-<li>你是不是开始对同级或者下属在生活中开始更多“命令式”的说话</li>
-</ul>
-<p>自控和自我反省能力是一个人要做好事情的基本前提。尤其对于“塑形期”的年轻人。尤其现代社会，压力大，人会变得越来越浮躁，没有方向感和归属感。所以要多看书，多学习，多做有意义的事情，切忌不要沉迷于某种不好的事物或者情绪中。</p>
-<p>世界因你而动，follow your heart，多倾听自己内心的声音，让自己变得更加的强大后，你才会有更多维和正确的选择观。</p>
-<p>让我们一起努力吧！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/29/personal-and-platform/" data-id="cifry19l1006e7nxne2cwixq1" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -603,7 +590,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RT-Thread/">RT-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RT-Thread/">RT-Thread</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -612,7 +599,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
