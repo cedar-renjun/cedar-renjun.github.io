@@ -63,6 +63,163 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" class="article-date">
+  <time datetime="2015-10-04T12:17:54.000Z" itemprop="datePublished">Oct 4 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Jlink/">Jlink</a>►<a class="article-category-link" href="/categories/Jlink/gcc/">gcc</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/">用gdb调试Cortex-M系列芯片</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="准备工作">准备工作</h3><p>本文假设读者</p>
+<ol>
+<li>已经熟悉arm gcc工具链</li>
+<li>已经在win中安装好mingw或者arm-none-eabi-gcc工具</li>
+<li>具有合适的代码工程和编译脚本，且编译输出elf文件时，已添加<code>-g</code>选项来生成调试信息</li>
+<li>安装jlink调试工具和对应驱动</li>
+<li>有对应的硬件电路</li>
+</ol>
+<p>如果其中任何一项不满足，请自行google相关文档，完成基础准备工作</p>
+<h3 id="启动jlink_gdb_server">启动jlink gdb server</h3><ol>
+<li>开始 -&gt; SEGGER -&gt; Jlink V4.90e -&gt; Jlink GDB Server</li>
+<li>Jlink会显示GDB config配置选项，如下图配置<br><img src="http://cedar-renjun.github.io/images/2015/10/4/1.png" alt="GDB Server配置选项"></li>
+<li>点击OK，启动GDB server，在J-Link一栏会显示<code>Connected</code>字符，表示成功连接硬件，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/10/4/2.png" alt="GDB Server配置完成"></li>
+</ol>
+<h3 id="启动GDB">启动GDB</h3><ol>
+<li>打开CMD，输入<code>arm-none-eabi-gdb</code>，打开后，如下图所示；如果没有显示对应信息，属于没有配置环境变量的path，请添加gcc<br>tools的路径进去</li>
+<li>输入<code>file Demo.elf</code>加载调试文件，这里以<code>Demo.elf</code>为例，实际你可以替换为自己的elf文件</li>
+<li>输入<code>target remote localhost:2331</code>，连接gdb server，连接成功后，会在Jlink GDB server中显示对应的状态，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/10/4/3.png" alt="GDB Server连接成功"></li>
+<li>输入<code>monitor reset</code>来复位MCU，从而让MCU处于确定的状态</li>
+<li>输入<code>load</code>往MCU中加载调试文件，也就是常见的烧录过程</li>
+<li>输入<code>break main</code>设置main断点，让MCU执行到main中停止</li>
+</ol>
+<p>下面是使用Power shell的交互过程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt; arm-none-eabi-gdb</span><br><span class="line">GNU gdb (GNU Tools <span class="keyword">for</span> ARM Embedded Processors) <span class="number">7.8</span>.<span class="number">0.20150604</span>-cvs</span><br><span class="line">Copyright (C) <span class="number">2014</span> Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version <span class="number">3</span> or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type <span class="string">"show copying"</span></span><br><span class="line">and <span class="string">"show warranty"</span> <span class="keyword">for</span> details.</span><br><span class="line">This GDB was configured as <span class="string">"--host=i686-w64-mingw32 --target=arm-none-eabi"</span>.</span><br><span class="line">Type <span class="string">"show configuration"</span> <span class="keyword">for</span> configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/documentation/&gt;.</span><br><span class="line">For <span class="built_in">help</span>, <span class="built_in">type</span> <span class="string">"help"</span>.</span><br><span class="line">Type <span class="string">"apropos word"</span> to search <span class="keyword">for</span> commands related to <span class="string">"word"</span>.</span><br><span class="line">(gdb) file Demo.elf</span><br><span class="line">Reading symbols from Demo.elf...done.</span><br><span class="line">(gdb) target remote localhost:<span class="number">2331</span></span><br><span class="line">Remote debugging using localhost:<span class="number">2331</span></span><br><span class="line"><span class="number">0</span>x00000000 <span class="keyword">in</span> ?? ()</span><br><span class="line">(gdb) monitor reset</span><br><span class="line">Resetting target</span><br><span class="line">(gdb) load</span><br><span class="line">Loading section .text, size <span class="number">0</span>x434 lma <span class="number">0</span>x8000000</span><br><span class="line">Loading section .data, size <span class="number">0</span>x14 lma <span class="number">0</span>x8000434</span><br><span class="line">Start address <span class="number">0</span>x80003ec, load size <span class="number">1096</span></span><br><span class="line">Transfer rate: <span class="number">59</span> KB/sec, <span class="number">548</span> bytes/write.</span><br><span class="line">(gdb) <span class="built_in">break</span> main</span><br><span class="line">Breakpoint <span class="number">1</span> at <span class="number">0</span>x8000112: file src\App\main.c, line <span class="number">27</span>.</span><br><span class="line">(gdb) c</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">1</span>, main () at src\App\main.c:<span class="number">27</span></span><br><span class="line"><span class="number">27</span>              int i = <span class="number">0</span>;</span><br><span class="line">(gdb) l</span><br><span class="line"><span class="number">22</span>      /* Includes ------------------------------------------------------------------*/</span><br><span class="line"><span class="number">23</span>      <span class="comment">#include "stm32f10x.h"</span></span><br><span class="line"><span class="number">24</span>      <span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="number">25</span>      int main(void)</span><br><span class="line"><span class="number">26</span>      &#123;</span><br><span class="line"><span class="number">27</span>              int i = <span class="number">0</span>;</span><br><span class="line"><span class="number">28</span></span><br><span class="line"><span class="number">29</span></span><br><span class="line"><span class="number">30</span>              <span class="keyword">for</span>(int m = <span class="number">0</span>; m &lt; <span class="number">100</span>; m++)</span><br><span class="line"><span class="number">31</span>              &#123;</span><br><span class="line">(gdb) l</span><br><span class="line"><span class="number">32</span>                      i = m + i;</span><br><span class="line"><span class="number">33</span>              &#125;</span><br><span class="line"><span class="number">34</span></span><br><span class="line"><span class="number">35</span>              <span class="built_in">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">36</span>      &#125;</span><br><span class="line">(gdb) s</span><br><span class="line"><span class="number">30</span>              <span class="keyword">for</span>(int m = <span class="number">0</span>; m &lt; <span class="number">100</span>; m++)</span><br><span class="line">(gdb) s</span><br><span class="line"><span class="number">32</span>                      i = m + i;</span><br><span class="line">(gdb) s</span><br><span class="line"><span class="number">30</span>              <span class="keyword">for</span>(int m = <span class="number">0</span>; m &lt; <span class="number">100</span>; m++)</span><br><span class="line">(gdb) s</span><br><span class="line"><span class="number">32</span>                      i = m + i;</span><br><span class="line">(gdb) p m</span><br><span class="line"><span class="variable">$1</span> = <span class="number">1</span></span><br><span class="line">(gdb) <span class="built_in">break</span> <span class="number">35</span></span><br><span class="line">Breakpoint <span class="number">2</span> at <span class="number">0</span>x8000130: file src\App\main.c, line <span class="number">35</span>.</span><br><span class="line">(gdb) c</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">2</span>, main () at src\App\main.c:<span class="number">35</span></span><br><span class="line"><span class="number">35</span>              <span class="built_in">return</span> <span class="number">0</span>;</span><br><span class="line">(gdb) p i</span><br><span class="line"><span class="variable">$2</span> = <span class="number">4950</span></span><br><span class="line">(gdb) q</span><br><span class="line">A debugging session is active.</span><br><span class="line"></span><br><span class="line">        Inferior <span class="number">1</span> [Remote target] will be killed.</span><br><span class="line"></span><br><span class="line">Quit anyway? (y or n) y</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料：">参考资料：</h3><ol>
+<li>gcc manual</li>
+<li>gdb manual</li>
+<li>jlink user manual, charapter 3.3 J-link GDB Server</li>
+<li>scons user guide</li>
+<li>scons manual</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" data-id="cifry19ju004m7nxnl7qj8333" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Create-your-IAR-project-template" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/02/Create-your-IAR-project-template/" class="article-date">
+  <time datetime="2015-10-02T05:29:55.000Z" itemprop="datePublished">Oct 2 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/IAR/">IAR</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/02/Create-your-IAR-project-template/">创建IAR模版工程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>如果你用过IAR，用过STM32，那一定会知道创建新STM32工程时有多痛苦，创建空工程，添加group，添加代码，添加宏定义，选择STM32芯片等步骤<br>每次新建工程，都需要重新来一遍，那有没有更简单的步骤呢？答案是yes！</p>
+<p>假设我们需要在IAR中添加一个STM32F4的工程模版，那么所需要的东西如下：</p>
+<ol>
+<li>IAR 7.20 For ARM</li>
+<li>Win7</li>
+<li>STM32F4xx 标准库文件</li>
+</ol>
+<p>基本步骤包括</p>
+<ol>
+<li>创建IAR标准模版工程</li>
+<li>把模版放到IAR安装目录（patch）</li>
+<li>修改配置文件</li>
+</ol>
+<p>很简单，让我们一步一步来实现这个功能</p>
+<h3 id="1_创建IAR标准工程">1 创建IAR标准工程</h3><p>像平时一样，根据自己的工程管理习惯，用IAR创建一个工程，然后调整代码和相关工程配置项，调试编译通过</p>
+<p><strong>特别注意：创建工程时，需要保证IAR工程文件在最顶层目录</strong><br><img src="http://cedar-renjun.github.io/images/2015/10/3/1.png" alt="工程目录组织结构"></p>
+<p>创建好的目录如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/3/0.png" alt="创建好的IAR工程"></p>
+<h3 id="2_添加模版工程">2 添加模版工程</h3><p>接下来，我们需要将标准工程修改为模版工程</p>
+<ol>
+<li>删除<code>Debug</code>和<code>settings</code>目录，某些情况下，还有存在<code>Release</code>目录，请删除</li>
+<li>删除<code>*.dep</code>, <code>*.ewt</code>, <code>*.ewd</code>,<code>*.eww</code>四种IAR工程文件，只保留<code>*.ewp</code>文件<br>关于上面5种文件的详细分析，请参考本博客上篇文章<a href="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/">IAR工程文件分析</a></li>
+<li>修改<code>*.ewp</code>文件名为<code>templproj.ewp</code></li>
+</ol>
+<p>至此，修改完成，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/10/3/3.png" alt="修改好的IAR工程"></p>
+<h3 id="3_修改配置文件">3 修改配置文件</h3><p>接下来，我们将这个模块添加到IAR工程中</p>
+<ol>
+<li>在桌面新建一个临时文件夹，名为<code>tmp</code></li>
+<li>在<code>tmp</code>中新建目录<code>STM32</code>,</li>
+<li>在<code>STM32</code>中新建目录<code>F4xx</code></li>
+<li><p>将我们创建的模版工程拷入<code>F4xx</code>目录，如下所示</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">│ </span><br><span class="line">└─STM32</span><br><span class="line">    │ </span><br><span class="line">    └─F4xx</span><br><span class="line">        │ templproj.ewp</span><br><span class="line">        ├─App</span><br><span class="line">        └─Libs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入<code>C:\Program Files\IAR Systems\Embedded Workbench 7.2\arm\config\template\project</code>目录，拷贝<code>C.ENU.projtempl</code>文件到<code>STM32</code>和<code>F4xx</code>同级目录，然后修改名字为<code>STM32.ENU.projtempl</code>,<code>F4xx.ENU.projtempl</code>，修改完成后，结构如下所示</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">│ STM32.ENU.projtempl</span><br><span class="line">└─STM32</span><br><span class="line">    │ F4xx.ENU.projtempl</span><br><span class="line">    └─F4xx</span><br><span class="line">        │ templproj.ewp</span><br><span class="line">        ├─App</span><br><span class="line">        └─Libs</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>特别注意：<code>projtempl</code>的名字一定要和目录名字完全一致，不然IAR找不到对应的文件夹</strong><br><code>*.projtempl</code>文件用于展示工程模版的基本信息，比如名字和简介什么的<br>下面我们分别将两个文件修改为下面样式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--STM32.ENU.projtempl file--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">templategroup</span>&gt;</span></span><br><span class="line">true<span class="tag">&lt;<span class="title">description</span>&gt;</span>STM32 Project template for f0/1/2/4/7 mcu<span class="tag">&lt;/<span class="title">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">displayname</span>&gt;</span>STM32<span class="tag">&lt;/<span class="title">displayname</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">templategroup</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--F4xx.ENU.projtempl file--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">templategroup</span>&gt;</span></span><br><span class="line">true<span class="tag">&lt;<span class="title">description</span>&gt;</span>STM32 Project template for f4xx mcu<span class="tag">&lt;/<span class="title">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">displayname</span>&gt;</span>F4xx<span class="tag">&lt;/<span class="title">displayname</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">templategroup</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="测试">测试</h3><p>上面几个步骤，看起来很复杂，但实际操作起来，也挺简单的</p>
+<p>下面我们来测试效果，将上面<code>tmp</code>文件中所有文件，拷贝至<code>C:\Program Files\IAR Systems\Embedded Workbench 7.2\arm\config\template\project</code>目录</p>
+<p>在IAR中，新建工程，这时便会出现STM32模版工程，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/10/3/6.png" alt="选择工程模版"></p>
+<p>选择STM32，然后选择F4，新建工程，完成后如下图所示，finish<br><img src="http://cedar-renjun.github.io/images/2015/10/3/7.png" alt="新建的IAR工程"></p>
+<h3 id="后记">后记</h3><p>在IAR 7.2上测试时，时常出现不可复现的bug，也许和破解有关系，具体表现为<br>在显示层次模版目录时，无法显示子目录；UI层次上就是新建IAR工程时，能显示STM32模版，但不能显示F4xx模版信息</p>
+<p>暂时无解</p>
+<p>规避方案：直接复制IAR模版文件，然后适当修改即可，千万不要重写<code>templproj</code>!!!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/Create-your-IAR-project-template/" data-id="cifry19jz004u7nxnsh1abokx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-IAR-projects-template" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/02/IAR-projects-template/" class="article-date">
@@ -120,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cifpk1euh004nzfxnm0b3p4vj" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/" data-id="cifry19jw004r7nxncbl9c7ff" class="article-share-link">Share</a>
       
       
     </footer>
@@ -186,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/01/Introduce-Raspberry-2B/" data-id="cifpk1euk004szfxndagrg2v3" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2015/10/01/Introduce-Raspberry-2B/" data-id="cifry19k1004w7nxnkwzgiya7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -234,7 +391,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/11/16/coding-standard/" data-id="cifpk1eum004uzfxn8yx4fkpe" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/11/16/coding-standard/" data-id="cifry19k3004y7nxnamo0p159" class="article-share-link">Share</a>
       
       
     </footer>
@@ -287,7 +444,7 @@ MemManage_Handler
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="cifpk1euo004xzfxn1a1dnicp" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/28/iar-warming-25-problem/" data-id="cifry19k400517nxnggd5198i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -334,7 +491,7 @@ MemManage_Handler
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/25/qt-chinese-decoder/" data-id="cifpk1euq004zzfxn765b63qj" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/25/qt-chinese-decoder/" data-id="cifry19k600537nxnrjcask8a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -386,7 +543,7 @@ MemManage_Handler
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="cifpk1euw0058zfxn318gmff1" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/iar-keep-unused-section/" data-id="cifry19kc005c7nxnw5mf0gr1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -438,7 +595,7 @@ MemManage_Handler
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/use-swd-interface-to-measure-time/" data-id="cifpk1eus0052zfxnoqoy81ee" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/use-swd-interface-to-measure-time/" data-id="cifry19k800567nxnvvft8lhv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -497,102 +654,7 @@ MemManage_Handler
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/16/preinc-and-postinc-problem/" data-id="cifpk1euu0055zfxnc1thaazt" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-knowledge-about-oscilloscope-probe" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/10/11/knowledge-about-oscilloscope-probe/" class="article-date">
-  <time datetime="2014-10-11T14:11:19.000Z" itemprop="datePublished">Oct 11 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/示波器/">示波器</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/11/knowledge-about-oscilloscope-probe/">示波器探头知识--衰减率</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天在使用示波器XY通道的时候，发现两个信道不同步，衰减比例不一样，导致信号误差</p>
-<p>特此写个博客记录1X/10X衰减率的应用场合，以免下次误用</p>
-<ul>
-<li><p>1X<br>信号未经衰减直接经过探头传输至示波器，其耐压能力不及其它无源探头，但它具备测试小信号的优势。由于不像10：1衰减比探头那样信号需要示波器再放大10倍显示，所以示波器内部噪声未放大，测量噪声更小，此类更适用于测试小信号或电源纹波噪声</p>
-</li>
-<li><p>10X<br>具备高阻抗10MΩ，因此它对待测电路的负载效应很小，能覆盖一般低频频段（500MHz以内），耐压能力强（300V-400Vrms），价格便宜，通用性好，所以得到广泛使用</p>
-</li>
-</ul>
-<p>更高衰减率的探头归类为<strong>无源高压探头</strong>， 适合测量高压，超高压电信号</p>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="!--￼0--&gt;/assets/2014/10/11/Oscilloscope_Art.pdf">示波器的艺术</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/11/knowledge-about-oscilloscope-probe/" data-id="cifpk1euy005azfxn7z22k6ht" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mcu-software-framework" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/10/10/mcu-software-framework/" class="article-date">
-  <time datetime="2014-10-10T13:35:15.000Z" itemprop="datePublished">Oct 10 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/10/mcu-software-framework/">嵌入式软件裸机框架</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>嵌入式平台和PC平台的很大区别是定制化，可以不用操作系统来执行代码，这就带来了一个问题：软件中，需要延时时，死等会让MCU空转，其它任务无法执行，因此，很多人着手解决这个问题。</p>
-<p>大致的思路是：将长时间延时分解为小段，然后设置标志位和记录状态，不断查询，在需要延时等待的时候，主动放弃MCU；让其它任务得以执行；不同模块间用消息来传递<br><strong>专业术语叫做：状态机+消息分发</strong></p>
-<p>这是一个引子，后面会详细来写文章分析各类框架的利弊，以助大家在实际项目中，合理使用</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="cifpk1ev0005dzfxn26tbl1rb" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/16/preinc-and-postinc-problem/" data-id="cifry19kb00597nxn3zomrs0k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -615,7 +677,7 @@ MemManage_Handler
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RT-Thread/">RT-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -624,7 +686,7 @@ MemManage_Handler
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 

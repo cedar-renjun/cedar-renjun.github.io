@@ -63,6 +63,101 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-knowledge-about-oscilloscope-probe" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/11/knowledge-about-oscilloscope-probe/" class="article-date">
+  <time datetime="2014-10-11T14:11:19.000Z" itemprop="datePublished">Oct 11 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/示波器/">示波器</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/11/knowledge-about-oscilloscope-probe/">示波器探头知识--衰减率</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天在使用示波器XY通道的时候，发现两个信道不同步，衰减比例不一样，导致信号误差</p>
+<p>特此写个博客记录1X/10X衰减率的应用场合，以免下次误用</p>
+<ul>
+<li><p>1X<br>信号未经衰减直接经过探头传输至示波器，其耐压能力不及其它无源探头，但它具备测试小信号的优势。由于不像10：1衰减比探头那样信号需要示波器再放大10倍显示，所以示波器内部噪声未放大，测量噪声更小，此类更适用于测试小信号或电源纹波噪声</p>
+</li>
+<li><p>10X<br>具备高阻抗10MΩ，因此它对待测电路的负载效应很小，能覆盖一般低频频段（500MHz以内），耐压能力强（300V-400Vrms），价格便宜，通用性好，所以得到广泛使用</p>
+</li>
+</ul>
+<p>更高衰减率的探头归类为<strong>无源高压探头</strong>， 适合测量高压，超高压电信号</p>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="!--￼0--&gt;/assets/2014/10/11/Oscilloscope_Art.pdf">示波器的艺术</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/10/11/knowledge-about-oscilloscope-probe/" data-id="cifry19ke005e7nxnw3fhbwi3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mcu-software-framework" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/10/mcu-software-framework/" class="article-date">
+  <time datetime="2014-10-10T13:35:15.000Z" itemprop="datePublished">Oct 10 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/10/mcu-software-framework/">嵌入式软件裸机框架</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>嵌入式平台和PC平台的很大区别是定制化，可以不用操作系统来执行代码，这就带来了一个问题：软件中，需要延时时，死等会让MCU空转，其它任务无法执行，因此，很多人着手解决这个问题。</p>
+<p>大致的思路是：将长时间延时分解为小段，然后设置标志位和记录状态，不断查询，在需要延时等待的时候，主动放弃MCU；让其它任务得以执行；不同模块间用消息来传递<br><strong>专业术语叫做：状态机+消息分发</strong></p>
+<p>这是一个引子，后面会详细来写文章分析各类框架的利弊，以助大家在实际项目中，合理使用</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cedar-renjun.github.io/2014/10/10/mcu-software-framework/" data-id="cifry19kf005h7nxnmrsatumq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-push-blog-source-to-github" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/10/09/push-blog-source-to-github/" class="article-date">
@@ -112,7 +207,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="cifpk1ev1005gzfxn63kjv7rx" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/09/push-blog-source-to-github/" data-id="cifry19kh005k7nxnxwwbabew" class="article-share-link">Share</a>
       
       
     </footer>
@@ -162,7 +257,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/10/09/mbed-iot-device-platform/" data-id="cifpk1ev3005izfxnc9gjlwat" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/10/09/mbed-iot-device-platform/" data-id="cifry19kk005m7nxnutbimufm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -210,7 +305,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/23/analysis-of-zigbee-led-module/" data-id="cifpk1ev4005lzfxngqg3e385" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/23/analysis-of-zigbee-led-module/" data-id="cifry19km005p7nxnkdfmqde6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -258,7 +353,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/21/good-blog-about-coroutines/" data-id="cifpk1ev7005pzfxnvnslw5tv" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/21/good-blog-about-coroutines/" data-id="cifry19kp005t7nxnk9exm8e6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -306,7 +401,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/17/state-machine-timer-resource-management/" data-id="cifpk1ev9005szfxnw30yxo9g" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/17/state-machine-timer-resource-management/" data-id="cifry19ks005w7nxn4s301p8h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,7 +456,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/09/01/missing-you/" data-id="cifpk1evc005wzfxn7p7yrrr6" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/09/01/missing-you/" data-id="cifry19ku00607nxn0w261zcw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -411,7 +506,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="cifpk1evf005yzfxn5g4zoqgq" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" data-id="cifry19kv00627nxncxrkp8f5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
@@ -485,132 +580,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/29/personal-and-platform/" data-id="cifpk1evk006azfxnlyt4mjly" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-sublimetext-plug-doxydoc" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/05/29/sublimetext-plug-doxydoc/" class="article-date">
-  <time datetime="2014-05-29T00:18:37.000Z" itemprop="datePublished">May 29 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/29/sublimetext-plug-doxydoc/">SublimeText 插件 -- DoxyDoc</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简介">简介</h2><p>DoxyDoc是一款C++语言的Doxygen插件，有了它，你可以在SublimeText中快速插入注释，极大的提高效率</p>
-<p>其它同类的插件有 <a href="https://github.com/SublimeText/PhpDoc" target="_blank" rel="external">PhpDoc</a> 和 <a href="https://github.com/spadgos/sublime-jsdocs" target="_blank" rel="external">DocBlockr</a></p>
-<h2 id="安装">安装</h2><ol>
-<li>按<code>Ctrl+Shift+P</code> 调出命令栏</li>
-<li>输入<code>Install Package</code>执行包安装命令</li>
-<li>输入<code>DoxyDoc</code>，然后点击确定，等待安装结束</li>
-</ol>
-<h2 id="用法">用法</h2><p>DoxyDoc会自动判断上下文环境，添加不同的注释格式，具体来说，包括两种</p>
-<ol>
-<li>注释处没有函数或变量，则自动创建空白注释</li>
-</ol>
-<p><img src="!--￼0--&gt;/images/2014/05/29/01.gif" alt=""></p>
-<ol>
-<li>注释处有函数或变量，则根据函数信息自动填充对应的注释部分<br>其中函数信息包括：函数名，传入参数，返回值</li>
-</ol>
-<p><img src="!--￼1--&gt;/images/2014/05/29/02.gif" alt=""><br><img src="!--￼2--&gt;/images/2014/05/29/03.gif" alt=""><br><img src="!--￼3--&gt;/images/2014/05/29/04.gif" alt=""><br><img src="!--￼4--&gt;/images/2014/05/29/05.gif" alt=""></p>
-<h2 id="更多信息">更多信息</h2><p>请参考：<a href="https://sublime.wbond.net/packages/DoxyDoc" target="_blank" rel="external">https://sublime.wbond.net/packages/DoxyDoc</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/29/sublimetext-plug-doxydoc/" data-id="cifpk1evi0066zfxnb6cupfns" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-table-space-configure-in-sublime-text3" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/05/28/table-space-configure-in-sublime-text3/" class="article-date">
-  <time datetime="2014-05-28T01:21:27.000Z" itemprop="datePublished">May 28 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/教程/">教程</a>►<a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/28/table-space-configure-in-sublime-text3/">在Sublime Text中设置Tab-Space</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1:_概述">1: 概述</h3><p>缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。</p>
-<h3 id="2:_设置">2: 设置</h3><pre><code>|<span class="string">---------------------------</span>|<span class="string">--------------------------------------------------------------------------------------------------------------</span>|
-|<span class="string">tab_size                   </span>|<span class="string"> 数字。插入的空格数                                                                                           </span>|
-|<span class="string">translate_tabs_to_spaces   </span>|<span class="string"> Boolean, 如果为true，按tab键将会输入空格替代，而不是tab字符                                                  </span>|
-|<span class="string">detect_indentation         </span>|<span class="string"> Boolean, 默认为true, tab_size和translate_tabs_to_spaces将会在文件载入是自动计算                              </span>|
-|<span class="string">use_tab_stops              </span>|<span class="string"> Boolean, 如果translate_tabs_to_spaces为true, use_tab_stops将会使tab和backspace在下一个tab停止时insert/delete </span>|
-</code></pre><h3 id="3:_配置文件">3: 配置文件</h3><p>配置文件将会按下面这个顺序应用：</p>
-<ol>
-<li>Packages/Default/Preferences.sublime-settings</li>
-<li>Packages/Default/Preferences (<platform>).sublime-settings</platform></li>
-<li>Packages/User/Preferences.sublime-settings</li>
-<li>Packages/<syntax>/<syntax>.sublime-settings</syntax></syntax></li>
-<li>Packages/User/<syntax>.sublime-settings</syntax></li>
-</ol>
-<p>通常情况下，你应该把你的配置放在<code>Packages/User/Preferences.sublime-settings</code>里。如果你要给特定的文件类型指定配置，比如，Python, 应该放在<code>Packages/User/Python.sublime-settings</code>文件中</p>
-<h3 id="4:_配置文件示例">4: 配置文件示例</h3><p>试着把这些保存为<code>Packages/User/Preferences.sublime-settings</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;    &#34;tab_size&#34;: 4,&#10;    &#34;translate_tabs_to_spaces&#34;: false&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="5:_单独语法配置">5: 单独语法配置</h3><p>可以在基础配置之上指定单独的语法配置。在<code>Preferences/Settings - More/Syntax Specific - User</code>菜单下</p>
-<h3 id="6:_缩进的检测">6: 缩进的检测</h3><p>当一个文件载入时，它的内容会被检查，<code>tab_size</code>和<code>translate_tabs_to_spaces</code>设置将会应用到该文件。状态栏将会报告发了什么。尽管编辑器会处理的很好，如果想要把它禁用的话，可以通过<code>detect_indentation</code>来设置</p>
-<p>缩进检测可以手动执行，通过<code>View/Indentation/Guess Settings From Buffer</code>菜单执行<code>detect_indentation</code>命令</p>
-<h3 id="7:_Tab和空格之间转换">7: Tab和空格之间转换</h3><p><code>View/Indentation</code>菜单里有命令可以将当前文件中的空白在tab符和空格符之间转换。这几个菜单项执行的是<code>expand_tabs</code>和<code>unexpand_tabs</code>命令</p>
-<h3 id="8:_自动缩进">8: 自动缩进</h3><p>自动缩进猜测会在换行时给每一行添加一定数量空白符。由下面这个配置控制：</p>
-<pre><code>|<span class="string">-------------------------------</span>|<span class="string">-----------------------------------------------------------------------------------------------------------</span>|
-|<span class="string"> auto_indent                   </span>|<span class="string"> Boolean, 默认是开启                                                                                       </span>|
-|<span class="string"> smart_indent                  </span>|<span class="string"> Boolean, 默认是开启。具有一点小聪明的自动缩进，比如，在一个if语法片段的下一行进行缩进                     </span>|
-|<span class="string"> trim_automatic_white_space    </span>|<span class="string"> Boolean, 默认开启。当断行时由auto_indent去除行头尾的空白                                                  </span>|
-|<span class="string"> indent_to_bracket             </span>|<span class="string"> Boolean, 默认禁用。缩进时根据第一个前括号来空白数。像下面这样：use_indent_to_bracket(to_indent,like_this) </span>|
-</code></pre><h3 id="9：注意事项">9：注意事项</h3><font color="red"> 修改配置文件后，需要关闭所有打开的文件，然后重启Sublime Text </font>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/" data-id="cifpk1evl006czfxnrsvtecxs" class="article-share-link">Share</a>
+      <a data-url="http://cedar-renjun.github.io/2014/05/29/personal-and-platform/" data-id="cifry19l1006e7nxne2cwixq1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -633,7 +603,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RT-Thread/">RT-Thread</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
     </div>
   </div>
 
@@ -642,7 +612,7 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
