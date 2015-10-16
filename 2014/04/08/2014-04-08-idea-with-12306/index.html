@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>功能构想：为12306增加转乘功能 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="毕业后，一直奔波于城市之间，火车便成为最常用的交通工具。很多时候，城市A到城市B之间，直达车的票卖完了，只好在某个城市中转一下，查时间，查车次，自己手工分析可以做哪个车，操作异常麻烦。
+在深圳回武汉的火车上，尝试着思考以下几个问题：
+1：转乘步骤操作过于繁杂，这算是问题吗？必须要解决吗？2：是我自己觉得繁琐，还是其它人也觉得繁琐？3：这是谁的问题？12306的问题还是乘客的问题？4：谁应该去解决这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="功能构想：为12306增加转乘功能">
+<meta property="og:url" content="cedar-renjun.github.io/2014/04/08/2014-04-08-idea-with-12306/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="毕业后，一直奔波于城市之间，火车便成为最常用的交通工具。很多时候，城市A到城市B之间，直达车的票卖完了，只好在某个城市中转一下，查时间，查车次，自己手工分析可以做哪个车，操作异常麻烦。
+在深圳回武汉的火车上，尝试着思考以下几个问题：
+1：转乘步骤操作过于繁杂，这算是问题吗？必须要解决吗？2：是我自己觉得繁琐，还是其它人也觉得繁琐？3：这是谁的问题？12306的问题还是乘客的问题？4：谁应该去解决这">
+<meta property="og:updated_time" content="2015-10-15T16:22:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="功能构想：为12306增加转乘功能">
+<meta name="twitter:description" content="毕业后，一直奔波于城市之间，火车便成为最常用的交通工具。很多时候，城市A到城市B之间，直达车的票卖完了，只好在某个城市中转一下，查时间，查车次，自己手工分析可以做哪个车，操作异常麻烦。
+在深圳回武汉的火车上，尝试着思考以下几个问题：
+1：转乘步骤操作过于繁杂，这算是问题吗？必须要解决吗？2：是我自己觉得繁琐，还是其它人也觉得繁琐？3：这是谁的问题？12306的问题还是乘客的问题？4：谁应该去解决这">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="/www.miaoxiong.net">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-2014-04-08-idea-with-12306" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/04/08/2014-04-08-idea-with-12306/" class="article-date">
+  	<time datetime="2014-04-08T05:26:06.000Z" itemprop="datePublished">2014-04-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      功能构想：为12306增加转乘功能
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>毕业后，一直奔波于城市之间，火车便成为最常用的交通工具。很多时候，城市A到城市B之间，直达车的票<br>卖完了，只好在某个城市中转一下，查时间，查车次，自己手工分析可以做哪个车，操作异常麻烦。</p>
+<p>在深圳回武汉的火车上，尝试着思考以下几个问题：</p>
+<p>1：转乘步骤操作过于繁杂，这算是问题吗？必须要解决吗？<br>2：是我自己觉得繁琐，还是其它人也觉得繁琐？<br>3：这是谁的问题？12306的问题还是乘客的问题？<br>4：谁应该去解决这个问题，顾客个人，12306，购票软件？<br>5：怎么解决？尝试性的思路是？  </p>
+<p>下面逐个讨论</p>
+<p><strong>Q1：转乘步骤操作过于繁杂，这算是问题吗？必须要解决吗？</strong><br><strong>A1：</strong><br>划定为<strong>问题</strong>，过于严重。不妨认为，<strong>转乘属于锦上添花功能</strong></p>
+<p><strong>Q2：是我自己觉得繁琐，还是其它人也觉得繁琐？</strong><br><strong>A2：</strong><br>我觉得繁琐，原因如下：<br>1：需要确定城市A到城市B之间主要城市<br>2：确定城市后，需要再次访问12306去查询对应车次，同时确定转乘时间<br>3：某些情况下，火车会晚点（KTL系列晚点较频繁，DG系列基本正点达到），这时便需要<br>考虑增加额外时间来应对潜在的晚点危险<br>4：也许城市A到城市B的</p>
+<p>暂时没有对其它人做访问和调研，其它人感受情况待定</p>
+<p><strong>Q3：这是谁的问题？12306的问题还是乘客的问题？</strong><br><strong>A3：</strong><br>属于12306公司的问题，将原本需要自己解决的事情，搁置不理，推给了单独个体来解决</p>
+<p><strong>Q4：谁应该去解决这个问题，顾客个人，12306，购票软件？</strong><br><strong>A4：</strong><br>分析如下：</p>
+<p>1：顾客个人<br>力量薄弱，技术和眼界有限，解决这个问题，有较大难度；但不排除某些黑客或IT狂人去<br>做这个功能</p>
+<p>2：购票软件<br>有需求，就有利益；在利益驱动下，购票软件是最可能做这个功能的<br>具体来说，有两个团队可能参与：<br>一是地图软件整合购票和线路规划功能；二是现有的火车票插件或者手机端购票软件</p>
+<p>3：12306铁路公司<br>对于政府机构，从来都是“危机倒逼改革”，极少会出现主动创新的情况</p>
+<p>在购票软件增加<strong>换乘查询</strong>功能后，顾客一旦习惯这种方式，便会通过各种途径向12306施压，<br>在这种情况下，12306不得不增加该功能，这是最可能出现的情况；类似原来的抢票插件事件</p>
+<p><strong>Q5：怎么解决？尝试性的思路是？</strong><br><strong>A5：</strong><br>说实话，这个问题不好解决，主要的困难是涉及的变量因素太多：</p>
+<p>1：火车可用状态信息复杂</p>
+<p>城市A到城市B可能没有直达座，但某个中间段是空闲的</p>
+<p>2：城市A到城市B之间途径站信息复杂</p>
+<p>中间可能有很多城市，到哪个城市中转，决定因素是什么？</p>
+<p>3：中转时间信息不确定</p>
+<p>某些情况，到达中转站城市和下一趟车的发车时间，仅有30分钟的时间差，如果出现晚点的情况，怎么办？</p>
+<p>上面列举了一些潜在的问题，这些变数决定了中转过程不可能完全自动化，只能半自动化</p>
+<p>我暂时没想到完整的解决方案，只能提部分的解决措施</p>
+<p>1：如果没有城市A到城市B，没有直达座了，则将该车次的其余站点区间车票情况显示出来<br>2：尽量选择大站点作为中转站<br>3：晚点的时间，可以用大数据来统计处理，整理出一个平均晚点时间，供决策分析</p>
+<p>【全文完】</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/04/10/2014-04-10-self-manage-method/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          阿里内贸团队敏捷实践---自组织管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/02/2014-04-02-how-to-attract-more-developers-to-join-in-open-source-actives/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何吸引用户主动参与开源活动</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2014-04-08-idea-with-12306" data-title="功能构想：为12306增加转乘功能" data-url="cedar-renjun.github.io/2014/04/08/2014-04-08-idea-with-12306/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

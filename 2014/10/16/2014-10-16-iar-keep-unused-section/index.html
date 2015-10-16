@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>IAR中保留未用代码段 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="现有问题在嵌入式软件中，经常会用数组保存一些备用信息，也许会存在Flash里面，在Application中用偏移地址来访问这些数据，那么问题就来了，当提高优化级别的时候，编译器会将无用的符号（变量/函数/数组）优化掉，这不是我们所希望看到的结果。
+该如何解决这个问题呢？
+解决方案在IAR中，有4个解决方法
+1：keep在链接器里面手工添加需要保留的符号
+2： root示例代码1__root int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IAR中保留未用代码段">
+<meta property="og:url" content="cedar-renjun.github.io/2014/10/16/2014-10-16-iar-keep-unused-section/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="现有问题在嵌入式软件中，经常会用数组保存一些备用信息，也许会存在Flash里面，在Application中用偏移地址来访问这些数据，那么问题就来了，当提高优化级别的时候，编译器会将无用的符号（变量/函数/数组）优化掉，这不是我们所希望看到的结果。
+该如何解决这个问题呢？
+解决方案在IAR中，有4个解决方法
+1：keep在链接器里面手工添加需要保留的符号
+2： root示例代码1__root int">
+<meta property="og:image" content="cedar-renjun.github.io/!--￼2-->/images/2014/10/16/Link Keep.png">
+<meta property="og:image" content="cedar-renjun.github.io/!--￼3-->/images/2014/10/16/Disable Remove Option.png">
+<meta property="og:updated_time" content="2015-10-15T16:22:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IAR中保留未用代码段">
+<meta name="twitter:description" content="现有问题在嵌入式软件中，经常会用数组保存一些备用信息，也许会存在Flash里面，在Application中用偏移地址来访问这些数据，那么问题就来了，当提高优化级别的时候，编译器会将无用的符号（变量/函数/数组）优化掉，这不是我们所希望看到的结果。
+该如何解决这个问题呢？
+解决方案在IAR中，有4个解决方法
+1：keep在链接器里面手工添加需要保留的符号
+2： root示例代码1__root int">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="/www.miaoxiong.net">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-2014-10-16-iar-keep-unused-section" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/10/16/2014-10-16-iar-keep-unused-section/" class="article-date">
+  	<time datetime="2014-10-16T13:43:29.000Z" itemprop="datePublished">2014-10-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      IAR中保留未用代码段
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/IAR/">IAR</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="现有问题">现有问题</h2><p>在嵌入式软件中，经常会用数组保存一些备用信息，也许会存在Flash里面，在Application中用偏移地址来访问这些数据，那么问题就来了，当提高优化级别的时候，编译器会将无用的符号（变量/函数/数组）优化掉，这不是我们所希望看到的结果。</p>
+<p>该如何解决这个问题呢？</p>
+<h2 id="解决方案">解决方案</h2><p>在IAR中，有4个解决方法</p>
+<h3 id="1：keep">1：keep</h3><p>在链接器里面手工添加需要保留的符号<br><img src="!--￼2--&gt;/images/2014/10/16/Link Keep.png" alt=""></p>
+<h3 id="2：_root">2： root</h3><figure class="highlight c"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__root <span class="keyword">int</span> UnusedData[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="3：_required">3： required</h3><figure class="highlight c"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> UnusedData[<span class="number">10</span>];</span><br><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> required=UnusedData</span></span><br></pre></td></tr></table></figure>
+<h3 id="4_：_禁用编译器Remove优化">4 ： 禁用编译器Remove优化</h3><p>可以在链接器配置extra options页中，通过输入下面的选项来禁用编译器remove优化</p>
+<pre><code>-<span class="ruby">-no_remove
+</span>-<span class="ruby">-no_fragments</span>
+</code></pre><p>如图所示<br><img src="!--￼3--&gt;/images/2014/10/16/Disable Remove Option.png" alt=""></p>
+<h2 id="注意事项">注意事项</h2><p>1：本文仅适用于IAR，如果您适用MDK，请参考编译器手册<br>2：如果您希望测试是否生效，请将编译器优化级别提高到最高(O3)，然后在调试模式下，查看变量，如果不存在，则被编译器优化掉；反之，则符号存在。<br>3：如果您有任何疑问，欢迎交流</p>
+<p><strong>全文完，希望本文对您有帮助^_^</strong></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/10/25/2014-10-25-qt-chinese-decoder/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          QT5 VS2013 中文乱码问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/10/16/2014-10-16-use-swd-interface-to-measure-time/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用SWD调试接口测量代码运行时间</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2014-10-16-iar-keep-unused-section" data-title="IAR中保留未用代码段" data-url="cedar-renjun.github.io/2014/10/16/2014-10-16-iar-keep-unused-section/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

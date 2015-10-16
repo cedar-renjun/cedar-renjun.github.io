@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Z-Stack协议栈分析-LED模块 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言TI的Zigbee协议（Z-Stack）是典型的事件驱动系统，整个系统分为多个任务，各自任务内部采用状态机非阻塞似的完成任务，完成后，主动释放MCU控制权；下层的任务或异步事件产生的事件，将其封装成事件消息+数据，然后发送到事件处理函数，在事件处理函数中，也是采用状态机的形式分发消息并处理。
+这就是所谓的协作式调度器，它的好处，是避免了传统RTOS的重型线程调度和资源保护机制，从而可以做到无锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Z-Stack协议栈分析-LED模块">
+<meta property="og:url" content="cedar-renjun.github.io/2014/09/23/2014-09-23-analysis-of-zigbee-led-module/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="前言TI的Zigbee协议（Z-Stack）是典型的事件驱动系统，整个系统分为多个任务，各自任务内部采用状态机非阻塞似的完成任务，完成后，主动释放MCU控制权；下层的任务或异步事件产生的事件，将其封装成事件消息+数据，然后发送到事件处理函数，在事件处理函数中，也是采用状态机的形式分发消息并处理。
+这就是所谓的协作式调度器，它的好处，是避免了传统RTOS的重型线程调度和资源保护机制，从而可以做到无锁">
+<meta property="og:updated_time" content="2015-10-15T16:22:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Z-Stack协议栈分析-LED模块">
+<meta name="twitter:description" content="前言TI的Zigbee协议（Z-Stack）是典型的事件驱动系统，整个系统分为多个任务，各自任务内部采用状态机非阻塞似的完成任务，完成后，主动释放MCU控制权；下层的任务或异步事件产生的事件，将其封装成事件消息+数据，然后发送到事件处理函数，在事件处理函数中，也是采用状态机的形式分发消息并处理。
+这就是所谓的协作式调度器，它的好处，是避免了传统RTOS的重型线程调度和资源保护机制，从而可以做到无锁">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="/www.miaoxiong.net">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-2014-09-23-analysis-of-zigbee-led-module" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/09/23/2014-09-23-analysis-of-zigbee-led-module/" class="article-date">
+  	<time datetime="2014-09-23T10:23:26.000Z" itemprop="datePublished">2014-09-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Z-Stack协议栈分析-LED模块
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/Zigbee/">Zigbee</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>TI的Zigbee协议（Z-Stack）是典型的事件驱动系统，整个系统分为多个任务，各自任务内部采用状态机非阻塞似的完成任务，<br>完成后，主动释放MCU控制权；下层的任务或异步事件产生的事件，将其封装成事件消息+数据，然后发送到事件处理函数，<br>在事件处理函数中，也是采用状态机的形式分发消息并处理。</p>
+<p>这就是所谓的协作式调度器，它的好处，是避免了传统RTOS的重型线程调度和资源保护机制，从而可以做到无锁资源保护机制<br>和极度轻量化，节省RAM/ROM</p>
+<p>关于这点，后面会详细的讨论，这里重点讨论HAL层的LED机制</p>
+<p><strong>注：对于HAL层的实现机制，会另有专门的文章来讨论这个话题</strong></p>
+<a id="more"></a>
+<h2 id="使用LED">使用LED</h2><p>Zigbee提供的接口函数如下所示</p>
+<figure class="highlight c"><figcaption><span>LED Interface</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">注：这里我修改了原Zigbee接口注释，让读者更容易理解</span><br><span class="line"></span><br><span class="line"><span class="comment">/***************************************************************************************************</span><br><span class="line"> * @fn      HalLedInit</span><br><span class="line"> *</span><br><span class="line"> * @brief   Initialize LED Service</span><br><span class="line"> *</span><br><span class="line"> * @param   init - pointer to void that contains the initialized value</span><br><span class="line"> *</span><br><span class="line"> * @return  None</span><br><span class="line"> ***************************************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HalLedInit</span><span class="params">( <span class="keyword">void</span> )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***************************************************************************************************</span><br><span class="line"> * @fn      HalLedSet</span><br><span class="line"> *</span><br><span class="line"> * @brief   Tun ON/OFF/TOGGLE given LEDs</span><br><span class="line"> *</span><br><span class="line"> * @param   led - bit mask value of leds to be turned ON/OFF/TOGGLE</span><br><span class="line"> *                which can be OR of the following values</span><br><span class="line"> *                   - \ref HAL_LED_1</span><br><span class="line"> *                   - \ref HAL_LED_2</span><br><span class="line"> *                   - \ref HAL_LED_3</span><br><span class="line"> *                   - \ref HAL_LED_4</span><br><span class="line"> *                   - \ref HAL_LED_ALL</span><br><span class="line"> *</span><br><span class="line"> *          mode - BLINK, FLASH, TOGGLE, ON, OFF mode</span><br><span class="line"> *                which can be one of the following values</span><br><span class="line"> *                   - \ref HAL_LED_MODE_OFF</span><br><span class="line"> *                   - \ref HAL_LED_MODE_ON</span><br><span class="line"> *                   - \ref HAL_LED_MODE_BLINK</span><br><span class="line"> *                   - \ref HAL_LED_MODE_FLASH</span><br><span class="line"> *                   - \ref HAL_LED_MODE_TOGGLE</span><br><span class="line"> *</span><br><span class="line"> * @return  None</span><br><span class="line"> ***************************************************************************************************/</span></span><br><span class="line"><span class="function">uint8 <span class="title">HalLedSet</span><span class="params">( uint8 led, uint8 mode )</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/***************************************************************************************************</span><br><span class="line"> * @fn      HalLedBlink</span><br><span class="line"> *</span><br><span class="line"> * @brief   Blink the leds</span><br><span class="line"> *</span><br><span class="line"> * @param   leds       - bit mask value of leds to be blinked</span><br><span class="line"> *                       which can be OR of the following values</span><br><span class="line"> *                          - \ref HAL_LED_1</span><br><span class="line"> *                          - \ref HAL_LED_2</span><br><span class="line"> *                          - \ref HAL_LED_3</span><br><span class="line"> *                          - \ref HAL_LED_4</span><br><span class="line"> *                          - \ref HAL_LED_ALL</span><br><span class="line"> *          numBlinks  - number of blinks</span><br><span class="line"> *          percent    - the percentage in each period where the led</span><br><span class="line"> *                       will be on</span><br><span class="line"> *          period     - length of each cycle in milliseconds</span><br><span class="line"> *</span><br><span class="line"> * @return  None</span><br><span class="line"> ***************************************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HalLedBlink</span><span class="params">( uint8 leds, uint8 cnt, uint8 duty, uint16 time )</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/***************************************************************************************************</span><br><span class="line"> * @fn      HalLedEnterSleep</span><br><span class="line"> *</span><br><span class="line"> * @brief   Store current LEDs state before sleep</span><br><span class="line"> *</span><br><span class="line"> * @param   none</span><br><span class="line"> *</span><br><span class="line"> * @return  none</span><br><span class="line"> ***************************************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HalLedEnterSleep</span><span class="params">( <span class="keyword">void</span> )</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/***************************************************************************************************</span><br><span class="line"> * @fn      HalLedExitSleep</span><br><span class="line"> *</span><br><span class="line"> * @brief   Restore current LEDs state after sleep</span><br><span class="line"> *</span><br><span class="line"> * @param   none</span><br><span class="line"> *</span><br><span class="line"> * @return  none</span><br><span class="line"> ***************************************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HalLedExitSleep</span><span class="params">( <span class="keyword">void</span> )</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/***************************************************************************************************</span><br><span class="line"> * @fn      HalGetLedState</span><br><span class="line"> *</span><br><span class="line"> * @brief   Get LEDs on/off current state.</span><br><span class="line"> *</span><br><span class="line"> * @param   none</span><br><span class="line"> *</span><br><span class="line"> * @return  led state</span><br><span class="line"> ***************************************************************************************************/</span></span><br><span class="line"><span class="function">uint8 <span class="title">HalLedGetState</span> <span class="params">( <span class="keyword">void</span> )</span></span>;</span><br></pre></td></tr></table></figure>
+<p>Zigbee中，LED是非阻塞式的，你调用函数后，LED会在后台自己完成对应动作（比如闪烁50次）。这种统一后台管理设备的方式，对系统资源占用极小，很值得我们学习。</p>
+<p>API很简单，基本流程是：</p>
+<p>1：调用<code>HalLedInit</code>初始化LED<br>2：在用户代码中，调用<code>HalLedSet</code>或者<code>HalLedBlink</code>打开，关闭，闪烁LED<br>3：根据需要，调用休眠相关函数<code>HalLedEnterSleep</code>和<code>HalLedExitSleep</code>，或者调用<code>HalLedGetState</code>获取LED整体状态</p>
+<p>代码过于简单，例程留给各位来完成</p>
+<h2 id="初始化">初始化</h2><p>实际上，Zigbee在系统初始化的时候，已经帮我们完成LED硬件初始化了，在<code>hal_drivers.c</code>文件中，我们可以看到下面的代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* LED */</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> (defined HAL_LED) &amp;&amp; (HAL_LED == TRUE)</span></span><br><span class="line">  HalLedInit();</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>从这里我们看到，只要我们定义了<code>HAL_LED</code>宏，且设置为<code>TRUE</code>条件时，<code>HalLedInit</code>函数便会生效。问题是：<code>HAL_LED</code>在哪定义的呢？<br>这个要看开发平台的配置，不同平台，可能支持的LED不一样或者LED需要留给用户来初始化，所以需要平台配置文件<code>hal_board_cfg.h</code><br>，在这个文件里，可以看到下面代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Set to TRUE enable LED usage, FALSE disable it */</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifndef</span> HAL_LED</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> HAL_LED TRUE</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> (!defined BLINK_LEDS) &amp;&amp; (HAL_LED == TRUE)</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> BLINK_LEDS</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到默认情况下，会启用<code>HAL_LED TRUE</code>和<code>BLINK_LEDS</code>宏，如果您希望默认关闭LED，则将</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">define</span> HAL_LED TRUE</span></span><br></pre></td></tr></table></figure>
+<p>改成</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">define</span> HAL_LED FALSE</span></span><br></pre></td></tr></table></figure>
+<p>即可</p>
+<h2 id="平台配置">平台配置</h2><p>说到这里，有人该问了，我的硬件平台和TI官方LED接口不一样，在哪里修改呢？</p>
+<p>上面讲的全是面向APP上层用户的接口，对于LED驱动的编写者，需要实现LED接口的硬件驱动机制和适配平台。</p>
+<p>TI的Z-Stack在将LED的驱动层，再次分层，用宏屏蔽最低层的硬件操作，比如下面这种</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 1 - Green */</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> LED1_BV           BV(<span class="number">0</span>)</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> LED1_SBIT         P1_0</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> LED1_DDR          P1DIR</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> LED1_POLARITY     ACTIVE_HIGH</span></span><br></pre></td></tr></table></figure>
+<p>来封装硬件平台接口，一般情况下，我们主要的移植工作也就是修改宏实现的硬件接口，从而适配我们的平台，<br>这部分代码，在<code>hal_board_cfg.h</code>文件的LED section中，具体请打开这个文件，细细品味</p>
+<p>有了硬件接口（HAL），我们便可以操作这些接口来完成特定的动作，比如打开/关闭/闪烁<br>这部分操作是通用的，在<code>hal_led.c</code>中实现，比如完成<code>HalLedOnOff</code>函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***************************************************************************************************</span><br><span class="line"> * @fn      HalLedOnOff</span><br><span class="line"> *</span><br><span class="line"> * @brief   Turns specified LED ON or OFF</span><br><span class="line"> *</span><br><span class="line"> * @param   leds - LED bit mask</span><br><span class="line"> *          mode - LED_ON,LED_OFF,</span><br><span class="line"> *</span><br><span class="line"> * @return  none</span><br><span class="line"> ***************************************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HalLedOnOff</span> <span class="params">(uint8 leds, uint8 mode)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (leds &amp; HAL_LED_1)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (mode == HAL_LED_MODE_ON)</span><br><span class="line">        &#123;</span><br><span class="line">            HAL_TURN_ON_LED1();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            HAL_TURN_OFF_LED1();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (leds &amp; HAL_LED_2)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (mode == HAL_LED_MODE_ON)</span><br><span class="line">        &#123;</span><br><span class="line">            HAL_TURN_ON_LED2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            HAL_TURN_OFF_LED2();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (leds &amp; HAL_LED_3)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (mode == HAL_LED_MODE_ON)</span><br><span class="line">        &#123;</span><br><span class="line">            HAL_TURN_ON_LED3();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            HAL_TURN_OFF_LED3();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (leds &amp; HAL_LED_4)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (mode == HAL_LED_MODE_ON)</span><br><span class="line">        &#123;</span><br><span class="line">            HAL_TURN_ON_LED4();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            HAL_TURN_OFF_LED4();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Remember current state */</span></span><br><span class="line">    <span class="keyword">if</span> (mode)</span><br><span class="line">    &#123;</span><br><span class="line">        HalLedState |= leds;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        HalLedState &amp;= (leds ^ <span class="number">0xFF</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span> <span class="comment">/* HAL_LED */</span></span></span><br></pre></td></tr></table></figure>
+<p>总结一下，硬件驱动分为&lt;逻辑驱动&gt;和&lt;硬件操作&gt;，逻辑操作调用硬件屏蔽宏和RTOS的资源来完成HAL LED接口要求的特定动作。</p>
+<p>再次强调下，一般移植时，只需修改<code>hal_board_cfg.h</code>中LED部分接口即可</p>
+<h2 id="具体实现">具体实现</h2><p>从上面来看，LED的架构设计的非常好</p>
+<ul>
+<li>非阻塞式实现</li>
+<li>抽象了硬件层</li>
+<li>非常灵活，能很方面的移植到其它平台</li>
+</ul>
+<p>下面我们来研究一下LED模块的实现原理，上面已经谈了抽象层的实现，这里重点讨论下LED设备管理机制</p>
+<p>首先，用一个数据结构表示单个LED</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* LED control structure */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">  uint8 mode;       <span class="comment">// LED模式，比如ON/OFF/BLINK等</span></span><br><span class="line">  uint8 todo;       <span class="comment">// 剩余的次数</span></span><br><span class="line">  uint8 onPct;      <span class="comment">// 占空比</span></span><br><span class="line">  uint16 time;      <span class="comment">// 闪烁周期(S)</span></span><br><span class="line">  uint32 next;      <span class="comment">// 下次动作时间</span></span><br><span class="line">&#125; HalLedControl_t;</span><br></pre></td></tr></table></figure>
+<p>我们知道，数据结构的制定和应用需求有密切相关，在前文中，我们看到，对单个LED的操作模式有</p>
+<pre><code><span class="bullet">*   </span>ON     打开LED
+<span class="bullet">*   </span>OFF    关闭LED
+<span class="bullet">*   </span>BLINK  快闪LED
+<span class="bullet">*   </span>FLLASH 闪烁LED
+<span class="bullet">*   </span>TOGGLE 反转LED
+</code></pre><p>具体分析这些行为，可以知道他们的行为由下面几个基本元素组成</p>
+<pre><code><span class="number">1</span>：当前LED状态
+<span class="number">2</span>：下一个动作触发时间
+<span class="number">3</span>：下一个动作
+<span class="number">4</span>：剩余动作次数
+</code></pre><p>这也是状态机的典型机制，比如我们希望LED以20Hz的频率闪烁5次，细分步骤</p>
+<pre><code><span class="number">1</span>：记录LED当前状态
+<span class="number">2</span>：关闭LED
+<span class="number">3</span>：计时<span class="number">25</span>MS
+<span class="number">4</span>：打开LED
+<span class="number">5</span>：延迟<span class="number">25</span>MS
+<span class="number">6</span>：计数值增<span class="number">1</span>，判断是否到<span class="number">5</span>次
+   到？  进入（<span class="number">7</span>）状态
+   不到？进入（<span class="number">2</span>）状态
+<span class="number">7</span>：将LED状态恢复到闪烁前
+</code></pre><p>其它状态，也可以类似分析</p>
+<p>这里的主要难点是：</p>
+<p>1：怎么实现无阻塞延时？<br>2：怎么管理多个LED？<br>3：多个LED的状态延时怎么处理？</p>
+<p>Z-Stack的解决方法如下：</p>
+<p><strong>Q1：怎么实现无阻塞延时？</strong></p>
+<p>A1：LED单次状态切换函数（比如ON/OFF等），直接操作底层，比如<code>HalLedOnOff</code>这种</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HalLedOnOff</span> <span class="params">(uint8 leds, uint8 mode)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (leds &amp; HAL_LED_1)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (mode == HAL_LED_MODE_ON)</span><br><span class="line">    &#123;</span><br><span class="line">      HAL_TURN_ON_LED1();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      HAL_TURN_OFF_LED1();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+<p>对于复杂的，涉及到延时的函数，比如 <strong>按固定占空比闪烁50</strong> ，则纳入时间管理系统，将多个LED发生的事件时间进行排序，<br>确定最近的时间，然后设置定时器，当定时器时间到达的时候，会往HAL这个任务发送一个<code>HAL_LED_BLINK_EVENT</code>事件消息，事件<br>处理函数<code>Hal_ProcessEvent</code>函数会调用LED函数更新LED管理表，并适时删除已完成的LED事件</p>
+<p>这部分比较复杂，具体代码可以参考<br>1：hal\common\hal_drivers.c中的Hal_ProcessEvent<br>2：hao\target\CC2530EB\HalLedUpdate<br>两个函数</p>
+<p><strong>Q2：怎么管理多个LED？</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">  HalLedControl_t HalLedControlTable[HAL_LED_DEFAULT_MAX_LEDS];</span><br><span class="line">  uint8           sleepActive;</span><br><span class="line">&#125; HalLedStatus_t;</span><br></pre></td></tr></table></figure>
+<p>系统中，使用上述结构体，每个LED占一个数组单元，便于统一管理；sleepActive用于记录整体休眠状态，至于休眠模式的实现，<br>主要使用HalSleepLedState内部变量来保存休眠前的各LED状态，便于睡醒后恢复，这部分较简单，不再详述</p>
+<p><strong>Q3：多个LED的状态延时怎么处理？</strong></p>
+<p>在Q1中，已经对这个问题进行了描述，需要注意的是：因为使用的是软件定时器和事件轮询机制，无法做的非常精确。<br>如果您希望精确延时，请用硬件定时器触发中断，并在中断中调用HalLedUpdate函数</p>
+<p>后记：</p>
+<p>如果您有任何疑问，欢迎讨论，About页中有我联系方式</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/10/09/2014-10-09-mbed-iot-device-platform/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Mbed IoT Device Platform
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/09/21/2014-09-21-good-blog-about-coroutines/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">谈谈协程和C语言的协程</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2014-09-23-analysis-of-zigbee-led-module" data-title="Z-Stack协议栈分析-LED模块" data-url="cedar-renjun.github.io/2014/09/23/2014-09-23-analysis-of-zigbee-led-module/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

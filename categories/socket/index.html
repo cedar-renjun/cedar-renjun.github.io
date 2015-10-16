@@ -3,177 +3,277 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: socket | Enjoy Programming</title>
+  <title>Category: socket | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+  <meta name="description" content="技术的终极目标是简洁">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Enjoy Programming">
-<meta property="og:url" content="http://cedar-renjun.github.io/categories/socket/index.html">
-<meta property="og:site_name" content="Enjoy Programming">
-<meta property="og:description">
+<meta property="og:title" content="Simple">
+<meta property="og:url" content="cedar-renjun.github.io/categories/socket/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="技术的终极目标是简洁">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Enjoy Programming">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Simple">
+<meta name="twitter:description" content="技术的终极目标是简洁">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
   
-  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <link rel="icon" href="/favicon.png">
+  
   <link rel="stylesheet" href="/css/style.css" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
 </head>
 <body>
   <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Enjoy Programming</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">Focus On Embedded System</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-          <a class="main-nav-link" href="/plan">Plan</a>
-        
-          <a class="main-nav-link" href="/about">About</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cedar-renjun.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-Networking-and-the-BSD-Sockets-APIs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" class="article-date">
-  <time datetime="2015-10-07T03:56:59.000Z" itemprop="datePublished">Oct 7 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/socket/">socket</a>
-  </div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			
+		</a>
 
-  </div>
-  <div class="article-inner">
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="/www.miaoxiong.net">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap">
+  
+  
     
     
-      <header class="article-header">
-        
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2015" class="archive-year">2015</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2015/10/07/2015-10-07-Networking-and-the-BSD-Sockets-APIs/" class="archive-article-date">
+  	<time datetime="2015-10-07T03:56:59.000Z" itemprop="datePublished">Oct 7</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/">Networking and the BSD Sockets APIs</a>
+      <a class="archive-article-title" href="/2015/10/07/2015-10-07-Networking-and-the-BSD-Sockets-APIs/">Networking and the BSD Sockets APIs</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>by Michael Beam<br>12/27/2002</p>
-<p>原文链接: <a href="http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1">http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1</a></p>
-<p>We’ve spend a great deal of time talking about Rendezvous in the previous two columns, but Rendezvous can’t exist in a vacuum. Having user-friendly service discovery does us no good unless we can make our applications talk to one another. Indeed, Rendezvous has absolutely no provisions for facilitating general network communications between applications, as it is only a protocol for advertising and discovering services on a network. It is a discovery protocol, not a communications protocol.</p>
-<p>Today we shift gears into the communications side of this business; we will have very little to say about Rendezvous. Due to its Unix lineage, Mac OS X is a wonderful platform for learning about networking, since it has such a rich set of APIs to offer; in particular, we can program with the venerable BSD sockets API. Today we’ll learn about this API, and in doing so we will write a tiny pair of C applications that demonstrate how clients and servers can be made to talk with one another. In the next column, we will finish RCE with what we learn today by adding some Cocoa.</p>
-<h4 id="Concerning_Sockets">Concerning Sockets</h4><p>Most of us have likely heard of sockets in the course of our experiences programming. I had always heard about sockets, but up until about half a year ago, I had never had the pleasure of programming with them. Having heard of something is far from understanding it, which is essential to being able to effectively use a technology. In this column and the next, I hope to spark some interest in the subject to give you a feel for the technology. Hopefully, many of you who had previously shied away from sockets and networking will go on to learn more about this interesting and relevant topic.</p>
-<p>So just what is a socket? The man page for the socket() function, which we use to create sockets, describes this little thing in four words: an endpoint for communication. The analogy often used to relate sockets to everyday experiences is that of a telephone, which, as we will see, is indeed an accurate comparison. A telephone is, after all, an endpoint, or an interface, to a communications network that we use to communicate with other people.</p>
-<p>In the same way that we speak into and listen to a phone, applications both send data across a network by writing to a socket, and receive data sent by a remote host by reading from the socket. If you are familiar with the Unix APIs for reading and writing to a file, you will be comfortable with sockets, as the same functions for file I/O are used for socket I/O – namely, read() and write().</p>
-<p>Like two telephones that facilitate a conversation between two people, network connections exist between a pair of sockets, one for each end of the connection. Sockets are often talked about in pairs: one for the server side of the application, and one for the client side. The networking model that we are accustomed to is that of the relationship between a client and a server. A server is an application that is listening for connection requests from clients, and handling them appropriately. A client is a program that connects to a server. Usually client and servers are two completely different applications, as is the case with a Web client and server: Apache is a Web server, while OmniWeb, Internet Explorer, and Mozilla are all Web clients.</p>
-<p>We will see in the next column how this distinction between server and client blurs when we talk about peer-to-peer chat applications like RCE. Sometimes, one application is both a client and a server that allows connections from other like applications. This is especially true of peer-to-peer applications, such as the chat application we’re building. We’ll get into this more in the next column, but understand as we progress through our discussion today that RCE will have both server functionality and client functionality.</p>
-<h4 id="Working_With_Sockets">Working With Sockets</h4><p>Because of the differing tasks of a server and a client, their use of sockets is accordingly different. The role each side takes in establishing a communications link is reflected in the nature of the sockets each side uses. To wit, servers use what are known as passive sockets, and clients use active sockets.</p>
-<p>When a server process starts up, it must create a socket; bind it to a local, unused port; tell that socket to listen for new connections from clients; and finally, begin waiting for new connections. This socket is often referred to as a listening socket, or a passive socket, or a server socket. All of these names suggest that the role of the socket is to sit patiently while listening to its assigned port for clients requesting a connection with the server. In the analogy of the telephone, creating the socket is like buying a phone, binding is akin to getting a hookup from the phone company, listening is plugging your phone into the wall, and finally, accepting is the act of answering the phone when it rings.</p>
-<p>When a connection is received by the listening socket, the server must accept the connection and return a new connected socket that is used to communicate with the client. This new socket has an established connection to the client’s remote socket. By creating a new socket to handle the new connection, the listening socket is free to continue doing its thing, listening for connections from other clients.</p>
-<p>Clients use sockets in a different way. A client creates a socket in the same way as a server; however, after the socket is created the use of the socket differs. With a socket in hand, the client uses that socket to attempt to connect to a server. Once the connection has been accepted by the server, the client can begin sending and receiving data from the server. Referring back to our phone analogy, connecting is no different than dialing a phone number for someone you want to talk to.</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cedar-renjun.github.io/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" data-id="cifsfe8ya004fcyxn4fr6moid" class="article-share-link">Share</a>
-      
-      
-    </footer>
+        <div class="article-info info-on-right">
+          
+          
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/socket/">socket</a>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
-  
 </article>
+  
+  
+    </div></section>
+  
 
-
-  
-  
-</section>
-        
-          <aside id="sidebar">
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-语言/">C 语言</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IAR/">IAR</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/">Jlink</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Jlink/gcc/">gcc</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mbed/">Mbed</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/QT/">QT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RT-Thread/">RT-Thread</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/STM32F7/">STM32F7</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWD/">SWD</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gcc/">gcc</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/github/octopress/">octopress</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/scons/">scons</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/socket/">socket</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/思维训练/">思维训练</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/">教程</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Doxygen/">Doxygen</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/IAR/">IAR</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/SublimeText/">SublimeText</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/Zigbee/">Zigbee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/教程/框架/">框架</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/开源/">开源</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/示波器/">示波器</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/">转载</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/转载/励志/">励志</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/方法论/">方法论</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载/管理/">管理</a><span class="category-list-count">1</span></li></ul></li></ul>
-    </div>
-  </div>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">9</span></li></ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
+</div>
       <footer id="footer">
-  
   <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2015 Cedar<br>
-      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
     </div>
   </div>
 </footer>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/plan" class="mobile-nav-link">Plan</a>
-  
-    <a href="/about" class="mobile-nav-link">About</a>
-  
-</nav>
     
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: true,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
   </div>
 </body>
 </html>
