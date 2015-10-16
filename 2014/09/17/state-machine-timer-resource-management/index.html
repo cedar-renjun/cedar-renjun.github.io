@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在状态机中管理时间资源 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面的话在嵌入式系统中，经常会使用到延时(Delay)函数，延时有长，有短；500us以下的延时，可以完全用软件来做；较长的延时，可以用硬件Timer或者调用RTOS的时间管理函数。
+在简单的MCU中，由于资源限制，无法使用常规的RTOS，这时就需要自己写相应的协调式调度算法，常见的有协程和时间片轮询机制等，万变不离其宗，它们其中的核心是状态机，在状态机中一个核心原则是：函数不能长时间阻塞MC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在状态机中管理时间资源">
+<meta property="og:url" content="cedar-renjun.github.io/2014/09/17/state-machine-timer-resource-management/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="写在前面的话在嵌入式系统中，经常会使用到延时(Delay)函数，延时有长，有短；500us以下的延时，可以完全用软件来做；较长的延时，可以用硬件Timer或者调用RTOS的时间管理函数。
+在简单的MCU中，由于资源限制，无法使用常规的RTOS，这时就需要自己写相应的协调式调度算法，常见的有协程和时间片轮询机制等，万变不离其宗，它们其中的核心是状态机，在状态机中一个核心原则是：函数不能长时间阻塞MC">
+<meta property="og:updated_time" content="2015-10-15T16:22:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在状态机中管理时间资源">
+<meta name="twitter:description" content="写在前面的话在嵌入式系统中，经常会使用到延时(Delay)函数，延时有长，有短；500us以下的延时，可以完全用软件来做；较长的延时，可以用硬件Timer或者调用RTOS的时间管理函数。
+在简单的MCU中，由于资源限制，无法使用常规的RTOS，这时就需要自己写相应的协调式调度算法，常见的有协程和时间片轮询机制等，万变不离其宗，它们其中的核心是状态机，在状态机中一个核心原则是：函数不能长时间阻塞MC">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://github.com/cedar-renjun/cedar-renjun.github.io/blob/source/source/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="/www.miaoxiong.net">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://github.com/cedar-renjun/cedar-renjun.github.io/blob/source/source/images/avatar.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-state-machine-timer-resource-management" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/09/17/state-machine-timer-resource-management/" class="article-date">
+  	<time datetime="2014-09-17T07:00:29.000Z" itemprop="datePublished">2014-09-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在状态机中管理时间资源
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/框架/">框架</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面的话">写在前面的话</h2><p>在嵌入式系统中，经常会使用到延时(Delay)函数，延时有长，有短；500us以下的延时，可以完全用软件来做；较长的延时，可以用硬件Timer或者调用RTOS的时间管理函数。</p>
+<p>在简单的MCU中，由于资源限制，无法使用常规的RTOS，这时就需要自己写相应的协调式调度算法，常见的有协程和时间片轮询机制等，万变不离其宗，它们其中的核心是状态机，在状态机中一个核心原则是：<strong>函数不能长时间阻塞MCU</strong>，否则就会导致整个系统调度失效。也就是说：<strong>无法使用纯软件延时</strong></p>
+<p>例如，在系统中严禁出现下面代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay_s</span><span class="params">(uint8_t tick_s)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Code Snippet 1</span></span><br><span class="line"></span><br><span class="line">delay_s(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Code Snippet 2</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><strong>注：</strong><br>关于状态机，后面会专门写文章来介绍，这里暂且略过；如果您感兴趣，请自行 百度/google 下面关键字</p>
+<p><strong>FSM/HSM/状态机</strong></p>
+<p><br></p>
+<h2 id="原理分析">原理分析</h2><p>下面讨论下怎么处理这种情况</p>
+<p>传统软件延时的核心问题是：<strong>没有一个统一的全局时间，所以各个函数只好自己空转来延时；在空转时，也不会释放MCU，<br>所以导致无法执行其它函数，在OS的环境下，时间资源由RTOS统一接管，调度；无OS的情况下，我们便需要自己来管理时间资源</strong></p>
+<p>在APP层，用户使用场景规定如下：</p>
+<ol>
+<li>函数需要延时</li>
+<li>向系统申请时间资源</li>
+<li>任务获取句柄</li>
+<li>任务中，查询定时时间是否到达</li>
+</ol>
+<p>实现机制如下：</p>
+<p>在系统级别维护一个全局Timer值，该值会不断递增，同时在内部维护一个时间单元数组（链表）<br>，当用户申请时间资源时，系统查询一个空闲时间单元，将当前时间加上延时值，存储到时间单元结构体中，然后标记单元为占用状态，<br>返回时间单元ID（即为句柄）</p>
+<p>注：当定时时间到达后，原来获取的句柄变会失效，如需重新使用延时服务，请重新申请句柄</p>
+<h2 id="代码实现">代码实现</h2><p>详细的代码如下：</p>
+<figure class="highlight c"><figcaption><span>H文件代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \file   SoftTimer.h</span></span><br><span class="line"><span class="comment">//! \brief  SoftTimer Interface File</span></span><br><span class="line"><span class="comment">//!         This module is used to replace 'delay' function in state machine</span></span><br><span class="line"><span class="comment">//! \author cedar</span></span><br><span class="line"><span class="comment">//! \date   2014-9-17</span></span><br><span class="line"><span class="comment">//! \email  xuesong5825718@gmail.com</span></span><br><span class="line"><span class="comment">//! \qq     819280802</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \license</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! Copyright (c) 2014 Cedar MIT License</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! Permission is hereby granted, free of charge, to any person obtaining a copy</span></span><br><span class="line"><span class="comment">//! of this software and associated documentation files (the "Software"), to deal</span></span><br><span class="line"><span class="comment">//! in the Software without restriction, including without limitation the rights to</span></span><br><span class="line"><span class="comment">//! use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of</span></span><br><span class="line"><span class="comment">//! the Software, and to permit persons to whom the Software is furnished to do so,</span></span><br><span class="line"><span class="comment">//! subject to the following conditions:</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! The above copyright notice and this permission notice shall be included in all</span></span><br><span class="line"><span class="comment">//! copies or substantial portions of the Software.</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span></span><br><span class="line"><span class="comment">//! IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span></span><br><span class="line"><span class="comment">//! FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span></span><br><span class="line"><span class="comment">//! AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span></span><br><span class="line"><span class="comment">//! LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span></span><br><span class="line"><span class="comment">//! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS</span></span><br><span class="line"><span class="comment">//! IN THE SOFTWARE.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifndef</span> __SOFT_TIMER_H__</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> __SOFT_TIMER_H__</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!                           Portable Configure</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//! If your compiler support stdint.h file, then try to use it, otherwise using folling section</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> <span class="number">0</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span>      <span class="keyword">uint8_t</span> ;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="keyword">int</span> <span class="keyword">uint16_t</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>       <span class="keyword">uint32_t</span>;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> ENTER_SECURE_SECTION()     \</span><br><span class="line">do                                 \</span><br><span class="line">&#123;                                  \</span><br><span class="line">&#125; while (<span class="number">0</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> EXIT_SECURE_SECTION()      \</span><br><span class="line">do                                 \</span><br><span class="line">&#123;                                  \</span><br><span class="line">&#125; while (<span class="number">0</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!                           Function Parameters</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> TIMER_ELEMENT_NUM_MAX      <span class="number">20</span>                      <span class="comment">//!&lt; Maxium SoftTimer</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SOFT_TIMER_SUCCESS         <span class="number">0</span>                       <span class="comment">//!&lt; Operate success</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SOFT_TIMER_ING             <span class="number">1</span>                       <span class="comment">//!&lt; Timer Counting</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SOFT_TIMER_TIMEOUT         <span class="number">2</span>                       <span class="comment">//!&lt; Timer Timeout</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> SOFT_TIMER_ERR             <span class="number">3</span>                       <span class="comment">//!&lt; Operate failure, invaild handle</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!                           PUBLIC API</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">extern</span> uint16_t <span class="title">SoftTimer_Init</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> uint16_t <span class="title">SoftTimer_Req</span><span class="params">(uint32_t Delay)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> uint16_t <span class="title">SoftTimer_Check</span><span class="params">(uint16_t Handle)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">TimerISR_Hook</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span> <span class="comment">// __SOFT_TIMER_H__</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>C文件代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \file   SoftTimer.c</span></span><br><span class="line"><span class="comment">//! \brief  SoftTimer Implement File</span></span><br><span class="line"><span class="comment">//!         This module is used to replace 'delay' function in state machine</span></span><br><span class="line"><span class="comment">//! \author cedar</span></span><br><span class="line"><span class="comment">//! \date   2014-9-17</span></span><br><span class="line"><span class="comment">//! \email  xuesong5825718@gmail.com</span></span><br><span class="line"><span class="comment">//! \qq     819280802</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \license</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! Copyright (c) 2014 Cedar MIT License</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! Permission is hereby granted, free of charge, to any person obtaining a copy</span></span><br><span class="line"><span class="comment">//! of this software and associated documentation files (the "Software"), to deal</span></span><br><span class="line"><span class="comment">//! in the Software without restriction, including without limitation the rights to</span></span><br><span class="line"><span class="comment">//! use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of</span></span><br><span class="line"><span class="comment">//! the Software, and to permit persons to whom the Software is furnished to do so,</span></span><br><span class="line"><span class="comment">//! subject to the following conditions:</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! The above copyright notice and this permission notice shall be included in all</span></span><br><span class="line"><span class="comment">//! copies or substantial portions of the Software.</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span></span><br><span class="line"><span class="comment">//! IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span></span><br><span class="line"><span class="comment">//! FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span></span><br><span class="line"><span class="comment">//! AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span></span><br><span class="line"><span class="comment">//! LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span></span><br><span class="line"><span class="comment">//! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS</span></span><br><span class="line"><span class="comment">//! IN THE SOFTWARE.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"SoftTimer.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!                     Typedef</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">uint16_t</span> handle;                                       <span class="comment">// Timer Resource Handle</span></span><br><span class="line">    <span class="keyword">uint32_t</span> delay;                                        <span class="comment">// Delay Value</span></span><br><span class="line">    <span class="keyword">uint32_t</span> timestamp;                                    <span class="comment">// Timer Stamp</span></span><br><span class="line">&#125;TimerElem_t;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!                     Private Variable</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">uint32_t</span> TimerCnt    = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">uint16_t</span> HandleIndex = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">static</span> TimerElem_t       SoftTimer[TIMER_ELEMENT_NUM_MAX];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//!                     Function Implement</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//! \brief  Initialize Timer resource</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \param  None.</span></span><br><span class="line"><span class="comment">//! \retval </span></span><br><span class="line"><span class="comment">//!         - SOFT_TIMER_SUCCESS</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \note</span></span><br><span class="line"><span class="comment">//!         - This function must be called first !.</span></span><br><span class="line"><span class="comment">//!         </span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="keyword">uint16_t</span> SoftTimer_Init(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Clear All Elements</span></span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; TIMER_ELEMENT_NUM_MAX; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        SoftTimer[i].handle    = <span class="number">0</span>;</span><br><span class="line">        SoftTimer[i].delay     = <span class="number">0</span>;</span><br><span class="line">        SoftTimer[i].timestamp = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Initialize Global Status Variable</span></span><br><span class="line">    TimerCnt    = <span class="number">0</span>;</span><br><span class="line">    HandleIndex = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (SOFT_TIMER_SUCCESS);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//! \brief  Request Timer resource</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \param  [in] Tick is time eclipse value.</span></span><br><span class="line"><span class="comment">//! \retval </span></span><br><span class="line"><span class="comment">//!         - Zero                     Operate Failure, No Timer Available</span></span><br><span class="line"><span class="comment">//!         - Non-Zero                 Valid Timer Handle</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \note</span></span><br><span class="line"><span class="comment">//!         - Timer handle only can be used once.</span></span><br><span class="line"><span class="comment">//!         </span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="keyword">uint16_t</span> SoftTimer_Req(<span class="keyword">uint32_t</span> Tick)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; TIMER_ELEMENT_NUM_MAX; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (SoftTimer[i].handle == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            ENTER_SECURE_SECTION();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Timer Handle != 0</span></span><br><span class="line">            <span class="keyword">if</span> (++HandleIndex == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ++HandleIndex;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            SoftTimer[i].handle    = HandleIndex;</span><br><span class="line">            SoftTimer[i].delay     = Tick;</span><br><span class="line">            SoftTimer[i].timestamp = Tick + TimerCnt;</span><br><span class="line"></span><br><span class="line">            EXIT_SECURE_SECTION();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> (HandleIndex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//! \brief  Check Timer status</span></span><br><span class="line"><span class="comment">//!         You can check register timer status at any time.</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \param  [in] Handle is Timer Handle, which you can get it from \ref SoftTimer_Req.</span></span><br><span class="line"><span class="comment">//! \retval </span></span><br><span class="line"><span class="comment">//!         - \ref SOFT_TIMER_ING      Timer Counting</span></span><br><span class="line"><span class="comment">//!         - \ref SOFT_TIMER_TIMEOUT  Timer TimeOut</span></span><br><span class="line"><span class="comment">//!         - \ref SOFT_TIMER_ERR      Invalid Timer Handle</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \note</span></span><br><span class="line"><span class="comment">//!         - You must call \ref SoftTimer_Req to request an valid timer handle.</span></span><br><span class="line"><span class="comment">//!         - Timer handle only can be used once.</span></span><br><span class="line"><span class="comment">//!         </span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="keyword">uint16_t</span> SoftTimer_Check(<span class="keyword">uint16_t</span> Handle)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; TIMER_ELEMENT_NUM_MAX; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(SoftTimer[i].handle ==  Handle)</span><br><span class="line">        &#123;</span><br><span class="line">            ENTER_SECURE_SECTION();</span><br><span class="line">            <span class="keyword">if</span>(SoftTimer[i].delay + TimerCnt &lt; SoftTimer[i].timestamp)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> (SOFT_TIMER_ING);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> (SOFT_TIMER_TIMEOUT);</span><br><span class="line">            &#125;</span><br><span class="line">            EXIT_SECURE_SECTION();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (SOFT_TIMER_ERR);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//! \brief  SoftTimer Hook Function</span></span><br><span class="line"><span class="comment">//!         This callback function must be called interval</span></span><br><span class="line"><span class="comment">//!</span></span><br><span class="line"><span class="comment">//! \note   Typical 1ms interval</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//******************************************************************************************</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TimerISR_Hook</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    TimerCnt++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最新代码，请到<a href="https://github.com/cedar-renjun/Codesnippet/tree/master/SoftTimer" target="_blank" rel="external">https://github.com/cedar-renjun/Codesnippet/tree/master/SoftTimer</a>获取</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/09/21/good-blog-about-coroutines/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          谈谈协程和C语言的协程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/09/01/missing-you/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">那些人，珍重便好</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="state-machine-timer-resource-management" data-title="在状态机中管理时间资源" data-url="cedar-renjun.github.io/2014/09/17/state-machine-timer-resource-management/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

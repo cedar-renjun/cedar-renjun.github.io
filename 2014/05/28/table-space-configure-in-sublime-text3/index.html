@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在Sublime Text中设置Tab-Space | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1: 概述缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。
+2: 设置|---------------------------|------------------------------------------------------------------------------------------">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Sublime Text中设置Tab-Space">
+<meta property="og:url" content="cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="1: 概述缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。
+2: 设置|---------------------------|------------------------------------------------------------------------------------------">
+<meta property="og:updated_time" content="2015-10-15T16:22:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Sublime Text中设置Tab-Space">
+<meta name="twitter:description" content="1: 概述缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。
+2: 设置|---------------------------|------------------------------------------------------------------------------------------">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://github.com/cedar-renjun/cedar-renjun.github.io/blob/source/source/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="/www.miaoxiong.net">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://github.com/cedar-renjun/cedar-renjun.github.io/blob/source/source/images/avatar.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-table-space-configure-in-sublime-text3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/05/28/table-space-configure-in-sublime-text3/" class="article-date">
+  	<time datetime="2014-05-28T01:21:27.000Z" itemprop="datePublished">2014-05-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在Sublime Text中设置Tab-Space
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1:_概述">1: 概述</h3><p>缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。</p>
+<h3 id="2:_设置">2: 设置</h3><pre><code>|<span class="string">---------------------------</span>|<span class="string">--------------------------------------------------------------------------------------------------------------</span>|
+|<span class="string">tab_size                   </span>|<span class="string"> 数字。插入的空格数                                                                                           </span>|
+|<span class="string">translate_tabs_to_spaces   </span>|<span class="string"> Boolean, 如果为true，按tab键将会输入空格替代，而不是tab字符                                                  </span>|
+|<span class="string">detect_indentation         </span>|<span class="string"> Boolean, 默认为true, tab_size和translate_tabs_to_spaces将会在文件载入是自动计算                              </span>|
+|<span class="string">use_tab_stops              </span>|<span class="string"> Boolean, 如果translate_tabs_to_spaces为true, use_tab_stops将会使tab和backspace在下一个tab停止时insert/delete </span>|
+</code></pre><h3 id="3:_配置文件">3: 配置文件</h3><p>配置文件将会按下面这个顺序应用：</p>
+<ol>
+<li>Packages/Default/Preferences.sublime-settings</li>
+<li>Packages/Default/Preferences (<platform>).sublime-settings</platform></li>
+<li>Packages/User/Preferences.sublime-settings</li>
+<li>Packages/<syntax>/<syntax>.sublime-settings</syntax></syntax></li>
+<li>Packages/User/<syntax>.sublime-settings</syntax></li>
+</ol>
+<p>通常情况下，你应该把你的配置放在<code>Packages/User/Preferences.sublime-settings</code>里。如果你要给特定的文件类型指定配置，比如，Python, 应该放在<code>Packages/User/Python.sublime-settings</code>文件中</p>
+<h3 id="4:_配置文件示例">4: 配置文件示例</h3><p>试着把这些保存为<code>Packages/User/Preferences.sublime-settings</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">tab_size</span>": <span class="value"><span class="number">4</span></span>,</span><br><span class="line">    "<span class="attribute">translate_tabs_to_spaces</span>": <span class="value"><span class="literal">false</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5:_单独语法配置">5: 单独语法配置</h3><p>可以在基础配置之上指定单独的语法配置。在<code>Preferences/Settings - More/Syntax Specific - User</code>菜单下</p>
+<h3 id="6:_缩进的检测">6: 缩进的检测</h3><p>当一个文件载入时，它的内容会被检查，<code>tab_size</code>和<code>translate_tabs_to_spaces</code>设置将会应用到该文件。状态栏将会报告发了什么。尽管编辑器会处理的很好，如果想要把它禁用的话，可以通过<code>detect_indentation</code>来设置</p>
+<p>缩进检测可以手动执行，通过<code>View/Indentation/Guess Settings From Buffer</code>菜单执行<code>detect_indentation</code>命令</p>
+<h3 id="7:_Tab和空格之间转换">7: Tab和空格之间转换</h3><p><code>View/Indentation</code>菜单里有命令可以将当前文件中的空白在tab符和空格符之间转换。这几个菜单项执行的是<code>expand_tabs</code>和<code>unexpand_tabs</code>命令</p>
+<h3 id="8:_自动缩进">8: 自动缩进</h3><p>自动缩进猜测会在换行时给每一行添加一定数量空白符。由下面这个配置控制：</p>
+<pre><code>|<span class="string">-------------------------------</span>|<span class="string">-----------------------------------------------------------------------------------------------------------</span>|
+|<span class="string"> auto_indent                   </span>|<span class="string"> Boolean, 默认是开启                                                                                       </span>|
+|<span class="string"> smart_indent                  </span>|<span class="string"> Boolean, 默认是开启。具有一点小聪明的自动缩进，比如，在一个if语法片段的下一行进行缩进                     </span>|
+|<span class="string"> trim_automatic_white_space    </span>|<span class="string"> Boolean, 默认开启。当断行时由auto_indent去除行头尾的空白                                                  </span>|
+|<span class="string"> indent_to_bracket             </span>|<span class="string"> Boolean, 默认禁用。缩进时根据第一个前括号来空白数。像下面这样：use_indent_to_bracket(to_indent,like_this) </span>|
+</code></pre><h3 id="9：注意事项">9：注意事项</h3><font color="red"> 修改配置文件后，需要关闭所有打开的文件，然后重启Sublime Text </font>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/05/29/sublimetext-plug-doxydoc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          SublimeText 插件 -- DoxyDoc
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">解决Sublime Text 3中文乱码问题</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="table-space-configure-in-sublime-text3" data-title="在Sublime Text中设置Tab-Space" data-url="cedar-renjun.github.io/2014/05/28/table-space-configure-in-sublime-text3/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

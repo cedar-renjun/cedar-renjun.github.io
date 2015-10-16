@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>建立scons开发环境 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="概述本文重点介绍win7环境下安装arm gcc编译器和scons编译系统的过程
+注意：对于arm gcc和scons的介绍信息，请参考本博客《arm gcc简介》，《scons系统简介》
+安装步骤1. 安装gcc这里采用launchapad的arm-none-eabi-gcc，官网https://launchpad.net/gcc-arm-embedded/进入下载页面， 根据自己的系统，选择对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建立scons开发环境">
+<meta property="og:url" content="cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="概述本文重点介绍win7环境下安装arm gcc编译器和scons编译系统的过程
+注意：对于arm gcc和scons的介绍信息，请参考本博客《arm gcc简介》，《scons系统简介》
+安装步骤1. 安装gcc这里采用launchapad的arm-none-eabi-gcc，官网https://launchpad.net/gcc-arm-embedded/进入下载页面， 根据自己的系统，选择对">
+<meta property="og:updated_time" content="2015-10-15T16:22:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="建立scons开发环境">
+<meta name="twitter:description" content="概述本文重点介绍win7环境下安装arm gcc编译器和scons编译系统的过程
+注意：对于arm gcc和scons的介绍信息，请参考本博客《arm gcc简介》，《scons系统简介》
+安装步骤1. 安装gcc这里采用launchapad的arm-none-eabi-gcc，官网https://launchpad.net/gcc-arm-embedded/进入下载页面， 根据自己的系统，选择对">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://github.com/cedar-renjun/cedar-renjun.github.io/blob/source/source/images/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="/www.miaoxiong.net">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://github.com/cedar-renjun/cedar-renjun.github.io/blob/source/source/images/avatar.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Set-Up-scons-environment" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/06/Set-Up-scons-environment/" class="article-date">
+  	<time datetime="2015-10-06T01:49:41.000Z" itemprop="datePublished">2015-10-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      建立scons开发环境
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/scons/">scons</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述">概述</h3><p>本文重点介绍win7环境下安装arm gcc编译器和scons编译系统的过程</p>
+<p>注意：对于arm gcc和scons的介绍信息，请参考本博客《arm gcc简介》，《scons系统简介》</p>
+<h3 id="安装步骤">安装步骤</h3><h4 id="1-_安装gcc">1. 安装gcc</h4><p>这里采用launchapad的arm-none-eabi-gcc，官网<a href="https://launchpad.net/gcc-arm-embedded/" target="_blank" rel="external">https://launchpad.net/gcc-arm-embedded/</a><br>进入<a href="https://launchpad.net/gcc-arm-embedded/+download" target="_blank" rel="external">下载页面</a>， 根据自己的系统，选择对应的版本，我这里下载32位最新版4.9<a href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-win32.exe" target="_blank" rel="external">gcc-arm-none-eabi-4_9-2015q3-20150921-win32.exe</a></p>
+<p>点击安装，一路next，保持默认安装路径，安装完成界面，会有4个复选框，勾选</p>
+<ul>
+<li><code>Add path to environment variable</code></li>
+<li><code>Add registry information</code><br>点击完成，arm gcc安装完成</li>
+</ul>
+<h4 id="2-_安装python_2-xx">2. 安装python 2.xx</h4><p><strong>注意:</strong> 一定要安装2.xx版本的python<br>进入python下载页面<a href="https://www.python.org/downloads/release/python-2710/，" target="_blank" rel="external">https://www.python.org/downloads/release/python-2710/，</a> 选择对应系统的python<br>这里选择32位2.7自安装包版本<br><a href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi" target="_blank" rel="external">https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi</a></p>
+<p>点击安装，一路next，保持默认安装路径和配置选项，直到安装完成</p>
+<h4 id="3-_安装scons">3. 安装scons</h4><p>进入scons下载页面<a href="http://www.scons.org/download.php" target="_blank" rel="external">http://www.scons.org/download.php</a><br>下载2.4版本的windows安装包<a href="http://prdownloads.sourceforge.net/scons/scons-2.4.0-setup.exe" target="_blank" rel="external">http://prdownloads.sourceforge.net/scons/scons-2.4.0-setup.exe</a></p>
+<p>点击安装，一路next，保持默认安装路径和配置选项，直到安装完成</p>
+<h4 id="4-_更新环境变量">4. 更新环境变量</h4><p>打开系统环境变量配置页<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">开始－》计算机－》属性－》高级系统设置－》环境变量－》系统变量－》<span class="built_in">Path</span>－》编辑</span><br></pre></td></tr></table></figure></p>
+<p>检查Path是否有下面三项，没有则添加<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Python27</span>;<span class="title">C</span>:\<span class="title">Python27</span>\<span class="title">Scripts</span>;<span class="title">C</span>:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">GNU</span> <span class="title">Tools</span> <span class="title">ARM</span> <span class="title">Embedded</span>\4.9 2015<span class="title">q3</span>\<span class="title">bin</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>注意</strong>: Path 用<code>;</code>来分割路径</p>
+<h4 id="5-_测试系统">5. 测试系统</h4><p>打开Cmd窗口，输入<code>arm-none-eabi-gcc -v</code>, <code>python -V</code>, <code>scons -v</code><br><strong>注意</strong>: <code>python -V</code>中的V要大写</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users&gt; arm-none-eabi-gcc -v</span><br><span class="line">Using built-<span class="flow">in</span> specs.</span><br><span class="line">COLLECT_GCC=C:\Program Files\GNU Tools ARM Embedded\<span class="number">4</span>.<span class="number">9</span> <span class="number">2015</span>q3\bin\arm-none-eabi-gcc.exe</span><br><span class="line">COLLECT_LTO_WRAPPER=c:/program\ files/gnu\ tools\ arm\ embedded/<span class="number">4</span>.<span class="number">9</span>\ <span class="number">2015</span>q3/bin/../lib/gcc/arm-none-eabi/<span class="number">4</span>.<span class="number">9</span>.<span class="number">3</span>/lto-wrapp</span><br><span class="line">er.exe</span><br><span class="line"><span class="function">Target: <span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span></span><br><span class="line"><span class="title">Configured</span> <span class="title">with</span>: /<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">src</span>/<span class="title">gcc</span>/<span class="title">configure</span> --<span class="title">build</span>=<span class="title">i686</span>-<span class="title">linux</span>-<span class="title">gnu</span> --<span class="title">host</span>=<span class="title">i686</span>-<span class="title">w64</span>-<span class="title">mingw32</span> --<span class="title">targe</span></span><br><span class="line"><span class="title">t</span>=<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span> --<span class="title">prefix</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span> --<span class="title">libexecdir</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">instal</span></span><br><span class="line"><span class="title">l</span>-<span class="title">mingw</span>/<span class="title">lib</span> --<span class="title">infodir</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span>/<span class="title">share</span>/<span class="title">doc</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span>/<span class="title">info</span> --<span class="title">mandir</span>=/<span class="title">home</span>/<span class="title">build</span></span><br><span class="line">/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span>/<span class="title">share</span>/<span class="title">doc</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span>/<span class="title">man</span> --<span class="title">htmldir</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span></span><br><span class="line">/<span class="title">share</span>/<span class="title">doc</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span>/<span class="title">html</span> --<span class="title">pdfdir</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span>/<span class="title">share</span>/<span class="title">doc</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span>/<span class="title">pdf</span></span><br><span class="line">--<span class="title">enable</span>-<span class="title">languages</span>=<span class="title">c</span>,<span class="title">c</span>++ --<span class="title">disable</span>-<span class="title">decimal</span>-<span class="title">float</span> --<span class="title">disable</span>-<span class="title">libffi</span> --<span class="title">disable</span>-<span class="title">libgomp</span> --<span class="title">disable</span>-<span class="title">libmudflap</span> --<span class="title">disable</span>-<span class="title">libqu</span></span><br><span class="line"><span class="title">admath</span> --<span class="title">disable</span>-<span class="title">libssp</span> --<span class="title">disable</span>-<span class="title">libstdcxx</span>-<span class="title">pch</span> --<span class="title">disable</span>-<span class="title">nls</span> --<span class="title">disable</span>-<span class="title">shared</span> --<span class="title">disable</span>-<span class="title">threads</span> --<span class="title">disable</span>-<span class="title">tls</span> --<span class="title">with</span>-<span class="title">gn</span></span><br><span class="line"><span class="title">u</span>-<span class="title">as</span> --<span class="title">with</span>-<span class="title">gnu</span>-<span class="title">ld</span> --<span class="title">with</span>-<span class="title">headers</span>=<span class="title">yes</span> --<span class="title">with</span>-<span class="title">newlib</span> --<span class="title">with</span>-<span class="title">python</span>-<span class="title">dir</span>=<span class="title">share</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span> --<span class="title">with</span>-<span class="title">sysroot</span>=/<span class="title">home</span>/<span class="title">build</span></span><br><span class="line">/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span>/<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span> --<span class="title">with</span>-<span class="title">libiconv</span>-<span class="title">prefix</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">l</span></span><br><span class="line"><span class="title">ibs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">gmp</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">mpfr</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">b</span></span><br><span class="line"><span class="title">uild</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">mpc</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">isl</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span></span><br><span class="line">/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">cloog</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">li</span></span><br><span class="line"><span class="title">belf</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">host</span>-<span class="title">libstdcxx</span>='-<span class="title">static</span>-<span class="title">libgcc</span> -<span class="title">Wl</span>,-<span class="title">Bstatic</span>,-<span class="title">lstdc</span>+</span><br><span class="line">+,-<span class="title">Bdynamic</span> -<span class="title">lm</span>' --<span class="title">with</span>-<span class="title">pkgversion</span>='<span class="title">GNU</span> <span class="title">Tools</span> <span class="title">for</span> <span class="title">ARM</span> <span class="title">Embedded</span> <span class="title">Processors</span>' --<span class="title">with</span>-<span class="title">multilib</span>-<span class="title">list</span>=<span class="title">armv6</span>-<span class="title">m</span>,<span class="title">armv7</span>-<span class="title">m</span>,<span class="title">armv7e</span>-<span class="title">m</span></span><br><span class="line">,<span class="title">cortex</span>-<span class="title">m7</span>,<span class="title">armv7</span>-<span class="title">r</span></span><br><span class="line"><span class="title">Thread</span> <span class="title">model</span>: <span class="title">single</span></span><br><span class="line"><span class="title">gcc</span> <span class="title">version</span> 4.9.3 20150529 (<span class="title">release</span>) [<span class="title">ARM</span>/<span class="title">embedded</span>-4<span class="title">_9</span>-<span class="title">branch</span> <span class="title">revision</span> 227977] (<span class="title">GNU</span> <span class="title">Tools</span> <span class="title">for</span> <span class="title">ARM</span> <span class="title">Embedded</span> <span class="title">Processors</span>)</span><br><span class="line"><span class="title">PS</span> <span class="title">C</span>:\<span class="title">Users</span>&gt; <span class="title">python</span> -<span class="title">V</span></span><br><span class="line"><span class="title">Python</span> 2.7.10</span><br><span class="line"><span class="title">PS</span> <span class="title">C</span>:\<span class="title">Users</span>&gt; <span class="title">scons</span> -<span class="title">v</span></span><br><span class="line"><span class="title">SCons</span> <span class="title">by</span> <span class="title">Steven</span> <span class="title">Knight</span> <span class="title">et</span> <span class="title">al</span>.:</span><br><span class="line">        <span class="title">script</span>: <span class="title">v2</span>.4.0.<span class="title">rel_2</span>.4.0:3365:9259<span class="title">ea1c13d7</span>, 2015/09/21 14:03:43, <span class="title">by</span> <span class="title">bdbaddog</span> <span class="title">on</span> <span class="title">hpmicrodog</span></span><br><span class="line">        <span class="title">engine</span>: <span class="title">v2</span>.4.0.<span class="title">rel_2</span>.4.0:3365:9259<span class="title">ea1c13d7</span>, 2015/09/21 14:03:43, <span class="title">by</span> <span class="title">bdbaddog</span> <span class="title">on</span> <span class="title">hpmicrodog</span></span><br><span class="line">        <span class="title">engine</span> <span class="title">path</span>: ['<span class="title">C</span>:\\<span class="title">Python27</span>\\<span class="title">scons</span>-2.4.0\\<span class="title">SCons</span>']</span><br><span class="line"><span class="title">Copyright</span> (<span class="title">c</span>) 2001 - 2015 <span class="title">The</span> <span class="title">SCons</span> <span class="title">Foundation</span></span><br><span class="line"><span class="title">PS</span> <span class="title">C</span>:\<span class="title">Users</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>至此，所有的系统配置已经完成</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/06/Port-to-gcc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          ARM GCC移植指导
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用gdb调试Cortex-M系列芯片</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Set-Up-scons-environment" data-title="建立scons开发环境" data-url="cedar-renjun.github.io/2015/10/06/Set-Up-scons-environment/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -30,7 +30,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+			<img lazy-src="https://github.com/cedar-renjun/cedar-renjun.github.io/blob/source/source/images/avatar.jpg" class="js-avatar">
 			
 		</a>
 
@@ -104,7 +104,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
 					</div>
 				</section>
 				
@@ -142,7 +142,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img lazy-src="http://p1.gexing.com/qqpifu/20120924/1815/506032da70bd6_600x.jpg" class="js-avatar">
+				<img lazy-src="https://github.com/cedar-renjun/cedar-renjun.github.io/blob/source/source/images/avatar.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author">Do one thing and do it well</h1>
@@ -168,10 +168,91 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-2015-10-15-light-led-via-different-ways-in-rt-thread" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-use-stm32F7-discovery-board" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/15/2015-10-15-light-led-via-different-ways-in-rt-thread/" class="article-date">
+      <a href="/2015/10/16/use-stm32F7-discovery-board/" class="article-date">
+  	<time datetime="2015-10-16T15:04:31.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/16/use-stm32F7-discovery-board/">STM32F7 Discovery 外部可用接口</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>拿到板子后，我们重点需要考虑的是STM32F7的板子还有多少资源可供我们使用<br>这里重点关注的是通信接口（比如SPI／I2C／IO之类的），因为可以通过这些接口外挂器件，拓展功能<br>查看F7手册和Discovery板子原理图，可以知道Discovery采用的是216Pin管脚的F746NG芯片，虽然板子外设比较多，<br>但芯片IO足够用</p>
+<p>板子功能框架如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/16/1.png" alt="Discovery功能框图"></p>
+<p>大致将IO分为以下几个部分</p>
+<ol>
+<li>USB OTG(HS/FS)</li>
+<li>Camera</li>
+<li>Audio</li>
+<li>Ethernet</li>
+<li>LCD</li>
+<li>RAM &amp; FLASH (128M)</li>
+<li>Arduino IO</li>
+<li>Peripheral</li>
+</ol>
+<p>详细的框架图如下所示（注：官方采用自顶向下，分页的设计原则）<br><img src="http://cedar-renjun.github.io/images/2015/10/16/2.png" alt="Discovery分配"></p>
+<h3 id="基本对外接口">基本对外接口</h3><p>在最初的调试，我们重点关注板子有没有按键，led或者串口之类的</p>
+<h4 id="串口">串口</h4><p>有两个，一个是物理常规UART1，可以直接通过F7 MCU来控制；<br>另外，ST-Link引出的SWD调试器的SWO接口，可以用ITM来打印一些调试信息，也可以当串口使用</p>
+<h4 id="按键">按键</h4><p>分配到PI11管脚</p>
+<h4 id="LED">LED</h4><p>分配到PI1管脚</p>
+<h4 id="Arduino通信口">Arduino通信口</h4><p>得益于F7巨大的管脚数量，Discovery板子专门分配一批IO管脚供Arduino使用，包括SPI接口，IO接口，ADC接口等<br>具体参考下图所示<br><img src="http://cedar-renjun.github.io/images/2015/10/16/3.png" alt="Discovery分配"></p>
+<p>至此，我们可以知道，F7板子上足够的外部接口供我们使用，充分拓展应用</p>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1858/LN1902" target="_blank" rel="external">STM32F7 主页</a></li>
+<li><a href="http://www.st.com/web/en/resource/technical/document/datasheet/DM00166116.pdf" target="_blank" rel="external">STM32F7 数据手册</a></li>
+<li><a href="http://www.st.com/web/en/resource/technical/document/reference_manual/DM00124865.pdf" target="_blank" rel="external">STM32F7 用户手册</a></li>
+<li><a href="http://www.st.com/st-web-ui/static/active/en/resource/technical/document/user_manual/DM00190424.pdf" target="_blank" rel="external">STM32F7 Discovery 指导手册</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32F7/">STM32F7</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-light-led-via-different-ways-in-rt-thread" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/15/light-led-via-different-ways-in-rt-thread/" class="article-date">
   	<time datetime="2015-10-15T15:27:20.000Z" itemprop="datePublished">2015-10-15</time>
 </a>
     </div>
@@ -185,7 +266,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/15/2015-10-15-light-led-via-different-ways-in-rt-thread/">RT-Thread的小例子</a>
+      <a class="article-title" href="/2015/10/15/light-led-via-different-ways-in-rt-thread/">RT-Thread的小例子</a>
     </h1>
   
 
@@ -229,7 +310,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2015/10/15/2015-10-15-light-led-via-different-ways-in-rt-thread/#more">more >></a>
+          <a  href="/2015/10/15/light-led-via-different-ways-in-rt-thread/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -246,10 +327,10 @@
 
 
   
-    <article id="post-2015-10-15-use-rt-thread-finsh-cmd-tools" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-use-rt-thread-finsh-cmd-tools" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/15/2015-10-15-use-rt-thread-finsh-cmd-tools/" class="article-date">
+      <a href="/2015/10/15/use-rt-thread-finsh-cmd-tools/" class="article-date">
   	<time datetime="2015-10-15T03:16:05.000Z" itemprop="datePublished">2015-10-15</time>
 </a>
     </div>
@@ -263,7 +344,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/15/2015-10-15-use-rt-thread-finsh-cmd-tools/">使用RT-Thread Finsh</a>
+      <a class="article-title" href="/2015/10/15/use-rt-thread-finsh-cmd-tools/">使用RT-Thread Finsh</a>
     </h1>
   
 
@@ -341,10 +422,10 @@ finsh正是基于这些考虑而诞生的，finsh运行于开发板，它可以�
 
 
   
-    <article id="post-2015-10-15-debug-cortex-m-hardfault" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-debug-cortex-m-hardfault" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/15/2015-10-15-debug-cortex-m-hardfault/" class="article-date">
+      <a href="/2015/10/15/debug-cortex-m-hardfault/" class="article-date">
   	<time datetime="2015-10-15T03:15:43.000Z" itemprop="datePublished">2015-10-15</time>
 </a>
     </div>
@@ -358,7 +439,7 @@ finsh正是基于这些考虑而诞生的，finsh运行于开发板，它可以�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/15/2015-10-15-debug-cortex-m-hardfault/">debug cortex-m hardfault</a>
+      <a class="article-title" href="/2015/10/15/debug-cortex-m-hardfault/">debug cortex-m hardfault</a>
     </h1>
   
 
@@ -391,10 +472,10 @@ finsh正是基于这些考虑而诞生的，finsh运行于开发板，它可以�
 
 
   
-    <article id="post-2015-10-13-raspberry-2B-feedback" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-raspberry-2B-feedback" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/13/2015-10-13-raspberry-2B-feedback/" class="article-date">
+      <a href="/2015/10/13/raspberry-2B-feedback/" class="article-date">
   	<time datetime="2015-10-13T15:52:21.000Z" itemprop="datePublished">2015-10-13</time>
 </a>
     </div>
@@ -408,7 +489,7 @@ finsh正是基于这些考虑而诞生的，finsh运行于开发板，它可以�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/13/2015-10-13-raspberry-2B-feedback/">试用树莓派2B</a>
+      <a class="article-title" href="/2015/10/13/raspberry-2B-feedback/">试用树莓派2B</a>
     </h1>
   
 
@@ -503,10 +584,10 @@ finsh正是基于这些考虑而诞生的，finsh运行于开发板，它可以�
 
 
   
-    <article id="post-2015-10-12-install-opencv-on-raspberry2B" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-install-opencv-on-raspberry2B" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/12/2015-10-12-install-opencv-on-raspberry2B/" class="article-date">
+      <a href="/2015/10/12/install-opencv-on-raspberry2B/" class="article-date">
   	<time datetime="2015-10-12T11:14:59.000Z" itemprop="datePublished">2015-10-12</time>
 </a>
     </div>
@@ -520,7 +601,7 @@ finsh正是基于这些考虑而诞生的，finsh运行于开发板，它可以�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/12/2015-10-12-install-opencv-on-raspberry2B/">安装opencv</a>
+      <a class="article-title" href="/2015/10/12/install-opencv-on-raspberry2B/">安装opencv</a>
     </h1>
   
 
@@ -576,10 +657,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-11-resize-raspberry-sd-volume" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-resize-raspberry-sd-volume" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/11/2015-10-11-resize-raspberry-sd-volume/" class="article-date">
+      <a href="/2015/10/11/resize-raspberry-sd-volume/" class="article-date">
   	<time datetime="2015-10-11T10:10:36.000Z" itemprop="datePublished">2015-10-11</time>
 </a>
     </div>
@@ -593,7 +674,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/11/2015-10-11-resize-raspberry-sd-volume/">充分使用树莓派SD卡容量</a>
+      <a class="article-title" href="/2015/10/11/resize-raspberry-sd-volume/">充分使用树莓派SD卡容量</a>
     </h1>
   
 
@@ -655,10 +736,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-11-Build-Raspberry-Kernel" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Build-Raspberry-Kernel" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/11/2015-10-11-Build-Raspberry-Kernel/" class="article-date">
+      <a href="/2015/10/11/Build-Raspberry-Kernel/" class="article-date">
   	<time datetime="2015-10-10T16:27:06.000Z" itemprop="datePublished">2015-10-11</time>
 </a>
     </div>
@@ -672,7 +753,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/11/2015-10-11-Build-Raspberry-Kernel/">编译树莓派内核</a>
+      <a class="article-title" href="/2015/10/11/Build-Raspberry-Kernel/">编译树莓派内核</a>
     </h1>
   
 
@@ -744,10 +825,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-08-Setup-STM32F7-develop-environment" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Setup-STM32F7-develop-environment" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/08/2015-10-08-Setup-STM32F7-develop-environment/" class="article-date">
+      <a href="/2015/10/08/Setup-STM32F7-develop-environment/" class="article-date">
   	<time datetime="2015-10-07T17:25:59.000Z" itemprop="datePublished">2015-10-08</time>
 </a>
     </div>
@@ -761,7 +842,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/08/2015-10-08-Setup-STM32F7-develop-environment/">建立STM32 F7 MDK 开发环境</a>
+      <a class="article-title" href="/2015/10/08/Setup-STM32F7-develop-environment/">建立STM32 F7 MDK 开发环境</a>
     </h1>
   
 
@@ -823,10 +904,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-07-Networking-and-the-BSD-Sockets-APIs" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Networking-and-the-BSD-Sockets-APIs" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/07/2015-10-07-Networking-and-the-BSD-Sockets-APIs/" class="article-date">
+      <a href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" class="article-date">
   	<time datetime="2015-10-07T03:56:59.000Z" itemprop="datePublished">2015-10-07</time>
 </a>
     </div>
@@ -840,7 +921,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/07/2015-10-07-Networking-and-the-BSD-Sockets-APIs/">Networking and the BSD Sockets APIs</a>
+      <a class="article-title" href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/">Networking and the BSD Sockets APIs</a>
     </h1>
   
 
@@ -876,7 +957,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
       
         <p class="article-more-link">
-          <a  href="/2015/10/07/2015-10-07-Networking-and-the-BSD-Sockets-APIs/#more">more >></a>
+          <a  href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -893,10 +974,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-06-Port-to-gcc" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Port-to-gcc" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/06/2015-10-06-Port-to-gcc/" class="article-date">
+      <a href="/2015/10/06/Port-to-gcc/" class="article-date">
   	<time datetime="2015-10-06T03:39:47.000Z" itemprop="datePublished">2015-10-06</time>
 </a>
     </div>
@@ -910,7 +991,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/06/2015-10-06-Port-to-gcc/">ARM GCC移植指导</a>
+      <a class="article-title" href="/2015/10/06/Port-to-gcc/">ARM GCC移植指导</a>
     </h1>
   
 
@@ -943,7 +1024,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
       
         <p class="article-more-link">
-          <a  href="/2015/10/06/2015-10-06-Port-to-gcc/#more">more >></a>
+          <a  href="/2015/10/06/Port-to-gcc/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -960,10 +1041,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-06-Set-Up-scons-environment" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Set-Up-scons-environment" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/06/2015-10-06-Set-Up-scons-environment/" class="article-date">
+      <a href="/2015/10/06/Set-Up-scons-environment/" class="article-date">
   	<time datetime="2015-10-06T01:49:41.000Z" itemprop="datePublished">2015-10-06</time>
 </a>
     </div>
@@ -977,7 +1058,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/06/2015-10-06-Set-Up-scons-environment/">建立scons开发环境</a>
+      <a class="article-title" href="/2015/10/06/Set-Up-scons-environment/">建立scons开发环境</a>
     </h1>
   
 
@@ -1032,10 +1113,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-04-Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/04/2015-10-04-Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" class="article-date">
+      <a href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" class="article-date">
   	<time datetime="2015-10-04T12:17:54.000Z" itemprop="datePublished">2015-10-04</time>
 </a>
     </div>
@@ -1049,7 +1130,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/04/2015-10-04-Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/">用gdb调试Cortex-M系列芯片</a>
+      <a class="article-title" href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/">用gdb调试Cortex-M系列芯片</a>
     </h1>
   
 
@@ -1117,10 +1198,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-02-Create-your-IAR-project-template" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Create-your-IAR-project-template" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/02/2015-10-02-Create-your-IAR-project-template/" class="article-date">
+      <a href="/2015/10/02/Create-your-IAR-project-template/" class="article-date">
   	<time datetime="2015-10-02T05:29:55.000Z" itemprop="datePublished">2015-10-02</time>
 </a>
     </div>
@@ -1134,7 +1215,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/02/2015-10-02-Create-your-IAR-project-template/">创建IAR模版工程</a>
+      <a class="article-title" href="/2015/10/02/Create-your-IAR-project-template/">创建IAR模版工程</a>
     </h1>
   
 
@@ -1217,10 +1298,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-02-IAR-projects-template" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-IAR-projects-template" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/02/2015-10-02-IAR-projects-template/" class="article-date">
+      <a href="/2015/10/02/IAR-projects-template/" class="article-date">
   	<time datetime="2015-10-02T02:35:55.000Z" itemprop="datePublished">2015-10-02</time>
 </a>
     </div>
@@ -1234,7 +1315,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/02/2015-10-02-IAR-projects-template/">IAR 工程文件分析</a>
+      <a class="article-title" href="/2015/10/02/IAR-projects-template/">IAR 工程文件分析</a>
     </h1>
   
 
@@ -1298,10 +1379,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2015-10-01-Introduce-Raspberry-2B" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Introduce-Raspberry-2B" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/01/2015-10-01-Introduce-Raspberry-2B/" class="article-date">
+      <a href="/2015/10/01/Introduce-Raspberry-2B/" class="article-date">
   	<time datetime="2015-10-01T13:25:40.000Z" itemprop="datePublished">2015-10-01</time>
 </a>
     </div>
@@ -1315,7 +1396,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/01/2015-10-01-Introduce-Raspberry-2B/">“树莓派2B＋学习笔记-开篇”</a>
+      <a class="article-title" href="/2015/10/01/Introduce-Raspberry-2B/">“树莓派2B＋学习笔记-开篇”</a>
     </h1>
   
 
@@ -1378,10 +1459,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2014-11-16-coding-standard" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-coding-standard" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2014/11/16/2014-11-16-coding-standard/" class="article-date">
+      <a href="/2014/11/16/coding-standard/" class="article-date">
   	<time datetime="2014-11-16T08:47:24.000Z" itemprop="datePublished">2014-11-16</time>
 </a>
     </div>
@@ -1395,7 +1476,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/11/16/2014-11-16-coding-standard/">C语言编码规范</a>
+      <a class="article-title" href="/2014/11/16/coding-standard/">C语言编码规范</a>
     </h1>
   
 
@@ -1422,7 +1503,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
       
         <p class="article-more-link">
-          <a  href="/2014/11/16/2014-11-16-coding-standard/#more">more >></a>
+          <a  href="/2014/11/16/coding-standard/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1439,10 +1520,10 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 
 
   
-    <article id="post-2014-10-28-iar-warming-25-problem" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-iar-warming-25-problem" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2014/10/28/2014-10-28-iar-warming-25-problem/" class="article-date">
+      <a href="/2014/10/28/iar-warming-25-problem/" class="article-date">
   	<time datetime="2014-10-28T12:30:05.000Z" itemprop="datePublished">2014-10-28</time>
 </a>
     </div>
@@ -1456,7 +1537,7 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/28/2014-10-28-iar-warming-25-problem/">IAR Warming 25 Problem</a>
+      <a class="article-title" href="/2014/10/28/iar-warming-25-problem/">IAR Warming 25 Problem</a>
     </h1>
   
 
@@ -1506,10 +1587,10 @@ MemManage_Handler
 
 
   
-    <article id="post-2014-10-25-qt-chinese-decoder" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-qt-chinese-decoder" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2014/10/25/2014-10-25-qt-chinese-decoder/" class="article-date">
+      <a href="/2014/10/25/qt-chinese-decoder/" class="article-date">
   	<time datetime="2014-10-25T15:25:19.000Z" itemprop="datePublished">2014-10-25</time>
 </a>
     </div>
@@ -1523,7 +1604,7 @@ MemManage_Handler
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/25/2014-10-25-qt-chinese-decoder/">QT5 VS2013 中文乱码问题</a>
+      <a class="article-title" href="/2014/10/25/qt-chinese-decoder/">QT5 VS2013 中文乱码问题</a>
     </h1>
   
 
@@ -1567,10 +1648,10 @@ MemManage_Handler
 
 
   
-    <article id="post-2014-10-16-iar-keep-unused-section" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-iar-keep-unused-section" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2014/10/16/2014-10-16-iar-keep-unused-section/" class="article-date">
+      <a href="/2014/10/16/iar-keep-unused-section/" class="article-date">
   	<time datetime="2014-10-16T13:43:29.000Z" itemprop="datePublished">2014-10-16</time>
 </a>
     </div>
@@ -1584,7 +1665,7 @@ MemManage_Handler
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/16/2014-10-16-iar-keep-unused-section/">IAR中保留未用代码段</a>
+      <a class="article-title" href="/2014/10/16/iar-keep-unused-section/">IAR中保留未用代码段</a>
     </h1>
   
 
@@ -1618,71 +1699,6 @@ MemManage_Handler
 	</div>
 
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-2014-10-16-use-swd-interface-to-measure-time" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/10/16/2014-10-16-use-swd-interface-to-measure-time/" class="article-date">
-  	<time datetime="2014-10-16T13:38:17.000Z" itemprop="datePublished">2014-10-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/16/2014-10-16-use-swd-interface-to-measure-time/">用SWD调试接口测量代码运行时间</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="关于时间测量的种种问题">关于时间测量的种种问题</h2><p>在嵌入式中，我们经常需要测量某段代码的执行时间或测量事件触发的时间，常规的思路是：</p>
-<p>1：在测量起始点，反转电平<br>2：在测量结束点，再次反转电平</p>
-<p>然后通过示波器或者逻辑分析仪来测量反转间隔，也就是代码时间</p>
-<p>这种方法，在测量两个或多个时间信号同步的时候，非常有用，实际上，这也是唯一的方法。</p>
-<p>但是如果在测量中，其它代码也会控制这个管脚电平或者周期性动作，这时便需要在&lt;动作1&gt;之前<br>增加前导码，从而便于在繁杂的波形中，一眼识别出需要特定的波形</p>
-<p>同时，如果测量的时间值非常小，那么用示波器即便可以识别，但不容易捕获</p>
-<h2 id="SWD解决方案">SWD解决方案</h2><p>在ARM Cortex-M 芯片中，用SWD调试接口取代了传统的JTAG调试接口，从而占用MCU更少的管脚，同时提高了调试性能。</p>
-<p>SWD由四根线组成，SWO，SWDIO，SWCLK，GND；SWDIO和SWCLK组成了基本的串行调试接口，SWO则提供一个信息输出通道，<br>可以输出很多信息，比如指令的执行时间或者ISR触发事件，所以我们可以通过SWD接口配合IDE来获取代码执行时间，从而在某种程度上取代示波器</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/SWD/">SWD</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2014/10/16/2014-10-16-use-swd-interface-to-measure-time/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
