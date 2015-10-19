@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hello elua | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="概述下文会简单的介绍elua，然后编译固件，烧录到STM32F4 Nucleo板子上，最后用lua来编写一个简单的hello程序
+注意事项在继续阅读之前，请看下面几点
+
+elua项目的版本比较多，代码文档和网站文档不一致，建议参考代码中的文档说明；本文档代码采用github master主分支0.9版本
+本文以linux平台为例来说明编译过程，实际上，我是用树莓派来编译elua的，并用树莓派烧录，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello elua">
+<meta property="og:url" content="cedar-renjun.github.io/2015/10/19/hello-elua/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="概述下文会简单的介绍elua，然后编译固件，烧录到STM32F4 Nucleo板子上，最后用lua来编写一个简单的hello程序
+注意事项在继续阅读之前，请看下面几点
+
+elua项目的版本比较多，代码文档和网站文档不一致，建议参考代码中的文档说明；本文档代码采用github master主分支0.9版本
+本文以linux平台为例来说明编译过程，实际上，我是用树莓派来编译elua的，并用树莓派烧录，">
+<meta property="og:updated_time" content="2015-10-19T02:19:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hello elua">
+<meta name="twitter:description" content="概述下文会简单的介绍elua，然后编译固件，烧录到STM32F4 Nucleo板子上，最后用lua来编写一个简单的hello程序
+注意事项在继续阅读之前，请看下面几点
+
+elua项目的版本比较多，代码文档和网站文档不一致，建议参考代码中的文档说明；本文档代码采用github master主分支0.9版本
+本文以linux平台为例来说明编译过程，实际上，我是用树莓派来编译elua的，并用树莓派烧录，">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-hello-elua" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/19/hello-elua/" class="article-date">
+  	<time datetime="2015-10-18T16:36:27.000Z" itemprop="datePublished">2015-10-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hello elua
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elua/">elua</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述">概述</h3><p>下文会简单的介绍elua，然后编译固件，烧录到STM32F4 Nucleo板子上，最后用lua来编写一个简单的hello程序</p>
+<h4 id="注意事项">注意事项</h4><p>在继续阅读之前，请看下面几点</p>
+<ol>
+<li>elua项目的版本比较多，代码文档和网站文档不一致，建议参考代码中的文档说明；本文档代码采用github master主分支0.9版本</li>
+<li>本文以linux平台为例来说明编译过程，实际上，我是用树莓派来编译elua的，并用树莓派烧录，调试STM32；elua可以跨平台编译，具体请参考<a href="https://github.com/elua/elua/tree/master/doc/en" target="_blank" rel="external">https://github.com/elua/elua/tree/master/doc/en</a>  building章节</li>
+</ol>
+<a id="more"></a>
+<h4 id="elua是什么">elua是什么</h4><p>What is eLua?<br>eLua stands for Embedded Lua and the project offers the full implementation of the Lua Programming Language to the embedded world, extending it with specific features for efficient and portable software embedded development.</p>
+<p>eLua offers the full features of the regular Lua desktop version and uses Lua’s native mechanisms to extend it with embedded development optimized and specific features.</p>
+<p>Some aspects of eLua are:</p>
+<ul>
+<li><strong>Full control of the platform</strong><br>eLua runs on the “bare-metal”. There is no Operating System between your programs and the microcontroller.</li>
+<li><strong>Source code portability</strong><br>Like in Lua, you program in C, Lua or a mixture of both and your program runs in a wide varied of (sometimes radically different) platforms and architectures supported.</li>
+<li><strong>Transform hardware in commodity</strong><br>Design and code your products for eLua and make them hardware-independent. Upgrade or completely change your hardware in the future and save time and money invested on the previous code development.</li>
+<li><strong>Development on targets</strong><br>Fully functional Lua and a dedicated command shell on the microcontroller itself. No need to install development environments on the PC side, other than a serial or ehternet console/terminal emulator. Use any text editor, save your programs in sd/mmc and other media and use them directly in your platforms.</li>
+<li><strong>Flexible products</strong><br>Add modern high level script-language capabilities to your projects, resulting in highly adaptable, field-programable and reconfigurable designs. Efficient (and cheap!) future evolution to your systems.</li>
+<li><strong>Shorter TTM</strong><br>Optimizes Time to Market, shorter time to revenue, improved ability to hit critical market windows, agility to survive in turbulent market conditions</li>
+<li><strong>Embedded RAD</strong><br>Prototype and experiment on a Rapid Aplication Develop model. Test your ideas directly on the target platforms and cheap development kits. No need for simulators or future code adaptations.</li>
+<li><strong>Ready to use kits</strong><br>A big (and growing) number of Open Source hardware and commercially available platforms are supported (see here ). Prototype cheap and fast and design your final hardware later using the produced code.</li>
+<li><strong>Longevity</strong><br>Add user configuration and scripting capabilities to your projects, making them adaptable to the always changing contexts of industrial processes, evolving engineering, automation standards, field optimizations etc…</li>
+<li><strong>Learn embedded</strong><br>Simple interactive and interpreted experimenting cycle. Use your desktop programming skills to become an embedded systems developer in no time and with a lot of fun.</li>
+<li><strong>Worry-free Licence</strong><br>eLua is free and open-source software and we promote it as much as we can. But our MIT licence (the same as Lua’s) allows you to use eLua in your commercial and private-code products as well. Nothing to ask, no royalties to pay, just tell the world you’re using eLua.</li>
+</ul>
+<h4 id="elua有什么优点">elua有什么优点</h4><p>lua让嵌入式支持动态脚本语言，跨平台开发，开发者无需安装任何IDE，任何编译系统，就可以控制嵌入式系统</p>
+<p>elua可以加速系统开发，并省去一个外部MCU，降低系统成本</p>
+<h4 id="编译elua">编译elua</h4><p>elua支持跨平台编译，下面以linux系统为例子来演示编译步骤</p>
+<p><strong>提示</strong> 旧版本lua（0.8以下）用scons来编译系统，新版本（0.9）用lua来编译系统</p>
+<p>如果自己的linux机器上没有装git，请用下面命令安装<code>git</code><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
+<p>下载elua代码<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:elua/elua.git elua</span><br></pre></td></tr></table></figure></p>
+<p>下面的所有操作，都是以在elua目录中进行的<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> elua</span><br></pre></td></tr></table></figure></p>
+<p>编译lua需要交叉编译工具，这里推荐使用arm的arm-none-eabi编译工具链，因为其他的工具链对浮点数的支持有问题，会导致编译失败<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc-arm-none-eabi</span><br><span class="line">sudo apt-get install build-essential</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，用下面的命令来检查安装是否成功<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo arm-none-eabi-gcc --<span class="built_in">print</span>-multi-lib</span><br></pre></td></tr></table></figure></p>
+<p>我在树莓派上的输出结果如下所示<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/Templates/elua/ sudo arm-none-eabi-gcc --print-multi-lib&#10;.;&#10;thumb;@mthumb&#10;fpu;@mfloat-abi=hard&#10;armv6-m;@mthumb@march=armv6s-m&#10;armv7-m;@mthumb@march=armv7-m&#10;armv7e-m;@mthumb@march=armv7e-m&#10;armv7-ar/thumb;@mthumb@march=armv7&#10;armv7e-m/softfp;@mthumb@march=armv7e-m@mfloat-abi=softfp@mfpu=fpv4-sp-d16&#10;armv7e-m/fpu;@mthumb@march=armv7e-m@mfloat-abi=hard@mfpu=fpv4-sp-d16&#10;armv7-ar/thumb/softfp;@mthumb@march=armv7@mfloat-abi=softfp@mfpu=vfpv3-d16&#10;armv7-ar/thumb/fpu;@mthumb@march=armv7@mfloat-abi=hard@mfpu=vfpv3-d16</span><br></pre></td></tr></table></figure></p>
+<p>下面安装lua和附属库<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install lua5.<span class="number">1</span></span><br><span class="line">sudo apt-get install luarocks</span><br><span class="line">sudo luarocks install luafilesystem</span><br><span class="line">sudo luarocks install lpack</span><br><span class="line">sudo luarocks install md5</span><br></pre></td></tr></table></figure></p>
+<p>编译lua跨平台编译器<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua cross-lua.lua</span><br></pre></td></tr></table></figure></p>
+<p>编译STM32F4 nucleo板子的elua代码<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua build_elua.lua board=stm32f4_nucleo prog</span><br></pre></td></tr></table></figure></p>
+<p>编译完成后，我们会看到elua目录下多出来4个文件<br><code>elua_lua_stm32f4-nucleo.bin</code>,<code>elua_lua_stm32f4-nucleo.elf</code>,<code>elua_lua_stm32f4-nucleo.hex</code>,<code>elua_lua_stm32f4-nucleo.map</code></p>
+<p>接下来我们烧录bin文件到STM32F4 Nucleo开发板中</p>
+<h4 id="烧录，运行">烧录，运行</h4><p>在烧录之前，我们需要先编译安装st-link的工具<br>请确保系统已经有autoconf工具，如果没有则通过下面命令来安装<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install autoconf</span><br></pre></td></tr></table></figure></p>
+<p>在elua上一级目录，执行下面命令<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/texane/stlink stlink</span><br><span class="line"><span class="built_in">cd</span> stlink</span><br></pre></td></tr></table></figure></p>
+<p>st-link代码依赖libusb-1.0和pkg-config，请加入下面代码进行安装<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libusb-<span class="number">1</span>.<span class="number">0</span></span><br><span class="line">sudo apt-get install pkg-config</span><br></pre></td></tr></table></figure></p>
+<p>然后开始编译st-link代码<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> stlink</span><br><span class="line">./autogen.sh</span><br><span class="line">./configure</span><br><span class="line">make -j8</span><br></pre></td></tr></table></figure></p>
+<p>安装st－link工具<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br><span class="line">sudo cp *.rules /etc/udev/rules.d</span><br></pre></td></tr></table></figure></p>
+<p> 重启linux<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure></p>
+<p>插入ST-link，输入lsusb，不出意外的情况下，会发现ST-Link设备</p>
+<p>然后进入<code>elua</code>目录，输入下面命令，烧写bin文件到stm32f4 nucleo板子</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">st-flash write elua_lua_stm32f4-nucleo.bin <span class="number">0</span>x8000000</span><br></pre></td></tr></table></figure>
+<p>输出结果如下所示<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/Templates/elua# st-flash write elua_lua_stm32f4-nucleo.bin 0x8000000&#10;2015-10-19T02:05:46 INFO src/stlink-common.c: Loading device parameters....&#10;2015-10-19T02:05:46 INFO src/stlink-common.c: Device connected is: F446 device, id 0x10006421&#10;2015-10-19T02:05:46 INFO src/stlink-common.c: SRAM size: 0x20000 bytes (128 KiB), Flash: 0x80000 bytes (512 KiB) in pages of 131072 bytes&#10;2015-10-19T02:05:46 INFO src/stlink-common.c: Attempting to write 212952 (0x33fd8) bytes to stm32 address: 134217728 (0x8000000)&#10;EraseFlash - Sector:0x0 Size:0x4000&#10;Flash page at addr: 0x08000000 erasedEraseFlash - Sector:0x1 Size:0x4000&#10;Flash page at addr: 0x08004000 erasedEraseFlash - Sector:0x2 Size:0x4000&#10;Flash page at addr: 0x08008000 erasedEraseFlash - Sector:0x3 Size:0x4000&#10;Flash page at addr: 0x0800c000 erasedEraseFlash - Sector:0x4 Size:0x10000&#10;Flash page at addr: 0x08010000 erasedEraseFlash - Sector:0x5 Size:0x20000&#10;Flash page at addr: 0x08020000 erased&#10;2015-10-19T02:05:51 INFO src/stlink-common.c: Finished erasing 6 pages of 131072 (0x20000) bytes&#10;2015-10-19T02:05:51 INFO src/stlink-common.c: Starting Flash write for F2/F4/L4&#10;2015-10-19T02:05:51 INFO src/stlink-common.c: Successfully loaded flash loader in sram&#10;enabling 32-bit flash writes&#10;size: 32768&#10;size: 32768&#10;size: 32768&#10;size: 32768&#10;size: 32768&#10;size: 32768&#10;size: 16344&#10;2015-10-19T02:05:56 INFO src/stlink-common.c: Starting verification of write complete&#10;2015-10-19T02:05:57 INFO src/stlink-common.c: Flash written and verified! jolly good!&#10;root@raspberrypi:/home/pi/Templates/elua#</span><br></pre></td></tr></table></figure></p>
+<p>至此，编译烧录完成</p>
+<h4 id="Hello,_lua">Hello, lua</h4><p>默认情况下，板子采用Arduino的UART接口来输出信息，也就是板子右下方的<code>TX/D1</code>和<code>RX/D0</code>，而Nucleo系统默认通过ST－link来虚拟出来一个串口，所以我们用杜邦线将上面两个UART脚和CN3的TX，RX交叉连接，这样我们就可以直接向电脑发送数据</p>
+<p>注意：默认情况下，如果要开启<code>wofs</code>功能，请在<code>board/known/stm32f4-nucleo.lua</code>中，增加下面<code>wofs=true</code>，然后重新编译下载到板子</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">  cpu = <span class="string">'stm32f401re'</span>,</span><br><span class="line">  components = &#123;</span><br><span class="line">    sercon = &#123; uart = <span class="string">"1"</span>, speed = <span class="number">115200</span> &#125;,</span><br><span class="line">    romfs = <span class="keyword">true</span>,</span><br><span class="line">    wofs = <span class="keyword">true</span>, // Add Write Once FileSystem</span><br><span class="line">    cdc = <span class="keyword">false</span>,</span><br></pre></td></tr></table></figure>
+<p>打开串口工具，找到<code>ttyACM0</code>虚拟串口，设置波特率<code>115200, 8-N-1</code>，复位板子，你就可以看到elua的输出信息</p>
+<p>enjoy it</p>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="https://github.com/elua/elua" target="_blank" rel="external">https://github.com/elua/elua</a></li>
+<li><a href="http://www.eluaproject.net/doc/v0.9/en_using.html" target="_blank" rel="external">http://www.eluaproject.net/doc/v0.9/en_using.html</a></li>
+<li><a href="http://www.eluaproject.net/doc/master/en_building.html" target="_blank" rel="external">http://www.eluaproject.net/doc/master/en_building.html</a></li>
+<li><a href="http://www.lua.org" target="_blank" rel="external">http://www.lua.org</a></li>
+<li><a href="https://github.com/elua/elua/tree/master/doc/en" target="_blank" rel="external">https://github.com/elua/elua/tree/master/doc/en</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/16/use-stm32F7-discovery-board/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM32F7 Discovery 外部可用接口</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="hello-elua" data-title="Hello elua" data-url="cedar-renjun.github.io/2015/10/19/hello-elua/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
