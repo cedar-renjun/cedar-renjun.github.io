@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>something about BCM2709 and BCM2836 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言最近玩树莓派和编译内核的时候，经常发现树莓派官方和内核开发者对CPU的称呼有两种
+
+BCM2708/BCM2709
+BCM2835/BCM2836
+
+内核开发者喜欢称之为BCM2708/9，而树莓派和博通则喜欢称为BCM2835/6
+google了很多资料，发现
+
+BCM2708/9 属于处理器的家族
+BCM2835/6 属于处理的具体型号
+
+git内核开发有相关讨论
+摘录部分如下
+1Q: W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="something about BCM2709 and BCM2836">
+<meta property="og:url" content="cedar-renjun.github.io/2015/10/20/something-about-BCM2709-and-BCM2836/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="前言最近玩树莓派和编译内核的时候，经常发现树莓派官方和内核开发者对CPU的称呼有两种
+
+BCM2708/BCM2709
+BCM2835/BCM2836
+
+内核开发者喜欢称之为BCM2708/9，而树莓派和博通则喜欢称为BCM2835/6
+google了很多资料，发现
+
+BCM2708/9 属于处理器的家族
+BCM2835/6 属于处理的具体型号
+
+git内核开发有相关讨论
+摘录部分如下
+1Q: W">
+<meta property="og:updated_time" content="2015-10-20T08:31:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="something about BCM2709 and BCM2836">
+<meta name="twitter:description" content="前言最近玩树莓派和编译内核的时候，经常发现树莓派官方和内核开发者对CPU的称呼有两种
+
+BCM2708/BCM2709
+BCM2835/BCM2836
+
+内核开发者喜欢称之为BCM2708/9，而树莓派和博通则喜欢称为BCM2835/6
+google了很多资料，发现
+
+BCM2708/9 属于处理器的家族
+BCM2835/6 属于处理的具体型号
+
+git内核开发有相关讨论
+摘录部分如下
+1Q: W">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-something-about-BCM2709-and-BCM2836" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/20/something-about-BCM2709-and-BCM2836/" class="article-date">
+  	<time datetime="2015-10-20T07:42:58.000Z" itemprop="datePublished">2015-10-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      something about BCM2709 and BCM2836
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树莓派/">树莓派</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>最近玩树莓派和编译内核的时候，经常发现树莓派官方和内核开发者对CPU的称呼有两种</p>
+<ul>
+<li>BCM2708/BCM2709</li>
+<li>BCM2835/BCM2836</li>
+</ul>
+<p>内核开发者喜欢称之为BCM2708/9，而树莓派和博通则喜欢称为BCM2835/6</p>
+<p>google了很多资料，发现</p>
+<ul>
+<li>BCM2708/9 属于处理器的家族</li>
+<li>BCM2835/6 属于处理的具体型号</li>
+</ul>
+<p>git内核开发有<a href="https://github.com/raspberrypi/linux/issues/22" target="_blank" rel="external">相关讨论</a></p>
+<p>摘录部分如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q: What&#39;s the correct device model to reference as the machine type and in any device drivers?&#10;&#10;A: Technically 2708 is the family, and 2835 is a specific implementation.&#10;   We now know that 2835 is the only implementation in the family that can run linux,&#10;   (and there won&#39;t be new models of this family), so it probably doesn&#39;t matter which model is used,&#10;   although it should be consistent.&#10;&#10;Q: So it would be reasonable to name all the drivers 2708 but the specific device tree file 2835?&#10;   (assuming that if there is ever another model of that family that can run linux it would need a&#10;&#9;different list of devices)&#10;A: That sounds reasonable.</span><br></pre></td></tr></table></figure>
+<p>网上的更进一步讨论，请访问<a href="http://raspberrypi.stackexchange.com/questions/840/why-is-the-cpu-sometimes-referred-to-as-bcm2708-sometimes-bcm2835" target="_blank" rel="external">why-is-the-cpu-sometimes-referred-to-as-bcm2708-sometimes-bcm2835</a></p>
+<p>另外，从wiki得知，博通联合树莓派已经完全开放BCM2835这颗CPU的资料，所以网上说的没有资料的情况，可以忽略<br><a href="https://en.wikipedia.org/wiki/VideoCore#Table_of_SoCs_adopting_VideoCore_SIP_blocks" target="_blank" rel="external">https://en.wikipedia.org/wiki/VideoCore#Table_of_SoCs_adopting_VideoCore_SIP_blocks</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;The Broadcom YouTube page has videos demonstrating the video processing capability, but their website only goes as&#10;far as providing product briefs. Detailed data and development tools are only available under NDA, and then only for&#10;manufacturers with a market for very many units. However, on 28 February 2014, on the day of the second anniversary of&#10;the Raspberry PI Broadcom, together with the Raspberry PI foundation, announced the release of full documentation for&#10;the VideoCore IV graphics core, and a complete source release of the graphics stack under a 3-clause BSD license.</span><br></pre></td></tr></table></figure>
+<p>树莓派BCM2835/6资料链接</p>
+<ol>
+<li><a href="https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/README.md" target="_blank" rel="external">https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/README.md</a></li>
+<li><a href="https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2836/README.md" target="_blank" rel="external">https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2836/README.md</a></li>
+</ol>
+<p>对于博通BCM设计架构，他是将GPU作为MCU来使用，在启动时，加载bootloader，初始化RAM，外设等，然后启动ARM内核，开始全速运行状态<br>这样设计的好处是，ARM11或者ARM－A内核，完全作为运算核心；GPU处理视频和外设，系统可以无缝升级CPU，而对外设部分影响很小<br>就像这次的BCM升级到BCM2836，外设驱动，仅仅需要修改一下GPIO和DMA的偏移量，现有驱动代码，可以继续使用</p>
+<a id="more"></a>
+<p>安装系统后，可以输入 <code>sudo cat /proc/cpuinfo</code> 可以查看当前CPU的信息<br>输入<code>sudo cat /proc/iomem</code>，可以查看当前IO映射的信息，也就是GPU内部的信息</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/etc/init.d# cat /proc/cpuinfo&#10;processor&#9;: 0&#10;model name&#9;: ARMv7 Processor rev 5 (v7l)&#10;BogoMIPS&#9;: 38.40&#10;Features&#9;: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm &#10;CPU implementer&#9;: 0x41&#10;CPU architecture: 7&#10;CPU variant&#9;: 0x0&#10;CPU part&#9;: 0xc07&#10;CPU revision&#9;: 5&#10;&#10;processor&#9;: 1&#10;model name&#9;: ARMv7 Processor rev 5 (v7l)&#10;BogoMIPS&#9;: 38.40&#10;Features&#9;: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm &#10;CPU implementer&#9;: 0x41&#10;CPU architecture: 7&#10;CPU variant&#9;: 0x0&#10;CPU part&#9;: 0xc07&#10;CPU revision&#9;: 5&#10;&#10;processor&#9;: 2&#10;model name&#9;: ARMv7 Processor rev 5 (v7l)&#10;BogoMIPS&#9;: 38.40&#10;Features&#9;: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm &#10;CPU implementer&#9;: 0x41&#10;CPU architecture: 7&#10;CPU variant&#9;: 0x0&#10;CPU part&#9;: 0xc07&#10;CPU revision&#9;: 5&#10;&#10;processor&#9;: 3&#10;model name&#9;: ARMv7 Processor rev 5 (v7l)&#10;BogoMIPS&#9;: 38.40&#10;Features&#9;: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm &#10;CPU implementer&#9;: 0x41&#10;CPU architecture: 7&#10;CPU variant&#9;: 0x0&#10;CPU part&#9;: 0xc07&#10;CPU revision&#9;: 5&#10;&#10;Hardware&#9;: BCM2709&#10;Revision&#9;: a21041&#10;Serial&#9;&#9;: 00000000db3edacc&#10;&#10;root@raspberrypi:/etc/init.d# cat /proc/iomem&#10;00000000-36ffffff : System RAM&#10;  00008000-00775d0b : Kernel code&#10;  007de000-0092378b : Kernel data&#10;3f006000-3f006fff : dwc_otg&#10;3f007000-3f007eff : /soc/dma@7e007000&#10;3f00b840-3f00b84e : /soc/vchiq&#10;3f00b880-3f00b8bf : /soc/mailbox@7e00b800&#10;3f200000-3f2000b3 : /soc/gpio@7e200000&#10;3f201000-3f201fff : /soc/uart@7e201000&#10;  3f201000-3f201fff : uart-pl011&#10;3f204000-3f204fff : /soc/spi@7e204000&#10;3f300000-3f3000ff : /soc/mmc@7e300000&#10;3f980000-3f98ffff : dwc_otg&#10;root@raspberrypi:/etc/init.d# exit&#10;exit&#10;pi@raspberrypi ~ $ exit</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/19/hello-elua/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello elua</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="something-about-BCM2709-and-BCM2836" data-title="something about BCM2709 and BCM2836" data-url="cedar-renjun.github.io/2015/10/20/something-about-BCM2709-and-BCM2836/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

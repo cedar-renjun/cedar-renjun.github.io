@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a>
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,67 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-qt-chinese-decoder" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/10/25/qt-chinese-decoder/" class="article-date">
+  	<time datetime="2014-10-25T15:25:19.000Z" itemprop="datePublished">2014-10-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/25/qt-chinese-decoder/">QT5 VS2013 中文乱码问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题">问题</h2><p>QT4中的中文乱码问题，可以通过在实例前增加下面代码来解决</p>
+<pre><code><span class="rule"><span class="attribute">QTextCodec</span>:<span class="value">:<span class="function">setCodecForTr</span>(QTextCodec::<span class="function">codecForLocale</span>())</span></span>;
+</code></pre><p>但QT5中，取消了这个函数，又该如何解决呢</p>
+<h2 id="解决方案">解决方案</h2><p>经测试，只要是源代码文件采用UTF8编码（不带签名）保存，不需要添加任何代码，就可以显示中文</p>
+<p>VS2013需要设置如下</p>
+<pre><code>FILE-&gt;Advanced Save <span class="built_in">Option</span>-&gt;Encoding-&gt; UTF8 without signature - Codepage <span class="number">65001</span>
+</code></pre><p><img src="!--￼0--&gt;/images/2014/10/25/vs2013_utf8.png" alt=""></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/QT/">QT</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-iar-keep-unused-section" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1485,89 +1546,6 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
 <p>环境很重要，思维需要激荡。如果你是一个在校的大学生，那你真是生在了一个幸福的年代，不要抱怨老师水平不好，不要抱怨学校没有名气，不要身在福中不知福了。从大环境上来说，至少你不用像我老爸一样被发配上山下乡，有互联网帮助你了解天下，有各类顶级企业围绕在高校的周围（即使大外企没有围绕到你的学校，你也可以自己倒贴上去）。每年的大学生挑战杯、ACM、微软的创新杯、IBM大学生程序设计大赛、Google 中国大学生创新设计大赛等等等等，有很多创新的大门向你打开，你需要的，只是走进去。这些都是开阔眼界，提升自己，与高手过招的好机会，参与进去，全身心投入，想不“创新”，都难啊</p>
 <p>关于创新，还有两个很重要的主题，一个是从创新到创业，另一个是山寨式创新。这两个今天就不展开了，留待日后深入的挖掘。创新是一个很大的题目，我自己感觉今天这2千多字写得有些散，但是我厚着脸皮说一句，其实还是形散神不散，我始终在传递一个重要的理念：眼界和境界真的很重要，要学会站在巨人的肩膀上，与高手过招</p>
 <p><strong>推荐读物：</strong><br>1： 哈佛商业评论，迎接破坏性变革的挑战，（作者，克莱顿·M·克里斯藤森 迈克尔·奥韦尔德夫）<br>2：<a href="http://www.rangang.com/archives/31" target="_blank" rel="external">技术创新到底是什么</a>，老马的博客<br>3：<a href="http://dreambyt.blog.51cto.com/925543/215178" target="_blank" rel="external">参照你的，探索我的，变成我的，超越你的—谈创新</a>，毕翔的博客  </p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/转载/">转载</a><a class="article-category-link" href="/categories/转载/方法论/">方法论</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-learning-method-in-it-field-4" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/04/22/learning-method-in-it-field-4/" class="article-date">
-  	<time datetime="2014-04-22T02:50:00.000Z" itemprop="datePublished">2014-04-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/22/learning-method-in-it-field-4/">IT人的学习方法论-4 一些重要的能力</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>注：
-<span class="number">1</span>）本文出自 “喻勇的博客” 博客，转载请务必保留此出处 http:<span class="comment">//yongyu2000.blog.51cto.com/962342/211567</span>
-<span class="number">2</span>）在原文基础上略有修改
-<span class="number">3</span>）原系列共<span class="number">7</span>篇文章，这里将其整理为<span class="number">6</span>篇
-</code></pre><p><strong>独立思考的能力和获得观点的能力</strong></p>
-<p>我们已经谈过了学什么，学习的误区和怎么学的问题。学习的目标和结果之一，就是知识的积累和能力的提高。其中，对于IT人来说，有两种能力非常重要，一种是独立思考的能力，另一种是获得观点的能力。</p>
-<p>先说独立思考。目前的各类IT媒体、网站、博客很多，大量的信息扑面而来，很多人被一些“流行的”、“大众的”、“别人都在做的”、“看上去很酷”的观点或者行为所左右，做一些盲目的事情。举一些身边的例子：</p>
-<p>*）考证热潮—XX公司的认证通过后是金饭碗，看了别人的学习和考试历程后，立刻热血沸腾，义无反顾地加入考证大军。</p>
-<p>*）排错能力差—只知道按照手册操作，不知道故障出现后如何抽丝剥茧的解决它。</p>
-<p>*）盲目的技术崇拜—前些年C++热，市面上大量的C++图书，于是乎认定C++是学编程的不二法门，一头扎进去就出不来了。</p>
-<p>*）盲目的偶像崇拜—看了XX大牛发的XYZ技术学习笔记和心路历程后，立刻也如法炮制，毫不犹豫地跟进。</p>
-<p><br><br>独立思考很重要，可以让你做出正确的判断和选择，能够可以审时度势，把握好大局。如何做到独立思考，你需要：</p>
-<p>1）<strong>积累</strong></p>
-<p>见多才能识广，读万卷书，行万里路，有了一定的积累，看问题和思考也会随着更加的深入</p>
-<p>2）<strong>思考</strong></p>
-<p>不要做被动的信息接收者，要停下来想想为什么。从对方的角度想为什么，自己的角度想为什么，从全局的角度想为什么。把独立思考作为一种习惯，每当你感觉自己即将头脑发热时，请提醒自己静下心来，多思考一些为什么</p>
-<p>3）<strong>了解自己</strong></p>
-<p>知己才能知彼，独立思考的独立二字，是基于人的自我认识的前提下的。所以你一定要了解自己，才能够把自己跟周围独立开来，才可能进行独立的思考。照一照镜子，从自己的性格、习惯、能力、经历、环境等等全方位的给自己画一个像</p>
-<p>有个叫Allen Galbraith的老外总结了培养独立思考能力的十个窍门，经过独立思考后，我觉得挺靠谱的，引用如下：</p>
-<blockquote>
-<p>1) 有疑问就发问。不要害怕问问题，即便是别人都没问过的问题<br>2）经验比权威更重要。如果有专家、权威人士要让你相信什么和你的实际经验向抵触的东西，<br>   不要被他们吓倒<br>3）理解对方的意图。别人找你谈话的意图是什么？他们对你所说的话有没有什么背后的原因？<br>4）<strong>不要觉得你必须随大流</strong><br>5）相信自己的感觉。如果你觉得不对头，很可能真的有什么不对的地方<br>6）保持冷静。保持冷静和客观可以让你头脑更清醒<br>7）积累事实。事实是验证真理的唯一标准<br>8）从不同的角度看问题。每个事物都有其多面性，尝试从不同的角度去认识问题解决问题<br>9）设身处地。了解对方的处境才能更好的了解对方的想法<br>10）勇敢。鼓励自己站起来说我不同意。不要害怕，经过磨练才能成长  </p>
-</blockquote>
-<p>这十条里面，我选几个来说一说：保持冷静是我们尤其缺乏的，不要头脑发热；了解对方的意图，需要你换位思考；相信自己的感觉，前提是你必须认识自己，否则没感觉。(您在读我的博客时，也不妨思考一下，作者为什么这样写，为什么要反复强调一些观点，哪些对我是有帮助的，哪些观点可能还不够成熟，等等）</p>
-<p>我们再说说获得观点的能力。不要等着别人把“十大诀窍”“六大趋势”写好了放在你面前，你需要自己获得这些观点。在独立思考的基础之上，你可以将自己的所思所想汇总提炼成为自己的观点，进而用来影响他人。中学写议论文的时候，老师常教我们要善于“提炼观点”，这是一种洞察力，一种深入事物或问题的能力。如何才能“获得观点”？你需要：</p>
-<p>1）<strong>基础扎实</strong></p>
-<p>厚积才能薄发，武林高手从来都是先积累了浑厚的内力，然后才可能一夜之间练成绝世武功的(参考张无忌练习乾坤大那多)。所以话又绕回我第一篇文章写的内容了，基础知识真的很重要。搞Windows的一定要懂操作系统、搞开发的一定要熟算法、搞网络的必须把协议倒背如流。</p>
-<p>2）<strong>善于总结</strong></p>
-<p>总结可以使你摆脱皮毛，抓住要领。有些时候表面的东西很复杂，比如一些产品，功能狂多，架构暴复杂。这个时候你需要把复杂问题简单化，总结提炼之。透过现象看本质。</p>
-<p>你可以不会一门技术，但是拥有“获得观点”的能力，其实也就代表“打通任都二脉”了。你可以自信的对别人说：“这项技术我现在不熟悉，但是请给我一个很短的时间，我看一下之后，告诉你我的想法”。这句话传达了两个层面的意思，第一、你学一样陌生东西很快可以抓住要点，第二、你马上能把所学内容转化为自己的想法来与人交流</p>
 
       
     </div>
