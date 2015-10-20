@@ -208,16 +208,18 @@
 <li>BCM2835/BCM2836</li>
 </ul>
 <p>内核开发者喜欢称之为BCM2708/9，而树莓派和博通则喜欢称为BCM2835/6</p>
-<p>google了很多资料，发现</p>
+<p>被搞的晕晕呼呼，所以花了几个小时找资料，看手册，弄清楚了二者的区别</p>
+<h3 id="友情提醒">友情提醒</h3><p>本文部分链接，需要翻墙访问，请自备梯子</p>
+<h3 id="二者区别">二者区别</h3><p>google了很多资料，发现</p>
 <ul>
-<li>BCM2708/9 属于处理器的家族</li>
-<li>BCM2835/6 属于处理的具体型号</li>
+<li><strong>BCM2708/9 属于处理器的家族</strong></li>
+<li><strong>BCM2835/6 属于处理的具体型号</strong></li>
 </ul>
-<p>git内核开发有<a href="https://github.com/raspberrypi/linux/issues/22">相关讨论</a></p>
+<p>树莓派内核开发者在github上有<a href="https://github.com/raspberrypi/linux/issues/22">相关讨论</a></p>
 <p>摘录部分如下</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q: What&#39;s the correct device model to reference as the machine type and in any device drivers?&#10;&#10;A: Technically 2708 is the family, and 2835 is a specific implementation.&#10;   We now know that 2835 is the only implementation in the family that can run linux,&#10;   (and there won&#39;t be new models of this family), so it probably doesn&#39;t matter which model is used,&#10;   although it should be consistent.&#10;&#10;Q: So it would be reasonable to name all the drivers 2708 but the specific device tree file 2835?&#10;   (assuming that if there is ever another model of that family that can run linux it would need a&#10;&#9;different list of devices)&#10;A: That sounds reasonable.</span><br></pre></td></tr></table></figure>
 <p>网上的更进一步讨论，请访问<a href="http://raspberrypi.stackexchange.com/questions/840/why-is-the-cpu-sometimes-referred-to-as-bcm2708-sometimes-bcm2835">why-is-the-cpu-sometimes-referred-to-as-bcm2708-sometimes-bcm2835</a></p>
-<p>另外，从wiki得知，博通联合树莓派已经完全开放BCM2835这颗CPU的资料，所以网上说的没有资料的情况，可以忽略<br><a href="https://en.wikipedia.org/wiki/VideoCore#Table_of_SoCs_adopting_VideoCore_SIP_blocks">https://en.wikipedia.org/wiki/VideoCore#Table_of_SoCs_adopting_VideoCore_SIP_blocks</a></p>
+<p>另外，从<a href="https://en.wikipedia.org/wiki/VideoCore#Table_of_SoCs_adopting_VideoCore_SIP_blocks">wiki</a>得知，<br>博通联合树莓派已经完全开放BCM2835这颗CPU的资料，所以网上说的没有资料的情况，可以忽略</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;The Broadcom YouTube page has videos demonstrating the video processing capability, but their website only goes as&#10;far as providing product briefs. Detailed data and development tools are only available under NDA, and then only for&#10;manufacturers with a market for very many units. However, on 28 February 2014, on the day of the second anniversary of&#10;the Raspberry PI Broadcom, together with the Raspberry PI foundation, announced the release of full documentation for&#10;the VideoCore IV graphics core, and a complete source release of the graphics stack under a 3-clause BSD license.</span><br></pre></td></tr></table></figure>
 <p>树莓派BCM2835/6资料链接</p>
 <ol>
