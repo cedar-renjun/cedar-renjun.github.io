@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a>
+						<a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/NFC/" style="font-size: 10px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,68 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Note-on-compile-libnfc-and-mfoc" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/22/Note-on-compile-libnfc-and-mfoc/" class="article-date">
+  	<time datetime="2015-10-22T01:57:23.000Z" itemprop="datePublished">2015-10-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/22/Note-on-compile-libnfc-and-mfoc/">Note on compile libnfc and mfoc</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="概述">概述</h4><p>本文主要记录编译nfc-tools时遇到的问题以及解决方案</p>
+<p>测试平台：Raspberry 2B＋</p>
+<h3 id="1-_访问不了google_code，无法下载源码">1.    访问不了google code，无法下载源码</h3><p>mfc-tools 仓库已经从google转移到<a href="https://github.com/nfc-tools" target="_blank" rel="external">github</a>上</p>
+<h3 id="2-_编译nfcuk和mfoc时，autoreconf失败">2.    编译nfcuk和mfoc时，autoreconf失败</h3><p>加入<code>-vis</code>参数，全部指令如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autoreconf -vis&#10;automake&#10;autoconf&#10;./configure&#10;make</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-_按照网上教程，需要修改str_nfc_target函数">3.    按照网上教程，需要修改<code>str_nfc_target</code>函数</h3><p>不需要，现已修复</p>
+<h3 id="4-_在树莓派2B＋上使用配置nfc，无法打开SPI端口，提示”TFI_error”">4.    在树莓派2B＋上使用配置nfc，无法打开SPI端口，提示”TFI error”</h3><p>修改SPI速率参数，保持默认值即可，<code>/etc/nfc/libnfc.conf</code>全文如下</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Allow device auto-detection (default: true)</span></span><br><span class="line"><span class="comment"># Note: if this auto-detection is disabled, user has to set manually a device</span></span><br><span class="line"><span class="comment"># configuration using file or environment variable</span></span><br><span class="line"><span class="constant">allow_autoscan</span> = true</span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow intrusive auto-detection (default: false)</span></span><br><span class="line"><span class="comment"># Warning: intrusive auto-detection can seriously disturb other devices</span></span><br><span class="line"><span class="comment"># This option is not recommended, user should prefer to add manually his device.</span></span><br><span class="line"><span class="constant">allow_intrusive_scan</span> = false</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set log level (default: error)</span></span><br><span class="line"><span class="comment"># Valid log levels are (in order of verbosity): 0 (none), 1 (error), 2 (info), 3 (debug)</span></span><br><span class="line"><span class="comment"># Note: if you compiled with --enable-debug option, the default log level is "debug"</span></span><br><span class="line"><span class="constant">log_level</span> = 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Manually set default device (no default)</span></span><br><span class="line"><span class="comment"># To set a default device, you must set both name and connstring for your device</span></span><br><span class="line"><span class="comment"># Note: if autoscan is enabled, default device will be the first device available in device list.</span></span><br><span class="line"><span class="comment"># 错误配置</span></span><br><span class="line"><span class="comment">#device.name = "Itead_PN532_SPI"</span></span><br><span class="line"><span class="comment">#device.connstring = "pn532_spi:/dev/spidev0.0:500000"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 正确配置</span></span><br><span class="line">device.name = "Itead_PN532_SPI"</span><br><span class="line">device.connstring = "pn532_spi:/dev/spidev0.0"</span><br></pre></td></tr></table></figure>
+<h3 id="5-_PN532无法识别门禁卡">5.    PN532无法识别门禁卡</h3><p>可以识别13.56MHz 高频IC卡，但无法识别125KHz 低频ID卡<br>NOTE: 可以自制125KHz天线，软件模拟ID卡射频协议</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NFC/">NFC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PN532/">PN532</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RFID/">RFID</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-something-about-BCM2709-and-BCM2836" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1643,73 +1705,6 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
         <p class="article-more-link">
           <a  href="/2014/11/16/coding-standard/#more">more >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-iar-warming-25-problem" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/10/28/iar-warming-25-problem/" class="article-date">
-  	<time datetime="2014-10-28T12:30:05.000Z" itemprop="datePublished">2014-10-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/28/iar-warming-25-problem/">IAR Warming 25 Problem</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="出现问题">出现问题</h2><p>IAR版本之间不兼容是臭名昭著的问题，在IAR7.0版本完全正常的代码，放到IAR7.10版本中编译，会出现下面的警告</p>
-<pre><code>Warning[<span class="number">25</span>]: Label <span class="string">'MemManage_Handler'</span> is defined pubweak <span class="keyword">in</span> <span class="tag">a</span> <span class="tag">section</span> implicitly declared root
-</code></pre><h2 id="解决方案">解决方案</h2><p>在对应的SECTION声明中，添加<code>NOROOT</code>修饰信息，如下所示</p>
-<p>由</p>
-<pre><code>        PUBWEAK MemManage_Handler
-        SECTION <span class="class">.text</span>:CODE:<span class="function"><span class="title">REORDER</span><span class="params">(<span class="number">1</span>)</span></span>
-MemManage_Handler
-        B MemManage_Handler
-</code></pre><p>改为</p>
-<pre><code>        PUBWEAK MemManage_Handler
-        SECTION <span class="class">.text</span>:CODE:REORDER:<span class="function"><span class="title">NOROOT</span><span class="params">(<span class="number">1</span>)</span></span>
-MemManage_Handler
-        B MemManage_Handler
-</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/IAR/">IAR</a>
-	</div>
-
-
       
       <div class="clearfix"></div>
     </div>
