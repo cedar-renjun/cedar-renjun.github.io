@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>树莓派底层编程-GPIO篇 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0    前言本来是准备写一篇用python控制GPIO的例子，结果发现太简单了，还是深入一些吧，多深入底层
+接下来，我会按照下面的顺序来介绍：1）GPIO控制器地址映射2）GPIO主要控制寄存器介绍3）GPIO操作流程4）用C语言控制GPIO6）用python来控制GPIO
+1    概述树莓派2B采用的CPU为BCM2836，外设部分和BCM2835完全一致，所以就可以参考BCM2835的寄存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派底层编程-GPIO篇">
+<meta property="og:url" content="cedar-renjun.github.io/2015/10/27/Raspberry-Pi-programming-IO/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="0    前言本来是准备写一篇用python控制GPIO的例子，结果发现太简单了，还是深入一些吧，多深入底层
+接下来，我会按照下面的顺序来介绍：1）GPIO控制器地址映射2）GPIO主要控制寄存器介绍3）GPIO操作流程4）用C语言控制GPIO6）用python来控制GPIO
+1    概述树莓派2B采用的CPU为BCM2836，外设部分和BCM2835完全一致，所以就可以参考BCM2835的寄存">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/10/27/0.png">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/10/27/1.png">
+<meta property="og:updated_time" content="2015-10-26T17:57:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派底层编程-GPIO篇">
+<meta name="twitter:description" content="0    前言本来是准备写一篇用python控制GPIO的例子，结果发现太简单了，还是深入一些吧，多深入底层
+接下来，我会按照下面的顺序来介绍：1）GPIO控制器地址映射2）GPIO主要控制寄存器介绍3）GPIO操作流程4）用C语言控制GPIO6）用python来控制GPIO
+1    概述树莓派2B采用的CPU为BCM2836，外设部分和BCM2835完全一致，所以就可以参考BCM2835的寄存">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/NFC/" style="font-size: 10px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Raspberry-Pi-programming-IO" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/27/Raspberry-Pi-programming-IO/" class="article-date">
+  	<time datetime="2015-10-26T16:50:39.000Z" itemprop="datePublished">2015-10-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      树莓派底层编程-GPIO篇
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPIO/">GPIO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树莓派/">树莓派</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_前言">0    前言</h3><p>本来是准备写一篇用python控制GPIO的例子，结果发现太简单了，还是深入一些吧，多深入底层</p>
+<p>接下来，我会按照下面的顺序来介绍：<br>1）GPIO控制器地址映射<br>2）GPIO主要控制寄存器介绍<br>3）GPIO操作流程<br>4）用C语言控制GPIO<br>6）用python来控制GPIO</p>
+<h3 id="1_概述">1    概述</h3><p>树莓派2B采用的CPU为BCM2836，外设部分和BCM2835完全一致，所以就可以参考BCM2835的<a href="https://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf" target="_blank" rel="external">寄存器手册</a><br>但是，这个寄存器手册笔误有点多，建议配合着wiki的<a href="http://elinux.org/BCM2835_datasheet_errata" target="_blank" rel="external">勘误手册</a>来看</p>
+<p>CPU总共有54个IO，每个IO都可以复用，配置输入或者输出模式，单从GPIO部分来看，比较简单，无非是输入／输出，触法模式等，和一般的MCU没有太大差异</p>
+<h3 id="2_地址映射">2    地址映射</h3><p>BCM2835将BUS的地址空间，通过MMU映射到线性寻址空间，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/10/27/0.png" alt="地址空间"><br>这里，我们从左到右看，IO Peripherals的基地址为0x7E000000，然后映射后的基地址为0x20000000<br>也就是说外设的地址空间为0x20000000~0x20FFFFFF</p>
+<p>接下来，在手册中，找到GPIO章节，查看寄存器地址，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/10/27/1.png" alt="GPIO寄存器地址"><br>比如GPFSEL0寄存器的BUS地址为0x7E200000，也就是说相对偏移为0x00200000，所以我们可以知道映射后的GPIO基地址为<br>0x20200000(0x20000000 + 0x00200000)，其它寄存器的地址以此类推</p>
+<h3 id="3_寄存器介绍">3    寄存器介绍</h3><p>解决了GPIO寄存器地址问题，下面就需要知道如何控制GPIO，大致浏览GPIO章节，发现相当简单，GPIO的主要功能有</p>
+<ul>
+<li>外设模式</li>
+<li>GPIO模式</li>
+<li>输出／输出</li>
+<li>上拉／下拉</li>
+<li>事件监测（上升沿／下降沿／边缘变化／高电平／低电平）</li>
+</ul>
+<p>下面简单介绍GPIO相关寄存器</p>
+<ol>
+<li>GPFSELn(n=0/1/2/3/4)<br>用于选择GPIO管脚的模式是IO输出还是输入或者是复用</li>
+<li>GPSETn<br>设置IO输出值，写1有效，表示置高对应管脚</li>
+<li>GPCLRn<br>设置IO输出值，写1有效，表示置低对应管脚</li>
+<li>GPLEVn<br>IO当前值，用于读入当前的电平值</li>
+<li>GPEDSn<br>也就是所谓的事件标志位，可以通过该位来检查是否有事件发生，写1清零</li>
+<li>GPRENn／GPRENn／GPHENn／GPLENn<br>用于设置IO的事件模式，比如上升沿／下降沿／跳变／高电平／低电平触发方式，触发事件后，会发送一个中断信号给CPU<br>从而实现中断机制</li>
+<li>GPPUD／GPPUDCLKn<br>上拉／下拉配置寄存器，这个比较特殊，CPU不会保存这个配置状态，需要用户用软件来配置并保存，配置掉电不丢失，同时，<br>系统只提供两个相关寄存器，所以配置时需要采用复用模式，并遵循特定的配置方式和延时，具体参见手册介绍</li>
+</ol>
+<p>总共就这么多寄存器，介绍完毕，下面说一下操作流程</p>
+<h3 id="4_操作流程">4    操作流程</h3><p>对于普通的IO来说，无非就是输入或者输出，输入模式下，可以轮询或者中断；输出模式下，往对应管脚寄存器里写1/0即可</p>
+<h4 id="输出配置">输出配置</h4><ol>
+<li>通过GPFSELn设置输出模式</li>
+<li>往GPSETn寄存器写1，表示在对应管脚输出高电平</li>
+<li>往GPCLRn寄存器写0，表示在对应管脚输出低电平</li>
+<li>可以通过GPLEVn来读取当前输出值</li>
+</ol>
+<h4 id="输入配置">输入配置</h4><ol>
+<li>通过GPFSELn设置输入模式</li>
+<li>通过GPPUD／GPPUDCLKn设置上拉或者下拉模式</li>
+<li>(可选)通过GPRENn／GPRENn／GPHENn／GPLEN设置事件模式</li>
+<li>可以通过GPLEVn来读取当前输出值</li>
+</ol>
+<h3 id="5_用C语言控制IO">5    用C语言控制IO</h3><p>请参考 <a href="https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.c" target="_blank" rel="external">https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.c</a></p>
+<h3 id="6_用python语言控制IO">6    用python语言控制IO</h3><p>请参考 <a href="http://raspberrywebserver.com/gpio/" target="_blank" rel="external">http://raspberrywebserver.com/gpio/</a></p>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="https://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf" target="_blank" rel="external">BCM2835 ARM Peripherals</a></li>
+<li><a href="http://elinux.org/BCM2835_datasheet_errata" target="_blank" rel="external">BCM2835_datasheet_errata</a></li>
+<li><a href="https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.c" target="_blank" rel="external">wiringPi Code</a></li>
+<li><a href="http://wiringpi.com/" target="_blank" rel="external">wiringPi HomePage</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/22/Note-on-compile-libnfc-and-mfoc/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Note on compile libnfc and mfoc</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Raspberry-Pi-programming-IO" data-title="树莓派底层编程-GPIO篇" data-url="cedar-renjun.github.io/2015/10/27/Raspberry-Pi-programming-IO/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
