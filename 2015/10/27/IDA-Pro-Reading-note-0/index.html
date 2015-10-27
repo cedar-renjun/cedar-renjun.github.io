@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>IDA Pro学习笔记－0 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0    概述IDA，懂的人自然懂，不懂的人懂百度这里不做过多介绍
+本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式
+1    反汇编简介编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，C／python之类的，都是程序员常见的语言，都很熟悉">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDA Pro学习笔记－0">
+<meta property="og:url" content="cedar-renjun.github.io/2015/10/27/IDA-Pro-Reading-note-0/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="0    概述IDA，懂的人自然懂，不懂的人懂百度这里不做过多介绍
+本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式
+1    反汇编简介编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，C／python之类的，都是程序员常见的语言，都很熟悉">
+<meta property="og:updated_time" content="2015-10-27T04:55:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IDA Pro学习笔记－0">
+<meta name="twitter:description" content="0    概述IDA，懂的人自然懂，不懂的人懂百度这里不做过多介绍
+本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式
+1    反汇编简介编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，C／python之类的，都是程序员常见的语言，都很熟悉">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 10px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 10px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/NFC/" style="font-size: 10px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-IDA-Pro-Reading-note-0" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/27/IDA-Pro-Reading-note-0/" class="article-date">
+  	<time datetime="2015-10-27T03:48:20.000Z" itemprop="datePublished">2015-10-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      IDA Pro学习笔记－0
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hacker/">Hacker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDA/">IDA</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_概述">0    概述</h3><p><a href="https://www.hex-rays.com/index.shtml" target="_blank" rel="external">IDA</a>，懂的人自然懂，不懂的人懂百度<br>这里不做过多介绍</p>
+<p>本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式</p>
+<h3 id="1_反汇编简介">1    反汇编简介</h3><p>编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言<br>二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，<br>C／python之类的，都是程序员常见的语言，都很熟悉，不多介绍</p>
+<h3 id="2_为什么要反汇编">2    为什么要反汇编</h3><p>反汇编的意义在于，很多时候，我们并不能拿到C级别的源码，只能拿到bin格式的固件，所以需要通过bin来反向成汇编代码，然后分析程序<br>其它的几个原因</p>
+<ol>
+<li>分析恶意软件</li>
+<li>分析闭源软件的漏洞</li>
+<li>分析闭源软件的互操作性</li>
+<li>分析编译器生成代码，以验证编译器性能和准确性</li>
+<li>在调试时显示程序指令</li>
+</ol>
+<h3 id="3_反汇编的困难">3    反汇编的困难</h3><p>理论上来讲，bin属于透明代码，大神可以直接看二进制格式，但这么做效率太低，所以很多人做了工具，IDA就是其中一种，虽然有了工具，<br>但分析过程，仍然困难重重，原因如下</p>
+<ol>
+<li>编译过程会造成损失<br>bin是给机器看的，所以它不需要任何变量或者函数，但我们需要，所以变量类型只能通过分析，才能知道具体类型<br>现在ARM Thumb2指令集稍微好一点，会固化各种符号和类型，方便分析一些</li>
+<li>编译属于多对多操作<br>主要是因为编译优化，或者故意混淆的手段，或者IAR编译时，没有生成符号表，从而导致缺乏一些分析辅助信息</li>
+<li>反编译器依赖于语言和库<br>选对反编译器，才能正确反编译</li>
+<li>反编译任何错误，都会影响反编译生成的效果</li>
+</ol>
+<h3 id="4_如何反汇编">4    如何反汇编</h3><p>最简单的工具，可以用各种IDE里面的binary工具，比如elfdump，直接导出符号表和汇编代码<br>但这种太简单了，不便于大型系统分析</p>
+<p>理论上，反汇编的过程如下</p>
+<ol>
+<li><p>确定反汇编的代码区域<br>这个要看具体文件格式，比如elf之类的，直接包含各种section，可以分析<br>但bin，就要区分哪些是代码，哪些是数据，这是一个难点<br>我们可以换一个方向来看，对于STM32或者ARM Cortex系列的芯片来说，入口是固定的，我们直接找程序入口就可以了</p>
+</li>
+<li><p>找到入口地址，开始逐条分析<br>这里，可能需要进行表查找来获取数据；对应C语言来说，就是字符串表，变量表或者函数表</p>
+</li>
+<li><p>找到操作符和操作数，反编译成汇编指令</p>
+</li>
+<li><p>继续反汇编下一条指令</p>
+</li>
+</ol>
+<h3 id="5_反汇编算法">5    反汇编算法</h3><p>主要有两种，也很简单</p>
+<ol>
+<li>线性法</li>
+<li>递归下降法</li>
+</ol>
+<p><strong>线性法</strong>：就是逐条分析汇编，读取操作码，读取操作数，反汇编，然后下一条指令；理论上很简单，但容易出错，比如，我故意在汇编指令中<br>插入一些混淆数据，就可以扰乱反汇编器的输出；它的好处在于，能分析出所有的二进制代码<br>GDB和dbjdump都是采用线性分析法，他们因为有elf的各种辅助信息，在有代码的基础上调试，所以能知道哪些是有效数据，有效代码</p>
+<p><strong>递归下降法</strong>：则是从另外一个方向来反汇编，就是从程序入口地址，然后分析下一条指令，顺序指令则直接继续分析，分支指令，比如if或者switch，则<br>直接分成两个反编译方向，依次反编译；或者跳转指令，就跳转到对应到地址。<br>也就是说，反编译器会尝试理解bin程序流，然后给出最佳的反汇编代码，但这样，也会有问题，机器毕竟是机器<br>想一下，我们在函数中，故意设置LR返回地址，估计反编译器就无能为力了。针对这种情况，我们可以用动态模拟器来调试，百试百灵</p>
+<h3 id="6_最后">6    最后</h3><p>反汇编的过程就像填字游戏，给你有限信息，然后补齐整个游戏，还是挺好玩的</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/27/Raspberry-Pi-programming-IO/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">树莓派底层编程-GPIO篇</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="IDA-Pro-Reading-note-0" data-title="IDA Pro学习笔记－0" data-url="cedar-renjun.github.io/2015/10/27/IDA-Pro-Reading-note-0/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
