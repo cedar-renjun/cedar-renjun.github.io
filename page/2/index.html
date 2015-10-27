@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 10px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 10px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/NFC/" style="font-size: 10px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+						<a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 20px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 20px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,187 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Create-your-IAR-project-template" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/02/Create-your-IAR-project-template/" class="article-date">
+  	<time datetime="2015-10-02T05:29:55.000Z" itemprop="datePublished">2015-10-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/02/Create-your-IAR-project-template/">创建IAR模版工程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>如果你用过IAR，用过STM32，那一定会知道创建新STM32工程时有多痛苦，创建空工程，添加group，添加代码，添加宏定义，选择STM32芯片等步骤<br>每次新建工程，都需要重新来一遍，那有没有更简单的步骤呢？答案是yes！</p>
+<p>假设我们需要在IAR中添加一个STM32F4的工程模版，那么所需要的东西如下：</p>
+<ol>
+<li>IAR 7.20 For ARM</li>
+<li>Win7</li>
+<li>STM32F4xx 标准库文件</li>
+</ol>
+<p>基本步骤包括</p>
+<ol>
+<li>创建IAR标准模版工程</li>
+<li>把模版放到IAR安装目录（patch）</li>
+<li>修改配置文件</li>
+</ol>
+<p>很简单，让我们一步一步来实现这个功能</p>
+<h3 id="1_创建IAR标准工程">1 创建IAR标准工程</h3><p>像平时一样，根据自己的工程管理习惯，用IAR创建一个工程，然后调整代码和相关工程配置项，调试编译通过</p>
+<p><strong>特别注意：创建工程时，需要保证IAR工程文件在最顶层目录</strong><br><img src="http://cedar-renjun.github.io/images/2015/10/3/1.png" alt="工程目录组织结构"></p>
+<p>创建好的目录如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/3/0.png" alt="创建好的IAR工程"></p>
+<h3 id="2_添加模版工程">2 添加模版工程</h3><p>接下来，我们需要将标准工程修改为模版工程</p>
+<ol>
+<li>删除<code>Debug</code>和<code>settings</code>目录，某些情况下，还有存在<code>Release</code>目录，请删除</li>
+<li>删除<code>*.dep</code>, <code>*.ewt</code>, <code>*.ewd</code>,<code>*.eww</code>四种IAR工程文件，只保留<code>*.ewp</code>文件<br>关于上面5种文件的详细分析，请参考本博客上篇文章<a href="http://cedar-renjun.github.io/2015/10/02/IAR-projects-template/">IAR工程文件分析</a></li>
+<li>修改<code>*.ewp</code>文件名为<code>templproj.ewp</code></li>
+</ol>
+<p>至此，修改完成，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/10/3/3.png" alt="修改好的IAR工程"></p>
+<h3 id="3_修改配置文件">3 修改配置文件</h3><p>接下来，我们将这个模块添加到IAR工程中</p>
+<ol>
+<li>在桌面新建一个临时文件夹，名为<code>tmp</code></li>
+<li>在<code>tmp</code>中新建目录<code>STM32</code>,</li>
+<li>在<code>STM32</code>中新建目录<code>F4xx</code></li>
+<li><p>将我们创建的模版工程拷入<code>F4xx</code>目录，如下所示</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">│ </span><br><span class="line">└─STM32</span><br><span class="line">    │ </span><br><span class="line">    └─F4xx</span><br><span class="line">        │ templproj.ewp</span><br><span class="line">        ├─App</span><br><span class="line">        └─Libs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入<code>C:\Program Files\IAR Systems\Embedded Workbench 7.2\arm\config\template\project</code>目录，拷贝<code>C.ENU.projtempl</code>文件到<code>STM32</code>和<code>F4xx</code>同级目录，然后修改名字为<code>STM32.ENU.projtempl</code>,<code>F4xx.ENU.projtempl</code>，修改完成后，结构如下所示</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">│ STM32.ENU.projtempl</span><br><span class="line">└─STM32</span><br><span class="line">    │ F4xx.ENU.projtempl</span><br><span class="line">    └─F4xx</span><br><span class="line">        │ templproj.ewp</span><br><span class="line">        ├─App</span><br><span class="line">        └─Libs</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>特别注意：<code>projtempl</code>的名字一定要和目录名字完全一致，不然IAR找不到对应的文件夹</strong><br><code>*.projtempl</code>文件用于展示工程模版的基本信息，比如名字和简介什么的<br>下面我们分别将两个文件修改为下面样式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--STM32.ENU.projtempl file--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">templategroup</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">description</span>&gt;</span>STM32 Project template for f0/1/2/4/7 mcu<span class="tag">&lt;/<span class="title">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">displayname</span>&gt;</span>STM32<span class="tag">&lt;/<span class="title">displayname</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">templategroup</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--F4xx.ENU.projtempl file--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">templategroup</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">description</span>&gt;</span>STM32 Project template for f4xx mcu<span class="tag">&lt;/<span class="title">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">displayname</span>&gt;</span>F4xx<span class="tag">&lt;/<span class="title">displayname</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">templategroup</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="测试">测试</h3><p>上面几个步骤，看起来很复杂，但实际操作起来，也挺简单的</p>
+<p>下面我们来测试效果，将上面<code>tmp</code>文件中所有文件，拷贝至<code>C:\Program Files\IAR Systems\Embedded Workbench 7.2\arm\config\template\project</code>目录</p>
+<p>在IAR中，新建工程，这时便会出现STM32模版工程，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/10/3/6.png" alt="选择工程模版"></p>
+<p>选择STM32，然后选择F4，新建工程，完成后如下图所示，finish<br><img src="http://cedar-renjun.github.io/images/2015/10/3/7.png" alt="新建的IAR工程"></p>
+<h3 id="后记">后记</h3><p>在IAR 7.2上测试时，时常出现不可复现的bug，也许和破解有关系，具体表现为<br>在显示层次模版目录时，无法显示子目录；UI层次上就是新建IAR工程时，能显示STM32模版，但不能显示F4xx模版信息</p>
+<p>暂时无解</p>
+<p>规避方案：直接复制IAR模版文件，然后适当修改即可，千万不要重写<code>templproj</code>!!!</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/IAR/">IAR</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-IAR-projects-template" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/02/IAR-projects-template/" class="article-date">
+  	<time datetime="2015-10-02T02:35:55.000Z" itemprop="datePublished">2015-10-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/02/IAR-projects-template/">IAR 工程文件分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>注意：下文以IAR 7.2 For ARM版本来分析XML工程文件</p>
+<h3 id="初衷">初衷</h3><p>IAR工程中添加文件，一直很麻烦，最近发现RTT用Scons能自动生成IAR模版，并添加源文件，为此分析了IAR工程管理结构，重点在于源文件管理结构</p>
+<h3 id="构建语法">构建语法</h3><p>采用标准XML形式来构建工程</p>
+<p>在新建工程后，IAR默认包含debug和release两个模版，在XML文件中，有所体现，我们可以在XML中删掉release的配置信息，减轻我们分析的负担</p>
+<h3 id="IAR_工程结构">IAR 工程结构</h3><ul>
+<li>*.ewp IAR工程文件，包含配置项和文件列表</li>
+<li>*.ewt IAR配置文件，包含C-STAT和RuntimeChecking的信息</li>
+<li>*.dep IAR调试信息配置，主要用于描述源文件和obj文件的关联信息</li>
+<li>*.eww IAR workspace，用于管理多个project</li>
+<li>*.ewd 调试相关，比如选择的调试器和调试器ID等等</li>
+</ul>
+<p>简单介绍一下用途<br>1）如果只是保留基本工程信息，不需要调试器和链接器的信息，只保留<code>eww</code>和<code>ewp</code>文件即可<br>2）如果需要保存链接器和调试器信息，保留<code>ewp</code>, <code>ewt</code>, <code>dep</code>, <code>eww</code>四个文件即可<br>3）<code>ewt</code>主要包含一些静态检查和动态检查，可以不用这些配置项</p>
+<p>也就是说，在复制IAR工程时，只需要保留这几个文件，其它的文件（夹）都可以删掉，比如setting, Debug，Release文件夹</p>
+<p>因为分析IAR主要是为了自动生成模版文件，所以下面重点分析<code>ewp</code>文件结构</p>
+<h3 id="ewp文件分析">ewp文件分析</h3><p>打开文件，可以看到顶层结构为<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">project</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">fileVersion</span>&gt;</span>2<span class="tag">&lt;/<span class="title">fileVersion</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>Debug工程配置<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>Release工程配置<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span>工程文件结构<span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里加注了行号，第3/4行为工程具体配置，包括<code>Debug</code>和<code>Release</code>版本配置，还可以添加其它配置页，为了简化分析，我删掉了<code>Release</code>配置项，再次打开IAR工程，如下所示：</p>
+<p>第5行是工程文件目录结构，也是我们重点分析的部分，主要分为两块</p>
+<ol>
+<li>单个文件</li>
+<li>目录组织结构</li>
+</ol>
+<p>我在创建IAR工程时，只包含一个main.c文件，XML对应结构如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>尝试添加两个源文件<code>test.c</code> <code>test.h</code>, XML 结构变成下面的形式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.h<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可见每一个文件对应一个file结构，我们尝试新建一个group，然后将test.c和test.h文件放到里面</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>test<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.h<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">group</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可见增加了一个<code>group</code>结构，并用<code>name</code>来表示group的名字<br>OK，分析到这里，我们就可以利用python来编写脚本自动添加文件到IAR工程中了</p>
+<p>至于<code>Debug</code>配置项的细节信息，等有机会慢慢研究</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/IAR/">IAR</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Introduce-Raspberry-2B" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1369,152 +1550,6 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
 	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
 	</div>
 
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-table-space-configure-in-sublime-text3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/05/28/table-space-configure-in-sublime-text3/" class="article-date">
-  	<time datetime="2014-05-28T01:21:27.000Z" itemprop="datePublished">2014-05-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/28/table-space-configure-in-sublime-text3/">在Sublime Text中设置Tab-Space</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1:_概述">1: 概述</h3><p>缩进设置决定了tab符缩进的大小，控制tab键是插入tab符号还是空格。除了自动检测之外，它们可以自定义为全局，某种文件类型，或者某个文件。</p>
-<h3 id="2:_设置">2: 设置</h3><pre><code>|<span class="string">---------------------------</span>|<span class="string">--------------------------------------------------------------------------------------------------------------</span>|
-|<span class="string">tab_size                   </span>|<span class="string"> 数字。插入的空格数                                                                                           </span>|
-|<span class="string">translate_tabs_to_spaces   </span>|<span class="string"> Boolean, 如果为true，按tab键将会输入空格替代，而不是tab字符                                                  </span>|
-|<span class="string">detect_indentation         </span>|<span class="string"> Boolean, 默认为true, tab_size和translate_tabs_to_spaces将会在文件载入是自动计算                              </span>|
-|<span class="string">use_tab_stops              </span>|<span class="string"> Boolean, 如果translate_tabs_to_spaces为true, use_tab_stops将会使tab和backspace在下一个tab停止时insert/delete </span>|
-</code></pre><h3 id="3:_配置文件">3: 配置文件</h3><p>配置文件将会按下面这个顺序应用：</p>
-<ol>
-<li>Packages/Default/Preferences.sublime-settings</li>
-<li>Packages/Default/Preferences (<platform>).sublime-settings</platform></li>
-<li>Packages/User/Preferences.sublime-settings</li>
-<li>Packages/<syntax>/<syntax>.sublime-settings</syntax></syntax></li>
-<li>Packages/User/<syntax>.sublime-settings</syntax></li>
-</ol>
-<p>通常情况下，你应该把你的配置放在<code>Packages/User/Preferences.sublime-settings</code>里。如果你要给特定的文件类型指定配置，比如，Python, 应该放在<code>Packages/User/Python.sublime-settings</code>文件中</p>
-<h3 id="4:_配置文件示例">4: 配置文件示例</h3><p>试着把这些保存为<code>Packages/User/Preferences.sublime-settings</code></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">tab_size</span>": <span class="value"><span class="number">4</span></span>,</span><br><span class="line">    "<span class="attribute">translate_tabs_to_spaces</span>": <span class="value"><span class="literal">false</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="5:_单独语法配置">5: 单独语法配置</h3><p>可以在基础配置之上指定单独的语法配置。在<code>Preferences/Settings - More/Syntax Specific - User</code>菜单下</p>
-<h3 id="6:_缩进的检测">6: 缩进的检测</h3><p>当一个文件载入时，它的内容会被检查，<code>tab_size</code>和<code>translate_tabs_to_spaces</code>设置将会应用到该文件。状态栏将会报告发了什么。尽管编辑器会处理的很好，如果想要把它禁用的话，可以通过<code>detect_indentation</code>来设置</p>
-<p>缩进检测可以手动执行，通过<code>View/Indentation/Guess Settings From Buffer</code>菜单执行<code>detect_indentation</code>命令</p>
-<h3 id="7:_Tab和空格之间转换">7: Tab和空格之间转换</h3><p><code>View/Indentation</code>菜单里有命令可以将当前文件中的空白在tab符和空格符之间转换。这几个菜单项执行的是<code>expand_tabs</code>和<code>unexpand_tabs</code>命令</p>
-<h3 id="8:_自动缩进">8: 自动缩进</h3><p>自动缩进猜测会在换行时给每一行添加一定数量空白符。由下面这个配置控制：</p>
-<pre><code>|<span class="string">-------------------------------</span>|<span class="string">-----------------------------------------------------------------------------------------------------------</span>|
-|<span class="string"> auto_indent                   </span>|<span class="string"> Boolean, 默认是开启                                                                                       </span>|
-|<span class="string"> smart_indent                  </span>|<span class="string"> Boolean, 默认是开启。具有一点小聪明的自动缩进，比如，在一个if语法片段的下一行进行缩进                     </span>|
-|<span class="string"> trim_automatic_white_space    </span>|<span class="string"> Boolean, 默认开启。当断行时由auto_indent去除行头尾的空白                                                  </span>|
-|<span class="string"> indent_to_bracket             </span>|<span class="string"> Boolean, 默认禁用。缩进时根据第一个前括号来空白数。像下面这样：use_indent_to_bracket(to_indent,like_this) </span>|
-</code></pre><h3 id="9：注意事项">9：注意事项</h3><font color="red"> 修改配置文件后，需要关闭所有打开的文件，然后重启Sublime Text </font>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-how-to-solove-sublimetext-3-chinese-encoding-problem" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/" class="article-date">
-  	<time datetime="2014-05-27T01:13:46.000Z" itemprop="datePublished">2014-05-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/27/how-to-solove-sublimetext-3-chinese-encoding-problem/">解决Sublime Text 3中文乱码问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>打开Sublime Text 3，按<code>Ctrl+～</code>打开控制行，复制粘贴以下python代码，然后回车运行</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)</span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>重启Sublime Text 3</p>
-</li>
-<li><p>按<code>Ctrl+Shift+P</code>打开命令行，输入<code>Install Package</code>，回车，然后继续输入<code>ConvertToUTF8</code>，回车</p>
-</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime-text/">sublime text</a></li></ul>
-	</div>
-
-      
 
       
       <div class="clearfix"></div>

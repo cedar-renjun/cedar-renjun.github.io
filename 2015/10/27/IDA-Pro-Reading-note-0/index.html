@@ -5,20 +5,20 @@
   
   <title>IDA Pro学习笔记－0 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0    概述IDA，懂的人自然懂，不懂的人懂百度这里不做过多介绍
+  <meta name="description" content="0    概述IDA，懂的人自然懂，不懂的人请百度这里不做过多介绍
 本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式
 1    反汇编简介编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，C／python之类的，都是程序员常见的语言，都很熟悉">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IDA Pro学习笔记－0">
 <meta property="og:url" content="cedar-renjun.github.io/2015/10/27/IDA-Pro-Reading-note-0/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="0    概述IDA，懂的人自然懂，不懂的人懂百度这里不做过多介绍
+<meta property="og:description" content="0    概述IDA，懂的人自然懂，不懂的人请百度这里不做过多介绍
 本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式
 1    反汇编简介编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，C／python之类的，都是程序员常见的语言，都很熟悉">
-<meta property="og:updated_time" content="2015-10-27T04:55:19.000Z">
+<meta property="og:updated_time" content="2015-10-27T15:37:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IDA Pro学习笔记－0">
-<meta name="twitter:description" content="0    概述IDA，懂的人自然懂，不懂的人懂百度这里不做过多介绍
+<meta name="twitter:description" content="0    概述IDA，懂的人自然懂，不懂的人请百度这里不做过多介绍
 本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式
 1    反汇编简介编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，C／python之类的，都是程序员常见的语言，都很熟悉">
   
@@ -115,7 +115,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 10px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 10px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/NFC/" style="font-size: 10px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+						<a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 20px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 20px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -218,7 +218,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="0_概述">0    概述</h3><p><a href="https://www.hex-rays.com/index.shtml" target="_blank" rel="external">IDA</a>，懂的人自然懂，不懂的人懂百度<br>这里不做过多介绍</p>
+        <h3 id="0_概述">0    概述</h3><p><a href="https://www.hex-rays.com/index.shtml" target="_blank" rel="external">IDA</a>，懂的人自然懂，不懂的人请百度<br>这里不做过多介绍</p>
 <p>本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式</p>
 <h3 id="1_反汇编简介">1    反汇编简介</h3><p>编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言<br>二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，<br>C／python之类的，都是程序员常见的语言，都很熟悉，不多介绍</p>
 <h3 id="2_为什么要反汇编">2    为什么要反汇编</h3><p>反汇编的意义在于，很多时候，我们并不能拿到C级别的源码，只能拿到bin格式的固件，所以需要通过bin来反向成汇编代码，然后分析程序<br>其它的几个原因</p>
@@ -264,6 +264,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2015/10/27/IDA-Pro-Reading-note-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          IDA Pro学习笔记－1
+        
+      </div>
+    </a>
   
   
     <a href="/2015/10/27/Raspberry-Pi-programming-IO/" id="article-nav-older" class="article-nav-link-wrap">
