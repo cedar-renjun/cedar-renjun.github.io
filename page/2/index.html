@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 20px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 20px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+						<a href="/tags/ELF/" style="font-size: 10px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 20px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 20px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,91 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" class="article-date">
+  	<time datetime="2015-10-04T12:17:54.000Z" itemprop="datePublished">2015-10-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/">用gdb调试Cortex-M系列芯片</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="准备工作">准备工作</h3><p>本文假设读者</p>
+<ol>
+<li>已经熟悉arm gcc工具链</li>
+<li>已经在win中安装好mingw或者arm-none-eabi-gcc工具</li>
+<li>具有合适的代码工程和编译脚本，且编译输出elf文件时，已添加<code>-g</code>选项来生成调试信息</li>
+<li>安装jlink调试工具和对应驱动</li>
+<li>有对应的硬件电路</li>
+</ol>
+<p>如果其中任何一项不满足，请自行google相关文档，完成基础准备工作</p>
+<h3 id="启动jlink_gdb_server">启动jlink gdb server</h3><ol>
+<li>开始 -&gt; SEGGER -&gt; Jlink V4.90e -&gt; Jlink GDB Server</li>
+<li>Jlink会显示GDB config配置选项，如下图配置<br><img src="http://cedar-renjun.github.io/images/2015/10/4/1.png" alt="GDB Server配置选项"></li>
+<li>点击OK，启动GDB server，在J-Link一栏会显示<code>Connected</code>字符，表示成功连接硬件，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/10/4/2.png" alt="GDB Server配置完成"></li>
+</ol>
+<h3 id="启动GDB">启动GDB</h3><ol>
+<li>打开CMD，输入<code>arm-none-eabi-gdb</code>，打开后，如下图所示；如果没有显示对应信息，属于没有配置环境变量的path，请添加gcc<br>tools的路径进去</li>
+<li>输入<code>file Demo.elf</code>加载调试文件，这里以<code>Demo.elf</code>为例，实际你可以替换为自己的elf文件</li>
+<li>输入<code>target remote localhost:2331</code>，连接gdb server，连接成功后，会在Jlink GDB server中显示对应的状态，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/10/4/3.png" alt="GDB Server连接成功"></li>
+<li>输入<code>monitor reset</code>来复位MCU，从而让MCU处于确定的状态</li>
+<li>输入<code>load</code>往MCU中加载调试文件，也就是常见的烧录过程</li>
+<li>输入<code>break main</code>设置main断点，让MCU执行到main中停止</li>
+</ol>
+<p>下面是使用Power shell的交互过程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt; arm-none-eabi-gdb</span><br><span class="line">GNU gdb (GNU Tools <span class="keyword">for</span> ARM Embedded Processors) <span class="number">7.8</span>.<span class="number">0.20150604</span>-cvs</span><br><span class="line">Copyright (C) <span class="number">2014</span> Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version <span class="number">3</span> or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type <span class="string">"show copying"</span></span><br><span class="line">and <span class="string">"show warranty"</span> <span class="keyword">for</span> details.</span><br><span class="line">This GDB was configured as <span class="string">"--host=i686-w64-mingw32 --target=arm-none-eabi"</span>.</span><br><span class="line">Type <span class="string">"show configuration"</span> <span class="keyword">for</span> configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/documentation/&gt;.</span><br><span class="line">For <span class="built_in">help</span>, <span class="built_in">type</span> <span class="string">"help"</span>.</span><br><span class="line">Type <span class="string">"apropos word"</span> to search <span class="keyword">for</span> commands related to <span class="string">"word"</span>.</span><br><span class="line">(gdb) file Demo.elf</span><br><span class="line">Reading symbols from Demo.elf...done.</span><br><span class="line">(gdb) target remote localhost:<span class="number">2331</span></span><br><span class="line">Remote debugging using localhost:<span class="number">2331</span></span><br><span class="line"><span class="number">0</span>x00000000 <span class="keyword">in</span> ?? ()</span><br><span class="line">(gdb) monitor reset</span><br><span class="line">Resetting target</span><br><span class="line">(gdb) load</span><br><span class="line">Loading section .text, size <span class="number">0</span>x434 lma <span class="number">0</span>x8000000</span><br><span class="line">Loading section .data, size <span class="number">0</span>x14 lma <span class="number">0</span>x8000434</span><br><span class="line">Start address <span class="number">0</span>x80003ec, load size <span class="number">1096</span></span><br><span class="line">Transfer rate: <span class="number">59</span> KB/sec, <span class="number">548</span> bytes/write.</span><br><span class="line">(gdb) <span class="built_in">break</span> main</span><br><span class="line">Breakpoint <span class="number">1</span> at <span class="number">0</span>x8000112: file src\App\main.c, line <span class="number">27</span>.</span><br><span class="line">(gdb) c</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">1</span>, main () at src\App\main.c:<span class="number">27</span></span><br><span class="line"><span class="number">27</span>              int i = <span class="number">0</span>;</span><br><span class="line">(gdb) l</span><br><span class="line"><span class="number">22</span>      /* Includes ------------------------------------------------------------------*/</span><br><span class="line"><span class="number">23</span>      <span class="comment">#include "stm32f10x.h"</span></span><br><span class="line"><span class="number">24</span>      <span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="number">25</span>      int main(void)</span><br><span class="line"><span class="number">26</span>      &#123;</span><br><span class="line"><span class="number">27</span>              int i = <span class="number">0</span>;</span><br><span class="line"><span class="number">28</span></span><br><span class="line"><span class="number">29</span></span><br><span class="line"><span class="number">30</span>              <span class="keyword">for</span>(int m = <span class="number">0</span>; m &lt; <span class="number">100</span>; m++)</span><br><span class="line"><span class="number">31</span>              &#123;</span><br><span class="line">(gdb) l</span><br><span class="line"><span class="number">32</span>                      i = m + i;</span><br><span class="line"><span class="number">33</span>              &#125;</span><br><span class="line"><span class="number">34</span></span><br><span class="line"><span class="number">35</span>              <span class="built_in">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">36</span>      &#125;</span><br><span class="line">(gdb) s</span><br><span class="line"><span class="number">30</span>              <span class="keyword">for</span>(int m = <span class="number">0</span>; m &lt; <span class="number">100</span>; m++)</span><br><span class="line">(gdb) s</span><br><span class="line"><span class="number">32</span>                      i = m + i;</span><br><span class="line">(gdb) s</span><br><span class="line"><span class="number">30</span>              <span class="keyword">for</span>(int m = <span class="number">0</span>; m &lt; <span class="number">100</span>; m++)</span><br><span class="line">(gdb) s</span><br><span class="line"><span class="number">32</span>                      i = m + i;</span><br><span class="line">(gdb) p m</span><br><span class="line"><span class="variable">$1</span> = <span class="number">1</span></span><br><span class="line">(gdb) <span class="built_in">break</span> <span class="number">35</span></span><br><span class="line">Breakpoint <span class="number">2</span> at <span class="number">0</span>x8000130: file src\App\main.c, line <span class="number">35</span>.</span><br><span class="line">(gdb) c</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">2</span>, main () at src\App\main.c:<span class="number">35</span></span><br><span class="line"><span class="number">35</span>              <span class="built_in">return</span> <span class="number">0</span>;</span><br><span class="line">(gdb) p i</span><br><span class="line"><span class="variable">$2</span> = <span class="number">4950</span></span><br><span class="line">(gdb) q</span><br><span class="line">A debugging session is active.</span><br><span class="line"></span><br><span class="line">        Inferior <span class="number">1</span> [Remote target] will be killed.</span><br><span class="line"></span><br><span class="line">Quit anyway? (y or n) y</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料：">参考资料：</h3><ol>
+<li>gcc manual</li>
+<li>gdb manual</li>
+<li>jlink user manual, charapter 3.3 J-link GDB Server</li>
+<li>scons user guide</li>
+<li>scons manual</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Jlink/">Jlink</a><a class="article-category-link" href="/categories/Jlink/gcc/">gcc</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Create-your-IAR-project-template" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1477,77 +1562,6 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/转载/">转载</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-sublimetext-plug-doxydoc" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/05/29/sublimetext-plug-doxydoc/" class="article-date">
-  	<time datetime="2014-05-29T00:18:37.000Z" itemprop="datePublished">2014-05-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/29/sublimetext-plug-doxydoc/">SublimeText 插件 -- DoxyDoc</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简介">简介</h2><p>DoxyDoc是一款C++语言的Doxygen插件，有了它，你可以在SublimeText中快速插入注释，极大的提高效率</p>
-<p>其它同类的插件有 <a href="https://github.com/SublimeText/PhpDoc" target="_blank" rel="external">PhpDoc</a> 和 <a href="https://github.com/spadgos/sublime-jsdocs" target="_blank" rel="external">DocBlockr</a></p>
-<h2 id="安装">安装</h2><ol>
-<li>按<code>Ctrl+Shift+P</code> 调出命令栏</li>
-<li>输入<code>Install Package</code>执行包安装命令</li>
-<li>输入<code>DoxyDoc</code>，然后点击确定，等待安装结束</li>
-</ol>
-<h2 id="用法">用法</h2><p>DoxyDoc会自动判断上下文环境，添加不同的注释格式，具体来说，包括两种</p>
-<ol>
-<li>注释处没有函数或变量，则自动创建空白注释</li>
-</ol>
-<p><img src="!--￼0--&gt;/images/2014/05/29/01.gif" alt=""></p>
-<ol>
-<li>注释处有函数或变量，则根据函数信息自动填充对应的注释部分<br>其中函数信息包括：函数名，传入参数，返回值</li>
-</ol>
-<p><img src="!--￼1--&gt;/images/2014/05/29/02.gif" alt=""><br><img src="!--￼2--&gt;/images/2014/05/29/03.gif" alt=""><br><img src="!--￼3--&gt;/images/2014/05/29/04.gif" alt=""><br><img src="!--￼4--&gt;/images/2014/05/29/05.gif" alt=""></p>
-<h2 id="更多信息">更多信息</h2><p>请参考：<a href="https://sublime.wbond.net/packages/DoxyDoc" target="_blank" rel="external">https://sublime.wbond.net/packages/DoxyDoc</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/SublimeText/">SublimeText</a>
 	</div>
 
 
