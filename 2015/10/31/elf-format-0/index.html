@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Simple">
 <meta property="og:description" content="0    前言几年前，在读大学时，刚接触linux的时候，就对计算机的运行原理比较感兴趣，网上找了《CSAPP》和《程序员的自我修养－链接，库》，无奈当时能力不足，看不懂这些，后面工作了，一直从事嵌入式偏底层的工作，比较熟悉gcc和linker，刚好最近研究hacker和工程需要，就耐着性子研究了ELF文件结构，遇到问题不少，最终也解决了，所以写到blog记录一下，免得忘记
 1    概述因为EL">
-<meta property="og:updated_time" content="2015-11-01T13:06:51.000Z">
+<meta property="og:updated_time" content="2015-11-02T10:03:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ELF文件分析之0 － 简介和分析工具">
 <meta name="twitter:description" content="0    前言几年前，在读大学时，刚接触linux的时候，就对计算机的运行原理比较感兴趣，网上找了《CSAPP》和《程序员的自我修养－链接，库》，无奈当时能力不足，看不懂这些，后面工作了，一直从事嵌入式偏底层的工作，比较熟悉gcc和linker，刚好最近研究hacker和工程需要，就耐着性子研究了ELF文件结构，遇到问题不少，最终也解决了，所以写到blog记录一下，免得忘记
@@ -112,7 +112,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 20px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 20px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+						<a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -223,7 +223,7 @@
 <li>ELF静态链接<br>主要分析静态链接中需要解决的问题，以及基本原理</li>
 <li>ELF动态链接<br>主要分析动态链接中需要解决的问题，以及基本原理</li>
 </ol>
-<p>OK, 进入正题    </p>
+<p>OK, 进入正题<br><a id="more"></a></p>
 <h3 id="2_ELF是什么">2    ELF是什么</h3><p><a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank" rel="external">ELF</a>(format of Executable and Linking Format Files)，表示可执行文件格式。熟悉linux的同学会知道，我们经常会用<code>./a.out</code>来执行编译后的文件，这个a.out文件就是ELF格式的， 对应windows平台下的EXE文件（PE格式）</p>
 <p>wiki上对此的介绍如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In computing, the Executable and Linkable Format (ELF, formerly called Extensible Linking Format) is a common standard&#10;file format for executables, object code, shared libraries, and core dumps. First published in the System V Release 4&#10;(SVR4) Application Binary Interface (ABI) specification,[2] and later in the Tool Interface Standard,[1] it was quickly&#10;accepted among different vendors of Unix systems. In 1999 it was chosen as the standard binary file format for Unix and&#10;Unix-like systems on x86 by the 86open project.&#10;ELF is flexible and extensible by design, and it is not bound to any particular processor or architecture. This has&#10;allowed it to be adopted by many different operating systems on many different platforms.</span><br></pre></td></tr></table></figure></p>
 <p>详细来说，ELF涵盖下面三种文件    </p>

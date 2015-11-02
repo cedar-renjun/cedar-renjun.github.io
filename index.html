@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 20px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 20px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+						<a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -176,6 +176,144 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-elf-format-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/02/elf-format-3/" class="article-date">
+  	<time datetime="2015-11-02T10:21:08.000Z" itemprop="datePublished">2015-11-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/02/elf-format-3/">ELF文件分析之3 － 动态链接</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述">概述</h3><p>相对于静态链接，动态链接和加载机制更加复杂，但对于系统来说，动态加载能更节省内存和其它计算资源</p>
+<p>这里面涉及到的主要技术点为：</p>
+<ol>
+<li>GOT表</li>
+<li>PLT表</li>
+<li>动态加载</li>
+</ol>
+<p>基本过程为</p>
+<ol>
+<li>调用系统加载程序</li>
+<li>调用程序所需要的动态库，并分配程序段地址</li>
+<li>进行初始化，构建运行时环境（Run Time)</li>
+<li>运行程序，第一次遇到动态未定义符号时，调用动态解析函数，找到符号地址，将信息写入绑定表</li>
+<li>第二次调用符号时，直接进入查找表，调用对应函数</li>
+</ol>
+<p>所以，下面，分别介绍GOT和PLT，然后用实例来分析变量符号加载和函数符号动态加载机制</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/11/02/elf-format-3/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-elf-format-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/02/elf-format-2/" class="article-date">
+  	<time datetime="2015-11-02T07:09:22.000Z" itemprop="datePublished">2015-11-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/02/elf-format-2/">ELF文件分析之2 － 静态链接</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_概述">0    概述</h3><p>有了上面两篇文章的铺垫，再看一遍ELF1.1规范，就已经简单的入门了<br>这篇文章，主要讲静态链接中的符号重定向过程和ELF处理机制</p>
+<h3 id="2_变量内存分布">2    变量内存分布</h3><p>我们知道，C语言的变量按作用域来分，包括：</p>
+<ol>
+<li>全局作用域变量<br>未加static修饰的变量，这种变量会标记为PUBLIC，并对外可见</li>
+<li>文件作用域变量<br>static修饰的变量，这种变量会标记为LOCAK，对外不可见</li>
+<li>局部作用域变量<br>block里面的变量<br>什么是block呢，就是包含在<code>{}</code>里面的，未被static修饰的变量，这种变量会放在栈中，没有任何标记，对外不可见</li>
+</ol>
+<p>也许你会问，C语言中有很多类型的变量，比如int，char，enum等，你为什么只提变量，而不提具体类型？<br>这是因为，变量类型仅仅对高级语言有效，机器码里面并没有数据类型，CPU只认识特定宽度的数据，然后做基本运算。<br>真的，在ELF里面，只有<code>OBJECT</code>,<code>FUNC</code>两种类型符号，我们来尝试一下</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/11/02/elf-format-2/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-elf-format-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -214,107 +352,7 @@
 <li>链接文件（中间态）</li>
 <li>可执行文件（最终态）</li>
 </ol>
-<p>ELF分别用两种视图来表示二者，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/11/1/0.png" alt="整体示意图"></p>
-<h3 id="2_准备工作">2    准备工作</h3><p>在介绍各部分含义之前，我们需要先做一下准备工作，在树莓派上生成几个需要的文件<br>这里，我采用的是树莓派Raspbian系统自带的gcc编译器，CPU为ARM－A系列内核</p>
-<ol>
-<li><p><code>.o</code>文件</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# gcc -c -O0 -g main.c&#10;root@raspberrypi:/home/pi/tmp# gcc -c -O0 -g fun.c</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>.so</code>文件</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# gcc -shared -fPIC -O0 -g -o libfun.so fun.c</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>.out</code>文件</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# gcc main.o fun.o</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>现在，你的目录下，应该有如下几个文件:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# ls&#10;a.out  fun.c  fun.o  libfun.so&#9;main.c&#9;main.o</span><br></pre></td></tr></table></figure></p>
-<p>ok, 我们开始分析ELF结构</p>
-<h3 id="3_ELF_header">3    ELF header</h3><p>它主要为系统提供基本信息，具体包括：</p>
-<ol>
-<li>这是什么文件</li>
-<li>大小多少</li>
-<li>程序入口在哪里</li>
-<li>header表在哪里</li>
-<li>header表里面有多少项</li>
-<li>等等</li>
-</ol>
-<p>规范里面，提供了一个结构体定义，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/11/1/1.png" alt="整体示意图"></p>
-<p>我们来看看<code>.o</code>，<code>.so</code>，<code>.out</code>三者的header分别是怎么样的，如下所示</p>
-<ol>
-<li><p><code>fun.o</code> ELF header</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -h fun.o&#10;ELF Header:&#10;  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 &#10;  Class:                             ELF32&#10;  Data:                              2&#39;s complement, little endian&#10;  Version:                           1 (current)&#10;  OS/ABI:                            UNIX - System V&#10;  ABI Version:                       0&#10;  Type:                              REL (Relocatable file)           # 0 &#27880;&#24847;&#25991;&#20214;&#31867;&#22411;&#10;  Machine:                           ARM&#10;  Version:                           0x1&#10;  Entry point address:               0x0                              # 1 &#27880;&#24847;&#20837;&#21475;&#22320;&#22336;&#10;  Start of program headers:          0 (bytes into file)&#10;  Start of section headers:          1220 (bytes into file)&#10;  Flags:                             0x5000000, Version5 EABI&#10;  Size of this header:               52 (bytes)&#10;  Size of program headers:           0 (bytes)&#10;  Number of program headers:         0&#10;  Size of section headers:           40 (bytes)&#10;  Number of section headers:         20&#10;  Section header string table index: 17</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>libfun.so</code> ELF header</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -h libfun.so&#10;ELF Header:&#10;  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 &#10;  Class:                             ELF32&#10;  Data:                              2&#39;s complement, little endian&#10;  Version:                           1 (current)&#10;  OS/ABI:                            UNIX - System V&#10;  ABI Version:                       0&#10;  Type:                              DYN (Shared object file)           # 0 &#27880;&#24847;&#25991;&#20214;&#31867;&#22411;&#10;  Machine:                           ARM&#10;  Version:                           0x1&#10;  Entry point address:               0x414                              # 1 &#27880;&#24847;&#20837;&#21475;&#22320;&#22336;&#10;  Start of program headers:          52 (bytes into file)&#10;  Start of section headers:          4680 (bytes into file)&#10;  Flags:                             0x5000402, has entry point, Version5 EABI, hard-float ABI&#10;  Size of this header:               52 (bytes)&#10;  Size of program headers:           32 (bytes)&#10;  Number of program headers:         5&#10;  Size of section headers:           40 (bytes)&#10;  Number of section headers:         32&#10;  Section header string table index: 29&#10;root@raspberrypi:/home/pi/tmp#</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>a.out</code> ELF header</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -h a.out&#10;ELF Header:&#10;  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 &#10;  Class:                             ELF32&#10;  Data:                              2&#39;s complement, little endian&#10;  Version:                           1 (current)&#10;  OS/ABI:                            UNIX - System V&#10;  ABI Version:                       0&#10;  Type:                              EXEC (Executable file)        # 0 &#27880;&#24847;&#25991;&#20214;&#31867;&#22411;&#10;  Machine:                           ARM&#10;  Version:                           0x1&#10;  Entry point address:               0x102f8                       # 1 &#27880;&#24847;&#20837;&#21475;&#22320;&#22336;&#10;  Start of program headers:          52 (bytes into file)&#10;  Start of section headers:          5808 (bytes into file)&#10;  Flags:                             0x5000402, has entry point, Version5 EABI, hard-float ABI&#10;  Size of this header:               52 (bytes)&#10;  Size of program headers:           32 (bytes)&#10;  Number of program headers:         8&#10;  Size of section headers:           40 (bytes)&#10;  Number of section headers:         36&#10;  Section header string table index: 33</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>我们可以看到，不同的文件，readelf工具读出来的<code>文件类型</code>和<code>入口地址</code>是不一样的，具体细节，请对照着ELF规范来逐个字节分析<br>哦，忘了告诉你，怎么通过看原始HEX信息了，请使用<code>xxd</code>工具，如下所示<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# xxd a.out &#10;&#10;0000000: 7f45 4c46 0101 0100 0000 0000 0000 0000  .ELF............&#10;0000010: 0200 2800 0100 0000 f802 0100 3400 0000  ..(.........4...&#10;0000020: b016 0000 0204 0005 3400 2000 0800 2800  ........4. ...(.&#10;0000030: 2400 2100 0100 0070 1805 0000 1805 0100  $.!....p........&#10;0000040: 1805 0100 0800 0000 0800 0000 0400 0000  ................&#10;0000050: 0400 0000 0600 0000 3400 0000 3400 0100  ........4...4...&#10;0000060: 3400 0100 0001 0000 0001 0000 0500 0000  4...............&#10;0000070: 0400 0000 0300 0000 3401 0000 3401 0100  ........4...4...&#10;0000080: 3401 0100 1900 0000 1900 0000 0400 0000  4...............&#10;0000090: 0100 0000 0100 0000 0000 0000 0000 0100  ................&#10;00000a0: 0000 0100 2405 0000 2405 0000 0500 0000  ....$...$.......&#10;00000b0: 0000 0100 0100 0000 2405 0000 2405 0200  ........$...$...&#10;...</span><br></pre></td></tr></table></figure></p>
-<p>对于一个可执行文件来说，系统最关心的是程序入口地址，是否需要动态库，数据区大小，代码区大小，size等信息；而对于一个重定向文件来说，最关心的是里面有哪些函数，哪些符号，对应的地址是多少，符号类型等信息；elf分别用下面的<code>program header</code>和<code>section header</code>来描述这些信息</p>
-<h3 id="4_Program_header_table">4    Program header table</h3><p>我们知道，嵌入式系统中，包含RAM和FLASH，无论我们的程序里面包含了多少个段，最终还是要映射到FLASH或者RAM中，链接脚本决定了如何映射各种段（.bss, .data .init 等），但对于加载器来说，根本不需要知道这些段的名字，加载器只需要知道段的地址和大小，以及将要映射的区域，就足够了。这也是ELF为什么要区分为两个视图的原因，链接器需要知道详细的段信息，就给它详细信息；加载器需要简单信息，就单独提供一个<code>program header</code>给它，各取所需，分工明确。</p>
-<p>我们先看看三个文件里面的<code>program header</code>信息</p>
-<ol>
-<li><p><code>a.out</code> program header</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -l a.out &#10;&#10;Elf file type is EXEC (Executable file)&#10;Entry point 0x102f8&#10;There are 8 program headers, starting at offset 52&#10;&#10;Program Headers:&#10;  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align&#10;  EXIDX          0x000518 0x00010518 0x00010518 0x00008 0x00008 R   0x4&#10;  PHDR           0x000034 0x00010034 0x00010034 0x00100 0x00100 R E 0x4&#10;  INTERP         0x000134 0x00010134 0x00010134 0x00019 0x00019 R   0x1&#10;      [Requesting program interpreter: /lib/ld-linux-armhf.so.3]&#10;  LOAD           0x000000 0x00010000 0x00010000 0x00524 0x00524 R E 0x10000&#10;  LOAD           0x000524 0x00020524 0x00020524 0x0011c 0x00124 RW  0x10000&#10;  DYNAMIC        0x000530 0x00020530 0x00020530 0x000e8 0x000e8 RW  0x4&#10;  NOTE           0x000150 0x00010150 0x00010150 0x00044 0x00044 R   0x4&#10;  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10&#10;&#10; Section to Segment mapping:&#10;  Segment Sections...&#10;   00     .ARM.exidx &#10;   01     &#10;   02     .interp &#10;   03     .interp .note.ABI-tag .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rel.dyn .rel.plt .init .plt .text .fini .rodata .ARM.exidx .eh_frame &#10;   04     .init_array .fini_array .jcr .dynamic .got .data .bss &#10;   05     .dynamic &#10;   06     .note.ABI-tag .note.gnu.build-id &#10;   07</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>fun.o</code> program header</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -l fun.o &#10;&#10;There are no program headers in this file.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>libfun.so</code> program header</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -l libfun.so &#10;&#10;Elf file type is DYN (Shared object file)&#10;Entry point 0x414&#10;There are 5 program headers, starting at offset 52&#10;&#10;Program Headers:&#10;  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align&#10;  LOAD           0x000000 0x00000000 0x00000000 0x005c4 0x005c4 R E 0x10000&#10;  LOAD           0x0005c4 0x000105c4 0x000105c4 0x00118 0x00120 RW  0x10000&#10;  DYNAMIC        0x0005d0 0x000105d0 0x000105d0 0x000e0 0x000e0 RW  0x4&#10;  NOTE           0x0000d4 0x000000d4 0x000000d4 0x00024 0x00024 R   0x4&#10;  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10&#10;&#10; Section to Segment mapping:&#10;  Segment Sections...&#10;   00     .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rel.dyn .rel.plt .init .plt .text .fini .eh_frame &#10;   01     .init_array .fini_array .jcr .dynamic .got .data .bss &#10;   02     .dynamic &#10;   03     .note.gnu.build-id &#10;   04</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>可以看到<code>a.out</code>和<code>libfun.so</code>都有program header信息，<code>fun.o</code>没有program header信息，这是因为前两者中各个元素地址信息已经确定下来了，可以加载到系统中执行，但<code>fun.o</code>仅仅作为中间产物，地址信息没有确定，无法加载到系统运行，所以对加载器来说，该文件完全没有有用信息，所以就不存在对应的program header。</p>
-<p>需要注意的： <code>Section to Segment mapping</code>下面的几个条目和<code>Program Headers</code>几个条目分别对应，后面的信息，表示哪几个段分配到哪几个节中，以<code>libfun.so</code> 为例，如果整合到一起，则如下所示</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align    Segment  Sections&#10;LOAD           0x000000 0x00000000 0x00000000 0x005c4 0x005c4 R E 0x10000  00       .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rel.dyn .rel.plt .init .plt .text .fini .eh_frame &#10;LOAD           0x0005c4 0x000105c4 0x000105c4 0x00118 0x00120 RW  0x10000  01       .init_array .fini_array .jcr .dynamic .got .data .bss &#10;DYNAMIC        0x0005d0 0x000105d0 0x000105d0 0x000e0 0x000e0 RW  0x4      02       .dynamic &#10;NOTE           0x0000d4 0x000000d4 0x000000d4 0x00024 0x00024 R   0x4      03       .note.gnu.build-id &#10;GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10     04</span><br></pre></td></tr></table></figure>
-<p>有了感性认识，我们来看看规范里面对program header的定义<br>从上文可以知道，ELF header里面包含了program header的偏移地址和size信息<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Start of program headers:          52 (bytes into file)&#10;Size of program headers:           32 (bytes)&#10;Number of program headers:         8</span><br></pre></td></tr></table></figure></p>
-<p>表示program header在文件的52字节偏移处，然后总共8个元素，每个元素32字节大小</p>
-<p>元素的定义如下所示<br><img src="http://cedar-renjun.github.io/images/2015/11/1/2.png" alt="Program Header 元素定义"></p>
-<p>结构体所描述的信息，可以通过readelf来读出来，上面已经展示过了，是一一对应的<br>其中，最重要的是LOAD类型的节，这部分是用来加载到内存中，我们可以将这部分复制出来，从而导出bin文件</p>
-<h3 id="5_Section_header_table">5    Section header table</h3><p>则是从链接器的视角来管理内容，我们先看看<code>a.out</code>，<code>fun.o</code>，<code>libfun.so</code>这三个的section header信息，从而有一个感性的认识</p>
-<ol>
-<li><p><code>a.out</code> section header</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -S a.out&#10;There are 36 section headers, starting at offset 0x16b0:&#10;&#10;Section Headers:&#10;  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al&#10;  [ 0]                   NULL            00000000 000000 000000 00      0   0  0&#10;  [ 1] .interp           PROGBITS        00010134 000134 000019 00   A  0   0  1&#10;  [ 2] .note.ABI-tag     NOTE            00010150 000150 000020 00   A  0   0  4&#10;  [ 3] .note.gnu.build-i NOTE            00010170 000170 000024 00   A  0   0  4&#10;  [ 4] .gnu.hash         GNU_HASH        00010194 000194 00002c 04   A  5   0  4&#10;  [ 5] .dynsym           DYNSYM          000101c0 0001c0 000050 10   A  6   1  4&#10;  [ 6] .dynstr           STRTAB          00010210 000210 000043 00   A  0   0  1&#10;  [ 7] .gnu.version      VERSYM          00010254 000254 00000a 02   A  5   0  2&#10;  [ 8] .gnu.version_r    VERNEED         00010260 000260 000020 00   A  6   1  4&#10;  [ 9] .rel.dyn          REL             00010280 000280 000008 08   A  5   0  4&#10;  [10] .rel.plt          REL             00010288 000288 000020 08  AI  5  12  4&#10;  [11] .init             PROGBITS        000102a8 0002a8 00000c 00  AX  0   0  4&#10;  [12] .plt              PROGBITS        000102b4 0002b4 000044 04  AX  0   0  4&#10;  [13] .text             PROGBITS        000102f8 0002f8 000208 00  AX  0   0  4&#10;  [14] .fini             PROGBITS        00010500 000500 000008 00  AX  0   0  4&#10;  [15] .rodata           PROGBITS        00010508 000508 000010 00   A  0   0  4&#10;  [16] .ARM.exidx        ARM_EXIDX       00010518 000518 000008 00  AL 13   0  4&#10;  [17] .eh_frame         PROGBITS        00010520 000520 000004 00   A  0   0  4&#10;  [18] .init_array       INIT_ARRAY      00020524 000524 000004 00  WA  0   0  4&#10;  [19] .fini_array       FINI_ARRAY      00020528 000528 000004 00  WA  0   0  4&#10;  [20] .jcr              PROGBITS        0002052c 00052c 000004 00  WA  0   0  4&#10;  [21] .dynamic          DYNAMIC         00020530 000530 0000e8 08  WA  6   0  4&#10;  [22] .got              PROGBITS        00020618 000618 000020 04  WA  0   0  4&#10;  [23] .data             PROGBITS        00020638 000638 000008 00  WA  0   0  4&#10;  [24] .bss              NOBITS          00020640 000640 000008 00  WA  0   0  4&#10;  [25] .comment          PROGBITS        00000000 000640 00003d 01  MS  0   0  1&#10;  [26] .ARM.attributes   ARM_ATTRIBUTES  00000000 00067d 000031 00      0   0  1&#10;  [27] .debug_aranges    PROGBITS        00000000 0006ae 000040 00      0   0  1&#10;  [28] .debug_info       PROGBITS        00000000 0006ee 000106 00      0   0  1&#10;  [29] .debug_abbrev     PROGBITS        00000000 0007f4 0000b0 00      0   0  1&#10;  [30] .debug_line       PROGBITS        00000000 0008a4 00006d 00      0   0  1&#10;  [31] .debug_frame      PROGBITS        00000000 000914 00005c 00      0   0  4&#10;  [32] .debug_str        PROGBITS        00000000 000970 0000cb 01  MS  0   0  1&#10;  [33] .shstrtab         STRTAB          00000000 000a3b 000157 00      0   0  1&#10;  [34] .symtab           SYMTAB          00000000 000b94 0007a0 10     35  95  4&#10;  [35] .strtab           STRTAB          00000000 001334 00037a 00      0   0  1&#10;Key to Flags:&#10;  W (write), A (alloc), X (execute), M (merge), S (strings)&#10;  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)&#10;  O (extra OS processing required) o (OS specific), p (processor specific)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>fun.o</code> section header</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -S fun.o&#10;There are 20 section headers, starting at offset 0x4c4:&#10;&#10;Section Headers:&#10;  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al&#10;  [ 0]                   NULL            00000000 000000 000000 00      0   0  0&#10;  [ 1] .text             PROGBITS        00000000 000034 000030 00  AX  0   0  4&#10;  [ 2] .data             PROGBITS        00000000 000064 000000 00  WA  0   0  1&#10;  [ 3] .bss              NOBITS          00000000 000064 000000 00  WA  0   0  1&#10;  [ 4] .debug_info       PROGBITS        00000000 000064 00006e 00      0   0  1&#10;  [ 5] .rel.debug_info   REL             00000000 000454 000048 08   I 18   4  4&#10;  [ 6] .debug_abbrev     PROGBITS        00000000 0000d2 00005b 00      0   0  1&#10;  [ 7] .debug_aranges    PROGBITS        00000000 00012d 000020 00      0   0  1&#10;  [ 8] .rel.debug_arange REL             00000000 00049c 000010 08   I 18   7  4&#10;  [ 9] .debug_line       PROGBITS        00000000 00014d 000035 00      0   0  1&#10;  [10] .rel.debug_line   REL             00000000 0004ac 000008 08   I 18   9  4&#10;  [11] .debug_str        PROGBITS        00000000 000182 000066 01  MS  0   0  1&#10;  [12] .comment          PROGBITS        00000000 0001e8 000020 01  MS  0   0  1&#10;  [13] .note.GNU-stack   PROGBITS        00000000 000208 000000 00      0   0  1&#10;  [14] .debug_frame      PROGBITS        00000000 000208 000030 00      0   0  4&#10;  [15] .rel.debug_frame  REL             00000000 0004b4 000010 08   I 18  14  4&#10;  [16] .ARM.attributes   ARM_ATTRIBUTES  00000000 000238 000031 00      0   0  1&#10;  [17] .shstrtab         STRTAB          00000000 000269 0000b2 00      0   0  1&#10;  [18] .symtab           SYMTAB          00000000 00031c 000120 10     19  16  4&#10;  [19] .strtab           STRTAB          00000000 00043c 000015 00      0   0  1&#10;Key to Flags:&#10;  W (write), A (alloc), X (execute), M (merge), S (strings)&#10;  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)&#10;  O (extra OS processing required) o (OS specific), p (processor specific)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>像其它的header table一样，section </p>
-<ol>
-<li><code>libfun.so</code> section header<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -S libfun.so&#10;There are 32 section headers, starting at offset 0x1248:&#10;&#10;Section Headers:&#10;  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al&#10;  [ 0]                   NULL            00000000 000000 000000 00      0   0  0&#10;  [ 1] .note.gnu.build-i NOTE            000000d4 0000d4 000024 00   A  0   0  4&#10;  [ 2] .gnu.hash         GNU_HASH        000000f8 0000f8 000050 04   A  3   0  4&#10;  [ 3] .dynsym           DYNSYM          00000148 000148 000130 10   A  4   3  4&#10;  [ 4] .dynstr           STRTAB          00000278 000278 0000cb 00   A  0   0  1&#10;  [ 5] .gnu.version      VERSYM          00000344 000344 000026 02   A  3   0  2&#10;  [ 6] .gnu.version_r    VERNEED         0000036c 00036c 000020 00   A  4   1  4&#10;  [ 7] .rel.dyn          REL             0000038c 00038c 000040 08   A  3   0  4&#10;  [ 8] .rel.plt          REL             000003cc 0003cc 000010 08  AI  3  10  4&#10;  [ 9] .init             PROGBITS        000003dc 0003dc 00000c 00  AX  0   0  4&#10;  [10] .plt              PROGBITS        000003e8 0003e8 00002c 04  AX  0   0  4&#10;  [11] .text             PROGBITS        00000414 000414 0001a4 00  AX  0   0  4&#10;  [12] .fini             PROGBITS        000005b8 0005b8 000008 00  AX  0   0  4&#10;  [13] .eh_frame         PROGBITS        000005c0 0005c0 000004 00   A  0   0  4&#10;  [14] .init_array       INIT_ARRAY      000105c4 0005c4 000004 00  WA  0   0  4&#10;  [15] .fini_array       FINI_ARRAY      000105c8 0005c8 000004 00  WA  0   0  4&#10;  [16] .jcr              PROGBITS        000105cc 0005cc 000004 00  WA  0   0  4&#10;  [17] .dynamic          DYNAMIC         000105d0 0005d0 0000e0 08  WA  4   0  4&#10;  [18] .got              PROGBITS        000106b0 0006b0 000028 04  WA  0   0  4&#10;  [19] .data             PROGBITS        000106d8 0006d8 000004 00  WA  0   0  4&#10;  [20] .bss              NOBITS          000106dc 0006dc 000008 00  WA  0   0  4&#10;  [21] .comment          PROGBITS        00000000 0006dc 00001f 01  MS  0   0  1&#10;  [22] .ARM.attributes   ARM_ATTRIBUTES  00000000 0006fb 00002f 00      0   0  1&#10;  [23] .debug_aranges    PROGBITS        00000000 00072a 000020 00      0   0  1&#10;  [24] .debug_info       PROGBITS        00000000 00074a 00006e 00      0   0  1&#10;  [25] .debug_abbrev     PROGBITS        00000000 0007b8 00005b 00      0   0  1&#10;  [26] .debug_line       PROGBITS        00000000 000813 000035 00      0   0  1&#10;  [27] .debug_frame      PROGBITS        00000000 000848 000030 00      0   0  4&#10;  [28] .debug_str        PROGBITS        00000000 000878 00006c 01  MS  0   0  1&#10;  [29] .shstrtab         STRTAB          00000000 0008e4 00012e 00      0   0  1&#10;  [30] .symtab           SYMTAB          00000000 000a14 0005b0 10     31  75  4&#10;  [31] .strtab           STRTAB          00000000 000fc4 000281 00      0   0  1&#10;Key to Flags:&#10;  W (write), A (alloc), X (execute), M (merge), S (strings)&#10;  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)&#10;  O (extra OS processing required) o (OS specific), p (processor specific)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>像其它的header表一样，section header也是用基本数组元素来表示的，数组的结构体如下所示<br><img src="http://cedar-renjun.github.io/images/2015/11/1/3.png" alt="Section Header 元素定义"></p>
-<p>其中，需要注意，为了便于统一管理和数组元素大小一致，section的sh_name成员，用字符串表里面的索引来表示<br>这也是ELF header里面单独列出字符串表索引的重要原因</p>
-<h3 id="6_总结">6    总结</h3><p>我们总结一下，ELF有两种视图，分别为链接视图和加载视图<br>分析ELF的过程如下所示</p>
-<ol>
-<li>链接视图<ol>
-<li>找到ELF Header</li>
-<li>在ELF Header中找到Section Header入口地址和元素大小，数量</li>
-<li>找到字符串表的索引和入口地址</li>
-<li>分析Section Header，找到各个表项的入口地址和基本信息</li>
-</ol>
-</li>
-<li>加载视图<ol>
-<li>找到ELF Header</li>
-<li>在ELF Header中找到Program Header入口地址和元素大小，数量</li>
-<li>找到字符串表的索引和入口地址</li>
-<li>对于动态链接来说，先调用系统加载器，加载所需要的so文件；对于静态来说，构建基本运行环境</li>
-<li>加载LOAD节到系统内存</li>
-<li>加载调试信息给debuger</li>
-<li>开始运行或者调试</li>
-</ol>
-</li>
-</ol>
-<h3 id="7_参考资料">7    参考资料</h3><ol>
-<li><a href="http://flint.cs.yale.edu/cs422/doc/ELF_Format.pdf" target="_blank" rel="external">ELF规范1.1</a></li>
-<li><a href="https://refspecs.linuxbase.org/elf/elf.pdf" target="_blank" rel="external">ELF规范1.2</a></li>
-<li><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0044e/IHI0044E_aaelf.pdf" target="_blank" rel="external">ARM ELF 规范</a></li>
-</ol>
-
+<p>ELF分别用两种视图来表示二者，如下所示<br>
       
     </div>
     
@@ -327,6 +365,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/11/01/elf-format-1/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -376,108 +418,7 @@
 <li>ELF静态链接<br>主要分析静态链接中需要解决的问题，以及基本原理</li>
 <li>ELF动态链接<br>主要分析动态链接中需要解决的问题，以及基本原理</li>
 </ol>
-<p>OK, 进入正题    </p>
-<h3 id="2_ELF是什么">2    ELF是什么</h3><p><a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank" rel="external">ELF</a>(format of Executable and Linking Format Files)，表示可执行文件格式。熟悉linux的同学会知道，我们经常会用<code>./a.out</code>来执行编译后的文件，这个a.out文件就是ELF格式的， 对应windows平台下的EXE文件（PE格式）</p>
-<p>wiki上对此的介绍如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In computing, the Executable and Linkable Format (ELF, formerly called Extensible Linking Format) is a common standard&#10;file format for executables, object code, shared libraries, and core dumps. First published in the System V Release 4&#10;(SVR4) Application Binary Interface (ABI) specification,[2] and later in the Tool Interface Standard,[1] it was quickly&#10;accepted among different vendors of Unix systems. In 1999 it was chosen as the standard binary file format for Unix and&#10;Unix-like systems on x86 by the 86open project.&#10;ELF is flexible and extensible by design, and it is not bound to any particular processor or architecture. This has&#10;allowed it to be adopted by many different operating systems on many different platforms.</span><br></pre></td></tr></table></figure></p>
-<p>详细来说，ELF涵盖下面三种文件    </p>
-<ol>
-<li>可执行文件</li>
-<li>对象文件</li>
-<li>库文件(<code>*.so</code>)</li>
-</ol>
-<h3 id="3_为什么要学习ELF格式">3    为什么要学习ELF格式</h3><p>一般来说，对于应用开发来说，只需要能编译出对应的可执行文件就可以了。但稍微懂一些编译器和链接器的底层知识，能编程出更加优质高效的工具和防止黑客攻击。<br>当然，对于黑客来说，了解计算机原理和运行机制，ELF文件格式，能编写出更好的病毒或者攻击程序</p>
-<p>魔高一尺，道高一丈</p>
-<p>PS: 我学习ELF是想知道C语言到底是怎么运行的，以及了解病毒的原理</p>
-<h3 id="4_谁需要学习ELF">4    谁需要学习ELF</h3><ol>
-<li>hacker</li>
-<li>病毒分析研究员</li>
-<li>固件破解</li>
-<li>底层程序员</li>
-</ol>
-<p>注意：下文假设读者具有基本的编程知识，并熟悉Linux平台，所以某些linux的指令，不会详细介绍，如果您感到困惑，请留言给我</p>
-<h3 id="5_分析平台">5    分析平台</h3><p>ELF文件适用于linux架构或者ARM架构，具体平台很多，你可以用手头有的平台来分析，我尝试分析了STM32开发平台下ELF和树莓派系统下的ELF，<br>基本一致，差别不大</p>
-<p>Linux平台比较普遍，也可以用虚拟机来分析，同时，这个平台下有丰富的工具可以用，所以接下来，我会用树莓派2B平台来分析ELF文件</p>
-<p><strong>平台</strong>: 树莓派2B，linux，ARM架构</p>
-<h3 id="6_常用工具用法">6    常用工具用法</h3><p>在分析之前，我们需要生成对应的可执行文件和对象文件，所以，先简单的介绍工具用法，然后再用实例来巩固</p>
-<p>在分析ELF的之前，我们需要建立两个源代码文件</p>
-<ol>
-<li><p>main.c</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> m;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">f_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	m = f_add(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"sum = %d\r\n"</span>, m);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>fun.c</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> m;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f_add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="6-1_gcc">6.1    gcc</h4><p>GCC用来编译，生成我们需要的文件，在分析ELF的时候，我们只需要几条指令就可以了</p>
-<ol>
-<li><p>编译obj文件<br>使用<code>-c</code>参数可以只编译，不链接，比如，我们希望将fun.c编译成fun.o，输入的指令为</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -c -g -O0 fun.c</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编译so文件<br>使用<code>-shared -fPIC</code>参数可以将文件编译成动态库，指令如下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o libfun.so -g -O0 -shared <span class="operator">-f</span>PIC fun.c</span><br></pre></td></tr></table></figure>
-<p>特别注意：输出文件的名字，需要符合标准库名称规范<code>libxxx.so</code>，xxx为具体的lib名字，从而便于链接时正确找到lib文件</p>
-</li>
-<li><p>编译可执行文件<br>这里可以分为3种情况来考虑</p>
-<ol>
-<li><p>源文件编译</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -g -O0 main.c fun.c <span class="comment">#编译成可执行文件</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>链接obj文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -g -O0 main.o fun.o <span class="comment">#编译成可执行文件</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>链接so文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp libfun.so /usr/lib/     <span class="comment">#将自己的库复制到系统lib目录下</span></span><br><span class="line">gcc -g -O0 main.c -lfun    <span class="comment">#编译成可执行文件</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-<h4 id="6-2_gdb">6.2    gdb</h4><p>我们需要使用GDB进行动态调试和查看<code>GOT</code>，<code>PLT</code>段，所以要熟悉一些常用命令，比如：反汇编，查看内存块，显示寄存器值等</p>
-<p>我会在下面代码分析的时候，插入介绍这些GDB命令</p>
-<h4 id="6-3_objdump">6.3    objdump</h4><p>主要用来反汇编，常用命令也就两条</p>
-<ol>
-<li><p>反汇编代码段</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">objdump <span class="operator">-d</span> fun.o    <span class="comment"># 反汇编fun.o中的代码段</span></span><br><span class="line">objdump <span class="operator">-d</span> main.o   <span class="comment"># 反汇编main.o中的代码段</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>反汇编所有段</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">objdump -D fun.o    <span class="comment"># 反汇编fun.o中的所有段</span></span><br><span class="line">objdump -D main.o   <span class="comment"># 反汇编main.o中的所有段</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="6-4_readelf">6.4    readelf</h4><p>主要用来elf文件里面的<code>section</code>, <code>header</code>等信息，常用指令如下</p>
-<ol>
-<li><p>读取所有信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readelf <span class="operator">-a</span> fun.o    <span class="comment"># 读取fun.o中的所有elf信息</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>读取header信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readelf -h fun.o    <span class="comment"># 读取fun.o中的所有elf header信息</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看readelf帮助信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readelf -h</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="7_基础知识">7    基础知识</h3><p>在介绍ELF文件结构之前，先复习一下C语言环境编译和链接的基本过程</p>
-<p>在嵌入式工程中，可以用C／C＋＋来编写程序，编写完成后，编译代码，生成bin或者hex，然后下载到芯片中，进行调试。<br>也就是：C源文件-&gt;ASM文件-&gt;obj文件-&gt;elf文件-&gt;bin文件<br>上面的过程是文件级别的，在C语言层次上，我们关心数据的分布，函数的调用和内存分布，以及怎么将这些元素变成BIN文件</p>
-<p>现代计算机普遍采用的是哈弗结构，也就是将数据和代码分离的形式，所以，我们可以知道bin里面也包含了数据部分和代码部分，某些情况下， bin也会包含有一些调试信息和备注信息</p>
-<p>就数据部分来说，C语言里面有全局变量，局部变量，文件作用域变量／函数，局部变量分配在栈里面，属于动态分配机制；C语言默认符号熟悉为public，也就是具有全局属性，对外显示可见，外部可以通过extern来导入这个符号，这类变量会导出到模块符号表，并具有PUBLIC属性；文件作用域的<br>符号包括：static修饰过的变量／static修饰过的函数，他们被分配LOCAL属性，对外不可见，C语言利用这个特性，可以编写模块化程序，只对外暴漏<br>必要的接口符号信息</p>
-<p>对于变量来说，可以细分为初始化／未初始化变量，未初始化的变量放置于<code>.bss</code>段中，初始化的变量放置于<code>.data</code>段中，某些情况下，我们需要使用大量的常量数据（比如图片数据，字库），可以将这些放置于<code>.text</code>段中</p>
-<p>上面的描述中，有几个名词，<code>符号表</code>，<code>.data</code>段，刚开始可以不用深入理解，只需要知道他们表示同一类数据就好了</p>
-<p>ELF的存在意义，就是为了</p>
-<ol>
-<li>更好的管理这些基本数据段</li>
-<li>实现更强大的调试功能</li>
-<li>便于工具链分析和处理，生成固件</li>
-</ol>
-<p>我们在下一篇来介绍ELF的基本格式信息</p>
-<h3 id="8_注意事项">8    注意事项</h3><ol>
-<li>在反编译时，<code>objdump</code>或者<code>readelf</code>这类工具，会将某些数据段反编译成代码，这时，就需要我们使用gdb命令来直接查看内存区域</li>
-<li>gdb中手工反汇编内存段的命令是<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">disassemble addr1,addr2</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>网上某些文档中的地址指令之间没有加<code>,</code>号，属于错误的，无效命令</p>
-<h3 id="9_参考文档">9    参考文档</h3><ol>
-<li><a href="http://flint.cs.yale.edu/cs422/doc/ELF_Format.pdf" target="_blank" rel="external">ELF规范1.1</a></li>
-<li>GCC手册</li>
-</ol>
-
+<p>OK, 进入正题<br>
       
     </div>
     
@@ -490,6 +431,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/31/elf-format-0/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -789,51 +734,9 @@
       
         <h3 id="0_前言">0    前言</h3><p>本来是准备写一篇用python控制GPIO的例子，结果发现太简单了，还是深入一些吧，多深入底层</p>
 <p>接下来，我会按照下面的顺序来介绍：<br>1）GPIO控制器地址映射<br>2）GPIO主要控制寄存器介绍<br>3）GPIO操作流程<br>4）用C语言控制GPIO<br>6）用python来控制GPIO</p>
-<h3 id="1_概述">1    概述</h3><p>树莓派2B采用的CPU为BCM2836，外设部分和BCM2835完全一致，所以就可以参考BCM2835的<a href="https://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf" target="_blank" rel="external">寄存器手册</a><br>但是，这个寄存器手册笔误有点多，建议配合着wiki的<a href="http://elinux.org/BCM2835_datasheet_errata" target="_blank" rel="external">勘误手册</a>来看</p>
+<h3 id="1_概述">1    概述</h3><p>树莓派2B采用的CPU为BCM2836，外设部分和BCM2835完全一致，所以就可以参考BCM2835的<a href="https://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf">寄存器手册</a><br>但是，这个寄存器手册笔误有点多，建议配合着wiki的<a href="http://elinux.org/BCM2835_datasheet_errata">勘误手册</a>来看</p>
 <p>CPU总共有54个IO，每个IO都可以复用，配置输入或者输出模式，单从GPIO部分来看，比较简单，无非是输入／输出，触法模式等，和一般的MCU没有太大差异</p>
-<h3 id="2_地址映射">2    地址映射</h3><p>BCM2835将BUS的地址空间，通过MMU映射到线性寻址空间，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/10/27/0.png" alt="地址空间"><br>这里，我们从左到右看，IO Peripherals的基地址为0x7E000000，然后映射后的基地址为0x20000000<br>也就是说外设的地址空间为0x20000000~0x20FFFFFF</p>
-<p>接下来，在手册中，找到GPIO章节，查看寄存器地址，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/10/27/1.png" alt="GPIO寄存器地址"><br>比如GPFSEL0寄存器的BUS地址为0x7E200000，也就是说相对偏移为0x00200000，所以我们可以知道映射后的GPIO基地址为<br>0x20200000(0x20000000 + 0x00200000)，其它寄存器的地址以此类推</p>
-<h3 id="3_寄存器介绍">3    寄存器介绍</h3><p>解决了GPIO寄存器地址问题，下面就需要知道如何控制GPIO，大致浏览GPIO章节，发现相当简单，GPIO的主要功能有</p>
-<ul>
-<li>外设模式</li>
-<li>GPIO模式</li>
-<li>输出／输出</li>
-<li>上拉／下拉</li>
-<li>事件监测（上升沿／下降沿／边缘变化／高电平／低电平）</li>
-</ul>
-<p>下面简单介绍GPIO相关寄存器</p>
-<ol>
-<li>GPFSELn(n=0/1/2/3/4)<br>用于选择GPIO管脚的模式是IO输出还是输入或者是复用</li>
-<li>GPSETn<br>设置IO输出值，写1有效，表示置高对应管脚</li>
-<li>GPCLRn<br>设置IO输出值，写1有效，表示置低对应管脚</li>
-<li>GPLEVn<br>IO当前值，用于读入当前的电平值</li>
-<li>GPEDSn<br>也就是所谓的事件标志位，可以通过该位来检查是否有事件发生，写1清零</li>
-<li>GPRENn／GPRENn／GPHENn／GPLENn<br>用于设置IO的事件模式，比如上升沿／下降沿／跳变／高电平／低电平触发方式，触发事件后，会发送一个中断信号给CPU<br>从而实现中断机制</li>
-<li>GPPUD／GPPUDCLKn<br>上拉／下拉配置寄存器，这个比较特殊，CPU不会保存这个配置状态，需要用户用软件来配置并保存，配置掉电不丢失，同时，<br>系统只提供两个相关寄存器，所以配置时需要采用复用模式，并遵循特定的配置方式和延时，具体参见手册介绍</li>
-</ol>
-<p>总共就这么多寄存器，介绍完毕，下面说一下操作流程</p>
-<h3 id="4_操作流程">4    操作流程</h3><p>对于普通的IO来说，无非就是输入或者输出，输入模式下，可以轮询或者中断；输出模式下，往对应管脚寄存器里写1/0即可</p>
-<h4 id="输出配置">输出配置</h4><ol>
-<li>通过GPFSELn设置输出模式</li>
-<li>往GPSETn寄存器写1，表示在对应管脚输出高电平</li>
-<li>往GPCLRn寄存器写0，表示在对应管脚输出低电平</li>
-<li>可以通过GPLEVn来读取当前输出值</li>
-</ol>
-<h4 id="输入配置">输入配置</h4><ol>
-<li>通过GPFSELn设置输入模式</li>
-<li>通过GPPUD／GPPUDCLKn设置上拉或者下拉模式</li>
-<li>(可选)通过GPRENn／GPRENn／GPHENn／GPLEN设置事件模式</li>
-<li>可以通过GPLEVn来读取当前输出值</li>
-</ol>
-<h3 id="5_用C语言控制IO">5    用C语言控制IO</h3><p>请参考 <a href="https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.c" target="_blank" rel="external">https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.c</a></p>
-<h3 id="6_用python语言控制IO">6    用python语言控制IO</h3><p>请参考 <a href="http://raspberrywebserver.com/gpio/" target="_blank" rel="external">http://raspberrywebserver.com/gpio/</a></p>
-<h3 id="参考资料">参考资料</h3><ol>
-<li><a href="https://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf" target="_blank" rel="external">BCM2835 ARM Peripherals</a></li>
-<li><a href="http://elinux.org/BCM2835_datasheet_errata" target="_blank" rel="external">BCM2835_datasheet_errata</a></li>
-<li><a href="https://github.com/WiringPi/WiringPi/blob/master/wiringPi/wiringPi.c" target="_blank" rel="external">wiringPi Code</a></li>
-<li><a href="http://wiringpi.com/" target="_blank" rel="external">wiringPi HomePage</a></li>
-</ol>
-
+<h3 id="2_地址映射">2    地址映射</h3><p>BCM2835将BUS的地址空间，通过MMU映射到线性寻址空间，如下所示<br>
       
     </div>
     
@@ -846,6 +749,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/27/Raspberry-Pi-programming-IO/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -1774,143 +1681,6 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 	</div>
 
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-Networking-and-the-BSD-Sockets-APIs" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" class="article-date">
-  	<time datetime="2015-10-07T03:56:59.000Z" itemprop="datePublished">2015-10-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/">Networking and the BSD Sockets APIs</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>by Michael Beam<br>12/27/2002</p>
-<p>原文链接: <a href="http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1">http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1</a></p>
-<p>We’ve spend a great deal of time talking about Rendezvous in the previous two columns, but Rendezvous can’t exist in a vacuum. Having user-friendly service discovery does us no good unless we can make our applications talk to one another. Indeed, Rendezvous has absolutely no provisions for facilitating general network communications between applications, as it is only a protocol for advertising and discovering services on a network. It is a discovery protocol, not a communications protocol.</p>
-<p>Today we shift gears into the communications side of this business; we will have very little to say about Rendezvous. Due to its Unix lineage, Mac OS X is a wonderful platform for learning about networking, since it has such a rich set of APIs to offer; in particular, we can program with the venerable BSD sockets API. Today we’ll learn about this API, and in doing so we will write a tiny pair of C applications that demonstrate how clients and servers can be made to talk with one another. In the next column, we will finish RCE with what we learn today by adding some Cocoa.</p>
-<h4 id="Concerning_Sockets">Concerning Sockets</h4><p>Most of us have likely heard of sockets in the course of our experiences programming. I had always heard about sockets, but up until about half a year ago, I had never had the pleasure of programming with them. Having heard of something is far from understanding it, which is essential to being able to effectively use a technology. In this column and the next, I hope to spark some interest in the subject to give you a feel for the technology. Hopefully, many of you who had previously shied away from sockets and networking will go on to learn more about this interesting and relevant topic.</p>
-<p>So just what is a socket? The man page for the socket() function, which we use to create sockets, describes this little thing in four words: an endpoint for communication. The analogy often used to relate sockets to everyday experiences is that of a telephone, which, as we will see, is indeed an accurate comparison. A telephone is, after all, an endpoint, or an interface, to a communications network that we use to communicate with other people.</p>
-<p>In the same way that we speak into and listen to a phone, applications both send data across a network by writing to a socket, and receive data sent by a remote host by reading from the socket. If you are familiar with the Unix APIs for reading and writing to a file, you will be comfortable with sockets, as the same functions for file I/O are used for socket I/O – namely, read() and write().</p>
-<p>Like two telephones that facilitate a conversation between two people, network connections exist between a pair of sockets, one for each end of the connection. Sockets are often talked about in pairs: one for the server side of the application, and one for the client side. The networking model that we are accustomed to is that of the relationship between a client and a server. A server is an application that is listening for connection requests from clients, and handling them appropriately. A client is a program that connects to a server. Usually client and servers are two completely different applications, as is the case with a Web client and server: Apache is a Web server, while OmniWeb, Internet Explorer, and Mozilla are all Web clients.</p>
-<p>We will see in the next column how this distinction between server and client blurs when we talk about peer-to-peer chat applications like RCE. Sometimes, one application is both a client and a server that allows connections from other like applications. This is especially true of peer-to-peer applications, such as the chat application we’re building. We’ll get into this more in the next column, but understand as we progress through our discussion today that RCE will have both server functionality and client functionality.</p>
-<h4 id="Working_With_Sockets">Working With Sockets</h4><p>Because of the differing tasks of a server and a client, their use of sockets is accordingly different. The role each side takes in establishing a communications link is reflected in the nature of the sockets each side uses. To wit, servers use what are known as passive sockets, and clients use active sockets.</p>
-<p>When a server process starts up, it must create a socket; bind it to a local, unused port; tell that socket to listen for new connections from clients; and finally, begin waiting for new connections. This socket is often referred to as a listening socket, or a passive socket, or a server socket. All of these names suggest that the role of the socket is to sit patiently while listening to its assigned port for clients requesting a connection with the server. In the analogy of the telephone, creating the socket is like buying a phone, binding is akin to getting a hookup from the phone company, listening is plugging your phone into the wall, and finally, accepting is the act of answering the phone when it rings.</p>
-<p>When a connection is received by the listening socket, the server must accept the connection and return a new connected socket that is used to communicate with the client. This new socket has an established connection to the client’s remote socket. By creating a new socket to handle the new connection, the listening socket is free to continue doing its thing, listening for connections from other clients.</p>
-<p>Clients use sockets in a different way. A client creates a socket in the same way as a server; however, after the socket is created the use of the socket differs. With a socket in hand, the client uses that socket to attempt to connect to a server. Once the connection has been accepted by the server, the client can begin sending and receiving data from the server. Referring back to our phone analogy, connecting is no different than dialing a phone number for someone you want to talk to.</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/socket/">socket</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-Port-to-gcc" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/06/Port-to-gcc/" class="article-date">
-  	<time datetime="2015-10-06T03:39:47.000Z" itemprop="datePublished">2015-10-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/06/Port-to-gcc/">ARM GCC移植指导</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="概述">概述</h3><p>本文主要介绍MDK代码移植到ARM GCC中的注意事项，以及对应的编译器指令</p>
-<p>主要包括</p>
-<ul>
-<li>启动文件</li>
-<li>链接脚本</li>
-<li>汇编文件</li>
-<li>编译器指令</li>
-<li>其它</li>
-</ul>
-<h3 id="启动文件">启动文件</h3><p>选择适用于gcc as汇编器的启动文件，并注意添加bss的清零和data的复制代码，用于初始化C<br>runtime，如果使用到了C++，还需要手工复制构造函数表和全局变量表，并调用_start函数来初始化C lib</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/gcc/">gcc</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/06/Port-to-gcc/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

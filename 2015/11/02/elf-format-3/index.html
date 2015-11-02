@@ -3,72 +3,57 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Simple</title>
+  <title>ELF文件分析之3 － 动态链接 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+  <meta name="description" content="概述相对于静态链接，动态链接和加载机制更加复杂，但对于系统来说，动态加载能更节省内存和其它计算资源
+这里面涉及到的主要技术点为：
 
+GOT表
+PLT表
+动态加载
 
+基本过程为
 
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Simple">
-<meta property="og:url" content="cedar-renjun.github.io/assets/2014/03/21/html_output_final/search/defines_0.html">
+调用系统加载程序
+调用程序所需要的动态库，并分配程序段地址
+进行初始化，构建运行时环境（Run Time)
+运行程序，第一次遇到动态未定义符号时，调用动态解析函数，找到符号地址，将信息写入绑定表
+第二次调用符号时，直接进入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELF文件分析之3 － 动态链接">
+<meta property="og:url" content="cedar-renjun.github.io/2015/11/02/elf-format-3/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+<meta property="og:description" content="概述相对于静态链接，动态链接和加载机制更加复杂，但对于系统来说，动态加载能更节省内存和其它计算资源
+这里面涉及到的主要技术点为：
 
+GOT表
+PLT表
+动态加载
 
+基本过程为
 
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
-<meta property="og:updated_time" content="2015-10-16T16:11:20.000Z">
+调用系统加载程序
+调用程序所需要的动态库，并分配程序段地址
+进行初始化，构建运行时环境（Run Time)
+运行程序，第一次遇到动态未定义符号时，调用动态解析函数，找到符号地址，将信息写入绑定表
+第二次调用符号时，直接进入">
+<meta property="og:updated_time" content="2015-11-02T10:23:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Simple">
-<meta name="twitter:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+<meta name="twitter:title" content="ELF文件分析之3 － 动态链接">
+<meta name="twitter:description" content="概述相对于静态链接，动态链接和加载机制更加复杂，但对于系统来说，动态加载能更节省内存和其它计算资源
+这里面涉及到的主要技术点为：
 
+GOT表
+PLT表
+动态加载
 
+基本过程为
 
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
+调用系统加载程序
+调用程序所需要的动态库，并分配程序段地址
+进行初始化，构建运行时环境（Run Time)
+运行程序，第一次遇到动态未定义符号时，调用动态解析函数，找到符号地址，将信息写入绑定表
+第二次调用符号时，直接进入">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -229,11 +214,11 @@ do">
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-elf-format-3" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/assets/2014/03/21/html_output_final/search/defines_0.html" class="article-date">
-  	<time datetime="2015-10-18T15:51:00.000Z" itemprop="datePublished">2015-10-18</time>
+      <a href="/2015/11/02/elf-format-3/" class="article-date">
+  	<time datetime="2015-11-02T10:21:08.000Z" itemprop="datePublished">2015-11-02</time>
 </a>
     </div>
   
@@ -242,34 +227,53 @@ do">
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ELF文件分析之3 － 动态链接
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title></title>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8">
-<meta name="generator" content="Doxygen 1.8.6">
-<link rel="stylesheet" type="text/css" href="search.css">
-<script type="text/javascript" src="defines_0.js"></script>
-<script type="text/javascript" src="search.js"></script>
-</head>
-<body class="SRPage">
-<div id="SRIndex">
-<div class="SRStatus" id="Loading">Loading...</div>
-<div id="SRResults"></div>
-<script type="text/javascript"><!--
-createResults();
---></script>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-<script type="text/javascript"><!--
-document.getElementById("Loading").style.display="none";
-document.getElementById("NoMatches").style.display="none";
-var searchResults = new SearchResults("searchResults");
-searchResults.Search();
---></script>
-</div>
-</body>
-</html>
+        <h3 id="概述">概述</h3><p>相对于静态链接，动态链接和加载机制更加复杂，但对于系统来说，动态加载能更节省内存和其它计算资源</p>
+<p>这里面涉及到的主要技术点为：</p>
+<ol>
+<li>GOT表</li>
+<li>PLT表</li>
+<li>动态加载</li>
+</ol>
+<p>基本过程为</p>
+<ol>
+<li>调用系统加载程序</li>
+<li>调用程序所需要的动态库，并分配程序段地址</li>
+<li>进行初始化，构建运行时环境（Run Time)</li>
+<li>运行程序，第一次遇到动态未定义符号时，调用动态解析函数，找到符号地址，将信息写入绑定表</li>
+<li>第二次调用符号时，直接进入查找表，调用对应函数</li>
+</ol>
+<p>所以，下面，分别介绍GOT和PLT，然后用实例来分析变量符号加载和函数符号动态加载机制</p>
+<a id="more"></a>
+<p>［占位符］，有事外出，晚上回来更新</p>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="http://flint.cs.yale.edu/cs422/doc/ELF_Format.pdf" target="_blank" rel="external">ELF规范1.1</a></li>
+<li><a href="https://refspecs.linuxbase.org/elf/elf.pdf" target="_blank" rel="external">ELF规范1.2</a></li>
+<li><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0044e/IHI0044E_aaelf.pdf" target="_blank" rel="external">ARM ELF 规范</a></li>
+</ol>
 
       
     </div>
@@ -277,6 +281,16 @@ searchResults.Search();
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/02/elf-format-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ELF文件分析之2 － 静态链接</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -300,7 +314,7 @@ searchResults.Search();
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="" data-url="cedar-renjun.github.io/assets/2014/03/21/html_output_final/search/defines_0.html"></div>
+	<div class="ds-thread" data-thread-key="elf-format-3" data-title="ELF文件分析之3 － 动态链接" data-url="cedar-renjun.github.io/2015/11/02/elf-format-3/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -344,7 +358,7 @@ searchResults.Search();
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

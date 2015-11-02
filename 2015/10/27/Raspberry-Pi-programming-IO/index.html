@@ -17,7 +17,7 @@
 1    概述树莓派2B采用的CPU为BCM2836，外设部分和BCM2835完全一致，所以就可以参考BCM2835的寄存">
 <meta property="og:image" content="http://cedar-renjun.github.io/images/2015/10/27/0.png">
 <meta property="og:image" content="http://cedar-renjun.github.io/images/2015/10/27/1.png">
-<meta property="og:updated_time" content="2015-10-26T17:57:47.000Z">
+<meta property="og:updated_time" content="2015-11-02T10:05:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派底层编程-GPIO篇">
 <meta name="twitter:description" content="0    前言本来是准备写一篇用python控制GPIO的例子，结果发现太简单了，还是深入一些吧，多深入底层
@@ -117,7 +117,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 20px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 20px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+						<a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -224,8 +224,10 @@
 <p>接下来，我会按照下面的顺序来介绍：<br>1）GPIO控制器地址映射<br>2）GPIO主要控制寄存器介绍<br>3）GPIO操作流程<br>4）用C语言控制GPIO<br>6）用python来控制GPIO</p>
 <h3 id="1_概述">1    概述</h3><p>树莓派2B采用的CPU为BCM2836，外设部分和BCM2835完全一致，所以就可以参考BCM2835的<a href="https://www.raspberrypi.org/wp-content/uploads/2012/02/BCM2835-ARM-Peripherals.pdf" target="_blank" rel="external">寄存器手册</a><br>但是，这个寄存器手册笔误有点多，建议配合着wiki的<a href="http://elinux.org/BCM2835_datasheet_errata" target="_blank" rel="external">勘误手册</a>来看</p>
 <p>CPU总共有54个IO，每个IO都可以复用，配置输入或者输出模式，单从GPIO部分来看，比较简单，无非是输入／输出，触法模式等，和一般的MCU没有太大差异</p>
-<h3 id="2_地址映射">2    地址映射</h3><p>BCM2835将BUS的地址空间，通过MMU映射到线性寻址空间，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/10/27/0.png" alt="地址空间"><br>这里，我们从左到右看，IO Peripherals的基地址为0x7E000000，然后映射后的基地址为0x20000000<br>也就是说外设的地址空间为0x20000000~0x20FFFFFF</p>
-<p>接下来，在手册中，找到GPIO章节，查看寄存器地址，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/10/27/1.png" alt="GPIO寄存器地址"><br>比如GPFSEL0寄存器的BUS地址为0x7E200000，也就是说相对偏移为0x00200000，所以我们可以知道映射后的GPIO基地址为<br>0x20200000(0x20000000 + 0x00200000)，其它寄存器的地址以此类推</p>
+<h3 id="2_地址映射">2    地址映射</h3><p>BCM2835将BUS的地址空间，通过MMU映射到线性寻址空间，如下所示<br><a id="more"></a></p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/27/0.png" alt="地址空间"><br>这里，我们从左到右看，IO Peripherals的基地址为0x7E000000，然后映射后的基地址为0x20000000<br>也就是说外设的地址空间为0x20000000~0x20FFFFFF</p>
+<p>接下来，在手册中，找到GPIO章节，查看寄存器地址，如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/27/1.png" alt="GPIO寄存器地址"><br>比如GPFSEL0寄存器的BUS地址为0x7E200000，也就是说相对偏移为0x00200000，所以我们可以知道映射后的GPIO基地址为<br>0x20200000(0x20000000 + 0x00200000)，其它寄存器的地址以此类推</p>
 <h3 id="3_寄存器介绍">3    寄存器介绍</h3><p>解决了GPIO寄存器地址问题，下面就需要知道如何控制GPIO，大致浏览GPIO章节，发现相当简单，GPIO的主要功能有</p>
 <ul>
 <li>外设模式</li>
