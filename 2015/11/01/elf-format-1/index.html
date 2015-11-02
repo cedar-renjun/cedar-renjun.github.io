@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ELF文件分析之1 － 文件格式 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0    前言上一篇，我们知道了ELF文件是什么，以及怎么用，本篇重点介绍ELF的文档规范
+1    整体结构ELF适用于3种文件结构
+
+重定向文件也就是经常见到的.o文件，用于保存代码和数据，链接器用使用这个文件来创建可执行文件或者共享文件
+可执行文件也就是linux下面的.out文件，用于执行
+共享文件常见的静态库.lib或者动态库.so，就是这个文件格式，就是由多个.o压缩成的，可以用于保存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELF文件分析之1 － 文件格式">
+<meta property="og:url" content="cedar-renjun.github.io/2015/11/01/elf-format-1/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="0    前言上一篇，我们知道了ELF文件是什么，以及怎么用，本篇重点介绍ELF的文档规范
+1    整体结构ELF适用于3种文件结构
+
+重定向文件也就是经常见到的.o文件，用于保存代码和数据，链接器用使用这个文件来创建可执行文件或者共享文件
+可执行文件也就是linux下面的.out文件，用于执行
+共享文件常见的静态库.lib或者动态库.so，就是这个文件格式，就是由多个.o压缩成的，可以用于保存">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/11/1/0.png">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/11/1/1.png">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/11/1/2.png">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/11/1/3.png">
+<meta property="og:updated_time" content="2015-11-02T04:54:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ELF文件分析之1 － 文件格式">
+<meta name="twitter:description" content="0    前言上一篇，我们知道了ELF文件是什么，以及怎么用，本篇重点介绍ELF的文档规范
+1    整体结构ELF适用于3种文件结构
+
+重定向文件也就是经常见到的.o文件，用于保存代码和数据，链接器用使用这个文件来创建可执行文件或者共享文件
+可执行文件也就是linux下面的.out文件，用于执行
+共享文件常见的静态库.lib或者动态库.so，就是这个文件格式，就是由多个.o压缩成的，可以用于保存">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 20px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 20px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 20px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-elf-format-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/01/elf-format-1/" class="article-date">
+  	<time datetime="2015-11-01T15:13:07.000Z" itemprop="datePublished">2015-11-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ELF文件分析之1 － 文件格式
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_前言">0    前言</h3><p>上一篇，我们知道了ELF文件是什么，以及怎么用，本篇重点介绍ELF的文档规范</p>
+<h3 id="1_整体结构">1    整体结构</h3><p>ELF适用于3种文件结构</p>
+<ol>
+<li>重定向文件<br>也就是经常见到的<code>.o</code>文件，用于保存代码和数据，链接器用使用这个文件来创建<code>可执行文件</code>或者<code>共享文件</code></li>
+<li>可执行文件<br>也就是linux下面的<code>.out</code>文件，用于执行</li>
+<li>共享文件<br>常见的静态库<code>.lib</code>或者动态库<code>.so</code>，就是这个文件格式，就是由多个<code>.o</code>压缩成的，可以用于保存代码或者数据，节省编译时间</li>
+</ol>
+<p>上面三种文件，再综合一下，可以分为两种</p>
+<ol>
+<li>链接文件（中间态）</li>
+<li>可执行文件（最终态）</li>
+</ol>
+<p>ELF分别用两种视图来表示二者，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/11/1/0.png" alt="整体示意图"></p>
+<h3 id="2_准备工作">2    准备工作</h3><p>在介绍各部分含义之前，我们需要先做一下准备工作，在树莓派上生成几个需要的文件<br>这里，我采用的是树莓派Raspbian系统自带的gcc编译器，CPU为ARM－A系列内核</p>
+<ol>
+<li><p><code>.o</code>文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# gcc -c -O0 -g main.c&#10;root@raspberrypi:/home/pi/tmp# gcc -c -O0 -g fun.c</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>.so</code>文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# gcc -shared -fPIC -O0 -g -o libfun.so fun.c</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>.out</code>文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# gcc main.o fun.o</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>现在，你的目录下，应该有如下几个文件:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# ls&#10;a.out  fun.c  fun.o  libfun.so&#9;main.c&#9;main.o</span><br></pre></td></tr></table></figure></p>
+<p>ok, 我们开始分析ELF结构</p>
+<h3 id="3_ELF_header">3    ELF header</h3><p>它主要为系统提供基本信息，具体包括：</p>
+<ol>
+<li>这是什么文件</li>
+<li>大小多少</li>
+<li>程序入口在哪里</li>
+<li>header表在哪里</li>
+<li>header表里面有多少项</li>
+<li>等等</li>
+</ol>
+<p>规范里面，提供了一个结构体定义，如下所示<br><img src="http://cedar-renjun.github.io/images/2015/11/1/1.png" alt="整体示意图"></p>
+<p>我们来看看<code>.o</code>，<code>.so</code>，<code>.out</code>三者的header分别是怎么样的，如下所示</p>
+<ol>
+<li><p><code>fun.o</code> ELF header</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -h fun.o&#10;ELF Header:&#10;  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 &#10;  Class:                             ELF32&#10;  Data:                              2&#39;s complement, little endian&#10;  Version:                           1 (current)&#10;  OS/ABI:                            UNIX - System V&#10;  ABI Version:                       0&#10;  Type:                              REL (Relocatable file)           # 0 &#27880;&#24847;&#25991;&#20214;&#31867;&#22411;&#10;  Machine:                           ARM&#10;  Version:                           0x1&#10;  Entry point address:               0x0                              # 1 &#27880;&#24847;&#20837;&#21475;&#22320;&#22336;&#10;  Start of program headers:          0 (bytes into file)&#10;  Start of section headers:          1220 (bytes into file)&#10;  Flags:                             0x5000000, Version5 EABI&#10;  Size of this header:               52 (bytes)&#10;  Size of program headers:           0 (bytes)&#10;  Number of program headers:         0&#10;  Size of section headers:           40 (bytes)&#10;  Number of section headers:         20&#10;  Section header string table index: 17</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>libfun.so</code> ELF header</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -h libfun.so&#10;ELF Header:&#10;  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 &#10;  Class:                             ELF32&#10;  Data:                              2&#39;s complement, little endian&#10;  Version:                           1 (current)&#10;  OS/ABI:                            UNIX - System V&#10;  ABI Version:                       0&#10;  Type:                              DYN (Shared object file)           # 0 &#27880;&#24847;&#25991;&#20214;&#31867;&#22411;&#10;  Machine:                           ARM&#10;  Version:                           0x1&#10;  Entry point address:               0x414                              # 1 &#27880;&#24847;&#20837;&#21475;&#22320;&#22336;&#10;  Start of program headers:          52 (bytes into file)&#10;  Start of section headers:          4680 (bytes into file)&#10;  Flags:                             0x5000402, has entry point, Version5 EABI, hard-float ABI&#10;  Size of this header:               52 (bytes)&#10;  Size of program headers:           32 (bytes)&#10;  Number of program headers:         5&#10;  Size of section headers:           40 (bytes)&#10;  Number of section headers:         32&#10;  Section header string table index: 29&#10;root@raspberrypi:/home/pi/tmp#</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>a.out</code> ELF header</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -h a.out&#10;ELF Header:&#10;  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 &#10;  Class:                             ELF32&#10;  Data:                              2&#39;s complement, little endian&#10;  Version:                           1 (current)&#10;  OS/ABI:                            UNIX - System V&#10;  ABI Version:                       0&#10;  Type:                              EXEC (Executable file)        # 0 &#27880;&#24847;&#25991;&#20214;&#31867;&#22411;&#10;  Machine:                           ARM&#10;  Version:                           0x1&#10;  Entry point address:               0x102f8                       # 1 &#27880;&#24847;&#20837;&#21475;&#22320;&#22336;&#10;  Start of program headers:          52 (bytes into file)&#10;  Start of section headers:          5808 (bytes into file)&#10;  Flags:                             0x5000402, has entry point, Version5 EABI, hard-float ABI&#10;  Size of this header:               52 (bytes)&#10;  Size of program headers:           32 (bytes)&#10;  Number of program headers:         8&#10;  Size of section headers:           40 (bytes)&#10;  Number of section headers:         36&#10;  Section header string table index: 33</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>我们可以看到，不同的文件，readelf工具读出来的<code>文件类型</code>和<code>入口地址</code>是不一样的，具体细节，请对照着ELF规范来逐个字节分析<br>哦，忘了告诉你，怎么通过看原始HEX信息了，请使用<code>xxd</code>工具，如下所示<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# xxd a.out &#10;&#10;0000000: 7f45 4c46 0101 0100 0000 0000 0000 0000  .ELF............&#10;0000010: 0200 2800 0100 0000 f802 0100 3400 0000  ..(.........4...&#10;0000020: b016 0000 0204 0005 3400 2000 0800 2800  ........4. ...(.&#10;0000030: 2400 2100 0100 0070 1805 0000 1805 0100  $.!....p........&#10;0000040: 1805 0100 0800 0000 0800 0000 0400 0000  ................&#10;0000050: 0400 0000 0600 0000 3400 0000 3400 0100  ........4...4...&#10;0000060: 3400 0100 0001 0000 0001 0000 0500 0000  4...............&#10;0000070: 0400 0000 0300 0000 3401 0000 3401 0100  ........4...4...&#10;0000080: 3401 0100 1900 0000 1900 0000 0400 0000  4...............&#10;0000090: 0100 0000 0100 0000 0000 0000 0000 0100  ................&#10;00000a0: 0000 0100 2405 0000 2405 0000 0500 0000  ....$...$.......&#10;00000b0: 0000 0100 0100 0000 2405 0000 2405 0200  ........$...$...&#10;...</span><br></pre></td></tr></table></figure></p>
+<p>对于一个可执行文件来说，系统最关心的是程序入口地址，是否需要动态库，数据区大小，代码区大小，size等信息；而对于一个重定向文件来说，最关心的是里面有哪些函数，哪些符号，对应的地址是多少，符号类型等信息；elf分别用下面的<code>program header</code>和<code>section header</code>来描述这些信息</p>
+<h3 id="4_Program_header_table">4    Program header table</h3><p>我们知道，嵌入式系统中，包含RAM和FLASH，无论我们的程序里面包含了多少个段，最终还是要映射到FLASH或者RAM中，链接脚本决定了如何映射各种段（.bss, .data .init 等），但对于加载器来说，根本不需要知道这些段的名字，加载器只需要知道段的地址和大小，以及将要映射的区域，就足够了。这也是ELF为什么要区分为两个视图的原因，链接器需要知道详细的段信息，就给它详细信息；加载器需要简单信息，就单独提供一个<code>program header</code>给它，各取所需，分工明确。</p>
+<p>我们先看看三个文件里面的<code>program header</code>信息</p>
+<ol>
+<li><p><code>a.out</code> program header</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -l a.out &#10;&#10;Elf file type is EXEC (Executable file)&#10;Entry point 0x102f8&#10;There are 8 program headers, starting at offset 52&#10;&#10;Program Headers:&#10;  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align&#10;  EXIDX          0x000518 0x00010518 0x00010518 0x00008 0x00008 R   0x4&#10;  PHDR           0x000034 0x00010034 0x00010034 0x00100 0x00100 R E 0x4&#10;  INTERP         0x000134 0x00010134 0x00010134 0x00019 0x00019 R   0x1&#10;      [Requesting program interpreter: /lib/ld-linux-armhf.so.3]&#10;  LOAD           0x000000 0x00010000 0x00010000 0x00524 0x00524 R E 0x10000&#10;  LOAD           0x000524 0x00020524 0x00020524 0x0011c 0x00124 RW  0x10000&#10;  DYNAMIC        0x000530 0x00020530 0x00020530 0x000e8 0x000e8 RW  0x4&#10;  NOTE           0x000150 0x00010150 0x00010150 0x00044 0x00044 R   0x4&#10;  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10&#10;&#10; Section to Segment mapping:&#10;  Segment Sections...&#10;   00     .ARM.exidx &#10;   01     &#10;   02     .interp &#10;   03     .interp .note.ABI-tag .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rel.dyn .rel.plt .init .plt .text .fini .rodata .ARM.exidx .eh_frame &#10;   04     .init_array .fini_array .jcr .dynamic .got .data .bss &#10;   05     .dynamic &#10;   06     .note.ABI-tag .note.gnu.build-id &#10;   07</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>fun.o</code> program header</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -l fun.o &#10;&#10;There are no program headers in this file.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>libfun.so</code> program header</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -l libfun.so &#10;&#10;Elf file type is DYN (Shared object file)&#10;Entry point 0x414&#10;There are 5 program headers, starting at offset 52&#10;&#10;Program Headers:&#10;  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align&#10;  LOAD           0x000000 0x00000000 0x00000000 0x005c4 0x005c4 R E 0x10000&#10;  LOAD           0x0005c4 0x000105c4 0x000105c4 0x00118 0x00120 RW  0x10000&#10;  DYNAMIC        0x0005d0 0x000105d0 0x000105d0 0x000e0 0x000e0 RW  0x4&#10;  NOTE           0x0000d4 0x000000d4 0x000000d4 0x00024 0x00024 R   0x4&#10;  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10&#10;&#10; Section to Segment mapping:&#10;  Segment Sections...&#10;   00     .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rel.dyn .rel.plt .init .plt .text .fini .eh_frame &#10;   01     .init_array .fini_array .jcr .dynamic .got .data .bss &#10;   02     .dynamic &#10;   03     .note.gnu.build-id &#10;   04</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以看到<code>a.out</code>和<code>libfun.so</code>都有program header信息，<code>fun.o</code>没有program header信息，这是因为前两者中各个元素地址信息已经确定下来了，可以加载到系统中执行，但<code>fun.o</code>仅仅作为中间产物，地址信息没有确定，无法加载到系统运行，所以对加载器来说，该文件完全没有有用信息，所以就不存在对应的program header。</p>
+<p>需要注意的： <code>Section to Segment mapping</code>下面的几个条目和<code>Program Headers</code>几个条目分别对应，后面的信息，表示哪几个段分配到哪几个节中，以<code>libfun.so</code> 为例，如果整合到一起，则如下所示</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align    Segment  Sections&#10;LOAD           0x000000 0x00000000 0x00000000 0x005c4 0x005c4 R E 0x10000  00       .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rel.dyn .rel.plt .init .plt .text .fini .eh_frame &#10;LOAD           0x0005c4 0x000105c4 0x000105c4 0x00118 0x00120 RW  0x10000  01       .init_array .fini_array .jcr .dynamic .got .data .bss &#10;DYNAMIC        0x0005d0 0x000105d0 0x000105d0 0x000e0 0x000e0 RW  0x4      02       .dynamic &#10;NOTE           0x0000d4 0x000000d4 0x000000d4 0x00024 0x00024 R   0x4      03       .note.gnu.build-id &#10;GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10     04</span><br></pre></td></tr></table></figure>
+<p>有了感性认识，我们来看看规范里面对program header的定义<br>从上文可以知道，ELF header里面包含了program header的偏移地址和size信息<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Start of program headers:          52 (bytes into file)&#10;Size of program headers:           32 (bytes)&#10;Number of program headers:         8</span><br></pre></td></tr></table></figure></p>
+<p>表示program header在文件的52字节偏移处，然后总共8个元素，每个元素32字节大小</p>
+<p>元素的定义如下所示<br><img src="http://cedar-renjun.github.io/images/2015/11/1/2.png" alt="Program Header 元素定义"></p>
+<p>结构体所描述的信息，可以通过readelf来读出来，上面已经展示过了，是一一对应的<br>其中，最重要的是LOAD类型的节，这部分是用来加载到内存中，我们可以将这部分复制出来，从而导出bin文件</p>
+<h3 id="5_Section_header_table">5    Section header table</h3><p>则是从链接器的视角来管理内容，我们先看看<code>a.out</code>，<code>fun.o</code>，<code>libfun.so</code>这三个的section header信息，从而有一个感性的认识</p>
+<ol>
+<li><p><code>a.out</code> section header</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -S a.out&#10;There are 36 section headers, starting at offset 0x16b0:&#10;&#10;Section Headers:&#10;  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al&#10;  [ 0]                   NULL            00000000 000000 000000 00      0   0  0&#10;  [ 1] .interp           PROGBITS        00010134 000134 000019 00   A  0   0  1&#10;  [ 2] .note.ABI-tag     NOTE            00010150 000150 000020 00   A  0   0  4&#10;  [ 3] .note.gnu.build-i NOTE            00010170 000170 000024 00   A  0   0  4&#10;  [ 4] .gnu.hash         GNU_HASH        00010194 000194 00002c 04   A  5   0  4&#10;  [ 5] .dynsym           DYNSYM          000101c0 0001c0 000050 10   A  6   1  4&#10;  [ 6] .dynstr           STRTAB          00010210 000210 000043 00   A  0   0  1&#10;  [ 7] .gnu.version      VERSYM          00010254 000254 00000a 02   A  5   0  2&#10;  [ 8] .gnu.version_r    VERNEED         00010260 000260 000020 00   A  6   1  4&#10;  [ 9] .rel.dyn          REL             00010280 000280 000008 08   A  5   0  4&#10;  [10] .rel.plt          REL             00010288 000288 000020 08  AI  5  12  4&#10;  [11] .init             PROGBITS        000102a8 0002a8 00000c 00  AX  0   0  4&#10;  [12] .plt              PROGBITS        000102b4 0002b4 000044 04  AX  0   0  4&#10;  [13] .text             PROGBITS        000102f8 0002f8 000208 00  AX  0   0  4&#10;  [14] .fini             PROGBITS        00010500 000500 000008 00  AX  0   0  4&#10;  [15] .rodata           PROGBITS        00010508 000508 000010 00   A  0   0  4&#10;  [16] .ARM.exidx        ARM_EXIDX       00010518 000518 000008 00  AL 13   0  4&#10;  [17] .eh_frame         PROGBITS        00010520 000520 000004 00   A  0   0  4&#10;  [18] .init_array       INIT_ARRAY      00020524 000524 000004 00  WA  0   0  4&#10;  [19] .fini_array       FINI_ARRAY      00020528 000528 000004 00  WA  0   0  4&#10;  [20] .jcr              PROGBITS        0002052c 00052c 000004 00  WA  0   0  4&#10;  [21] .dynamic          DYNAMIC         00020530 000530 0000e8 08  WA  6   0  4&#10;  [22] .got              PROGBITS        00020618 000618 000020 04  WA  0   0  4&#10;  [23] .data             PROGBITS        00020638 000638 000008 00  WA  0   0  4&#10;  [24] .bss              NOBITS          00020640 000640 000008 00  WA  0   0  4&#10;  [25] .comment          PROGBITS        00000000 000640 00003d 01  MS  0   0  1&#10;  [26] .ARM.attributes   ARM_ATTRIBUTES  00000000 00067d 000031 00      0   0  1&#10;  [27] .debug_aranges    PROGBITS        00000000 0006ae 000040 00      0   0  1&#10;  [28] .debug_info       PROGBITS        00000000 0006ee 000106 00      0   0  1&#10;  [29] .debug_abbrev     PROGBITS        00000000 0007f4 0000b0 00      0   0  1&#10;  [30] .debug_line       PROGBITS        00000000 0008a4 00006d 00      0   0  1&#10;  [31] .debug_frame      PROGBITS        00000000 000914 00005c 00      0   0  4&#10;  [32] .debug_str        PROGBITS        00000000 000970 0000cb 01  MS  0   0  1&#10;  [33] .shstrtab         STRTAB          00000000 000a3b 000157 00      0   0  1&#10;  [34] .symtab           SYMTAB          00000000 000b94 0007a0 10     35  95  4&#10;  [35] .strtab           STRTAB          00000000 001334 00037a 00      0   0  1&#10;Key to Flags:&#10;  W (write), A (alloc), X (execute), M (merge), S (strings)&#10;  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)&#10;  O (extra OS processing required) o (OS specific), p (processor specific)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>fun.o</code> section header</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -S fun.o&#10;There are 20 section headers, starting at offset 0x4c4:&#10;&#10;Section Headers:&#10;  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al&#10;  [ 0]                   NULL            00000000 000000 000000 00      0   0  0&#10;  [ 1] .text             PROGBITS        00000000 000034 000030 00  AX  0   0  4&#10;  [ 2] .data             PROGBITS        00000000 000064 000000 00  WA  0   0  1&#10;  [ 3] .bss              NOBITS          00000000 000064 000000 00  WA  0   0  1&#10;  [ 4] .debug_info       PROGBITS        00000000 000064 00006e 00      0   0  1&#10;  [ 5] .rel.debug_info   REL             00000000 000454 000048 08   I 18   4  4&#10;  [ 6] .debug_abbrev     PROGBITS        00000000 0000d2 00005b 00      0   0  1&#10;  [ 7] .debug_aranges    PROGBITS        00000000 00012d 000020 00      0   0  1&#10;  [ 8] .rel.debug_arange REL             00000000 00049c 000010 08   I 18   7  4&#10;  [ 9] .debug_line       PROGBITS        00000000 00014d 000035 00      0   0  1&#10;  [10] .rel.debug_line   REL             00000000 0004ac 000008 08   I 18   9  4&#10;  [11] .debug_str        PROGBITS        00000000 000182 000066 01  MS  0   0  1&#10;  [12] .comment          PROGBITS        00000000 0001e8 000020 01  MS  0   0  1&#10;  [13] .note.GNU-stack   PROGBITS        00000000 000208 000000 00      0   0  1&#10;  [14] .debug_frame      PROGBITS        00000000 000208 000030 00      0   0  4&#10;  [15] .rel.debug_frame  REL             00000000 0004b4 000010 08   I 18  14  4&#10;  [16] .ARM.attributes   ARM_ATTRIBUTES  00000000 000238 000031 00      0   0  1&#10;  [17] .shstrtab         STRTAB          00000000 000269 0000b2 00      0   0  1&#10;  [18] .symtab           SYMTAB          00000000 00031c 000120 10     19  16  4&#10;  [19] .strtab           STRTAB          00000000 00043c 000015 00      0   0  1&#10;Key to Flags:&#10;  W (write), A (alloc), X (execute), M (merge), S (strings)&#10;  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)&#10;  O (extra OS processing required) o (OS specific), p (processor specific)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>像其它的header table一样，section </p>
+<ol>
+<li><code>libfun.so</code> section header<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/home/pi/tmp# readelf -S libfun.so&#10;There are 32 section headers, starting at offset 0x1248:&#10;&#10;Section Headers:&#10;  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al&#10;  [ 0]                   NULL            00000000 000000 000000 00      0   0  0&#10;  [ 1] .note.gnu.build-i NOTE            000000d4 0000d4 000024 00   A  0   0  4&#10;  [ 2] .gnu.hash         GNU_HASH        000000f8 0000f8 000050 04   A  3   0  4&#10;  [ 3] .dynsym           DYNSYM          00000148 000148 000130 10   A  4   3  4&#10;  [ 4] .dynstr           STRTAB          00000278 000278 0000cb 00   A  0   0  1&#10;  [ 5] .gnu.version      VERSYM          00000344 000344 000026 02   A  3   0  2&#10;  [ 6] .gnu.version_r    VERNEED         0000036c 00036c 000020 00   A  4   1  4&#10;  [ 7] .rel.dyn          REL             0000038c 00038c 000040 08   A  3   0  4&#10;  [ 8] .rel.plt          REL             000003cc 0003cc 000010 08  AI  3  10  4&#10;  [ 9] .init             PROGBITS        000003dc 0003dc 00000c 00  AX  0   0  4&#10;  [10] .plt              PROGBITS        000003e8 0003e8 00002c 04  AX  0   0  4&#10;  [11] .text             PROGBITS        00000414 000414 0001a4 00  AX  0   0  4&#10;  [12] .fini             PROGBITS        000005b8 0005b8 000008 00  AX  0   0  4&#10;  [13] .eh_frame         PROGBITS        000005c0 0005c0 000004 00   A  0   0  4&#10;  [14] .init_array       INIT_ARRAY      000105c4 0005c4 000004 00  WA  0   0  4&#10;  [15] .fini_array       FINI_ARRAY      000105c8 0005c8 000004 00  WA  0   0  4&#10;  [16] .jcr              PROGBITS        000105cc 0005cc 000004 00  WA  0   0  4&#10;  [17] .dynamic          DYNAMIC         000105d0 0005d0 0000e0 08  WA  4   0  4&#10;  [18] .got              PROGBITS        000106b0 0006b0 000028 04  WA  0   0  4&#10;  [19] .data             PROGBITS        000106d8 0006d8 000004 00  WA  0   0  4&#10;  [20] .bss              NOBITS          000106dc 0006dc 000008 00  WA  0   0  4&#10;  [21] .comment          PROGBITS        00000000 0006dc 00001f 01  MS  0   0  1&#10;  [22] .ARM.attributes   ARM_ATTRIBUTES  00000000 0006fb 00002f 00      0   0  1&#10;  [23] .debug_aranges    PROGBITS        00000000 00072a 000020 00      0   0  1&#10;  [24] .debug_info       PROGBITS        00000000 00074a 00006e 00      0   0  1&#10;  [25] .debug_abbrev     PROGBITS        00000000 0007b8 00005b 00      0   0  1&#10;  [26] .debug_line       PROGBITS        00000000 000813 000035 00      0   0  1&#10;  [27] .debug_frame      PROGBITS        00000000 000848 000030 00      0   0  4&#10;  [28] .debug_str        PROGBITS        00000000 000878 00006c 01  MS  0   0  1&#10;  [29] .shstrtab         STRTAB          00000000 0008e4 00012e 00      0   0  1&#10;  [30] .symtab           SYMTAB          00000000 000a14 0005b0 10     31  75  4&#10;  [31] .strtab           STRTAB          00000000 000fc4 000281 00      0   0  1&#10;Key to Flags:&#10;  W (write), A (alloc), X (execute), M (merge), S (strings)&#10;  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)&#10;  O (extra OS processing required) o (OS specific), p (processor specific)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>像其它的header表一样，section header也是用基本数组元素来表示的，数组的结构体如下所示<br><img src="http://cedar-renjun.github.io/images/2015/11/1/3.png" alt="Section Header 元素定义"></p>
+<p>其中，需要注意，为了便于统一管理和数组元素大小一致，section的sh_name成员，用字符串表里面的索引来表示<br>这也是ELF header里面单独列出字符串表索引的重要原因</p>
+<h3 id="6_总结">6    总结</h3><p>我们总结一下，ELF有两种视图，分别为链接视图和加载视图<br>分析ELF的过程如下所示</p>
+<ol>
+<li>链接视图<ol>
+<li>找到ELF Header</li>
+<li>在ELF Header中找到Section Header入口地址和元素大小，数量</li>
+<li>找到字符串表的索引和入口地址</li>
+<li>分析Section Header，找到各个表项的入口地址和基本信息</li>
+</ol>
+</li>
+<li>加载视图<ol>
+<li>找到ELF Header</li>
+<li>在ELF Header中找到Program Header入口地址和元素大小，数量</li>
+<li>找到字符串表的索引和入口地址</li>
+<li>对于动态链接来说，先调用系统加载器，加载所需要的so文件；对于静态来说，构建基本运行环境</li>
+<li>加载LOAD节到系统内存</li>
+<li>加载调试信息给debuger</li>
+<li>开始运行或者调试</li>
+</ol>
+</li>
+</ol>
+<h3 id="7_参考资料">7    参考资料</h3><ol>
+<li><a href="http://flint.cs.yale.edu/cs422/doc/ELF_Format.pdf" target="_blank" rel="external">ELF规范1.1</a></li>
+<li><a href="https://refspecs.linuxbase.org/elf/elf.pdf" target="_blank" rel="external">ELF规范1.2</a></li>
+<li><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0044e/IHI0044E_aaelf.pdf" target="_blank" rel="external">ARM ELF 规范</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/31/elf-format-0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ELF文件分析之0 － 简介和分析工具</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="elf-format-1" data-title="ELF文件分析之1 － 文件格式" data-url="cedar-renjun.github.io/2015/11/01/elf-format-1/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
