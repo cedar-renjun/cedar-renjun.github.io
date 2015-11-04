@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
+						<a href="/tags/Debugger/" style="font-size: 10px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,67 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-state-machine-timer-resource-management" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/09/17/state-machine-timer-resource-management/" class="article-date">
+  	<time datetime="2014-09-17T07:00:29.000Z" itemprop="datePublished">2014-09-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/17/state-machine-timer-resource-management/">在状态机中管理时间资源</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面的话">写在前面的话</h2><p>在嵌入式系统中，经常会使用到延时(Delay)函数，延时有长，有短；500us以下的延时，可以完全用软件来做；较长的延时，可以用硬件Timer或者调用RTOS的时间管理函数。</p>
+<p>在简单的MCU中，由于资源限制，无法使用常规的RTOS，这时就需要自己写相应的协调式调度算法，常见的有协程和时间片轮询机制等，万变不离其宗，它们其中的核心是状态机，在状态机中一个核心原则是：<strong>函数不能长时间阻塞MCU</strong>，否则就会导致整个系统调度失效。也就是说：<strong>无法使用纯软件延时</strong></p>
+<p>例如，在系统中严禁出现下面代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay_s</span><span class="params">(uint8_t tick_s)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Code Snippet 1</span></span><br><span class="line"></span><br><span class="line">delay_s(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Code Snippet 2</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/框架/">框架</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2014/09/17/state-machine-timer-resource-management/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-missing-you" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1618,69 +1679,6 @@
         <p class="article-more-link">
           <a  href="/2014/03/30/learn-from-taxi-driver/#more">more >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-we-lost-something-special-in-the-precess-grow" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/03/30/we-lost-something-special-in-the-precess-grow/" class="article-date">
-  	<time datetime="2014-03-30T12:32:18.000Z" itemprop="datePublished">2014-03-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/30/we-lost-something-special-in-the-precess-grow/">成长的代价</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote><p>如果有一天</p>
-<p>让你心动的再也感动不了你<br>让你愤怒的再也激怒不了你<br>让你悲伤的再也不能让你流泪</p>
-<p>你便知道</p>
-<p>这时光，这生活给了你什么<br>你为了成长<br>付出了什么</p>
-<footer><strong>刀刀狗漫画故事</strong></footer></blockquote>
-<p>今天无意间在微博上看到这句话</p>
-<p>顷刻间知道自己为了成长，失去了很多很多</p>
-<p>某些事情，只能做一次，以后就再没机会或者再没心情去做了</p>
-<p>珍惜现在，珍惜身边人</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-	</div>
-
-
       
       <div class="clearfix"></div>
     </div>

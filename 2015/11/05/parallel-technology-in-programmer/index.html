@@ -3,33 +3,45 @@
 <head>
   <meta charset="utf-8">
   
-  <title>IDA Pro学习笔记－1 | Simple</title>
+  <title>烧录器中的并行技术 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0 概述本文主要介绍常用的，简单的逆向和反汇编工具
-1    分类工具在遇到一个新文件时，我们需要知道，这是一个什么类型的文件；记得，看后缀名来判断是不准确的，下面的几个工具，用来帮助你检验文件类型
+  <meta name="description" content="0    前言利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度
+1    理论基础
+烧写器的烧写速度瓶颈不在于传输速率
+CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
+一个FLASH控制器，只允许一个DMA操作
 
-fileLinux下面的命令行工具，可以利用后缀名，文件头的特征码，文件开头的特殊命令行来判断类型，能识别绝大多数的文件类型
-
-PE Tools一组用于分析windows系统中正在运行的进程和可执行">
+2    基本思路
+采用RAM FIFO机制，假设为A，B Block
+先填充A，然后启动DMA，开始烧录扇区1
+填充B，等待扇区">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IDA Pro学习笔记－1">
-<meta property="og:url" content="cedar-renjun.github.io/2015/10/27/IDA-Pro-Reading-note-1/index.html">
+<meta property="og:title" content="烧录器中的并行技术">
+<meta property="og:url" content="cedar-renjun.github.io/2015/11/05/parallel-technology-in-programmer/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="0 概述本文主要介绍常用的，简单的逆向和反汇编工具
-1    分类工具在遇到一个新文件时，我们需要知道，这是一个什么类型的文件；记得，看后缀名来判断是不准确的，下面的几个工具，用来帮助你检验文件类型
+<meta property="og:description" content="0    前言利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度
+1    理论基础
+烧写器的烧写速度瓶颈不在于传输速率
+CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
+一个FLASH控制器，只允许一个DMA操作
 
-fileLinux下面的命令行工具，可以利用后缀名，文件头的特征码，文件开头的特殊命令行来判断类型，能识别绝大多数的文件类型
-
-PE Tools一组用于分析windows系统中正在运行的进程和可执行">
-<meta property="og:updated_time" content="2015-10-27T15:34:03.000Z">
+2    基本思路
+采用RAM FIFO机制，假设为A，B Block
+先填充A，然后启动DMA，开始烧录扇区1
+填充B，等待扇区">
+<meta property="og:updated_time" content="2015-11-04T17:06:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IDA Pro学习笔记－1">
-<meta name="twitter:description" content="0 概述本文主要介绍常用的，简单的逆向和反汇编工具
-1    分类工具在遇到一个新文件时，我们需要知道，这是一个什么类型的文件；记得，看后缀名来判断是不准确的，下面的几个工具，用来帮助你检验文件类型
+<meta name="twitter:title" content="烧录器中的并行技术">
+<meta name="twitter:description" content="0    前言利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度
+1    理论基础
+烧写器的烧写速度瓶颈不在于传输速率
+CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
+一个FLASH控制器，只允许一个DMA操作
 
-fileLinux下面的命令行工具，可以利用后缀名，文件头的特征码，文件开头的特殊命令行来判断类型，能识别绝大多数的文件类型
-
-PE Tools一组用于分析windows系统中正在运行的进程和可执行">
+2    基本思路
+采用RAM FIFO机制，假设为A，B Block
+先填充A，然后启动DMA，开始烧录扇区1
+填充B，等待扇区">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -190,11 +202,11 @@ PE Tools一组用于分析windows系统中正在运行的进程和可执行">
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-IDA-Pro-Reading-note-1" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-parallel-technology-in-programmer" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/27/IDA-Pro-Reading-note-1/" class="article-date">
-  	<time datetime="2015-10-27T14:38:33.000Z" itemprop="datePublished">2015-10-27</time>
+      <a href="/2015/11/05/parallel-technology-in-programmer/" class="article-date">
+  	<time datetime="2015-11-04T16:53:35.000Z" itemprop="datePublished">2015-11-05</time>
 </a>
     </div>
   
@@ -207,7 +219,7 @@ PE Tools一组用于分析windows系统中正在运行的进程和可执行">
         
   
     <h1 class="article-title" itemprop="name">
-      IDA Pro学习笔记－1
+      烧录器中的并行技术
     </h1>
   
 
@@ -216,7 +228,7 @@ PE Tools一组用于分析windows系统中正在运行的进程和可执行">
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hacker/">Hacker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDA/">IDA</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugger/">Debugger</a></li></ul>
 	</div>
 
         
@@ -227,38 +239,22 @@ PE Tools一组用于分析windows系统中正在运行的进程和可执行">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="0_概述">0 概述</h3><p>本文主要介绍常用的，简单的逆向和反汇编工具</p>
-<h3 id="1_分类工具">1    分类工具</h3><p>在遇到一个新文件时，我们需要知道，这是一个什么类型的文件；记得，看后缀名来判断是不准确的，下面的几个工具，用来帮助你检验文件类型</p>
-<ol>
-<li><p>file<br>Linux下面的命令行工具，可以利用后缀名，文件头的特征码，文件开头的特殊命令行来判断类型，能识别绝大多数的文件类型</p>
-</li>
-<li><p>PE Tools<br>一组用于分析windows系统中正在运行的进程和可执行文件的工具。能捕获进程，并将内存映像转储，然后用PE<br>sniffer来分析可执行文件是由何种编译器构建的</p>
-</li>
-<li><p>PEiD<br>windows工具，用于识别构建EXE文件所有的编译器，并确定混淆代码的工具类型</p>
-</li>
+        <h3 id="0_前言">0    前言</h3><p>利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度</p>
+<h3 id="1_理论基础">1    理论基础</h3><ol>
+<li>烧写器的烧写速度瓶颈不在于传输速率</li>
+<li>CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据</li>
+<li>一个FLASH控制器，只允许一个DMA操作</li>
 </ol>
-<h3 id="2_摘要工具">2    摘要工具</h3><p>在分析到类型后，我们就需要分析文件内的详细信息，下面这些工具就该派上用场了</p>
-<ol>
-<li><p>nm<br>显示出目标文件中的所有符号；我们知道，obj文件里面都有很多符号段，用于存储符号信息，nm就可以将这些信息给打印出来，便于分析</p>
-</li>
-<li><p>ldd<br>用于解析静态链接或者动态链接的库信息</p>
-</li>
-<li><p>objdump<br>大而全的工具，用于显示目标文件的所有信息，比如节头部，专用头部，调试信息，符号信息，反汇编代码等<br>还有一个readelf工具，也有同样的功能；<br>二者的区别是：objdump依赖于libbfd，readelf不依赖libbfd</p>
-</li>
-<li><p>otool<br>mac OS X底下的objdump工具</p>
-</li>
-<li><p>dumpbin<br>VS套件里面的一个工具，功能类似objdump和ldd</p>
-</li>
-<li><p>C++filt<br>C＋＋会将重载函数进行重命名（name－mangling），从而保证符号唯一性，但这样为我们理解反编译函数名称造成了困难，filt就是复原原始函数名用的<br>，比如<code>nm a.out | grep demo | c++filt</code>就可以复原a.out里面所有的demo函数名</p>
-</li>
+<h3 id="2_基本思路">2    基本思路</h3><ol>
+<li>采用RAM FIFO机制，假设为A，B Block</li>
+<li>先填充A，然后启动DMA，开始烧录扇区1</li>
+<li>填充B，等待扇区1烧录完毕，配置DMA，烧录扇区2</li>
+<li>填充A，等待扇区2烧录完毕，然后配置DMA</li>
+<li>重复3.4步骤，直到完成</li>
 </ol>
-<h3 id="3_深度监测工具">3    深度监测工具</h3><ol>
-<li><p>strings<br>用于提取文件中的字符串内容，我们经常在windows里面可以看到提示性文字，通过这个工具，我们就知道文字的位置，然后反向找出调用文字的程序<br>代码，最后修改代码即可<br>但是记住，不要用文字信息来推断程序功能</p>
-</li>
-<li><p>反汇编器<br>X86架构下的ndisasm和diStorm可以用来反汇编代码和数据</p>
-</li>
+<h3 id="3_注意事项">3    注意事项</h3><ol>
+<li>可以根据DMA的速率和系统总线速率，调整Block的大小和数据，从而尽可能的让DMA接近全负荷运行，从而达到理论FLASH理论烧写速率</li>
 </ol>
-<h3 id="4_最后">4    最后</h3><p>这些工具很基础，都是linux下的常用工具，应该掌握</p>
 
       
     </div>
@@ -268,18 +264,9 @@ PE Tools一组用于分析windows系统中正在运行的进程和可执行">
     
 <nav id="article-nav">
   
-    <a href="/2015/10/27/something-about-crack-m1-card/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          破解M1卡
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/10/27/IDA-Pro-Reading-note-0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">IDA Pro学习笔记－0</div>
+    <a href="/2015/11/02/elf-format-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ELF文件分析之3 － 动态链接</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -308,7 +295,7 @@ PE Tools一组用于分析windows系统中正在运行的进程和可执行">
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="IDA-Pro-Reading-note-1" data-title="IDA Pro学习笔记－1" data-url="cedar-renjun.github.io/2015/10/27/IDA-Pro-Reading-note-1/"></div>
+	<div class="ds-thread" data-thread-key="parallel-technology-in-programmer" data-title="烧录器中的并行技术" data-url="cedar-renjun.github.io/2015/11/05/parallel-technology-in-programmer/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
