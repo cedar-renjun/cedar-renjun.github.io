@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Debugger/" style="font-size: 10px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 10px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,67 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-good-blog-about-coroutines" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/09/21/good-blog-about-coroutines/" class="article-date">
+  	<time datetime="2014-09-21T09:07:39.000Z" itemprop="datePublished">2014-09-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/21/good-blog-about-coroutines/">谈谈协程和C语言的协程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>注：</strong> 本文转自 <a href="http://www.yeolar.com/note/2013/02/17/coroutines/">http://www.yeolar.com/note/2013/02/17/coroutines/</a></p>
+<p>晚上在整理我的 $HOME 的时候，发现了一段有趣的代码，它被保存为了a.c并存在了差不多半年之久。种种迹象表明，它很重要。其实我记得它，当初在网上看到，觉得它包含了一个巧妙的技巧，就让它长住在我的硬盘上了，今天我决定把它搬到这篇文章中。好吧，我是打算谈一谈协程的概念。</p>
+<h2 id="一个例子">一个例子</h2><p>先给大家看一下这段代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">int</span> state;</span><br><span class="line">&#125; task;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> crBegin(state) \</span><br><span class="line">        switch (state) &#123; case <span class="number">0</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> crReturn(state, ret) \</span><br><span class="line">        (state) = __LINE__; return (ret); case __LINE__:</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> crEnd() \</span><br><span class="line">        &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cb</span><span class="params">(task *t)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    crBegin(t-&gt;state);</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        t-&gt;num = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (t-&gt;i = <span class="number">0</span>; t-&gt;i &lt; <span class="number">20</span>; t-&gt;i++) &#123;</span><br><span class="line">            crReturn(t-&gt;state, t-&gt;num);</span><br><span class="line">            t-&gt;num += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    crEnd();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    task t;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    t.state = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, cb(&amp;t));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/转载/">转载</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2014/09/21/good-blog-about-coroutines/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-state-machine-timer-resource-management" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1610,74 +1671,6 @@
       
         <p class="article-more-link">
           <a  href="/2014/04/02/how-to-attract-more-developers-to-join-in-open-source-actives/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-learn-from-taxi-driver" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/03/30/learn-from-taxi-driver/" class="article-date">
-  	<time datetime="2014-03-30T13:06:48.000Z" itemprop="datePublished">2014-03-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/30/learn-from-taxi-driver/">从出租车司机身上学到的东西</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="写在前面的话">写在前面的话</h2><p>周六和小猪出去玩，出门的时候刚好有个出租车，随便就拦下来了，在路上，顺便和司机聊了一会儿，期间谈到打车软件和武汉交通问题，司机大叔非常有见地，不仅发现了问题，而且提出了自己的解决方案，非常佩服大叔的慎密思维</p>
-<p>如此优秀的思想，不记录下来可惜了，特写此文记录之</p>
-<h2 id="关于打车软件">关于打车软件</h2><blockquote><p>现在的打车软件是单纯的靠定位，来通知附近的出租车司机，没有方向性</p>
-<p>很多时候，乘客打车的地方在车的后方或者街对面，我们需要转个很大的弯才能掉头去接乘客，遇到这种情况，我们就直接不接单了</p>
-<p>现在的选择权在于司机，如果将选择权交给乘客就好了，需要打车时，不仅会显示附近的出租车，而且会显示出租车的方向，这样乘客就可以选择特定方向的出租车，司机也可以避免接收很多无效信息</p>
-</blockquote>
-<h2 id="关于武汉交通">关于武汉交通</h2><blockquote><p>现在武汉的交通，某些路上的车流量大，堵车严重；某些路的车流量小，不堵车；</p>
-<p>能不能</p>
-<p>1）根据道路车流量，自动调节红绿灯时间，车流量高，红灯时间长；反之亦然；从而起到缓解交通压力的效果</p>
-<p>2）将打车软件和地图软件结合起来，实时通知司机前方交通路段的车流量状况，辅助司机选择不堵车的路段，从而避免增加交通压力</p>
-</blockquote>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2014/03/30/learn-from-taxi-driver/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
