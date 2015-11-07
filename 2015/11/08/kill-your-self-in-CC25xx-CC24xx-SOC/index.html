@@ -3,17 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: github | Simple</title>
+  <title>编写自杀式代码 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术的终极目标是简洁">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Simple">
-<meta property="og:url" content="cedar-renjun.github.io/categories/github/index.html">
+  <meta name="description" content="0    前言在制作TI调试器时，需要在RAM中执行代码，并擦除原有固件，然后接收调试器发来的数据文件，写入FLASH中，从而完成系统烧写和调试功能
+该技术可以用作自杀式入侵代码，完成工作后，清除所有代码信息，然后重启已经测试通过，并十分有效，简单的说一下基本思路，详细信息不便透露
+1    基本步骤
+调试器连接MCU
+更新固件
+完成系统初始化和C－Runtime初始化
+映射RAM执行缓冲区，设置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编写自杀式代码">
+<meta property="og:url" content="cedar-renjun.github.io/2015/11/08/kill-your-self-in-CC25xx-CC24xx-SOC/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="技术的终极目标是简洁">
+<meta property="og:description" content="0    前言在制作TI调试器时，需要在RAM中执行代码，并擦除原有固件，然后接收调试器发来的数据文件，写入FLASH中，从而完成系统烧写和调试功能
+该技术可以用作自杀式入侵代码，完成工作后，清除所有代码信息，然后重启已经测试通过，并十分有效，简单的说一下基本思路，详细信息不便透露
+1    基本步骤
+调试器连接MCU
+更新固件
+完成系统初始化和C－Runtime初始化
+映射RAM执行缓冲区，设置">
+<meta property="og:updated_time" content="2015-11-07T17:18:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Simple">
-<meta name="twitter:description" content="技术的终极目标是简洁">
+<meta name="twitter:title" content="编写自杀式代码">
+<meta name="twitter:description" content="0    前言在制作TI调试器时，需要在RAM中执行代码，并擦除原有固件，然后接收调试器发来的数据文件，写入FLASH中，从而完成系统烧写和调试功能
+该技术可以用作自杀式入侵代码，完成工作后，清除所有代码信息，然后重启已经测试通过，并十分有效，简单的说一下基本思路，详细信息不便透露
+1    基本步骤
+调试器连接MCU
+更新固件
+完成系统初始化和C－Runtime初始化
+映射RAM执行缓冲区，设置">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -174,84 +193,115 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-kill-your-self-in-CC25xx-CC24xx-SOC" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2014" class="archive-year">2014</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2014/10/09/push-blog-source-to-github/" class="archive-article-date">
-  	<time datetime="2014-10-09T15:17:25.000Z" itemprop="datePublished">Oct 9</time>
+    <div class="article-meta">
+      <a href="/2015/11/08/kill-your-self-in-CC25xx-CC24xx-SOC/" class="article-date">
+  	<time datetime="2015-11-07T16:58:35.000Z" itemprop="datePublished">2015-11-08</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2014/10/09/push-blog-source-to-github/">定时备份Blog源文件到github</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      编写自杀式代码
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/github/">github</a>
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugger/">Debugger</a></li></ul>
 	</div>
 
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+      </div>
+      
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/" class="archive-article-date">
-  	<time datetime="2014-03-19T12:04:41.000Z" itemprop="datePublished">Mar 19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2014/03/19/how-to-build-your-blog-on-github-page-with-octopress/">用Octopress在github上搭建自己的博客系统</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_前言">0    前言</h3><p>在制作TI调试器时，需要在RAM中执行代码，并擦除原有固件，然后接收调试器发来的数据文件，写入FLASH中，从而完成系统烧写和调试功能</p>
+<p>该技术可以用作自杀式入侵代码，完成工作后，清除所有代码信息，然后重启<br>已经测试通过，并十分有效，简单的说一下基本思路，详细信息不便透露</p>
+<h3 id="1_基本步骤">1    基本步骤</h3><ol>
+<li>调试器连接MCU</li>
+<li>更新固件</li>
+<li>完成系统初始化和C－Runtime初始化</li>
+<li>映射RAM执行缓冲区，设置断点</li>
+<li>执行RAM函数，使用DMA擦除固件信息，准备接收调试器发送的数据资料</li>
+</ol>
+<h3 id="2_特别说明">2    特别说明</h3><ol>
+<li>我已经在用STM32来调试CC25xx/CC23xx系列芯片，同时具备烧写功能</li>
+<li>该技术可以和缓冲区漏洞结合起来，得到系统固件，并擦除自身，完全不留任何作案信息</li>
+</ol>
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/github/">github</a><a class="article-category-link" href="/categories/github/octopress/">octopress</a>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/05/Learn-CC26xx-with-me-lesson-00/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">跟我学蓝牙4.0之－CC26xx系列教程－00</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="kill-your-self-in-CC25xx-CC24xx-SOC" data-title="编写自杀式代码" data-url="cedar-renjun.github.io/2015/11/08/kill-your-self-in-CC25xx-CC24xx-SOC/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -277,10 +327,10 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false
 	}
 </script>
