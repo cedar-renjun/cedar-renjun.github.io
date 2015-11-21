@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 15px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 10px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 15px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 15px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,118 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-raspberry-2B-feedback" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/13/raspberry-2B-feedback/" class="article-date">
+  	<time datetime="2015-10-13T15:52:21.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/raspberry-2B-feedback/">试用树莓派2B</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-_致谢">1. 致谢</h3><p>最近一直想学linux驱动编程和学习内核，刚好得到一块儿树莓派2B，所以准备用心搞一下<br>在此特意感谢21ic 小跑堂美女和may美女，刘sir</p>
+<h3 id="2-_树莓派2B升级了什么">2. 树莓派2B升级了什么</h3><p>提到树莓派，大家都知道是什么东西，这里就不做背景介绍了，感兴趣的，可以参考树莓派官网介绍 <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b/" target="_blank" rel="external">https://www.raspberrypi.org/products/raspberry-pi-2-model-b/</a></p>
+<p>这次拿到的是2B板子，主要升级了内存和CPU<br>下面是官方网站展示的2B的性能参数：</p>
+<ul>
+<li>A 900MHz quad-core ARM Cortex-A7 CPU</li>
+<li>1GB RAM</li>
+<li>4 USB ports</li>
+<li>40 GPIO pins</li>
+<li>Full HDMI port</li>
+<li>Ethernet port</li>
+<li>Combined 3.5mm audio jack and composite video</li>
+<li>Camera interface (CSI)</li>
+<li>Display interface (DSI)</li>
+<li>Micro SD card slot</li>
+<li>VideoCore IV 3D graphics core</li>
+</ul>
+<p>相比于前代的树莓派，2B采用TF卡，尺寸更小，也去掉了不常用的RCA接口（俗称AV接口），完全采用HDMI接口<br>这么改，最大的好处就是树莓派形状变得很整齐，不再像原来那样突起一部分</p>
+<p>从处理器来说，将原来的高通BCM2835更新到了BCM2836，增大RAM到1G，估计你对这些也不太感冒，只要知道速度提高了6倍就好了</p>
+<p>6倍，6倍，6倍，重要的事情说三遍</p>
+<p>因为处理器架构从ARM7TMDI变成了4核A7，所以能跑标准的操作系统，比如安卓或者ubuntu或者win10</p>
+<p>大致看了win10烧录内核的步骤，看到“首先你需要一台运行win10的笔记本”，看到这里就没继续看了，哪位有兴趣的可以根据微软IOT团队官方博客来实战<br><a href="https://www.raspberrypi.org/blog/windows-10-for-iot/" target="_blank" rel="external">https://www.raspberrypi.org/blog/windows-10-for-iot/</a><br><a href="https://dev.windows.com/zh-cn/iot" target="_blank" rel="external">https://dev.windows.com/zh-cn/iot</a> </p>
+<p>对了，树莓派2B支持DSI显示接口和CSI相机接口，从而可以直接高速视频输入和屏幕输出<br>这个有什么用呢？理论上来说，你可以拿树莓派做一个平板电脑</p>
+<h3 id="无图无真相">无图无真相</h3><p>一个图片胜千言，show me the images now</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/13/0.png" alt="树莓派宣传图"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/1.jpg" alt="树莓派包装正面"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/2.jpg" alt="树莓派包装反面"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/3.jpg" alt="树莓派正面"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/4.jpg" alt="树莓派反面"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/5.jpg" alt="树莓派合照"><br><img src="http://cedar-renjun.github.io/images/2015/10/13/6.jpg" alt="树莓派大眼睛"></p>
+<p>那个神秘的大眼睛是什么？？？<br>红外夜视摄像头，准备拿来做opencv人脸识别和视频监控，更多信息暂时保密</p>
+<p>树莓派的简单介绍到这里，接下来介绍烧录系统，更新内核，跑opencv做人脸识别</p>
+<h3 id="树莓派性能体验">树莓派性能体验</h3><p>试用了一个星期，最大的体验是树莓派性能有显著提高，6X绝对不是夸大<br>主要体现在</p>
+<ol>
+<li>编译opencv的时候，速度有很大提升</li>
+<li>播放1080P的高清视频，硬解码，CPU占用率在2%左右，可以忽略不计</li>
+</ol>
+<p>前几代树莓派产品，据说跑视觉算法的时候，总是卡顿，树莓派2B在这方面有极大的提升，适合做视觉和图像处理相关的任务</p>
+<p>如果您在做这方面的工作，可以尝试树莓派2B，也欢迎和我交流</p>
+<h3 id="体验步骤">体验步骤</h3><p>我玩树莓派的步骤大致包括</p>
+<ol>
+<li>安装串口工具</li>
+<li>连接树莓派串口，通过串口控制树莓派</li>
+<li>连接无线网卡（360Wi-Fi），配置开机自动上网</li>
+<li>通过SSH连接树莓派</li>
+<li>如果你有屏幕和HDMI接口线，请连接树莓派；如果没有，则用realvnc在笔记本上显示远程桌面</li>
+<li>编译源码，安装opencv</li>
+<li>编写opencv测试程序</li>
+<li>使用500W摄像头进行动作捕捉（进行中）</li>
+</ol>
+<p>这里仅仅做一个简要性的概述，列出注意事项，详细的命令和步骤，请参考blog文章或者网站上的文章</p>
+<p>注意事项：</p>
+<ol>
+<li>树莓派2B的IO变为40Pin，但前26pin仍然兼容原来的树莓派，详细的GPIO列表，请参考<a href="http://www.element14.com/community/docs/DOC-73950/l/raspberry-pi-2-model-b-gpio-40-pin-block-pinout" target="_blank" rel="external">http://www.element14.com/community/docs/DOC-73950/l/raspberry-pi-2-model-b-gpio-40-pin-block-pinout</a></li>
+<li>最近的树莓派内核（4.0以上），直接支持360Wi-Fi 2代（MT7601芯片），所以不需要进行重新编译内核和驱动；网上很多教程都是以3.x版本的内核为案例来讲述编译Wi-Fi网卡驱动和内核，请有取舍的参考</li>
+<li>SSH连接，mac下可以直接用terminal，windows下可以用secure CRT</li>
+<li>在编译opencv的时候，使用树莓派来wget或者git下载源码，可能会很慢；建议用PC机下载，然后通过scp命令来复制到树莓派主机上，实测Wi-Fi数据速率可以达到6M/S</li>
+<li>编译opencv时，请参考opencv的官网3.0版本编译安装指南，网上教程很多是以opencv 2.4版本来介绍，因为新内核不在支持libtif4版本的库，所以会导致后面编译失败，，，切记，切记，我因为这个点，折腾了两天时间</li>
+<li>安装VNC远程桌面时，请尽量使用realvnc server和viewer，网上很多人用tightvnc server，实际测试中，这个VNC会导致显示UI界面时，出现RANDER错误</li>
+<li>在编译opencv时，会因为内存不够导致编译错误，显示4G内存完全用完，无法继续编译；解决方案就是重新调整linux扇区，来完全使用SD卡的8G内存，详情请参考<a href="http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/">http://cedar-renjun.github.io/2015/10/11/resize-raspberry-sd-volume/</a></li>
+<li>播放1080P视频时，请使用omxplayer，这个播放器专门优化过，CPU占用率非常低，可以忽略不计，，，性能突出</li>
+</ol>
+<h3 id="最后">最后</h3><p>总体而言，树莓派2B的性能，有了显著的提升，可以跑各种操作系统，跑视觉和图像处理，值得购买</p>
+<p>我正在通过树莓派学习opencv，欢迎交流</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/树莓派/">树莓派</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-install-opencv-on-raspberry2B" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1549,79 +1661,6 @@ MemManage_Handler
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-push-blog-source-to-github" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/10/09/push-blog-source-to-github/" class="article-date">
-  	<time datetime="2014-10-09T15:17:25.000Z" itemprop="datePublished">2014-10-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/09/push-blog-source-to-github/">定时备份Blog源文件到github</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><p>hexo框架是一款非常好用的blog生成工具，可以方便的将markdown转换成HTML网页，并传到github.io网站。<br>但是hexo在push的时候，只会推送public目录下的文件到远程master分支，而不会保存源文件和网站主题，<br>这样会导致风险，万一哪天我们的markdown文件挂掉，就仅仅剩github的网页文件了，所以定时将源文件备份到github是个好习惯</p>
-<h3 id="1：创建本地仓库">1：创建本地仓库</h3><p><code>cd</code>进blog所在目录，输入下面命令将文件纳入git管理系统</p>
-<pre><code>git init
-git add .
-git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"first commit"</span>    </span>
-</code></pre><h3 id="2:_删除远程source分支">2: 删除远程source分支</h3><p>如果您是从octopress转过来的，那远程仓库中，默认会存在一个source分支；而hexo不会自动push到source，所以<br>这个分支是很久以前的文件，这里我们将删掉</p>
-<pre><code>git <span class="keyword">push</span> &lt;远程仓库地址&gt; :<span class="keyword">source</span>
-</code></pre><p>比如我的地址是<code>https://github.com/cedar-renjun/cedar-renjun.github.io.git</code>，则上述命令是</p>
-<pre><code>git push <span class="symbol">https:</span>/<span class="regexp">/github.com/cedar</span>-renjun/cedar-renjun.github.io.git <span class="symbol">:source</span>
-</code></pre><p><strong>注意</strong> <code>:</code>之前有一个空格</p>
-<p>上面的命令太长了，不好输入，我们可以用<code>remote</code>来简化输入</p>
-<pre><code>git remote <span class="built_in">add</span> blog http<span class="variable">s:</span>//github.<span class="keyword">com</span>/cedar-renjun/cedar-renjun.github.io.git
-</code></pre><p>这样，blog就是远程的仓库地址，我们可以用下面命令来检测是否生效</p>
-<pre><code><span class="title">git</span> remote -v
-</code></pre><h3 id="3：创建本地分支">3：创建本地分支</h3><pre><code><span class="label">git</span> <span class="keyword">branch </span>-<span class="keyword">b </span>source
-</code></pre><p>这个命令，创建了一个souce分支，并切换到source分支了</p>
-<h3 id="4：推送到远程分支">4：推送到远程分支</h3><pre><code>git <span class="keyword">push</span> blog <span class="keyword">source</span>:<span class="keyword">source</span>
-</code></pre><p>前一个<code>source</code>表示本地分支名字，后一个表示远程仓库名字，名字可以变，但位置不能变</p>
-<p>至此，我们已经将source文件推送到远程分支，可以高枕无忧了 ^_^</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/github/">github</a>
 	</div>
 
 

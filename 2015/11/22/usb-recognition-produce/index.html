@@ -3,72 +3,39 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Simple</title>
+  <title>USB 插入动作 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Simple">
-<meta property="og:url" content="cedar-renjun.github.io/assets/2014/03/21/html_output_final/search/defines_0.html">
+  <meta name="description" content="USB 设备插入
+HUB 通过检测DP/DM电平变化，识别出USB插入动作
+HUB 等待100ms左右，等待设备供电稳定和初始化完成
+HUB 请求 Device复位，Device进入默认状态，此时最大可用电流为100ma
+HUB 分配唯一地址给Device
+HUB 发送设备请求命令，获取Device属性和功能
+HUB 根据实际情况，返回配置信息，配置Device，Device完成配置
+Device">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USB 插入动作">
+<meta property="og:url" content="cedar-renjun.github.io/2015/11/22/usb-recognition-produce/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
-<meta property="og:updated_time" content="2015-10-16T16:11:20.000Z">
+<meta property="og:description" content="USB 设备插入
+HUB 通过检测DP/DM电平变化，识别出USB插入动作
+HUB 等待100ms左右，等待设备供电稳定和初始化完成
+HUB 请求 Device复位，Device进入默认状态，此时最大可用电流为100ma
+HUB 分配唯一地址给Device
+HUB 发送设备请求命令，获取Device属性和功能
+HUB 根据实际情况，返回配置信息，配置Device，Device完成配置
+Device">
+<meta property="og:updated_time" content="2015-11-21T16:40:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Simple">
-<meta name="twitter:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
-
-
-
-
-
-
-
-
-
-Loading...
-
-&amp;lt;!--
-createResults();
---&amp;gt;
-Searching...
-No Matches
-&amp;lt;!--
-do">
+<meta name="twitter:title" content="USB 插入动作">
+<meta name="twitter:description" content="USB 设备插入
+HUB 通过检测DP/DM电平变化，识别出USB插入动作
+HUB 等待100ms左右，等待设备供电稳定和初始化完成
+HUB 请求 Device复位，Device进入默认状态，此时最大可用电流为100ma
+HUB 分配唯一地址给Device
+HUB 发送设备请求命令，获取Device属性和功能
+HUB 根据实际情况，返回配置信息，配置Device，Device完成配置
+Device">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -229,11 +196,11 @@ do">
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-usb-recognition-produce" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/assets/2014/03/21/html_output_final/search/defines_0.html" class="article-date">
-  	<time datetime="2015-10-18T15:51:00.000Z" itemprop="datePublished">2015-10-18</time>
+      <a href="/2015/11/22/usb-recognition-produce/" class="article-date">
+  	<time datetime="2015-11-21T16:33:55.000Z" itemprop="datePublished">2015-11-22</time>
 </a>
     </div>
   
@@ -242,34 +209,41 @@ do">
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      USB 插入动作
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html><head><title></title>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8">
-<meta name="generator" content="Doxygen 1.8.6">
-<link rel="stylesheet" type="text/css" href="search.css">
-<script type="text/javascript" src="defines_0.js"></script>
-<script type="text/javascript" src="search.js"></script>
-</head>
-<body class="SRPage">
-<div id="SRIndex">
-<div class="SRStatus" id="Loading">Loading...</div>
-<div id="SRResults"></div>
-<script type="text/javascript"><!--
-createResults();
---></script>
-<div class="SRStatus" id="Searching">Searching...</div>
-<div class="SRStatus" id="NoMatches">No Matches</div>
-<script type="text/javascript"><!--
-document.getElementById("Loading").style.display="none";
-document.getElementById("NoMatches").style.display="none";
-var searchResults = new SearchResults("searchResults");
-searchResults.Search();
---></script>
-</div>
-</body>
-</html>
+        <ol>
+<li>USB 设备插入</li>
+<li>HUB 通过检测DP/DM电平变化，识别出USB插入动作</li>
+<li>HUB 等待100ms左右，等待设备供电稳定和初始化完成</li>
+<li>HUB 请求 Device复位，Device进入默认状态，此时最大可用电流为100ma</li>
+<li>HUB 分配唯一地址给Device</li>
+<li>HUB 发送设备请求命令，获取Device属性和功能</li>
+<li>HUB 根据实际情况，返回配置信息，配置Device，Device完成配置</li>
+<li>Device处于可用状态，开始正常传输数据</li>
+<li>Device设备拔出，HUB回收地址，更新逻辑树结构，通知HOST</li>
+</ol>
 
       
     </div>
@@ -277,6 +251,16 @@ searchResults.Search();
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/22/why-use-required-device-reset-when-plugin/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">为什么USB协议中，检测到设备插入时，要求复位</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -300,7 +284,7 @@ searchResults.Search();
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="" data-url="cedar-renjun.github.io/assets/2014/03/21/html_output_final/search/defines_0.html"></div>
+	<div class="ds-thread" data-thread-key="usb-recognition-produce" data-title="USB 插入动作" data-url="cedar-renjun.github.io/2015/11/22/usb-recognition-produce/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -344,7 +328,7 @@ searchResults.Search();
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

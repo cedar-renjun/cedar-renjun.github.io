@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 15px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 10px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 15px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 15px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,79 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-push-blog-source-to-github" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/10/09/push-blog-source-to-github/" class="article-date">
+  	<time datetime="2014-10-09T15:17:25.000Z" itemprop="datePublished">2014-10-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/09/push-blog-source-to-github/">定时备份Blog源文件到github</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>hexo框架是一款非常好用的blog生成工具，可以方便的将markdown转换成HTML网页，并传到github.io网站。<br>但是hexo在push的时候，只会推送public目录下的文件到远程master分支，而不会保存源文件和网站主题，<br>这样会导致风险，万一哪天我们的markdown文件挂掉，就仅仅剩github的网页文件了，所以定时将源文件备份到github是个好习惯</p>
+<h3 id="1：创建本地仓库">1：创建本地仓库</h3><p><code>cd</code>进blog所在目录，输入下面命令将文件纳入git管理系统</p>
+<pre><code>git init
+git add .
+git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"first commit"</span>    </span>
+</code></pre><h3 id="2:_删除远程source分支">2: 删除远程source分支</h3><p>如果您是从octopress转过来的，那远程仓库中，默认会存在一个source分支；而hexo不会自动push到source，所以<br>这个分支是很久以前的文件，这里我们将删掉</p>
+<pre><code>git <span class="keyword">push</span> &lt;远程仓库地址&gt; :<span class="keyword">source</span>
+</code></pre><p>比如我的地址是<code>https://github.com/cedar-renjun/cedar-renjun.github.io.git</code>，则上述命令是</p>
+<pre><code>git push <span class="symbol">https:</span>/<span class="regexp">/github.com/cedar</span>-renjun/cedar-renjun.github.io.git <span class="symbol">:source</span>
+</code></pre><p><strong>注意</strong> <code>:</code>之前有一个空格</p>
+<p>上面的命令太长了，不好输入，我们可以用<code>remote</code>来简化输入</p>
+<pre><code>git remote <span class="built_in">add</span> blog http<span class="variable">s:</span>//github.<span class="keyword">com</span>/cedar-renjun/cedar-renjun.github.io.git
+</code></pre><p>这样，blog就是远程的仓库地址，我们可以用下面命令来检测是否生效</p>
+<pre><code><span class="title">git</span> remote -v
+</code></pre><h3 id="3：创建本地分支">3：创建本地分支</h3><pre><code><span class="label">git</span> <span class="keyword">branch </span>-<span class="keyword">b </span>source
+</code></pre><p>这个命令，创建了一个souce分支，并切换到source分支了</p>
+<h3 id="4：推送到远程分支">4：推送到远程分支</h3><pre><code>git <span class="keyword">push</span> blog <span class="keyword">source</span>:<span class="keyword">source</span>
+</code></pre><p>前一个<code>source</code>表示本地分支名字，后一个表示远程仓库名字，名字可以变，但位置不能变</p>
+<p>至此，我们已经将source文件推送到远程分支，可以高枕无忧了 ^_^</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/github/">github</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-mbed-iot-device-platform" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1583,74 +1656,6 @@
 	</div>
 
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-self-manage-method" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/04/10/self-manage-method/" class="article-date">
-  	<time datetime="2014-04-10T01:45:52.000Z" itemprop="datePublished">2014-04-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/10/self-manage-method/">阿里内贸团队敏捷实践---自组织管理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote><p>实现团队的自组织管理，非常有助于团队形成合力，极大地提升团队整体的工作效率。本文结合原阿里ITU内贸团队的敏捷实践经历，阐释了何为自组织管理、为什么进行自组织管理、如何进行自组织管理等内容，同时给出了团队实施自组织管理的效果</p>
-<footer><strong>方腾飞</strong></footer></blockquote>
-<pre><code>【注】本文转载自：<span class="symbol">http:</span>/<span class="regexp">/ifeve.com/ali</span>-itu-agile-manage-by-<span class="keyword">self</span>/
-
-作者：方腾飞
-
-花名清英，英文名kiral，并发编程网创始人。目前工作于支付宝创新金融事业部，关注互联网金融，并发编程和敏捷实践
-</code></pre><p>在《射雕英雄传》里，以全真七子的武功是打不过东邪黄药师的，但当他们摆出了“天罡北斗阵”时，却能和黄药师打成平手。这就是团队合作形成合力的威力。</p>
-<p>自组织管理是原阿里ITU内贸团队采取的一种敏捷实践，该实践旨在帮助团队成员加强团队合作，形成团队的合力，从而提高团队整体的工作效率。</p>
-<hr>
-<h2 id="何为自组织管理">何为自组织管理</h2><p>我们提倡的自组织管理是指团队中的<strong>每一位成员都是团队的Owner，都为团队的目标负责</strong>，在团队事务上没有一位绝对的管理者，每位团队成员都可以作为团队事务的管理者，组织团队中的所有成员一起完成团队事务。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/转载/">转载</a><a class="article-category-link" href="/categories/转载/管理/">管理</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2014/04/10/self-manage-method/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
