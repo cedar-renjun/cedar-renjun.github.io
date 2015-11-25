@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 15px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 15px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 16.67px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,63 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-usb-suspended" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/25/usb-suspended/" class="article-date">
+  	<time datetime="2015-11-25T14:35:29.000Z" itemprop="datePublished">2015-11-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/25/usb-suspended/">usb suspended</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Q: USB设备进入暂停模式的条件是？<br>A: 总线上，3ms空闲状态，即让设备进入暂停模式</p>
+<p>Q: USB设备如何退出暂停模式？<br>A: USB任意的总线活动，都会让USB设备退出休眠状态，但一般情况来说，虽然USB<br>Device会产生唤醒中断，但软件层面硬件检查DP，DM的电平值，从而确定是干扰还是HOST唤醒事件</p>
+<p>Q: 退出暂停模式后，需要重新进行配置么？<br>A: 不需要，因为在暂停时，已经保存了内部状态，比如端点信息和地址信息；在恢复时，只需要恢复时钟和对应外设功能就好</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-usb-recognition-produce" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1557,56 +1614,6 @@ finsh正是基于这些考虑而诞生的，finsh运行于开发板，它可以�
 	<a class="article-category-link" href="/categories/RT-Thread/">RT-Thread</a>
 	</div>
 
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-debug-cortex-m-hardfault" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/15/debug-cortex-m-hardfault/" class="article-date">
-  	<time datetime="2015-10-15T03:15:43.000Z" itemprop="datePublished">2015-10-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/15/debug-cortex-m-hardfault/">debug cortex-m hardfault</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
 
       
       <div class="clearfix"></div>
