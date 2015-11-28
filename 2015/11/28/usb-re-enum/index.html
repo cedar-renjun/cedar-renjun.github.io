@@ -3,63 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Simple</title>
+  <title>USB 重枚举 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+  <meta name="description" content="基本思路：拉低DP信号，保持一定时间，然后释放
+在STM32上的用法为：
 
-
-
-
-
-My Project: dev.c File Reference
-
-
-
-
-
-
-
-  $(document).ready(initResizable">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Simple">
-<meta property="og:url" content="cedar-renjun.github.io/assets/2014/03/21/html_output_final/dev_8c.html">
+关闭USB电源
+配置DP脚，拉低
+延时一段时间，释放DP脚
+重新配置USB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USB 重枚举">
+<meta property="og:url" content="cedar-renjun.github.io/2015/11/28/usb-re-enum/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+<meta property="og:description" content="基本思路：拉低DP信号，保持一定时间，然后释放
+在STM32上的用法为：
 
-
-
-
-
-My Project: dev.c File Reference
-
-
-
-
-
-
-
-  $(document).ready(initResizable">
-<meta property="og:image" content="cedar-renjun.github.io/search/mag_sel.png">
-<meta property="og:image" content="cedar-renjun.github.io/search/close.png">
-<meta property="og:image" content="cedar-renjun.github.io/doxygen.png">
-<meta property="og:updated_time" content="2015-10-16T16:11:20.000Z">
+关闭USB电源
+配置DP脚，拉低
+延时一段时间，释放DP脚
+重新配置USB">
+<meta property="og:updated_time" content="2015-11-28T11:54:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Simple">
-<meta name="twitter:description" content="&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;
+<meta name="twitter:title" content="USB 重枚举">
+<meta name="twitter:description" content="基本思路：拉低DP信号，保持一定时间，然后释放
+在STM32上的用法为：
 
-
-
-
-
-My Project: dev.c File Reference
-
-
-
-
-
-
-
-  $(document).ready(initResizable">
+关闭USB电源
+配置DP脚，拉低
+延时一段时间，释放DP脚
+重新配置USB">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -220,11 +193,11 @@ My Project: dev.c File Reference
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-usb-re-enum" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/assets/2014/03/21/html_output_final/dev_8c.html" class="article-date">
-  	<time datetime="2015-10-18T15:51:00.000Z" itemprop="datePublished">2015-10-18</time>
+      <a href="/2015/11/28/usb-re-enum/" class="article-date">
+  	<time datetime="2015-11-28T11:41:57.000Z" itemprop="datePublished">2015-11-28</time>
 </a>
     </div>
   
@@ -233,112 +206,38 @@ My Project: dev.c File Reference
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      USB 重枚举
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta name="generator" content="Doxygen 1.8.6">
-<title>My Project: dev.c File Reference</title>
-<link href="tabs.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-  $(window).load(resizeHeight);
-</script>
-<link href="search/search.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() { searchBox.OnSelectItem(0); });
-</script>
-<link href="doxygen.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
-<div id="titlearea">
-<table cellspacing="0" cellpadding="0">
- <tbody>
- <tr style="height: 56px;">
-  <td style="padding-left: 0.5em;">
-   <div id="projectname">My Project
-   </div>
-  </td>
-   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <img id="MSearchSelect" src="search/mag_sel.png" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()" alt="">
-          <input type="text" id="MSearchField" value="Search" accesskey="S" onfocus="searchBox.OnSearchFieldFocus(true)" onblur="searchBox.OnSearchFieldFocus(false)" onkeyup="searchBox.OnSearchFieldChange(event)">
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()" target="_blank" rel="external"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""></a>
-          </span>
-        </div>
-</td>
- </tr>
- </tbody>
-</table>
-</div>
-<!-- end header part -->
-<!-- Generated by Doxygen 1.8.6 -->
-<script type="text/javascript">
-var searchBox = new SearchBox("searchBox", "search",false,'Search');
-</script>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('dev_8c.html','');});
-</script>
-<div id="doc-content">
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()" onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)" target="_blank" rel="external"><span class="SelectionMark">&#160;</span>Groups</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" name="MSearchResults" id="MSearchResults">
-</iframe>
-</div>
-
-<div class="header">
-  <div class="headertitle">
-<div class="title">dev.c File Reference</div>  </div>
-</div><!--header-->
-<div class="contents">
-
-<p><a href="dev_8c_source.html">Go to the source code of this file.</a></p>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>the implement of simple device.</p>
-<dl class="section author"><dt>Author</dt><dd>Cedar </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>V1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2014-03-23 </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU Public License V3.0 </dd></dl>
-
-<p>Definition in file <a class="el" href="dev_8c_source.html">dev.c</a>.</p>
-</div></div><!-- contents -->
-</div><!-- doc-content -->
-<!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dev_8c.html">dev.c</a></li>
-    <li class="footer">Generated on Sun Mar 23 2014 15:09:07 for My Project by
-    <a href="http://www.doxygen.org/index.html" target="_blank" rel="external">
-    <img class="footer" src="doxygen.png" alt="doxygen"></a> 1.8.6 </li>
-  </ul>
-</div>
-</body>
-</html>
+        <p>基本思路：拉低DP信号，保持一定时间，然后释放</p>
+<p>在STM32上的用法为：</p>
+<ol>
+<li>关闭USB电源</li>
+<li>配置DP脚，拉低</li>
+<li>延时一段时间，释放DP脚</li>
+<li>重新配置USB</li>
+</ol>
 
       
     </div>
@@ -346,6 +245,16 @@ $(document).ready(function(){initNavTree('dev_8c.html','');});
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/25/usb-suspended/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">usb suspended</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -369,7 +278,7 @@ $(document).ready(function(){initNavTree('dev_8c.html','');});
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="" data-url="cedar-renjun.github.io/assets/2014/03/21/html_output_final/dev_8c.html"></div>
+	<div class="ds-thread" data-thread-key="usb-re-enum" data-title="USB 重枚举" data-url="cedar-renjun.github.io/2015/11/28/usb-re-enum/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -413,7 +322,7 @@ $(document).ready(function(){initNavTree('dev_8c.html','');});
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

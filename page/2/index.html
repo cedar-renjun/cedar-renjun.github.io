@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 16.67px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 15px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 20px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 15px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 15px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 15px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,101 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-use-rt-thread-finsh-cmd-tools" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/15/use-rt-thread-finsh-cmd-tools/" class="article-date">
+  	<time datetime="2015-10-15T03:16:05.000Z" itemprop="datePublished">2015-10-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/15/use-rt-thread-finsh-cmd-tools/">使用RT-Thread Finsh</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="关于Finsh">关于Finsh</h3><p>了解一个东西，首先要知道组件的历史渊源，才能更好的理解它要解决的问题，这样就能更容易的理解它的架构和设计基础</p>
+<p>官网对Finsh的介绍</p>
+<pre><code>finsh是RT-<span class="keyword">Thread</span>的命令行外壳（shell），提供一套供用户在命令行的操作接口，主要用于调试、查看系统信息。 finsh支持两种模式：<span class="number">1.</span> <span class="keyword">C</span>语言解释器模式, 为行文方便称之为c-style；<span class="number">2.</span> 传统命令行模式，此模式又称为msh(module shell)。
+
+<span class="keyword">C</span>语言表达式解释模式下, finsh能够解析执行大部分<span class="keyword">C</span>语言的表达式，并使用类似<span class="keyword">C</span>语言的函数调用方式访问系统中的函数及全局变量，此外它也能够通过命令行方式创建变量。
+
+在msh模式下，finsh运行方式类似于dos/bash等传统shell。
+
+在大部分嵌入式系统中，一般开发调试都使用硬件调试器和printf日志打印，在有些情况下，这两种方式并不是那么好用。比如对于RT-<span class="keyword">Thread</span>这个多线程系统，我们想知道某个时刻系统中的线程运行状态、手动控制系统状态。如果有一个shell，就可以输入命令，直接相应的函数执行获得需要的信息，或者控制程序的行为。这无疑会十分方便。
+
+在嵌入式领域，<span class="keyword">C</span>语言是最常用的开发语言，如果shell程序的命令是<span class="keyword">C</span>语言的风格，那无疑是非常易用且有趣的。嵌入式设备通常采用交叉编译，一般需要将开发板与PC机连接起来通讯，常见连接方式包括，串口、USB、以太网、wifi等。一个灵活的shell应该可以在多种连接方式上工作。
+
+finsh正是基于这些考虑而诞生的，finsh运行于开发板，它可以使用串口/以太网/USB等与PC机进行通信。下图是finsh的实际运行运行效果图。开发板运行RT-<span class="keyword">Thread</span>，并使能了finsh组件，通过串口与PC机连接，PC上运行Secure CRT。按下回车，然后输入list_thread()将会打印系统当前所有线程，以及状态。
+</code></pre><p>传统的打印式手段，属于单向的；通过调试器来调试，不仅可以输出，而且可以输入，就属于双向的，但IDE的调试擅长于静态调试，比如设置断点，检查变量什么的；Finsh在一定程度上增强了动态调试功能，也使远程调试变得可能；RT－Thread为我们搭建了调试框架，用户不在需要单独编写解析命令机制，只需要关注需要导出的函数和变量;</p>
+<p>Finsh里面动态线程的栈使用量，是一个很实用的功能<br>另，参考资料里面有个RT－Thread测试框架的介绍文章，可以构建自动化测试框架</p>
+<h3 id="初步体验">初步体验</h3><p>这部分，RT－Thread官方的手册和跟我学RT－Thread写的很好，我就不自己敲字了，避免重复造轮子<br>请参考 <a href="http://www.rt-thread.org/download/manual/study_rtt.pdf" target="_blank" rel="external">http://www.rt-thread.org/download/manual/study_rtt.pdf</a> 第8篇和<a href="http://www.rt-thread.org/download/manual/rtthread_manual.zh.pdf" target="_blank" rel="external">http://www.rt-thread.org/download/manual/rtthread_manual.zh.pdf</a> 第11章</p>
+<h3 id="移植">移植</h3><p>首先参考<a href="http://www.rt-thread.org/download/manual/study_rtt.pdf" target="_blank" rel="external">http://www.rt-thread.org/download/manual/study_rtt.pdf</a> 第8篇和<a href="http://www.rt-thread.org/download/manual/rtthread_manual.zh.pdf" target="_blank" rel="external">http://www.rt-thread.org/download/manual/rtthread_manual.zh.pdf</a> 第11章，在MDK环境下完成移植</p>
+<p>如果您需要使用IAR工程，务必请阅读下一章的<code>IAR工程问题</code></p>
+<h3 id="常见问题">常见问题</h3><h4 id="1-_IAR工程问题">1.    IAR工程问题</h4><p>RT-Thread scons脚本有一些bug，导致通过<code>scons --target=iar
+-s</code>生成的脚本，没有包含启动代码和链接脚本，从而致使IAR工程工作不正常，具体表现为1）FINSH无法获取函数名，变量名<br>2）不能使用中断 3）系统初始化不正常</p>
+<p>修复手段：</p>
+<pre><code><span class="number">1.</span>    参考下面两个bug fix文件，修改BSP目录下对应的链接脚本和scons脚本
+    <span class="number">1.</span>    https:<span class="comment">//github.com/RT-Thread/rt-thread/pull/566/files</span>
+    <span class="number">2.</span>    https:<span class="comment">//github.com/RT-Thread/rt-thread/pull/565/files</span>
+<span class="number">2.</span>    删掉旧工程，重新使用`scons --target=iar -s`生成IAR工程
+<span class="number">3.</span>    手工在IAR工程中，添加link脚本(icf文件)
+</code></pre><h4 id="2-_如何禁用HISTORY">2.    如何禁用HISTORY</h4><p>默认情况下，rtconfig.h没有出现FINSH_USING_HISTORY宏，RT-Thread启用HISTORY功能，并保持默认5条历史记录<br>可以通过在rtconfig.h中，显示定义<code>#define FINSH_USING_HISTORY 0</code>的方式来禁用HISTORY功能<br>通过定义<code>#define FINSH_HISTORY_LINES 5</code>来调整历史记录的长度</p>
+<h3 id="原理分析">原理分析</h3><h4 id="0-_整体流程">0.    整体流程</h4><p>［占位符］以后添加</p>
+<h4 id="1-_导出函数／变量">1.    导出函数／变量</h4><p>Finsh将需要导出的函数，添加信息后，封装到一个新的<code>finsh_sysvar</code>，<code>finsh_syscall</code> 结构体中，并将这个结构体放置在固定的段中<code>FSymTab</code>,  <code>VSymTab</code>，最后通过<code>__section_begin</code>／<code>__section_end</code>两个编译器函数来获取段的开始位置和结束位置<br>这些步骤等效于手工将导出结构体变量添加到一个预设的结构体数组中，如下所示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> finsh_syscall _syscall_table[] =</span><br><span class="line">&#123;</span><br><span class="line">	&#123;<span class="string">"hello"</span>, hello&#125;,</span><br><span class="line">	&#123;<span class="string">"version"</span>, version&#125;,</span><br><span class="line">	&#123;<span class="string">"list"</span>, <span class="built_in">list</span>&#125;,</span><br><span class="line">	&#123;<span class="string">"list_thread"</span>, list_thread&#125;,</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但这么容易导致bug，因为注册表和函数实现的地方，往往不在同一个文件夹，过于分散，有时候，删除某个函数后，会忘记手工删除注册表的信息</p>
+<p>RTT通过提供统一导出接口，将这个工作交给了编译器，最大程度的减少了bug的发生</p>
+<p>岔开一个话题：对于某些静态驱动注册表来说，也可以利用这种方式实现。注意，仅仅是静态的，也就是说，段size在编译时就已经确定<br>RT－Thread的驱动架构没有这么做，而是提供驱动注册API，就是为了给静态驱动和动态驱动，提供统一的入口，更加方便灵活</p>
+<h4 id="3-_编译和虚拟机执行">3.    编译和虚拟机执行</h4><p>这部分请参考阿莫论坛文章<a href="http://www.amobbs.com/thread-5539405-1-1.html" target="_blank" rel="external">http://www.amobbs.com/thread-5539405-1-1.html</a></p>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="http://www.rt-thread.org/download/manual/rtthread_manual.zh.pdf" target="_blank" rel="external">RT－Thread参考手册</a></li>
+<li><a href="http://www.rt-thread.org/download/manual/study_rtt.pdf" target="_blank" rel="external">跟我一起学习RT－Thread</a></li>
+<li><a href="http://www.rt-thread.org/page/29.html" target="_blank" rel="external">体验Finsh组件</a></li>
+<li><a href="http://www.amobbs.com/thread-5539405-1-1.html" target="_blank" rel="external">Amobbs：Finsh原理分析</a></li>
+<li><a href="http://blog.csdn.net/Prife/article/details/7487038" target="_blank" rel="external">RT-Thread测试框架的使用</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/RT-Thread/">RT-Thread</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-debug-cortex-m-hardfault" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1588,72 +1683,6 @@ MemManage_Handler
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/C-语言/">C 语言</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-knowledge-about-oscilloscope-probe" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/10/11/knowledge-about-oscilloscope-probe/" class="article-date">
-  	<time datetime="2014-10-11T14:11:19.000Z" itemprop="datePublished">2014-10-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/11/knowledge-about-oscilloscope-probe/">示波器探头知识--衰减率</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天在使用示波器XY通道的时候，发现两个信道不同步，衰减比例不一样，导致信号误差</p>
-<p>特此写个博客记录1X/10X衰减率的应用场合，以免下次误用</p>
-<ul>
-<li><p>1X<br>信号未经衰减直接经过探头传输至示波器，其耐压能力不及其它无源探头，但它具备测试小信号的优势。由于不像10：1衰减比探头那样信号需要示波器再放大10倍显示，所以示波器内部噪声未放大，测量噪声更小，此类更适用于测试小信号或电源纹波噪声</p>
-</li>
-<li><p>10X<br>具备高阻抗10MΩ，因此它对待测电路的负载效应很小，能覆盖一般低频频段（500MHz以内），耐压能力强（300V-400Vrms），价格便宜，通用性好，所以得到广泛使用</p>
-</li>
-</ul>
-<p>更高衰减率的探头归类为<strong>无源高压探头</strong>， 适合测量高压，超高压电信号</p>
-<h3 id="参考资料">参考资料</h3><ul>
-<li><a href="!--￼0--&gt;/assets/2014/10/11/Oscilloscope_Art.pdf">示波器的艺术</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/示波器/">示波器</a>
 	</div>
 
 
