@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 10px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,72 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-use-stm32F7-discovery-board" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/16/use-stm32F7-discovery-board/" class="article-date">
+  	<time datetime="2015-10-16T15:04:31.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/16/use-stm32F7-discovery-board/">STM32F7 Discovery 外部可用接口</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>拿到板子后，我们重点需要考虑的是STM32F7的板子还有多少资源可供我们使用<br>这里重点关注的是通信接口（比如SPI／I2C／IO之类的），因为可以通过这些接口外挂器件，拓展功能<br>查看F7手册和Discovery板子原理图，可以知道Discovery采用的是216Pin管脚的F746NG芯片，虽然板子外设比较多，<br>但芯片IO足够用</p>
+<p>板子功能框架如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/16/1.png" alt="Discovery功能框图"></p>
+<p>大致将IO分为以下几个部分</p>
+<ol>
+<li>USB OTG(HS/FS)</li>
+<li>Camera</li>
+<li>Audio</li>
+<li>Ethernet
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32F7/">STM32F7</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/16/use-stm32F7-discovery-board/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-light-led-via-different-ways-in-rt-thread" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1626,71 +1692,6 @@ MemManage_Handler
 	</div>
 
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-use-swd-interface-to-measure-time" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/10/16/use-swd-interface-to-measure-time/" class="article-date">
-  	<time datetime="2014-10-16T13:38:17.000Z" itemprop="datePublished">2014-10-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/16/use-swd-interface-to-measure-time/">用SWD调试接口测量代码运行时间</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="关于时间测量的种种问题">关于时间测量的种种问题</h2><p>在嵌入式中，我们经常需要测量某段代码的执行时间或测量事件触发的时间，常规的思路是：</p>
-<p>1：在测量起始点，反转电平<br>2：在测量结束点，再次反转电平</p>
-<p>然后通过示波器或者逻辑分析仪来测量反转间隔，也就是代码时间</p>
-<p>这种方法，在测量两个或多个时间信号同步的时候，非常有用，实际上，这也是唯一的方法。</p>
-<p>但是如果在测量中，其它代码也会控制这个管脚电平或者周期性动作，这时便需要在&lt;动作1&gt;之前<br>增加前导码，从而便于在繁杂的波形中，一眼识别出需要特定的波形</p>
-<p>同时，如果测量的时间值非常小，那么用示波器即便可以识别，但不容易捕获</p>
-<h2 id="SWD解决方案">SWD解决方案</h2><p>在ARM Cortex-M 芯片中，用SWD调试接口取代了传统的JTAG调试接口，从而占用MCU更少的管脚，同时提高了调试性能。</p>
-<p>SWD由四根线组成，SWO，SWDIO，SWCLK，GND；SWDIO和SWCLK组成了基本的串行调试接口，SWO则提供一个信息输出通道，<br>可以输出很多信息，比如指令的执行时间或者ISR触发事件，所以我们可以通过SWD接口配合IDE来获取代码执行时间，从而在某种程度上取代示波器</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/SWD/">SWD</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2014/10/16/use-swd-interface-to-measure-time/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
