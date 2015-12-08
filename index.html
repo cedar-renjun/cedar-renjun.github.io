@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 10px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 13.33px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,95 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Day-3-USB" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/08/Day-3-USB/" class="article-date">
+  	<time datetime="2015-12-08T15:04:52.000Z" itemprop="datePublished">2015-12-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/08/Day-3-USB/">USB的通俗解释</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​</p>
+<h2 id="Day_3_USB架构的通俗解释">Day 3 USB架构的通俗解释</h2><p>做个小游戏，仔细回想一下两年前做的项目，看能否记得所有细节</p>
+<p>估计90%的人只记得功能性层面的东西，比如项目是干嘛的，解决什么问题的，至于编程语言层面的细节，早已经忘的一干二净</p>
+<p>所以，我不会一上来就给你一大堆各种专业术语，然后陷入USB技术细节<br>这么做的结果是，你听不懂，也记不牢，半个月后，脑袋里面，一片空白，毛都不剩</p>
+<p>我们学习一个新事物，只有先有感性认识，有了大致轮廓，然后类比其它事物，比较之后，才会在大脑中建立起系统整体架构</p>
+<p>这是由大脑的运行机制来决定的，大脑不会记忆太多细节，越高层，处理的越事情越抽象</p>
+<p>公司也是同样的机制，高层管理者只关心企业战略，不会考虑程序员的代码风格是否规范，合理</p>
+<p>ok，先看下面一则小故事</p>
+<p>很简单，还记得上篇的提示么，多想想现实社会的办事流程</p>
+<p>你到政府部分办事，首先需要找到办事窗口，然后告诉TA你是谁，能办什么事，来办什么事，然后把你的手机号，邮箱告诉TA</p>
+<p>接着，办事人员给你一个登记号，然后说，记下了，稍后我会派专员联系你</p>
+<p>然后，你就回家了，等着电话，10分钟后，电话来了，对话如下</p>
+<p>办事专员：我是XX号客服，你是不是YY，登记号是ZZ<br>你           ：是的<br>办事专员：巴拉巴拉<br>你           ：巴拉巴拉</p>
+<p>最后，通话结束</p>
+<p>思考几个问题：</p>
+<ol>
+<li>政府为什么要设立统一的接待入口？</li>
+<li>办事人员怎么联系你？</li>
+<li>如果这时来了另外一个人来办事，政府需不需要另外增加一个办事窗口？</li>
+</ol>
+<p>OK，咱们明天继续</p>
+<h3 id="每日推荐">每日推荐</h3><ol>
+<li><a href="http://www.amazon.cn/%E5%B5%8C%E5%85%A5%E5%BC%8F%E9%80%9A%E4%BF%A1%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1-%E6%96%AF%E7%91%9E%E5%BE%B7%E5%93%88/dp/B0011APWUQ/ref=sr_1_9?s=books&amp;ie=UTF8&amp;qid=1449584809&amp;sr=1-9&amp;keywords=%E5%B5%8C%E5%85%A5%E5%BC%8F+%E9%80%9A%E4%BF%A1" target="_blank" rel="external">嵌入式通信软件设计</a><br>斯瑞德哈(T.Sridhar) 写的，协议栈的核心就是状态机，更大的说，计算机的核心就是状态机，想要深入研究协议栈实现机制的同学，可以买一本这书翻翻，很薄的一本书，干货儿不少。建议这本书配合着USB协议栈源码或者LwIP源码一起看</li>
+</ol>
+<p>PS：买计算机书籍，记得选这种红皮的，或者这种<a href="http://www.amazon.cn/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%9B%E4%B9%A6-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%E5%B8%83%E8%8E%B1%E6%81%A9%E7%89%B9/dp/B004BJ18KM/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1449586593&amp;sr=1-1&amp;keywords=CSAPP" target="_blank" rel="external">CSAPP</a>黑皮的</p>
+<p>2015-12-8</p>
+<p>－－－－－分割线－－－－－<br><strong>注意事项</strong></p>
+<ol>
+<li><p>本订阅号主要发布一些嵌入式相关的知识和技巧，涉及到软件，硬件，射频，协议栈等；如果您有感兴趣的领域，请通过回复订阅号告诉我</p>
+</li>
+<li><p>本订阅号主要是简单文字为主，内含少量代码段，但绝不会发布大量的代码。<br>因为根据自己的体会，在手机微信端看代码的体验非常糟糕，一方面屏幕比较小，显示效果不好；另一方面，玩手机时，精力不会集中，更不会有大量时间。<br>cedar-renjun.github.io 个人博客会发一些技术细节的东西，感兴趣的，可以深入研究这里的博文</p>
+</li>
+<li><p>所有文章发表在个人博客，可以通过点击原文来查看，原文有代码语法高亮，显示图片，带链接等效果</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信订阅号/">微信订阅号</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-usb-reference-docunment" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1514,69 +1603,6 @@
       
         <p class="article-more-link">
           <a  href="/2015/10/20/something-about-BCM2709-and-BCM2836/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-hello-elua" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/19/hello-elua/" class="article-date">
-  	<time datetime="2015-10-18T16:36:27.000Z" itemprop="datePublished">2015-10-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/19/hello-elua/">Hello elua</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="概述">概述</h3><p>下文会简单的介绍elua，然后编译固件，烧录到STM32F4 Nucleo板子上，最后用lua来编写一个简单的hello程序</p>
-<h4 id="注意事项">注意事项</h4><p>在继续阅读之前，请看下面几点</p>
-<ol>
-<li>elua项目的版本比较多，代码文档和网站文档不一致，建议参考代码中的文档说明；本文档代码采用github master主分支0.9版本</li>
-<li>本文以linux平台为例来说明编译过程，实际上，我是用树莓派来编译elua的，并用树莓派烧录，调试STM32；elua可以跨平台编译，具体请参考<a href="https://github.com/elua/elua/tree/master/doc/en">https://github.com/elua/elua/tree/master/doc/en</a>  building章节</li>
-</ol>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elua/">elua</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/19/hello-elua/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 10px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 13.33px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,69 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-hello-elua" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/19/hello-elua/" class="article-date">
+  	<time datetime="2015-10-18T16:36:27.000Z" itemprop="datePublished">2015-10-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/19/hello-elua/">Hello elua</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述">概述</h3><p>下文会简单的介绍elua，然后编译固件，烧录到STM32F4 Nucleo板子上，最后用lua来编写一个简单的hello程序</p>
+<h4 id="注意事项">注意事项</h4><p>在继续阅读之前，请看下面几点</p>
+<ol>
+<li>elua项目的版本比较多，代码文档和网站文档不一致，建议参考代码中的文档说明；本文档代码采用github master主分支0.9版本</li>
+<li>本文以linux平台为例来说明编译过程，实际上，我是用树莓派来编译elua的，并用树莓派烧录，调试STM32；elua可以跨平台编译，具体请参考<a href="https://github.com/elua/elua/tree/master/doc/en">https://github.com/elua/elua/tree/master/doc/en</a>  building章节</li>
+</ol>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elua/">elua</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/19/hello-elua/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-use-stm32F7-discovery-board" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1623,72 +1686,6 @@ MemManage_Handler
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/QT/">QT</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-iar-keep-unused-section" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/10/16/iar-keep-unused-section/" class="article-date">
-  	<time datetime="2014-10-16T13:43:29.000Z" itemprop="datePublished">2014-10-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/16/iar-keep-unused-section/">IAR中保留未用代码段</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="现有问题">现有问题</h2><p>在嵌入式软件中，经常会用数组保存一些备用信息，也许会存在Flash里面，在Application中用偏移地址来访问这些数据，那么问题就来了，当提高优化级别的时候，编译器会将无用的符号（变量/函数/数组）优化掉，这不是我们所希望看到的结果。</p>
-<p>该如何解决这个问题呢？</p>
-<h2 id="解决方案">解决方案</h2><p>在IAR中，有4个解决方法</p>
-<h3 id="1：keep">1：keep</h3><p>在链接器里面手工添加需要保留的符号<br><img src="!--￼2--&gt;/images/2014/10/16/Link Keep.png" alt=""></p>
-<h3 id="2：_root">2： root</h3><figure class="highlight c"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__root <span class="keyword">int</span> UnusedData[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
-<h3 id="3：_required">3： required</h3><figure class="highlight c"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> UnusedData[<span class="number">10</span>];</span><br><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> required=UnusedData</span></span><br></pre></td></tr></table></figure>
-<h3 id="4_：_禁用编译器Remove优化">4 ： 禁用编译器Remove优化</h3><p>可以在链接器配置extra options页中，通过输入下面的选项来禁用编译器remove优化</p>
-<pre><code>-<span class="ruby">-no_remove
-</span>-<span class="ruby">-no_fragments</span>
-</code></pre><p>如图所示<br><img src="!--￼3--&gt;/images/2014/10/16/Disable Remove Option.png" alt=""></p>
-<h2 id="注意事项">注意事项</h2><p>1：本文仅适用于IAR，如果您适用MDK，请参考编译器手册<br>2：如果您希望测试是否生效，请将编译器优化级别提高到最高(O3)，然后在调试模式下，查看变量，如果不存在，则被编译器优化掉；反之，则符号存在。<br>3：如果您有任何疑问，欢迎交流</p>
-<p><strong>全文完，希望本文对您有帮助^_^</strong></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/IAR/">IAR</a>
 	</div>
 
 
