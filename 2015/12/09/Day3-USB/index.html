@@ -3,45 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>烧录器中的并行技术 | Simple</title>
+  <title>Day4 USB的历史因素 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0    前言利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度
-1    理论基础
-烧写器的烧写速度瓶颈不在于传输速率
-CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
-一个FLASH控制器，只允许一个DMA操作
+  <meta name="description" content="​回顾一下，昨天的故事
 
-2    基本思路
-采用RAM FIFO机制，假设为A，B Block
-先填充A，然后启动DMA，开始烧录扇区1
-填充B，等待扇区">
+你到政府部分办事，首先需要找到办事窗口，然后告诉TA你是谁，能办什么事，来办什么事，然后把你的手机号，邮箱告诉TA    
+接着，办事人员给你一个登记号，然后说，记下了，稍后我会派专员联系你
+然后，你就回家了，等着电话，10分钟后，电话来了，对话如下
+办事专员：我是XX号客服，你是不是YY，登记号是ZZ
+你           ：是的办事专员：巴拉巴拉你">
 <meta property="og:type" content="article">
-<meta property="og:title" content="烧录器中的并行技术">
-<meta property="og:url" content="cedar-renjun.github.io/2015/11/05/parallel-technology-in-programmer/index.html">
+<meta property="og:title" content="Day4 USB的历史因素">
+<meta property="og:url" content="cedar-renjun.github.io/2015/12/09/Day3-USB/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="0    前言利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度
-1    理论基础
-烧写器的烧写速度瓶颈不在于传输速率
-CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
-一个FLASH控制器，只允许一个DMA操作
+<meta property="og:description" content="​回顾一下，昨天的故事
 
-2    基本思路
-采用RAM FIFO机制，假设为A，B Block
-先填充A，然后启动DMA，开始烧录扇区1
-填充B，等待扇区">
-<meta property="og:updated_time" content="2015-11-04T17:06:44.000Z">
+你到政府部分办事，首先需要找到办事窗口，然后告诉TA你是谁，能办什么事，来办什么事，然后把你的手机号，邮箱告诉TA    
+接着，办事人员给你一个登记号，然后说，记下了，稍后我会派专员联系你
+然后，你就回家了，等着电话，10分钟后，电话来了，对话如下
+办事专员：我是XX号客服，你是不是YY，登记号是ZZ
+你           ：是的办事专员：巴拉巴拉你">
+<meta property="og:updated_time" content="2015-12-09T13:12:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="烧录器中的并行技术">
-<meta name="twitter:description" content="0    前言利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度
-1    理论基础
-烧写器的烧写速度瓶颈不在于传输速率
-CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
-一个FLASH控制器，只允许一个DMA操作
+<meta name="twitter:title" content="Day4 USB的历史因素">
+<meta name="twitter:description" content="​回顾一下，昨天的故事
 
-2    基本思路
-采用RAM FIFO机制，假设为A，B Block
-先填充A，然后启动DMA，开始烧录扇区1
-填充B，等待扇区">
+你到政府部分办事，首先需要找到办事窗口，然后告诉TA你是谁，能办什么事，来办什么事，然后把你的手机号，邮箱告诉TA    
+接着，办事人员给你一个登记号，然后说，记下了，稍后我会派专员联系你
+然后，你就回家了，等着电话，10分钟后，电话来了，对话如下
+办事专员：我是XX号客服，你是不是YY，登记号是ZZ
+你           ：是的办事专员：巴拉巴拉你">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -202,11 +193,11 @@ CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-parallel-technology-in-programmer" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Day3-USB" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/05/parallel-technology-in-programmer/" class="article-date">
-  	<time datetime="2015-11-04T16:53:35.000Z" itemprop="datePublished">2015-11-05</time>
+      <a href="/2015/12/09/Day3-USB/" class="article-date">
+  	<time datetime="2015-12-09T13:00:21.000Z" itemprop="datePublished">2015-12-09</time>
 </a>
     </div>
   
@@ -219,7 +210,7 @@ CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
         
   
     <h1 class="article-title" itemprop="name">
-      烧录器中的并行技术
+      Day4 USB的历史因素
     </h1>
   
 
@@ -228,7 +219,7 @@ CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugger/">Debugger</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信订阅号/">微信订阅号</a></li></ul>
 	</div>
 
         
@@ -239,21 +230,66 @@ CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="0_前言">0    前言</h3><p>利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度</p>
-<h3 id="1_理论基础">1    理论基础</h3><ol>
-<li>烧写器的烧写速度瓶颈不在于传输速率</li>
-<li>CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据</li>
-<li>一个FLASH控制器，只允许一个DMA操作</li>
+        <p>​<br>回顾一下，昨天的故事</p>
+<blockquote>
+<p>你到政府部分办事，首先需要找到办事窗口，然后告诉TA你是谁，能办什么事，来办什么事，然后把你的手机号，邮箱告诉TA    </p>
+<p>接着，办事人员给你一个登记号，然后说，记下了，稍后我会派专员联系你</p>
+<p>然后，你就回家了，等着电话，10分钟后，电话来了，对话如下</p>
+<p>办事专员：我是XX号客服，你是不是YY，登记号是ZZ</p>
+<p>你           ：是的<br>办事专员：巴拉巴拉<br>你           ：巴拉巴拉</p>
+<p>最后，通话结束</p>
+</blockquote>
+<p>上面的事情，细化一下，完全可以套用到USB通讯过程</p>
+<ol>
+<li>你到政府部分办事，首先需要找到办事窗口（插入USB设备）</li>
+<li>然后窗口接待人员问了你一些基本信息，姓名，性别（USB主机主动获取设备描述符）</li>
+<li>帮你取了个号（设置USB设备地址），突然把你名字忘了，哎，那谁，XYZ号，你叫啥名儿？办什么事？你只好又重复一遍（USB主机主动获取设备描述符，配置描述符，接口描述符，端点描述符）</li>
+<li>办事人员，最后问你家在哪，电话号码多少（USB主机记录接口描述符，端点描述符）</li>
+<li>接着，TA说，好，记下了（注册USB设备到系统），稍后我会派专员联系你（匹配USB驱动），你可以回家了，保持电话畅通（等待端口事件）</li>
+<li>然后，你就回家了，等着电话，10分钟后，电话来了（发生数据交互）<br>对话如下</li>
+<li>办事专员：我是XX号客服，你是不是YY，登记号是ZZ（确定USB设备地址，端口地址）</li>
+<li>你           ：是的<br>办事专员：巴拉巴拉<br>你           ：巴拉巴拉<br>（PC与USB设备发生数据交换）</li>
+<li>最后，通话结束（结束通信）</li>
 </ol>
-<h3 id="2_基本思路">2    基本思路</h3><ol>
-<li>采用RAM FIFO机制，假设为A，B Block</li>
-<li>先填充A，然后启动DMA，开始烧录扇区1</li>
-<li>填充B，等待扇区1烧录完毕，配置DMA，烧录扇区2</li>
-<li>填充A，等待扇区2烧录完毕，然后配置DMA</li>
-<li>重复3.4步骤，直到完成</li>
+<p>PS：上面的有一些术语，看不懂没关系，暂时忽略。重点关注整个交互流程</p>
+<p>技术的产生和发展，都是跟当时社会的整体环境相适应的；这一点在IT技术上尤其明显</p>
+<p>先了解USB 技术的历史背景，然后再想想USB解决了什么问题，就能理解USB架构为什么这样设计了</p>
+<p>我一直认为：技术架构，从任何部分来看，都是很简单的<br>真正的困难在于，技术要求精确，所以会有大量细节性知识，精确描述性术语，把整体架构给掩盖住了</p>
+<p>类似盲人摸象，这有俩洞，是啥玩意？？？摸了半天，发现是个鼻子，，，<br>再摸大象腿，最后耳朵，最后摸了一遍<br>然后在脑海里拼了半天，我擦，这玩意就是个大象</p>
+<p>学技术也是类似的情况，先远观，掌握大致轮廓，然后慢慢细究，根本没有解决不了的技术问题</p>
+<p>OK，回到USB的历史</p>
+<p>几年前，电脑上有RJ45网口，DB9串口，视频输出口，打印机并口，还有光盘啥的，反正电脑上有各种形状的接口</p>
+<p>后来消费者一看，妈蛋，这玩意不行啊，包里一堆线，不好插，体积也大，要搞死了<br>PC大厂一看，擦，这是个机会啊，我先推出小接口的电脑，就能搞死对手</p>
+<p>然后，问题就来了</p>
+<ol>
+<li>微软说了，你们随便搞，反正我要原来的电脑软件还要能用，驱动还能用，不然搞死你们</li>
+<li>消费者说了，电脑上别有各种形状的接口，要简单，要速度快，不然买别家电脑去</li>
+<li>工厂说了，线材制作要简单，线越少越好，不要良品率低，自己看着办</li>
 </ol>
-<h3 id="3_注意事项">3    注意事项</h3><ol>
-<li>可以根据DMA的速率和系统总线速率，调整Block的大小和数据，从而尽可能的让DMA接近全负荷运行，从而达到理论FLASH理论烧写速率</li>
+<p>一帮IT大神，微微一笑，小case</p>
+<blockquote>
+<p>硬件不够，软件来凑</p>
+</blockquote>
+<p>然后就把这个问题轻轻松松搞定了</p>
+<p>怎么解决的？明天继续</p>
+<h3 id="每日推荐">每日推荐</h3><blockquote>
+<p>任何计算机问题，都能通过增加一个层来解决</p>
+</blockquote>
+<p>CSAPP上看的，忘了谁说的了，反正是个牛逼的人物</p>
+<p><a href="http://www.amazon.cn/Computer-Systems-A-Programmer-s-Perspective-Bryant-Randal-E/dp/0136108040/ref=sr_1_5?s=books&amp;ie=UTF8&amp;qid=1449665814&amp;sr=1-5&amp;keywords=Computer+Systems%3A+A+Programmer%27s+Perspective" target="_blank" rel="external">CSAPP - Computer Systems: A Programmer Perspective </a></p>
+<p>这是本神书，1300多页，CSAPP的介绍请百度或者google，据说看完的都成为大神了</p>
+<p>国内有俩研究生，看完这本书的某几个章节，然后写了一本书《程序员的自我修养－编译，链接，库》</p>
+<p>哦，我现在还没看完，，，</p>
+<p>英文原版（299元）非常通俗易懂，千万不要买中译本，翻译的太垃圾，，，</p>
+<p>2015-12-9</p>
+<p>－－－－－分割线－－－－－<br><strong>注意事项</strong></p>
+<ol>
+<li><p>本订阅号（微信搜 McuProgramming ）主要发布一些嵌入式相关的知识和技巧，涉及到软件，硬件，射频，协议栈等；如果您有感兴趣的领域，请通过回复订阅号告诉我</p>
+</li>
+<li><p>本订阅号主要是简单文字为主，内含少量代码段，但绝不会发布大量的代码。<br>因为根据自己的体会，在手机微信端看代码的体验非常糟糕，一方面屏幕比较小，显示效果不好；另一方面，玩手机时，精力不会集中，更不会有大量时间。<br>cedar-renjun.github.io 个人博客会发一些技术细节的东西，感兴趣的，可以深入研究这里的博文</p>
+</li>
+<li><p>微信的编辑功能比较弱，不能贴链接，代码啥的，，，所有文章均发表在个人博客，可以通过点击原文来查看，原文有代码语法高亮，显示图片，带链接等效果</p>
+</li>
 </ol>
 
       
@@ -264,18 +300,9 @@ CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
     
 <nav id="article-nav">
   
-    <a href="/2015/11/05/Learn-CC26xx-with-me-lesson-00/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          跟我学蓝牙4.0之－CC26xx系列教程－00
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/02/elf-format-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ELF文件分析之3 － 动态链接</div>
+    <a href="/2015/12/08/Day-3-USB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">USB的通俗解释</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -304,7 +331,7 @@ CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="parallel-technology-in-programmer" data-title="烧录器中的并行技术" data-url="cedar-renjun.github.io/2015/11/05/parallel-technology-in-programmer/"></div>
+	<div class="ds-thread" data-thread-key="Day3-USB" data-title="Day4 USB的历史因素" data-url="cedar-renjun.github.io/2015/12/09/Day3-USB/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
