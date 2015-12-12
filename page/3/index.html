@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 16.67px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 16.67px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,86 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Introduce-Raspberry-2B" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/01/Introduce-Raspberry-2B/" class="article-date">
+  	<time datetime="2015-10-01T13:25:40.000Z" itemprop="datePublished">2015-10-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/01/Introduce-Raspberry-2B/">“树莓派2B＋学习笔记-开篇”</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>github这个博客好久更新了，大概有一年吧，期间各种事情，其实主要原因还是自己懒<br>终究发现做技术的，还是要常常做一些笔记，不然就会容易忘记，所以今天重抄旧业，将hexo升级到了3.1.0</p>
+<p>接下来会不断更新蓝牙4.0和linux，USB相关知识</p>
+<p>先拿树莓派开刀吧^_^</p>
+<h2 id="1_致谢">1 致谢</h2><p>最近一直想学linux驱动编程和学习内核，刚好得到一块儿树莓派2B，所以准备用心搞一下<br>在此特意感谢21ic 小跑堂美女和may美女</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/10/1/Pi_2_Model_B.png" alt="树莓派图片"></p>
+<h2 id="2_树莓派2B升级了什么">2 树莓派2B升级了什么</h2><p>下面是官方网站展示的2B的性能参数：</p>
+<ul>
+<li>A 900MHz quad-core ARM Cortex-A7 CPU</li>
+<li>1GB RAM</li>
+<li>4 USB ports</li>
+<li>40 GPIO pins</li>
+<li>Full HDMI port</li>
+<li>Ethernet port</li>
+<li>Combined 3.5mm audio jack and composite video</li>
+<li>Camera interface (CSI)</li>
+<li>Display interface (DSI)</li>
+<li>Micro SD card slot</li>
+<li>VideoCore IV 3D graphics core</li>
+</ul>
+<p>相比于前代的树莓派，2B采用TF卡，尺寸更小，也去掉了不常用的RCA接口（俗称AV接口），完全采用HDMI接口<br>这么改，最大的好处就是树莓派形状变得很整齐，不再像原来那样突起一部分</p>
+<p>从处理器来说，将原来的高通BCM2835更新到了BCM2836，增大RAM到1G，估计你对这些也不太感冒，只要知道速度提高了6倍就好了</p>
+<p>因为处理器架构从ARM7TMDI变成了4核A7，所以能跑标准的操作系统，比如安卓或者ubuntu或者win10</p>
+<p>大致看了win10烧录内核的步骤，看到“首先你需要一台运行win10的笔记本”，看到这里就没继续看了，哪位有兴趣的可以自己根据官方博客来实战游戏</p>
+<p><a href="https://www.raspberrypi.org/blog/windows-10-for-iot/" target="_blank" rel="external">https://www.raspberrypi.org/blog/windows-10-for-iot/</a> <br><br><a href="https://dev.windows.com/zh-cn/iot" target="_blank" rel="external">https://dev.windows.com/zh-cn/iot</a> <br></p>
+<p>对了，树莓派2B支持DSI显示接口和CSI相机接口，从而可以直接高速视频输入和屏幕输出<br>这个有什么用呢？理论上来说，你可以拿树莓派做一个平板电脑</p>
+<p>树莓派的简单介绍到这里，接下来介绍烧录系统，更新内核，跑opencv做人脸识别</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/树莓派/">树莓派</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-coding-standard" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1451,90 +1531,9 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
 
 
   
-    <article id="post-promotion-of-arm-cortex-m-mcu" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/04/22/promotion-of-arm-cortex-m-mcu/" class="article-date">
-  	<time datetime="2014-04-22T07:16:22.000Z" itemprop="datePublished">2014-04-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/22/promotion-of-arm-cortex-m-mcu/">ARM CMSIS-M芯片推广文案分析</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ARM Cortex-M主页有个栏目叫：<strong><a href="http://www.arm.com/zh/products/processors/cortex-m/index.php" target="_blank" rel="external">为什么选择Cortex-M</a></strong></p>
-<p>一般情况下，特定产品都有目标群体，群体有自己的利益点，同时各方利益互有冲突。怎么有效抓住各方利益点，同时不引起冲突，这里面有个巧妙的平衡关系，非常难以把握</p>
-<p>而ARM的推广语，目标定位精准，同时抓住各方利益点和兴趣点，不失为一个经典案例</p>
-<p>下面对此做一个简略分析</p>
-<p>首先分析ARM Cortex-M的目标群，目标群离不开生态环境，ARM的生态环境构成包括：</p>
-<p>上游：各大半导体厂商<br>中游：开发工具，供应链，代工厂<br>下游：开发者，IT公司，消费者</p>
-<p>各方利益点和兴趣点：<br>上游：借助ARM生态环境，推广自己的Cortex-M芯片<br>中游：成为中间不可或缺的一环，类似拦河大坝的角色<br>下游：开发难度，代码重用性，快速上市</p>
-<p>ARM Cortex-M的标准推出，方便了开发者，削减了差异化程度，从而减低上游和中游的进入门槛</p>
-<p>也就是说，ARM的核心思路是想法设法画牢笼（制规则，标准），同时利用利益吸引更多的人进入牢笼，从而造成各方相互抗衡局面，ARM坐收渔利。上游和中游是被逼无奈，不得不接受标准，加入战斗；下游有机会进入中上游，从而知道推广的重点群体是：</p>
-<p>1）下游开发者<br>2）希望进入中上游的群体</p>
-<p>下游的进入，势必威胁中上游生态，从而起到倒逼半导体和开发工具效果</p>
-<p>那么，二者的利益点是什么呢？</p>
-<p>1） 下游开发者的核心利益是：快速出产品，降低产品开发难度和后期维护成本<br>当然，这是站在老板的角度来说的，对于IT工程师，怎么避免学习成本才是他们关心的</p>
-<p>2） 希望进入中上游的群体<br>更关心IC的成本，也就是硅面积；同时关心这个MCU的市场热度</p>
-<p>ok，分析到这里，再看看ARM是怎么宣传Cortex-M芯片的</p>
-<blockquote>
-<p><strong>业界标准</strong><br>ARM Cortex-M 处理器树立了全球微控制器的标准，40 多个 ARM 合作伙伴已获得这些处理器的使用许可，其中包括 Freescale、NXP Semiconductors、STMicroelectronics、Texas Instruments 和 Toshiba 等领先供应商。通过采用标准处理器，ARM 合作伙伴可制造出具有统一架构的设备，同时能够专注于各自差异化的设计。</p>
-<p><strong>更小的代码处理器芯片</strong><br>更低的硅成本<br>高密度指令集<br>比 8/16 位设备每字节完成更多操作<br>更小的 RAM、ROM 或闪存要求</p>
-<p><strong>高性能</strong><br>更有竞争力的产品<br>Powerful Cortex-M processor<br>每 MHz 提供更高的性能<br>能够以更低的功耗实现更丰富的功能</p>
-<p><strong>能效能效</strong><br>更低的功耗，更长的电池寿命<br>以更低的 MHz 或更短的活动时段运行<br>基于架构的睡眠模式支持<br>比 8/16 位设备的工作方式更智能、睡眠时间更长</p>
-<p><strong>易用使用</strong><br>更快的软件开发和重用<br>多个供应商之间的全球标准<br>代码兼容性<br>统一的工具和操作系统支持</p>
-</blockquote>
-<p><strong>高性能</strong>，<strong>能效能效</strong>，<strong>易用使用</strong> 主要针对目标群1）的利益点和关切点</p>
-<p><strong>业界标准</strong>，<strong>更小的代码处理器芯片</strong> 主要针对目标群2）的利益点和关切点</p>
-<p><strong>附：ARM Cortex-M主页</strong></p>
-<p><a href="http://www.arm.com/zh/products/processors/cortex-m/index.php" target="_blank" rel="external">http://www.arm.com/zh/products/processors/cortex-m/index.php</a></p>
-<p>全文完</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>

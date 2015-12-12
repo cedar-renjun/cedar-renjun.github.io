@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>STM32 硬件设计 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近画了一些板子，原本的MCU是用STM32F446RET6，样板打出来后，发现物料不好买，问了一些代理商，因为这个片子比较新，所以都没有货，只好换405系列的
+不过，ST的软硬件兼容性做的不错，软件基本不用动，硬件修改几个电源管脚就OK
+在此记录一下
+1 STM32F446和STM32F405/7的区别405是168MHz的M4内核芯片，407相对于407增加了以太网和相机接口，405和407的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 硬件设计">
+<meta property="og:url" content="cedar-renjun.github.io/2015/12/12/STM32-Hardware-Design/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="最近画了一些板子，原本的MCU是用STM32F446RET6，样板打出来后，发现物料不好买，问了一些代理商，因为这个片子比较新，所以都没有货，只好换405系列的
+不过，ST的软硬件兼容性做的不错，软件基本不用动，硬件修改几个电源管脚就OK
+在此记录一下
+1 STM32F446和STM32F405/7的区别405是168MHz的M4内核芯片，407相对于407增加了以太网和相机接口，405和407的">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/12/2/1.png">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/12/2/2.png">
+<meta property="og:updated_time" content="2015-12-12T09:14:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="STM32 硬件设计">
+<meta name="twitter:description" content="最近画了一些板子，原本的MCU是用STM32F446RET6，样板打出来后，发现物料不好买，问了一些代理商，因为这个片子比较新，所以都没有货，只好换405系列的
+不过，ST的软硬件兼容性做的不错，软件基本不用动，硬件修改几个电源管脚就OK
+在此记录一下
+1 STM32F446和STM32F405/7的区别405是168MHz的M4内核芯片，407相对于407增加了以太网和相机接口，405和407的">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 16.67px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-STM32-Hardware-Design" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/12/STM32-Hardware-Design/" class="article-date">
+  	<time datetime="2015-12-12T08:18:10.000Z" itemprop="datePublished">2015-12-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      STM32 硬件设计
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近画了一些板子，原本的MCU是用STM32F446RET6，样板打出来后，发现物料不好买，问了一些代理商，因为这个片子比较新，所以都没有货，只好换405系列的</p>
+<p>不过，ST的软硬件兼容性做的不错，软件基本不用动，硬件修改几个电源管脚就OK</p>
+<p>在此记录一下</p>
+<h3 id="1_STM32F446和STM32F405/7的区别">1 STM32F446和STM32F405/7的区别</h3><p>405是168MHz的M4内核芯片，407相对于407增加了以太网和相机接口，405和407的FLASH有两种：512/1024K</p>
+<p>而446是新推出的片子，可以说是407的缩水版，把主频提高到了180M，但没有以太网接口，相机接口，FLASH的size也有相应的缩写，最大512K，所以从长远来看，446的价格会相对便宜一些；从ST官网来看，大概比405便宜1个美金的样子</p>
+<p>官方给出的摘要</p>
+<blockquote>
+<p>STM32F446 – 180 MHz/225 DMIPS, up to 512 Kbytes of Flash with dual Quad SPI and SDRAM interfaces<br>STM32F407/417 – 168 MHz CPU/210 DMIPS, up to 1 Mbyteof Flash adding Ethernet MAC and camera interface<br>STM32F405/415 – 168 MHz CPU/210 DMIPS, up to 1 Mbyte of Flash with advanced connectivity and encryption</p>
+</blockquote>
+<p>详细的对比信息，点击这里<br><a href="http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1577" target="_blank" rel="external">http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1577</a></p>
+<p>软件方面，完全兼容</p>
+<h3 id="2_F4系列硬件兼容性">2 F4系列硬件兼容性</h3><p>对于F4系列LQFP64封装来说，只有446和11系列的CAP管脚布局和其它F4芯片不同，需要特别注意，如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/2/1.png" alt="F4管脚区别"></p>
+<p>主要是CAP管脚的问题，405/7带有两个CAP脚（31，47），446只带一个CAP（30）</p>
+<p>硬件手册要求：</p>
+<ol>
+<li>CAP脚必须接电容到地平面</li>
+<li>一个CAP的芯片，直接接一个4.7uF电容</li>
+<li>两个CAP的芯片，每个管脚接一个2.2uF的电容</li>
+<li>VSS必须要接地</li>
+</ol>
+<p>为了兼容所有F4的硬件，建议这样设计</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/2/2.png" alt="兼容设计"></p>
+<p>在需要使用446芯片时：</p>
+<ol>
+<li>把31，47管脚的电容换成0欧电阻</li>
+<li>把30管脚接4.7uF电容</li>
+</ol>
+<p>在需要使用其它F4时：</p>
+<ol>
+<li>把31，47管脚的电容换成2.2uF电容</li>
+<li>30脚悬空</li>
+</ol>
+<h3 id="3_去耦电容">3 去耦电容</h3><p>计算公式：10uF＋Nx100nF<br>N是VDD管脚的个数，有多少个VDD，就有多少个100nF<br>电容尽量靠近MCU，布线时，记得先过电容，然后才是芯片的管脚，不然就没有效果了</p>
+<h3 id="4_电源部分">4 电源部分</h3><p>这部分没什么说的，3.3V接到VDD，VDDA就好。<br>特别注意：VDDA是必须要接的，不要因为你没有用ADC，就不接这个管脚。因为STM32的PLL时钟电路，是由VDDA模拟部分供电的，没有供电，就没有系统时钟信号，后果自己想</p>
+<h3 id="5_复位电路">5 复位电路</h3><p>常见的错误：在STM32外部增加一个阻容复位电路，上拉至VDD。<br>STM32内部已经有复位电路和上拉电路，所以完全没有必要额外的添加上拉电阻，只需要添加一个100nF的电容接地，目的是滤除外部的干扰信号，防止偶然触发MCU复位</p>
+<h3 id="6_调试接口">6 调试接口</h3><p>对于调试接口来说，建议采用SWD接口，只需要引出DIO和CLK两个pin就可以调试。<br>对于一般应用来说，足够了。但对于可靠性设计来说，有两个细节要处理</p>
+<ol>
+<li>要不要引出RESET管脚？<br>因为STM32允许通过软件的方式禁用JTAG／SWD接口，所以，某些产品级别的代码会在上电后，关闭调试接口，禁止FLASH读，从而防止固件被盗取。<br>但是，如果MCU在上电后，立刻关闭JTAG／SWD接口，就会致使再也无法通过调试器来访问MCU，就是所谓的芯片锁死。<br>为了防止出现这样的事故，建议引出来RESET接口，从而可以让调试器控制RESET线，让MCU进入调试状态，避免锁死</li>
+<li>要不要加上拉／下拉电阻？<br>很多开发板或者其它的网上原理图，都会在外部添加一个10K的上拉或者下拉电阻，其实这是完全没有必要的。因为STM32内部已经集成了上拉／下拉电阻。<br>如下所示<br>PA13 — JTMS/SWDIO — Internal pull-up<br>PA14 — TCK/SWCLK — Internal pull-down</li>
+</ol>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00115714.pdf" target="_blank" rel="external">AN4488 Getting started with STM32F4xxxx MCU hardware development</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/11/Day-5-USB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Day 5 USB 软件？硬件？</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="STM32-Hardware-Design" data-title="STM32 硬件设计" data-url="cedar-renjun.github.io/2015/12/12/STM32-Hardware-Design/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

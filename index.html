@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 16.67px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 16.67px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,104 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-STM32-Hardware-Design" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/12/STM32-Hardware-Design/" class="article-date">
+  	<time datetime="2015-12-12T08:18:10.000Z" itemprop="datePublished">2015-12-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/12/STM32-Hardware-Design/">STM32 硬件设计</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近画了一些板子，原本的MCU是用STM32F446RET6，样板打出来后，发现物料不好买，问了一些代理商，因为这个片子比较新，所以都没有货，只好换405系列的</p>
+<p>不过，ST的软硬件兼容性做的不错，软件基本不用动，硬件修改几个电源管脚就OK</p>
+<p>在此记录一下</p>
+<h3 id="1_STM32F446和STM32F405/7的区别">1 STM32F446和STM32F405/7的区别</h3><p>405是168MHz的M4内核芯片，407相对于407增加了以太网和相机接口，405和407的FLASH有两种：512/1024K</p>
+<p>而446是新推出的片子，可以说是407的缩水版，把主频提高到了180M，但没有以太网接口，相机接口，FLASH的size也有相应的缩写，最大512K，所以从长远来看，446的价格会相对便宜一些；从ST官网来看，大概比405便宜1个美金的样子</p>
+<p>官方给出的摘要</p>
+<blockquote>
+<p>STM32F446 – 180 MHz/225 DMIPS, up to 512 Kbytes of Flash with dual Quad SPI and SDRAM interfaces<br>STM32F407/417 – 168 MHz CPU/210 DMIPS, up to 1 Mbyteof Flash adding Ethernet MAC and camera interface<br>STM32F405/415 – 168 MHz CPU/210 DMIPS, up to 1 Mbyte of Flash with advanced connectivity and encryption</p>
+</blockquote>
+<p>详细的对比信息，点击这里<br><a href="http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1577" target="_blank" rel="external">http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1577</a></p>
+<p>软件方面，完全兼容</p>
+<h3 id="2_F4系列硬件兼容性">2 F4系列硬件兼容性</h3><p>对于F4系列LQFP64封装来说，只有446和11系列的CAP管脚布局和其它F4芯片不同，需要特别注意，如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/2/1.png" alt="F4管脚区别"></p>
+<p>主要是CAP管脚的问题，405/7带有两个CAP脚（31，47），446只带一个CAP（30）</p>
+<p>硬件手册要求：</p>
+<ol>
+<li>CAP脚必须接电容到地平面</li>
+<li>一个CAP的芯片，直接接一个4.7uF电容</li>
+<li>两个CAP的芯片，每个管脚接一个2.2uF的电容</li>
+<li>VSS必须要接地</li>
+</ol>
+<p>为了兼容所有F4的硬件，建议这样设计</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/2/2.png" alt="兼容设计"></p>
+<p>在需要使用446芯片时：</p>
+<ol>
+<li>把31，47管脚的电容换成0欧电阻</li>
+<li>把30管脚接4.7uF电容</li>
+</ol>
+<p>在需要使用其它F4时：</p>
+<ol>
+<li>把31，47管脚的电容换成2.2uF电容</li>
+<li>30脚悬空</li>
+</ol>
+<h3 id="3_去耦电容">3 去耦电容</h3><p>计算公式：10uF＋Nx100nF<br>N是VDD管脚的个数，有多少个VDD，就有多少个100nF<br>电容尽量靠近MCU，布线时，记得先过电容，然后才是芯片的管脚，不然就没有效果了</p>
+<h3 id="4_电源部分">4 电源部分</h3><p>这部分没什么说的，3.3V接到VDD，VDDA就好。<br>特别注意：VDDA是必须要接的，不要因为你没有用ADC，就不接这个管脚。因为STM32的PLL时钟电路，是由VDDA模拟部分供电的，没有供电，就没有系统时钟信号，后果自己想</p>
+<h3 id="5_复位电路">5 复位电路</h3><p>常见的错误：在STM32外部增加一个阻容复位电路，上拉至VDD。<br>STM32内部已经有复位电路和上拉电路，所以完全没有必要额外的添加上拉电阻，只需要添加一个100nF的电容接地，目的是滤除外部的干扰信号，防止偶然触发MCU复位</p>
+<h3 id="6_调试接口">6 调试接口</h3><p>对于调试接口来说，建议采用SWD接口，只需要引出DIO和CLK两个pin就可以调试。<br>对于一般应用来说，足够了。但对于可靠性设计来说，有两个细节要处理</p>
+<ol>
+<li>要不要引出RESET管脚？<br>因为STM32允许通过软件的方式禁用JTAG／SWD接口，所以，某些产品级别的代码会在上电后，关闭调试接口，禁止FLASH读，从而防止固件被盗取。<br>但是，如果MCU在上电后，立刻关闭JTAG／SWD接口，就会致使再也无法通过调试器来访问MCU，就是所谓的芯片锁死。<br>为了防止出现这样的事故，建议引出来RESET接口，从而可以让调试器控制RESET线，让MCU进入调试状态，避免锁死</li>
+<li>要不要加上拉／下拉电阻？<br>很多开发板或者其它的网上原理图，都会在外部添加一个10K的上拉或者下拉电阻，其实这是完全没有必要的。因为STM32内部已经集成了上拉／下拉电阻。<br>如下所示<br>PA13 — JTMS/SWDIO — Internal pull-up<br>PA14 — TCK/SWCLK — Internal pull-down</li>
+</ol>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00115714.pdf" target="_blank" rel="external">AN4488 Getting started with STM32F4xxxx MCU hardware development</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Day-5-USB" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1613,101 +1711,9 @@
 
 
   
-    <article id="post-IDA-Pro-Reading-note-0" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/27/IDA-Pro-Reading-note-0/" class="article-date">
-  	<time datetime="2015-10-27T03:48:20.000Z" itemprop="datePublished">2015-10-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/27/IDA-Pro-Reading-note-0/">IDA Pro学习笔记－0</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="0_概述">0    概述</h3><p><a href="https://www.hex-rays.com/index.shtml" target="_blank" rel="external">IDA</a>，懂的人自然懂，不懂的人请百度<br>这里不做过多介绍</p>
-<p>本篇作为学习笔记的第一篇，主要介绍反汇编的理论和常见反汇编方式</p>
-<h3 id="1_反汇编简介">1    反汇编简介</h3><p>编程语言进化过程为：二进制－》汇编－》C／C++等编译语言－》python等动态脚本语言<br>二进制的，可以直接看ARM Thumb2指令集手册，里面有对应的编码介绍，汇编就是ARM中常见的启动代码，<br>C／python之类的，都是程序员常见的语言，都很熟悉，不多介绍</p>
-<h3 id="2_为什么要反汇编">2    为什么要反汇编</h3><p>反汇编的意义在于，很多时候，我们并不能拿到C级别的源码，只能拿到bin格式的固件，所以需要通过bin来反向成汇编代码，然后分析程序<br>其它的几个原因</p>
-<ol>
-<li>分析恶意软件</li>
-<li>分析闭源软件的漏洞</li>
-<li>分析闭源软件的互操作性</li>
-<li>分析编译器生成代码，以验证编译器性能和准确性</li>
-<li>在调试时显示程序指令</li>
-</ol>
-<h3 id="3_反汇编的困难">3    反汇编的困难</h3><p>理论上来讲，bin属于透明代码，大神可以直接看二进制格式，但这么做效率太低，所以很多人做了工具，IDA就是其中一种，虽然有了工具，<br>但分析过程，仍然困难重重，原因如下</p>
-<ol>
-<li>编译过程会造成损失<br>bin是给机器看的，所以它不需要任何变量或者函数，但我们需要，所以变量类型只能通过分析，才能知道具体类型<br>现在ARM Thumb2指令集稍微好一点，会固化各种符号和类型，方便分析一些</li>
-<li>编译属于多对多操作<br>主要是因为编译优化，或者故意混淆的手段，或者IAR编译时，没有生成符号表，从而导致缺乏一些分析辅助信息</li>
-<li>反编译器依赖于语言和库<br>选对反编译器，才能正确反编译</li>
-<li>反编译任何错误，都会影响反编译生成的效果</li>
-</ol>
-<h3 id="4_如何反汇编">4    如何反汇编</h3><p>最简单的工具，可以用各种IDE里面的binary工具，比如elfdump，直接导出符号表和汇编代码<br>但这种太简单了，不便于大型系统分析</p>
-<p>理论上，反汇编的过程如下</p>
-<ol>
-<li><p>确定反汇编的代码区域<br>这个要看具体文件格式，比如elf之类的，直接包含各种section，可以分析<br>但bin，就要区分哪些是代码，哪些是数据，这是一个难点<br>我们可以换一个方向来看，对于STM32或者ARM Cortex系列的芯片来说，入口是固定的，我们直接找程序入口就可以了</p>
-</li>
-<li><p>找到入口地址，开始逐条分析<br>这里，可能需要进行表查找来获取数据；对应C语言来说，就是字符串表，变量表或者函数表</p>
-</li>
-<li><p>找到操作符和操作数，反编译成汇编指令</p>
-</li>
-<li><p>继续反汇编下一条指令</p>
-</li>
-</ol>
-<h3 id="5_反汇编算法">5    反汇编算法</h3><p>主要有两种，也很简单</p>
-<ol>
-<li>线性法</li>
-<li>递归下降法</li>
-</ol>
-<p><strong>线性法</strong>：就是逐条分析汇编，读取操作码，读取操作数，反汇编，然后下一条指令；理论上很简单，但容易出错，比如，我故意在汇编指令中<br>插入一些混淆数据，就可以扰乱反汇编器的输出；它的好处在于，能分析出所有的二进制代码<br>GDB和dbjdump都是采用线性分析法，他们因为有elf的各种辅助信息，在有代码的基础上调试，所以能知道哪些是有效数据，有效代码</p>
-<p><strong>递归下降法</strong>：则是从另外一个方向来反汇编，就是从程序入口地址，然后分析下一条指令，顺序指令则直接继续分析，分支指令，比如if或者switch，则<br>直接分成两个反编译方向，依次反编译；或者跳转指令，就跳转到对应到地址。<br>也就是说，反编译器会尝试理解bin程序流，然后给出最佳的反汇编代码，但这样，也会有问题，机器毕竟是机器<br>想一下，我们在函数中，故意设置LR返回地址，估计反编译器就无能为力了。针对这种情况，我们可以用动态模拟器来调试，百试百灵</p>
-<h3 id="6_最后">6    最后</h3><p>反汇编的过程就像填字游戏，给你有限信息，然后补齐整个游戏，还是挺好玩的</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hacker/">Hacker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDA/">IDA</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
