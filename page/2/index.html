@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 13.33px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16.67px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 13.33px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 13.33px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 13.33px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 16.67px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 13.33px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,92 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-IDA-Pro-Reading-note-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/27/IDA-Pro-Reading-note-1/" class="article-date">
+  	<time datetime="2015-10-27T14:38:33.000Z" itemprop="datePublished">2015-10-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/27/IDA-Pro-Reading-note-1/">IDA Pro学习笔记－1</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_概述">0 概述</h3><p>本文主要介绍常用的，简单的逆向和反汇编工具</p>
+<h3 id="1_分类工具">1    分类工具</h3><p>在遇到一个新文件时，我们需要知道，这是一个什么类型的文件；记得，看后缀名来判断是不准确的，下面的几个工具，用来帮助你检验文件类型</p>
+<ol>
+<li><p>file<br>Linux下面的命令行工具，可以利用后缀名，文件头的特征码，文件开头的特殊命令行来判断类型，能识别绝大多数的文件类型</p>
+</li>
+<li><p>PE Tools<br>一组用于分析windows系统中正在运行的进程和可执行文件的工具。能捕获进程，并将内存映像转储，然后用PE<br>sniffer来分析可执行文件是由何种编译器构建的</p>
+</li>
+<li><p>PEiD<br>windows工具，用于识别构建EXE文件所有的编译器，并确定混淆代码的工具类型</p>
+</li>
+</ol>
+<h3 id="2_摘要工具">2    摘要工具</h3><p>在分析到类型后，我们就需要分析文件内的详细信息，下面这些工具就该派上用场了</p>
+<ol>
+<li><p>nm<br>显示出目标文件中的所有符号；我们知道，obj文件里面都有很多符号段，用于存储符号信息，nm就可以将这些信息给打印出来，便于分析</p>
+</li>
+<li><p>ldd<br>用于解析静态链接或者动态链接的库信息</p>
+</li>
+<li><p>objdump<br>大而全的工具，用于显示目标文件的所有信息，比如节头部，专用头部，调试信息，符号信息，反汇编代码等<br>还有一个readelf工具，也有同样的功能；<br>二者的区别是：objdump依赖于libbfd，readelf不依赖libbfd</p>
+</li>
+<li><p>otool<br>mac OS X底下的objdump工具</p>
+</li>
+<li><p>dumpbin<br>VS套件里面的一个工具，功能类似objdump和ldd</p>
+</li>
+<li><p>C++filt<br>C＋＋会将重载函数进行重命名（name－mangling），从而保证符号唯一性，但这样为我们理解反编译函数名称造成了困难，filt就是复原原始函数名用的<br>，比如<code>nm a.out | grep demo | c++filt</code>就可以复原a.out里面所有的demo函数名</p>
+</li>
+</ol>
+<h3 id="3_深度监测工具">3    深度监测工具</h3><ol>
+<li><p>strings<br>用于提取文件中的字符串内容，我们经常在windows里面可以看到提示性文字，通过这个工具，我们就知道文字的位置，然后反向找出调用文字的程序<br>代码，最后修改代码即可<br>但是记住，不要用文字信息来推断程序功能</p>
+</li>
+<li><p>反汇编器<br>X86架构下的ndisasm和diStorm可以用来反汇编代码和数据</p>
+</li>
+</ol>
+<h3 id="4_最后">4    最后</h3><p>这些工具很基础，都是linux下的常用工具，应该掌握</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hacker/">Hacker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDA/">IDA</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-IDA-Pro-Reading-note-0" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1624,87 +1710,6 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 <h3 id="后记">后记</h3><p>在IAR 7.2上测试时，时常出现不可复现的bug，也许和破解有关系，具体表现为<br>在显示层次模版目录时，无法显示子目录；UI层次上就是新建IAR工程时，能显示STM32模版，但不能显示F4xx模版信息</p>
 <p>暂时无解</p>
 <p>规避方案：直接复制IAR模版文件，然后适当修改即可，千万不要重写<code>templproj</code>!!!</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/IAR/">IAR</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-IAR-projects-template" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/02/IAR-projects-template/" class="article-date">
-  	<time datetime="2015-10-02T02:35:55.000Z" itemprop="datePublished">2015-10-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/02/IAR-projects-template/">IAR 工程文件分析</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>注意：下文以IAR 7.2 For ARM版本来分析XML工程文件</p>
-<h3 id="初衷">初衷</h3><p>IAR工程中添加文件，一直很麻烦，最近发现RTT用Scons能自动生成IAR模版，并添加源文件，为此分析了IAR工程管理结构，重点在于源文件管理结构</p>
-<h3 id="构建语法">构建语法</h3><p>采用标准XML形式来构建工程</p>
-<p>在新建工程后，IAR默认包含debug和release两个模版，在XML文件中，有所体现，我们可以在XML中删掉release的配置信息，减轻我们分析的负担</p>
-<h3 id="IAR_工程结构">IAR 工程结构</h3><ul>
-<li>*.ewp IAR工程文件，包含配置项和文件列表</li>
-<li>*.ewt IAR配置文件，包含C-STAT和RuntimeChecking的信息</li>
-<li>*.dep IAR调试信息配置，主要用于描述源文件和obj文件的关联信息</li>
-<li>*.eww IAR workspace，用于管理多个project</li>
-<li>*.ewd 调试相关，比如选择的调试器和调试器ID等等</li>
-</ul>
-<p>简单介绍一下用途<br>1）如果只是保留基本工程信息，不需要调试器和链接器的信息，只保留<code>eww</code>和<code>ewp</code>文件即可<br>2）如果需要保存链接器和调试器信息，保留<code>ewp</code>, <code>ewt</code>, <code>dep</code>, <code>eww</code>四个文件即可<br>3）<code>ewt</code>主要包含一些静态检查和动态检查，可以不用这些配置项</p>
-<p>也就是说，在复制IAR工程时，只需要保留这几个文件，其它的文件（夹）都可以删掉，比如setting, Debug，Release文件夹</p>
-<p>因为分析IAR主要是为了自动生成模版文件，所以下面重点分析<code>ewp</code>文件结构</p>
-<h3 id="ewp文件分析">ewp文件分析</h3><p>打开文件，可以看到顶层结构为<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">project</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">fileVersion</span>&gt;</span>2<span class="tag">&lt;/<span class="title">fileVersion</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>Debug工程配置<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>Release工程配置<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span>工程文件结构<span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这里加注了行号，第3/4行为工程具体配置，包括<code>Debug</code>和<code>Release</code>版本配置，还可以添加其它配置页，为了简化分析，我删掉了<code>Release</code>配置项，再次打开IAR工程，如下所示：</p>
-<p>第5行是工程文件目录结构，也是我们重点分析的部分，主要分为两块</p>
-<ol>
-<li>单个文件</li>
-<li>目录组织结构</li>
-</ol>
-<p>我在创建IAR工程时，只包含一个main.c文件，XML对应结构如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>尝试添加两个源文件<code>test.c</code> <code>test.h</code>, XML 结构变成下面的形式<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.h<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>可见每一个文件对应一个file结构，我们尝试新建一个group，然后将test.c和test.h文件放到里面</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>test<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\test.h<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">group</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">name</span>&gt;</span>$PROJ_DIR$\main.c<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">file</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>可见增加了一个<code>group</code>结构，并用<code>name</code>来表示group的名字<br>OK，分析到这里，我们就可以利用python来编写脚本自动添加文件到IAR工程中了</p>
-<p>至于<code>Debug</code>配置项的细节信息，等有机会慢慢研究</p>
 
       
     </div>
