@@ -214,7 +214,7 @@
 <p>详细的对比信息，点击这里<br><a href="http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1577" target="_blank" rel="external">http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1577</a></p>
 <p>软件方面，完全兼容</p>
 <h3 id="2_F4系列硬件兼容性">2 F4系列硬件兼容性</h3><p>对于F4系列LQFP64封装来说，只有446和11系列的CAP管脚布局和其它F4芯片不同，需要特别注意，如下所示</p>
-<p><img src="http://cedar-renjun.github.io/images/2015/12/2/1.png" alt="F4管脚区别"></p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/12/1.png" alt="F4管脚区别"></p>
 <p>主要是CAP管脚的问题，405/7带有两个CAP脚（31，47），446只带一个CAP（30）</p>
 <p>硬件手册要求：</p>
 <ol>
@@ -224,7 +224,7 @@
 <li>VSS必须要接地</li>
 </ol>
 <p>为了兼容所有F4的硬件，建议这样设计</p>
-<p><img src="http://cedar-renjun.github.io/images/2015/12/2/2.png" alt="兼容设计"></p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/12/2.png" alt="兼容设计"></p>
 <p>在需要使用446芯片时：</p>
 <ol>
 <li>把31，47管脚的电容换成0欧电阻</li>

@@ -17,9 +17,9 @@
 不过，ST的软硬件兼容性做的不错，软件基本不用动，硬件修改几个电源管脚就OK
 在此记录一下
 1 STM32F446和STM32F405/7的区别405是168MHz的M4内核芯片，407相对于407增加了以太网和相机接口，405和407的">
-<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/12/2/1.png">
-<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/12/2/2.png">
-<meta property="og:updated_time" content="2015-12-12T09:14:49.000Z">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/12/12/1.png">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/12/12/2.png">
+<meta property="og:updated_time" content="2015-12-12T09:19:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="STM32 硬件设计">
 <meta name="twitter:description" content="最近画了一些板子，原本的MCU是用STM32F446RET6，样板打出来后，发现物料不好买，问了一些代理商，因为这个片子比较新，所以都没有货，只好换405系列的
@@ -235,7 +235,7 @@
 <p>详细的对比信息，点击这里<br><a href="http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1577" target="_blank" rel="external">http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1577</a></p>
 <p>软件方面，完全兼容</p>
 <h3 id="2_F4系列硬件兼容性">2 F4系列硬件兼容性</h3><p>对于F4系列LQFP64封装来说，只有446和11系列的CAP管脚布局和其它F4芯片不同，需要特别注意，如下所示</p>
-<p><img src="http://cedar-renjun.github.io/images/2015/12/2/1.png" alt="F4管脚区别"></p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/12/1.png" alt="F4管脚区别"></p>
 <p>主要是CAP管脚的问题，405/7带有两个CAP脚（31，47），446只带一个CAP（30）</p>
 <p>硬件手册要求：</p>
 <ol>
@@ -245,7 +245,7 @@
 <li>VSS必须要接地</li>
 </ol>
 <p>为了兼容所有F4的硬件，建议这样设计</p>
-<p><img src="http://cedar-renjun.github.io/images/2015/12/2/2.png" alt="兼容设计"></p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/12/2.png" alt="兼容设计"></p>
 <p>在需要使用446芯片时：</p>
 <ol>
 <li>把31，47管脚的电容换成0欧电阻</li>
