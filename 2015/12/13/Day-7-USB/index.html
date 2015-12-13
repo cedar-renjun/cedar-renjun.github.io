@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Day 7 USB 咬文嚼字 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天花10分钟，来分析USB（universal serial bus）的名字：通用，串行，总线
+1 通用指物理层和数据链路层上，可以通过USB接口来跑很多种应用层协议
+2 串行底层通讯的关键因素是：
+
+通信时钟速率
+bit同步
+帧同步
+数据线数量
+bit层编码协议
+
+根据数据线的数量不同，可以分为串行和并行串行在一个时钟驱动下，能传输一个bit信号；并行能同时传输多个bit信号
+通信速率并行数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Day 7 USB 咬文嚼字">
+<meta property="og:url" content="cedar-renjun.github.io/2015/12/13/Day-7-USB/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="今天花10分钟，来分析USB（universal serial bus）的名字：通用，串行，总线
+1 通用指物理层和数据链路层上，可以通过USB接口来跑很多种应用层协议
+2 串行底层通讯的关键因素是：
+
+通信时钟速率
+bit同步
+帧同步
+数据线数量
+bit层编码协议
+
+根据数据线的数量不同，可以分为串行和并行串行在一个时钟驱动下，能传输一个bit信号；并行能同时传输多个bit信号
+通信速率并行数据">
+<meta property="og:updated_time" content="2015-12-13T15:56:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Day 7 USB 咬文嚼字">
+<meta name="twitter:description" content="今天花10分钟，来分析USB（universal serial bus）的名字：通用，串行，总线
+1 通用指物理层和数据链路层上，可以通过USB接口来跑很多种应用层协议
+2 串行底层通讯的关键因素是：
+
+通信时钟速率
+bit同步
+帧同步
+数据线数量
+bit层编码协议
+
+根据数据线的数量不同，可以分为串行和并行串行在一个时钟驱动下，能传输一个bit信号；并行能同时传输多个bit信号
+通信速率并行数据">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Day-7-USB" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/13/Day-7-USB/" class="article-date">
+  	<time datetime="2015-12-13T15:54:13.000Z" itemprop="datePublished">2015-12-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Day 7 USB 咬文嚼字
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天花10分钟，来分析USB（universal serial bus）的名字：<strong>通用，串行，总线</strong></p>
+<h4 id="1_通用">1 通用</h4><p>指物理层和数据链路层上，可以通过USB接口来跑很多种应用层协议</p>
+<h4 id="2_串行">2 串行</h4><p>底层通讯的关键因素是：</p>
+<ol>
+<li>通信时钟速率</li>
+<li>bit同步</li>
+<li>帧同步</li>
+<li>数据线数量</li>
+<li>bit层编码协议</li>
+</ol>
+<p>根据数据线的数量不同，可以分为串行和并行<br>串行在一个时钟驱动下，能传输一个bit信号；并行能同时传输多个bit信号</p>
+<p><strong>通信速率</strong><br>并行数据线在跑高速信号时，对环境条件要求比较高，容易因为布线，阻抗，ESD干扰等，导致多条数据线路到达终端的时间不一致，这就是数据时间窗口的问题，从而限制了通信时钟最大的速率</p>
+<p>串行总线因为只需要同步采样一路数据线的电信号，就没有了时间窗口的问题，所以串行速率会有几个数量级的提升。同时可以采用差分线来增加抗干扰能力，采用NRZI编码来省掉一个时钟线，更能提高传输速率</p>
+<p><strong>bit 同步</strong><br>底层通讯时，必须考虑bit同步问题，也就是在通讯过程中，怎么区分数据线上的各个bit</p>
+<ol>
+<li>SPI，I2C这类，采用增加时钟线的方式来同步，一个时钟跳变沿，就是一个采样同步信号</li>
+<li>UART这类，靠时间片的方式来同步，每个时间片都是nUs，时间一到，就读取数据线信号。但这种方式，容易有时间积累效应，导致漂移和误差，从而采样错位。因此UART也会有一个帧同步的机制，来定时复位采样时间电路，从而将误差限制在可控范围内</li>
+<li>红外，1-wire这种单线制信号，是采用脉宽和特定模式，来一起解决bit同步和帧同步问题</li>
+<li>USB这种呢，则是将利用数据信号的跳变过程来同步，所以没有单独的时钟线，叫NRZI。但这种机制，本质上还是和UART的时间片方式一样，所以对于一连相同的特定数字信号，仍然会出现漂移，错位的现象，所以USB协议通关强制插入反转序列的方式，来给SIE状态机一个时钟同步信号。这样的效果就是可以显著提高通行速率。<br>理论上来说，同步反转信号插入的越多，通讯同步误差就会越小，通讯速率越高，但是会导致有效带宽使用率下降的问题，所以要适当的权衡。</li>
+<li>还有一种，对于射频信号，会采用频率调制，用特定的频率来表示0，1</li>
+</ol>
+<h4 id="帧同步">帧同步</h4><p>很多同学，可能不知道这个概念，其实，很简单<br>bit同步用于保证系统能识别一连串的010101，但是我们把这些01分组呢？<br>帧同步就是干的这事</p>
+<p>另一个名字，帧开始，帧结束，可能各位比较熟悉一些，</p>
+<p>UART会用数据线第一个下降沿来表示帧传输开始，上升沿表示帧结束<br>SPI就是默认的8个，16个，32个clock表示一个帧，挨个数就行了<br>其它通讯总线的方式，也类似</p>
+<p>当初USB设计的初衷就是为了高速应用，所以选择了串行，差分，NRZI编码通讯方式</p>
+<h4 id="3_总线">3 总线</h4><p>USB采用层次化总线拓扑方式，就是多叉树形结构<br>涉及到总线，就会提及几个关键点</p>
+<ol>
+<li>寻址方式</li>
+<li>应答机制</li>
+<li>通讯协议</li>
+</ol>
+<p>时间不够，就不展开了，明天聊</p>
+<h3 id="每日推荐">每日推荐</h3><ol>
+<li>Sparkfun上，关于串行通讯的入门介绍<a href="https://learn.sparkfun.com/tutorials/serial-communication" target="_blank" rel="external">https://learn.sparkfun.com/tutorials/serial-communication</a></li>
+<li>Northeastern University的数据链路层资<br><a href="http://www.ccs.neu.edu/home/amislove/teaching/cs4700/fall09/lectures/lecture6.pdf" target="_blank" rel="external">http://www.ccs.neu.edu/home/amislove/teaching/cs4700/fall09/lectures/lecture6.pdf</a></li>
+<li>［CSDN博客文章］串行通信比并行通信的速度更高<a href="http://blog.csdn.net/yiwuya/article/details/4136319" target="_blank" rel="external">http://blog.csdn.net/yiwuya/article/details/4136319</a></li>
+</ol>
+<p>PS：可能某些资料需要翻墙才能查看，如需帮助，请告诉我</p>
+<p>2015-12-13</p>
+<p>－－－－－分割线－－－－－<br><strong>注意事项</strong></p>
+<ol>
+<li><p>本订阅号（微信搜 McuProgramming ）主要发布一些嵌入式相关的知识和技巧，涉及到软件，硬件，射频，协议栈等；如果您有感兴趣的领域，请通过回复订阅号告诉我</p>
+</li>
+<li><p>本订阅号主要是简单文字为主，内含少量代码段，但绝不会发布大量的代码。<br>因为根据自己的体会，在手机微信端看代码的体验非常糟糕，一方面屏幕比较小，显示效果不好；另一方面，玩手机时，精力不会集中，更不会有大量时间。<br>cedar-renjun.github.io 个人博客会发一些技术细节的东西，感兴趣的，可以深入研究这里的博文</p>
+</li>
+<li><p>微信的编辑功能比较弱，不能贴链接，代码啥的，，，所有文章均发表在个人博客，可以通过点击原文来查看，原文有代码语法高亮，显示图片，带链接等效果</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/12/Day-6-USB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Day 6 USB 可插拔</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Day-7-USB" data-title="Day 7 USB 咬文嚼字" data-url="cedar-renjun.github.io/2015/12/13/Day-7-USB/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
