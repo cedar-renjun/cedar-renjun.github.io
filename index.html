@@ -176,6 +176,69 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-libusb-on-mac" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/14/libusb-on-mac/" class="article-date">
+  	<time datetime="2015-12-14T12:05:27.000Z" itemprop="datePublished">2015-12-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/14/libusb-on-mac/">MAC环境下，QT上使用libusb</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基本步骤</p>
+<ol>
+<li><code>git clone https://github.com/libusb/libusb.git</code></li>
+<li><code>./configure</code></li>
+<li><code>./make</code></li>
+<li><code>sudo ./make install</code></li>
+<li>在qt工程文件(pro)中，添加下面两句<br><code>LIBS        += -L/usr/local/lib   -lusb-1.0.0</code><br><code>INCLUDEPATH += /usr/local/include</code></li>
+<li>在代码中使用<code>#include&lt;libusb-1.0/libusb.h&gt;</code></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-Day-7-USB" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1682,72 +1745,6 @@
       
         <p class="article-more-link">
           <a  href="/2015/11/01/elf-format-1/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-elf-format-0" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/31/elf-format-0/" class="article-date">
-  	<time datetime="2015-10-31T15:11:22.000Z" itemprop="datePublished">2015-10-31</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/31/elf-format-0/">ELF文件分析之0 － 简介和分析工具</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="0_前言">0    前言</h3><p>几年前，在读大学时，刚接触linux的时候，就对计算机的运行原理比较感兴趣，网上找了《CSAPP》和《程序员的自我修养－链接，库》，无奈当时能力不足，<br>看不懂这些，后面工作了，一直从事嵌入式偏底层的工作，比较熟悉gcc和linker，刚好最近研究hacker和工程需要，就耐着性子研究了ELF文件结构，遇到问题<br>不少，最终也解决了，所以写到blog记录一下，免得忘记</p>
-<h3 id="1_概述">1    概述</h3><p>因为ELF涉及的东西比较多，所以分为4篇来介绍</p>
-<ol>
-<li>ELF简介和分析工具<br>主要介绍ELF的基本知识和讲解ELF分析工具的基本用法</li>
-<li>ELF文件格式分析<br>主要介绍ELF文件格式</li>
-<li>ELF静态链接<br>主要分析静态链接中需要解决的问题，以及基本原理</li>
-<li>ELF动态链接<br>主要分析动态链接中需要解决的问题，以及基本原理</li>
-</ol>
-<p>OK, 进入正题<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/31/elf-format-0/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
