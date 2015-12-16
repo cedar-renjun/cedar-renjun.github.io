@@ -176,6 +176,74 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-can-not-read-cpuid-via-jlink-in-iar" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" class="article-date">
+  	<time datetime="2014-06-04T07:18:27.000Z" itemprop="datePublished">2014-06-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/">IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt;</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="问题描述">问题描述</h3><p>在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错</p>
+<pre><code>Can <span class="keyword">not</span> <span class="command">read</span> CPUID
+</code></pre><p>为CPU重新上电，则可以正常进入调试状态</p>
+<h3 id="出现原因">出现原因</h3><p>IAR Jlink DLL版本过低</p>
+<h3 id="解决方案">解决方案</h3><p>用最新版的<code>JlinkARM.dll</code>替换掉IAR安装目录下默认的<code>JLinkARM.dll</code></p>
+<p>附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分</p>
+<p>1：Jlink软件JlinkARM.dll路径</p>
+<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\SEGGER</span><span class="command">\JLinkARM</span>_V474b
+</code></pre><p>2：IAR安装目录JlinkARM.dll路径</p>
+<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\IAR</span> Systems<span class="command">\Embedded</span> Workbench 6.0<span class="command">\arm</span><span class="command">\bin</span>
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/IAR/">IAR</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-personal-and-platform" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1716,72 +1784,6 @@
 	</div>
 
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-review-about-tangjun" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/03/22/review-about-tangjun/" class="article-date">
-  	<time datetime="2014-03-22T04:51:52.000Z" itemprop="datePublished">2014-03-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/22/review-about-tangjun/">关于唐骏的一点看法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以下是youku 2014-03-20 做的一期访谈节目，节目的主角是唐骏</p>
-<div class="video-container"><br>    <embed src="http://player.youku.com/player.php/sid/XNjg1MDgyNDEy/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"><br>    </embed><br></div>
-
-<p>关于唐骏，百度百科介绍如下：</p>
-<blockquote>
-<p>   唐骏为中国职业经理人。曾留学日本和美国，有“打工皇帝”之称。1994年加入微软公司美国总部，先后担任微软全球技术中心总经理，微软中国公司总裁。唐骏是微软公司历史上唯一两次获得比尔盖茨杰出奖，最高荣誉奖的员工，还获得微软公司的杰出管理奖，被微软公司定为未来微软公司的未来领袖之一。唐骏也获得了微软公司历史上唯一的微软中国终身荣誉总裁的称号，2004年出任中国最大的互动娱乐公司盛大网络公司总裁，并帮助盛大公司在美国纳斯达克成功上市，被华尔街誉为中国资本的第一人。2008年唐骏先生以“十亿“身价转会新华都集团出任总裁兼CEO。同时唐骏被中国媒体广泛誉为中国“第一职业经理人”和中国第一CEO。2013年1月28日，唐骏通过个人微博向外界宣布卸任新华都，专注港澳资讯，任董事长兼CEO。</p>
-</blockquote>
-<p>其实很多人是从方舟子打假开始才知道唐骏这个人的，打假这方面的报道很多很多，各位可以自行搜索</p>
-<p>这里想谈一下我的观点</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2014/03/22/review-about-tangjun/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

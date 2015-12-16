@@ -3,33 +3,31 @@
 <head>
   <meta charset="utf-8">
   
-  <title>USB VBUS检测 | Simple</title>
+  <title>Day 8 USB 总线架构 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="重新设计了USB硬件，兼容所有F4系列64Pin封装芯片但下载USB程序，PC检测不到USB设备
-看了下ST提供的代码，主要是以下几个问题
+  <meta name="description" content="USB的架构如下所示
 
-晶振问题库使用的是25MHz晶振，我焊接的是8MHz晶振代码修改如下
-#define PLL_M    8
-#define HSE_VALUE    ((uint32_t)8000000) /!&amp;lt; Value of the External oscil">
+属于树形节点（星形）网络，HUB是树的根节点，Device表示叶子节点，HOST是根节点
+USB设计的初衷就是为了构建以PC为中心的，连接各种外设硬件的网络；所以为了让USB接口占用的面积最少，设计了HUB逐级拓展的方式，然后利用PC 作为HOST，管理所有的设备
+当然，这种单一主控的网络架构，导致的问题就是带宽利用率有限，外设增多之后，每个外设所得到的时间片会相应的缩小和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="USB VBUS检测">
-<meta property="og:url" content="cedar-renjun.github.io/2015/12/16/usb-vbus-detect/index.html">
+<meta property="og:title" content="Day 8 USB 总线架构">
+<meta property="og:url" content="cedar-renjun.github.io/2015/12/17/Day-8-USB/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="重新设计了USB硬件，兼容所有F4系列64Pin封装芯片但下载USB程序，PC检测不到USB设备
-看了下ST提供的代码，主要是以下几个问题
+<meta property="og:description" content="USB的架构如下所示
 
-晶振问题库使用的是25MHz晶振，我焊接的是8MHz晶振代码修改如下
-#define PLL_M    8
-#define HSE_VALUE    ((uint32_t)8000000) /!&amp;lt; Value of the External oscil">
-<meta property="og:updated_time" content="2015-12-16T09:17:37.000Z">
+属于树形节点（星形）网络，HUB是树的根节点，Device表示叶子节点，HOST是根节点
+USB设计的初衷就是为了构建以PC为中心的，连接各种外设硬件的网络；所以为了让USB接口占用的面积最少，设计了HUB逐级拓展的方式，然后利用PC 作为HOST，管理所有的设备
+当然，这种单一主控的网络架构，导致的问题就是带宽利用率有限，外设增多之后，每个外设所得到的时间片会相应的缩小和">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2015/12/17/1.png">
+<meta property="og:updated_time" content="2015-12-16T16:09:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="USB VBUS检测">
-<meta name="twitter:description" content="重新设计了USB硬件，兼容所有F4系列64Pin封装芯片但下载USB程序，PC检测不到USB设备
-看了下ST提供的代码，主要是以下几个问题
+<meta name="twitter:title" content="Day 8 USB 总线架构">
+<meta name="twitter:description" content="USB的架构如下所示
 
-晶振问题库使用的是25MHz晶振，我焊接的是8MHz晶振代码修改如下
-#define PLL_M    8
-#define HSE_VALUE    ((uint32_t)8000000) /!&amp;lt; Value of the External oscil">
+属于树形节点（星形）网络，HUB是树的根节点，Device表示叶子节点，HOST是根节点
+USB设计的初衷就是为了构建以PC为中心的，连接各种外设硬件的网络；所以为了让USB接口占用的面积最少，设计了HUB逐级拓展的方式，然后利用PC 作为HOST，管理所有的设备
+当然，这种单一主控的网络架构，导致的问题就是带宽利用率有限，外设增多之后，每个外设所得到的时间片会相应的缩小和">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -190,11 +188,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-usb-vbus-detect" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Day-8-USB" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/12/16/usb-vbus-detect/" class="article-date">
-  	<time datetime="2015-12-16T09:05:09.000Z" itemprop="datePublished">2015-12-16</time>
+      <a href="/2015/12/17/Day-8-USB/" class="article-date">
+  	<time datetime="2015-12-16T16:04:44.000Z" itemprop="datePublished">2015-12-17</time>
 </a>
     </div>
   
@@ -207,7 +205,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      USB VBUS检测
+      Day 8 USB 总线架构
     </h1>
   
 
@@ -216,7 +214,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信订阅号/">微信订阅号</a></li></ul>
 	</div>
 
         
@@ -227,23 +225,42 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>重新设计了USB硬件，兼容所有F4系列64Pin封装芯片<br>但下载USB程序，PC检测不到USB设备</p>
-<p>看了下ST提供的代码，主要是以下几个问题</p>
+        <p>USB的架构如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/17/1.png" alt="USB框架图"></p>
+<p>属于树形节点（星形）网络，HUB是树的根节点，Device表示叶子节点，HOST是根节点</p>
+<p>USB设计的初衷就是为了构建以PC为中心的，连接各种外设硬件的网络；所以为了让USB接口占用的面积最少，设计了HUB逐级拓展的方式，然后利用PC 作为HOST，管理所有的设备</p>
+<p>当然，这种单一主控的网络架构，导致的问题就是带宽利用率有限，外设增多之后，每个外设所得到的时间片会相应的缩小和延时抖动</p>
+<p>现代PC机都会采用多个USB HOST的方式来缓解这个问题，USB设备分配到不同的USB网络中，从而避免了带宽冲突的问题</p>
+<p>从整体上来看，USB属于半双工，单主机轮询机制；只有当主机轮询到对应的从机时，从机才可以发送数据，从机绝对不能主动发数据给主机</p>
+<p>这就带来一个怎么处理紧急事务的问题：当某个设备需要紧急传输数据给主机时，只有等待下一个时间到来，虽然这个时间片可以设置很短，比如1ms，但这样增加了USB主机的查询负担</p>
+<p>总结一下</p>
+<p><strong>优点：</strong></p>
 <ol>
-<li>晶振问题<br>库使用的是25MHz晶振，我焊接的是8MHz晶振<br>代码修改如下<ol>
-<li>#define PLL_M    8</li>
-<li>#define HSE_VALUE    ((uint32_t)8000000) /<em>!&lt; Value of the External oscillator in Hz </em>/</li>
+<li>架构清晰，便于通过HUB拓展外设<br>能通过HUB来拓展至127个外设</li>
+<li>USB主机控制整个总线带宽，可以合理的分配给不同的设备<br>设备带宽，电流单独可控</li>
+<li>单主机机制，不需要复杂的主机协调协议<br>主机定时轮询，避免多机冲突</li>
+<li>地址分配协议简单清晰<br>默认地址为0，主机统一分配地址</li>
 </ol>
+<p><strong>不足：</strong></p>
+<ol>
+<li>带宽使用率有限</li>
+<li>从机只能被动的发送数据，对于紧急事件，延迟较高</li>
+</ol>
+<p>随着手机等可移动设备的普及，用户不仅希望手机能和电脑连接，也能连接外设（比如U盘，打印机），主机架构已经满足不了需求了</p>
+<p>于是USB推出一个OTG功能，增加了主机协调协议，能在连接时，通过协商来确定谁当主机，谁当从机，从而解决了这个问题</p>
+<p>下一篇分析USB怎么识别不同速度的外设</p>
+<h3 id="每日推荐">每日推荐</h3><ol>
+<li>ST巡讲会的USB资料<a href="http://sttext.eefocus.com/data/st/06/e3/9e/1371713070198251.pdf" target="_blank" rel="external">http://sttext.eefocus.com/data/st/06/e3/9e/1371713070198251.pdf</a></li>
+</ol>
+<p>2015-12-16</p>
+<p>－－－－－分割线－－－－－<br><strong>注意事项</strong></p>
+<ol>
+<li><p>本订阅号（微信搜 McuProgramming ）主要发布一些嵌入式相关的知识和技巧，涉及到软件，硬件，射频，协议栈等；如果您有感兴趣的领域，请通过回复订阅号告诉我</p>
 </li>
-<li>VBUS检测问题<br>默认情况下，STM32用PA9来检测VBUS电压，并设置对应的上拉模式<br>所以可以在OTG_FS_GCCFG寄存器中，置位NOVBUSSENS，关闭VBUS检测功能，强制使用上拉模式<br>这样，外部DP，DM就不需要使用1.5K上拉电阻</li>
-</ol>
-<p>手册摘录如下：</p>
-<blockquote>
-<p>Bit 21 NOVBUSSENS: VBUS sensing disable option<br>When this bit is set, VBUS is considered internally to be always at VBUS valid level (5 V). This option removes the need for a dedicated VBUS pad, and leave this pad free to be used for other purposes such as a shared functionality. VBUS connection can be remapped on another general purpose input pad and monitored by software.<br>This option is only suitable for host-only or device-only applications.<br>0: VBUS sensing available by hardware<br>1: VBUS sensing not available by hardware.</p>
-</blockquote>
-<p><strong>参考资料</strong></p>
-<ol>
-<li><a href="http://sttext.eefocus.com/data/st/06/e3/9e/1371713070198251.pdf" target="_blank" rel="external">STM32 OTG_FS/HS 模块</a></li>
+<li><p>本订阅号主要是简单文字为主，内含少量代码段，但绝不会发布大量的代码。<br>因为根据自己的体会，在手机微信端看代码的体验非常糟糕，一方面屏幕比较小，显示效果不好；另一方面，玩手机时，精力不会集中，更不会有大量时间。<br>cedar-renjun.github.io 个人博客会发一些技术细节的东西，感兴趣的，可以深入研究这里的博文</p>
+</li>
+<li><p>微信的编辑功能比较弱，不能贴链接，代码啥的，，，所有文章均发表在个人博客，可以通过点击原文来查看，原文有代码语法高亮，显示图片，带链接等效果</p>
+</li>
 </ol>
 
       
@@ -254,18 +271,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/17/Day-8-USB/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Day 8 USB 总线架构
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/14/libusb-on-mac/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MAC环境下，QT上使用libusb</div>
+    <a href="/2015/12/16/usb-vbus-detect/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">USB VBUS检测</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -294,7 +302,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="usb-vbus-detect" data-title="USB VBUS检测" data-url="cedar-renjun.github.io/2015/12/16/usb-vbus-detect/"></div>
+	<div class="ds-thread" data-thread-key="Day-8-USB" data-title="Day 8 USB 总线架构" data-url="cedar-renjun.github.io/2015/12/17/Day-8-USB/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

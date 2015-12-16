@@ -176,6 +176,71 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-elf-format-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/02/elf-format-2/" class="article-date">
+  	<time datetime="2015-11-02T07:09:22.000Z" itemprop="datePublished">2015-11-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/02/elf-format-2/">ELF文件分析之2 － 静态链接</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_概述">0    概述</h3><p>有了上面两篇文章的铺垫，再看一遍ELF1.1规范，就已经简单的入门了<br>这篇文章，主要讲静态链接中的符号重定向过程和ELF处理机制</p>
+<h3 id="2_变量内存分布">2    变量内存分布</h3><p>我们知道，C语言的变量按作用域来分，包括：</p>
+<ol>
+<li>全局作用域变量<br>未加static修饰的变量，这种变量会标记为PUBLIC，并对外可见</li>
+<li>文件作用域变量<br>static修饰的变量，这种变量会标记为LOCAK，对外不可见</li>
+<li>局部作用域变量<br>block里面的变量<br>什么是block呢，就是包含在<code>{}</code>里面的，未被static修饰的变量，这种变量会放在栈中，没有任何标记，对外不可见</li>
+</ol>
+<p>也许你会问，C语言中有很多类型的变量，比如int，char，enum等，你为什么只提变量，而不提具体类型？<br>这是因为，变量类型仅仅对高级语言有效，机器码里面并没有数据类型，CPU只认识特定宽度的数据，然后做基本运算。<br>真的，在ELF里面，只有<code>OBJECT</code>,<code>FUNC</code>两种类型符号，我们来尝试一下</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/11/02/elf-format-2/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-elf-format-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1612,73 +1677,6 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
       
         <p class="article-more-link">
           <a  href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-Port-to-gcc" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/06/Port-to-gcc/" class="article-date">
-  	<time datetime="2015-10-06T03:39:47.000Z" itemprop="datePublished">2015-10-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/06/Port-to-gcc/">ARM GCC移植指导</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="概述">概述</h3><p>本文主要介绍MDK代码移植到ARM GCC中的注意事项，以及对应的编译器指令</p>
-<p>主要包括</p>
-<ul>
-<li>启动文件</li>
-<li>链接脚本</li>
-<li>汇编文件</li>
-<li>编译器指令</li>
-<li>其它</li>
-</ul>
-<h3 id="启动文件">启动文件</h3><p>选择适用于gcc as汇编器的启动文件，并注意添加bss的清零和data的复制代码，用于初始化C<br>runtime，如果使用到了C++，还需要手工复制构造函数表和全局变量表，并调用_start函数来初始化C lib</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/gcc/">gcc</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/06/Port-to-gcc/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

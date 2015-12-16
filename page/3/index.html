@@ -176,6 +176,73 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Port-to-gcc" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/06/Port-to-gcc/" class="article-date">
+  	<time datetime="2015-10-06T03:39:47.000Z" itemprop="datePublished">2015-10-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/06/Port-to-gcc/">ARM GCC移植指导</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述">概述</h3><p>本文主要介绍MDK代码移植到ARM GCC中的注意事项，以及对应的编译器指令</p>
+<p>主要包括</p>
+<ul>
+<li>启动文件</li>
+<li>链接脚本</li>
+<li>汇编文件</li>
+<li>编译器指令</li>
+<li>其它</li>
+</ul>
+<h3 id="启动文件">启动文件</h3><p>选择适用于gcc as汇编器的启动文件，并注意添加bss的清零和data的复制代码，用于初始化C<br>runtime，如果使用到了C++，还需要手工复制构造函数表和全局变量表，并调用_start函数来初始化C lib</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/gcc/">gcc</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/06/Port-to-gcc/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-Set-Up-scons-environment" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1480,74 +1547,6 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-can-not-read-cpuid-via-jlink-in-iar" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/" class="article-date">
-  	<time datetime="2014-06-04T07:18:27.000Z" itemprop="datePublished">2014-06-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/06/04/can-not-read-cpuid-via-jlink-in-iar/">IAR环境下，Jlink调试报错，提示&lt;无法读取CPUID&gt;</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="问题描述">问题描述</h3><p>在IAR 6.3中，使用Jlink调试Cortex-M芯片的时候，无法正常调试，报错</p>
-<pre><code>Can <span class="keyword">not</span> <span class="command">read</span> CPUID
-</code></pre><p>为CPU重新上电，则可以正常进入调试状态</p>
-<h3 id="出现原因">出现原因</h3><p>IAR Jlink DLL版本过低</p>
-<h3 id="解决方案">解决方案</h3><p>用最新版的<code>JlinkARM.dll</code>替换掉IAR安装目录下默认的<code>JLinkARM.dll</code></p>
-<p>附：我的jlinkarm.dll路径如下，不同电脑路径可能不一致，注意区分</p>
-<p>1：Jlink软件JlinkARM.dll路径</p>
-<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\SEGGER</span><span class="command">\JLinkARM</span>_V474b
-</code></pre><p>2：IAR安装目录JlinkARM.dll路径</p>
-<pre><code>C:<span class="command">\Program</span> Files (x86)<span class="command">\IAR</span> Systems<span class="command">\Embedded</span> Workbench 6.0<span class="command">\arm</span><span class="command">\bin</span>
-</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IAR/">IAR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jlink/">Jlink</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/IAR/">IAR</a>
 	</div>
 
 

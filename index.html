@@ -176,6 +176,97 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Day-8-USB" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/17/Day-8-USB/" class="article-date">
+  	<time datetime="2015-12-16T16:04:44.000Z" itemprop="datePublished">2015-12-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/17/Day-8-USB/">Day 8 USB 总线架构</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>USB的架构如下所示</p>
+<p><img src="http://cedar-renjun.github.io/images/2015/12/17/1.png" alt="USB框架图"></p>
+<p>属于树形节点（星形）网络，HUB是树的根节点，Device表示叶子节点，HOST是根节点</p>
+<p>USB设计的初衷就是为了构建以PC为中心的，连接各种外设硬件的网络；所以为了让USB接口占用的面积最少，设计了HUB逐级拓展的方式，然后利用PC 作为HOST，管理所有的设备</p>
+<p>当然，这种单一主控的网络架构，导致的问题就是带宽利用率有限，外设增多之后，每个外设所得到的时间片会相应的缩小和延时抖动</p>
+<p>现代PC机都会采用多个USB HOST的方式来缓解这个问题，USB设备分配到不同的USB网络中，从而避免了带宽冲突的问题</p>
+<p>从整体上来看，USB属于半双工，单主机轮询机制；只有当主机轮询到对应的从机时，从机才可以发送数据，从机绝对不能主动发数据给主机</p>
+<p>这就带来一个怎么处理紧急事务的问题：当某个设备需要紧急传输数据给主机时，只有等待下一个时间到来，虽然这个时间片可以设置很短，比如1ms，但这样增加了USB主机的查询负担</p>
+<p>总结一下</p>
+<p><strong>优点：</strong></p>
+<ol>
+<li>架构清晰，便于通过HUB拓展外设<br>能通过HUB来拓展至127个外设</li>
+<li>USB主机控制整个总线带宽，可以合理的分配给不同的设备<br>设备带宽，电流单独可控</li>
+<li>单主机机制，不需要复杂的主机协调协议<br>主机定时轮询，避免多机冲突</li>
+<li>地址分配协议简单清晰<br>默认地址为0，主机统一分配地址</li>
+</ol>
+<p><strong>不足：</strong></p>
+<ol>
+<li>带宽使用率有限</li>
+<li>从机只能被动的发送数据，对于紧急事件，延迟较高</li>
+</ol>
+<p>随着手机等可移动设备的普及，用户不仅希望手机能和电脑连接，也能连接外设（比如U盘，打印机），主机架构已经满足不了需求了</p>
+<p>于是USB推出一个OTG功能，增加了主机协调协议，能在连接时，通过协商来确定谁当主机，谁当从机，从而解决了这个问题</p>
+<p>下一篇分析USB怎么识别不同速度的外设</p>
+<h3 id="每日推荐">每日推荐</h3><ol>
+<li>ST巡讲会的USB资料<a href="http://sttext.eefocus.com/data/st/06/e3/9e/1371713070198251.pdf" target="_blank" rel="external">http://sttext.eefocus.com/data/st/06/e3/9e/1371713070198251.pdf</a></li>
+</ol>
+<p>2015-12-16</p>
+<p>－－－－－分割线－－－－－<br><strong>注意事项</strong></p>
+<ol>
+<li><p>本订阅号（微信搜 McuProgramming ）主要发布一些嵌入式相关的知识和技巧，涉及到软件，硬件，射频，协议栈等；如果您有感兴趣的领域，请通过回复订阅号告诉我</p>
+</li>
+<li><p>本订阅号主要是简单文字为主，内含少量代码段，但绝不会发布大量的代码。<br>因为根据自己的体会，在手机微信端看代码的体验非常糟糕，一方面屏幕比较小，显示效果不好；另一方面，玩手机时，精力不会集中，更不会有大量时间。<br>cedar-renjun.github.io 个人博客会发一些技术细节的东西，感兴趣的，可以深入研究这里的博文</p>
+</li>
+<li><p>微信的编辑功能比较弱，不能贴链接，代码啥的，，，所有文章均发表在个人博客，可以通过点击原文来查看，原文有代码语法高亮，显示图片，带链接等效果</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信订阅号/">微信订阅号</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-usb-vbus-detect" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1686,71 +1777,6 @@
       
         <p class="article-more-link">
           <a  href="/2015/11/02/elf-format-3/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-elf-format-2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/11/02/elf-format-2/" class="article-date">
-  	<time datetime="2015-11-02T07:09:22.000Z" itemprop="datePublished">2015-11-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/02/elf-format-2/">ELF文件分析之2 － 静态链接</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="0_概述">0    概述</h3><p>有了上面两篇文章的铺垫，再看一遍ELF1.1规范，就已经简单的入门了<br>这篇文章，主要讲静态链接中的符号重定向过程和ELF处理机制</p>
-<h3 id="2_变量内存分布">2    变量内存分布</h3><p>我们知道，C语言的变量按作用域来分，包括：</p>
-<ol>
-<li>全局作用域变量<br>未加static修饰的变量，这种变量会标记为PUBLIC，并对外可见</li>
-<li>文件作用域变量<br>static修饰的变量，这种变量会标记为LOCAK，对外不可见</li>
-<li>局部作用域变量<br>block里面的变量<br>什么是block呢，就是包含在<code>{}</code>里面的，未被static修饰的变量，这种变量会放在栈中，没有任何标记，对外不可见</li>
-</ol>
-<p>也许你会问，C语言中有很多类型的变量，比如int，char，enum等，你为什么只提变量，而不提具体类型？<br>这是因为，变量类型仅仅对高级语言有效，机器码里面并没有数据类型，CPU只认识特定宽度的数据，然后做基本运算。<br>真的，在ELF里面，只有<code>OBJECT</code>,<code>FUNC</code>两种类型符号，我们来尝试一下</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/11/02/elf-format-2/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
