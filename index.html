@@ -176,6 +176,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-usb-vbus-detect" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/16/usb-vbus-detect/" class="article-date">
+  	<time datetime="2015-12-16T09:05:09.000Z" itemprop="datePublished">2015-12-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/16/usb-vbus-detect/">USB VBUS检测</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>重新设计了USB硬件，兼容所有F4系列64Pin封装芯片<br>但下载USB程序，PC检测不到USB设备</p>
+<p>看了下ST提供的代码，主要是以下几个问题</p>
+<ol>
+<li>晶振问题<br>库使用的是25MHz晶振，我焊接的是8MHz晶振<br>代码修改如下<ol>
+<li>#define PLL_M    8</li>
+<li>#define HSE_VALUE    ((uint32_t)8000000) /<em>!&lt; Value of the External oscillator in Hz </em>/</li>
+</ol>
+</li>
+<li>VBUS检测问题<br>默认情况下，STM32用PA9来检测VBUS电压，并设置对应的上拉模式<br>所以可以在OTG_FS_GCCFG寄存器中，置位NOVBUSSENS，关闭VBUS检测功能，强制使用上拉模式<br>这样，外部DP，DM就不需要使用1.5K上拉电阻</li>
+</ol>
+<p>手册摘录如下：</p>
+<blockquote>
+<p>Bit 21 NOVBUSSENS: VBUS sensing disable option<br>When this bit is set, VBUS is considered internally to be always at VBUS valid level (5 V). This option removes the need for a dedicated VBUS pad, and leave this pad free to be used for other purposes such as a shared functionality. VBUS connection can be remapped on another general purpose input pad and monitored by software.<br>This option is only suitable for host-only or device-only applications.<br>0: VBUS sensing available by hardware<br>1: VBUS sensing not available by hardware.</p>
+</blockquote>
+<p><strong>参考资料</strong></p>
+<ol>
+<li><a href="http://sttext.eefocus.com/data/st/06/e3/9e/1371713070198251.pdf" target="_blank" rel="external">STM32 OTG_FS/HS 模块</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-libusb-on-mac" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1679,76 +1751,6 @@
       
         <p class="article-more-link">
           <a  href="/2015/11/02/elf-format-2/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-elf-format-1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/11/01/elf-format-1/" class="article-date">
-  	<time datetime="2015-11-01T15:13:07.000Z" itemprop="datePublished">2015-11-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/01/elf-format-1/">ELF文件分析之1 － 文件格式</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="0_前言">0    前言</h3><p>上一篇，我们知道了ELF文件是什么，以及怎么用，本篇重点介绍ELF的文档规范</p>
-<h3 id="1_整体结构">1    整体结构</h3><p>ELF适用于3种文件结构</p>
-<ol>
-<li>重定向文件<br>也就是经常见到的<code>.o</code>文件，用于保存代码和数据，链接器用使用这个文件来创建<code>可执行文件</code>或者<code>共享文件</code></li>
-<li>可执行文件<br>也就是linux下面的<code>.out</code>文件，用于执行</li>
-<li>共享文件<br>常见的静态库<code>.lib</code>或者动态库<code>.so</code>，就是这个文件格式，就是由多个<code>.o</code>压缩成的，可以用于保存代码或者数据，节省编译时间</li>
-</ol>
-<p>上面三种文件，再综合一下，可以分为两种</p>
-<ol>
-<li>链接文件（中间态）</li>
-<li>可执行文件（最终态）</li>
-</ol>
-<p>ELF分别用两种视图来表示二者，如下所示<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/11/01/elf-format-1/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

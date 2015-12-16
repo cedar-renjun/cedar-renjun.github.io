@@ -176,6 +176,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Set-Up-scons-environment" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/06/Set-Up-scons-environment/" class="article-date">
+  	<time datetime="2015-10-06T01:49:41.000Z" itemprop="datePublished">2015-10-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/06/Set-Up-scons-environment/">建立scons开发环境</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述">概述</h3><p>本文重点介绍win7环境下安装arm gcc编译器和scons编译系统的过程</p>
+<p>注意：对于arm gcc和scons的介绍信息，请参考本博客《arm gcc简介》，《scons系统简介》</p>
+<h3 id="安装步骤">安装步骤</h3><h4 id="1-_安装gcc">1. 安装gcc</h4><p>这里采用launchapad的arm-none-eabi-gcc，官网<a href="https://launchpad.net/gcc-arm-embedded/" target="_blank" rel="external">https://launchpad.net/gcc-arm-embedded/</a><br>进入<a href="https://launchpad.net/gcc-arm-embedded/+download" target="_blank" rel="external">下载页面</a>， 根据自己的系统，选择对应的版本，我这里下载32位最新版4.9<a href="https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-win32.exe" target="_blank" rel="external">gcc-arm-none-eabi-4_9-2015q3-20150921-win32.exe</a></p>
+<p>点击安装，一路next，保持默认安装路径，安装完成界面，会有4个复选框，勾选</p>
+<ul>
+<li><code>Add path to environment variable</code></li>
+<li><code>Add registry information</code><br>点击完成，arm gcc安装完成</li>
+</ul>
+<h4 id="2-_安装python_2-xx">2. 安装python 2.xx</h4><p><strong>注意:</strong> 一定要安装2.xx版本的python<br>进入python下载页面<a href="https://www.python.org/downloads/release/python-2710/，" target="_blank" rel="external">https://www.python.org/downloads/release/python-2710/，</a> 选择对应系统的python<br>这里选择32位2.7自安装包版本<br><a href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi" target="_blank" rel="external">https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi</a></p>
+<p>点击安装，一路next，保持默认安装路径和配置选项，直到安装完成</p>
+<h4 id="3-_安装scons">3. 安装scons</h4><p>进入scons下载页面<a href="http://www.scons.org/download.php" target="_blank" rel="external">http://www.scons.org/download.php</a><br>下载2.4版本的windows安装包<a href="http://prdownloads.sourceforge.net/scons/scons-2.4.0-setup.exe" target="_blank" rel="external">http://prdownloads.sourceforge.net/scons/scons-2.4.0-setup.exe</a></p>
+<p>点击安装，一路next，保持默认安装路径和配置选项，直到安装完成</p>
+<h4 id="4-_更新环境变量">4. 更新环境变量</h4><p>打开系统环境变量配置页<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">开始－》计算机－》属性－》高级系统设置－》环境变量－》系统变量－》<span class="built_in">Path</span>－》编辑</span><br></pre></td></tr></table></figure></p>
+<p>检查Path是否有下面三项，没有则添加<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Python27</span>;<span class="title">C</span>:\<span class="title">Python27</span>\<span class="title">Scripts</span>;<span class="title">C</span>:\<span class="title">Program</span> <span class="title">Files</span>\<span class="title">GNU</span> <span class="title">Tools</span> <span class="title">ARM</span> <span class="title">Embedded</span>\4.9 2015<span class="title">q3</span>\<span class="title">bin</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>注意</strong>: Path 用<code>;</code>来分割路径</p>
+<h4 id="5-_测试系统">5. 测试系统</h4><p>打开Cmd窗口，输入<code>arm-none-eabi-gcc -v</code>, <code>python -V</code>, <code>scons -v</code><br><strong>注意</strong>: <code>python -V</code>中的V要大写</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users&gt; arm-none-eabi-gcc -v</span><br><span class="line">Using built-<span class="flow">in</span> specs.</span><br><span class="line">COLLECT_GCC=C:\Program Files\GNU Tools ARM Embedded\<span class="number">4</span>.<span class="number">9</span> <span class="number">2015</span>q3\bin\arm-none-eabi-gcc.exe</span><br><span class="line">COLLECT_LTO_WRAPPER=c:/program\ files/gnu\ tools\ arm\ embedded/<span class="number">4</span>.<span class="number">9</span>\ <span class="number">2015</span>q3/bin/../lib/gcc/arm-none-eabi/<span class="number">4</span>.<span class="number">9</span>.<span class="number">3</span>/lto-wrapp</span><br><span class="line">er.exe</span><br><span class="line"><span class="function">Target: <span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span></span><br><span class="line"><span class="title">Configured</span> <span class="title">with</span>: /<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">src</span>/<span class="title">gcc</span>/<span class="title">configure</span> --<span class="title">build</span>=<span class="title">i686</span>-<span class="title">linux</span>-<span class="title">gnu</span> --<span class="title">host</span>=<span class="title">i686</span>-<span class="title">w64</span>-<span class="title">mingw32</span> --<span class="title">targe</span></span><br><span class="line"><span class="title">t</span>=<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span> --<span class="title">prefix</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span> --<span class="title">libexecdir</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">instal</span></span><br><span class="line"><span class="title">l</span>-<span class="title">mingw</span>/<span class="title">lib</span> --<span class="title">infodir</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span>/<span class="title">share</span>/<span class="title">doc</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span>/<span class="title">info</span> --<span class="title">mandir</span>=/<span class="title">home</span>/<span class="title">build</span></span><br><span class="line">/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span>/<span class="title">share</span>/<span class="title">doc</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span>/<span class="title">man</span> --<span class="title">htmldir</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span></span><br><span class="line">/<span class="title">share</span>/<span class="title">doc</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span>/<span class="title">html</span> --<span class="title">pdfdir</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span>/<span class="title">share</span>/<span class="title">doc</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span>/<span class="title">pdf</span></span><br><span class="line">--<span class="title">enable</span>-<span class="title">languages</span>=<span class="title">c</span>,<span class="title">c</span>++ --<span class="title">disable</span>-<span class="title">decimal</span>-<span class="title">float</span> --<span class="title">disable</span>-<span class="title">libffi</span> --<span class="title">disable</span>-<span class="title">libgomp</span> --<span class="title">disable</span>-<span class="title">libmudflap</span> --<span class="title">disable</span>-<span class="title">libqu</span></span><br><span class="line"><span class="title">admath</span> --<span class="title">disable</span>-<span class="title">libssp</span> --<span class="title">disable</span>-<span class="title">libstdcxx</span>-<span class="title">pch</span> --<span class="title">disable</span>-<span class="title">nls</span> --<span class="title">disable</span>-<span class="title">shared</span> --<span class="title">disable</span>-<span class="title">threads</span> --<span class="title">disable</span>-<span class="title">tls</span> --<span class="title">with</span>-<span class="title">gn</span></span><br><span class="line"><span class="title">u</span>-<span class="title">as</span> --<span class="title">with</span>-<span class="title">gnu</span>-<span class="title">ld</span> --<span class="title">with</span>-<span class="title">headers</span>=<span class="title">yes</span> --<span class="title">with</span>-<span class="title">newlib</span> --<span class="title">with</span>-<span class="title">python</span>-<span class="title">dir</span>=<span class="title">share</span>/<span class="title">gcc</span>-<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span> --<span class="title">with</span>-<span class="title">sysroot</span>=/<span class="title">home</span>/<span class="title">build</span></span><br><span class="line">/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">install</span>-<span class="title">mingw</span>/<span class="title">arm</span>-<span class="title">none</span>-<span class="title">eabi</span> --<span class="title">with</span>-<span class="title">libiconv</span>-<span class="title">prefix</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">l</span></span><br><span class="line"><span class="title">ibs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">gmp</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">mpfr</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">b</span></span><br><span class="line"><span class="title">uild</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">mpc</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">isl</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span></span><br><span class="line">/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">cloog</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">li</span></span><br><span class="line"><span class="title">belf</span>=/<span class="title">home</span>/<span class="title">build</span>/<span class="title">work</span>/<span class="title">GCC</span>-4-9-<span class="title">build</span>/<span class="title">build</span>-<span class="title">mingw</span>/<span class="title">host</span>-<span class="title">libs</span>/<span class="title">usr</span> --<span class="title">with</span>-<span class="title">host</span>-<span class="title">libstdcxx</span>='-<span class="title">static</span>-<span class="title">libgcc</span> -<span class="title">Wl</span>,-<span class="title">Bstatic</span>,-<span class="title">lstdc</span>+</span><br><span class="line">+,-<span class="title">Bdynamic</span> -<span class="title">lm</span>' --<span class="title">with</span>-<span class="title">pkgversion</span>='<span class="title">GNU</span> <span class="title">Tools</span> <span class="title">for</span> <span class="title">ARM</span> <span class="title">Embedded</span> <span class="title">Processors</span>' --<span class="title">with</span>-<span class="title">multilib</span>-<span class="title">list</span>=<span class="title">armv6</span>-<span class="title">m</span>,<span class="title">armv7</span>-<span class="title">m</span>,<span class="title">armv7e</span>-<span class="title">m</span></span><br><span class="line">,<span class="title">cortex</span>-<span class="title">m7</span>,<span class="title">armv7</span>-<span class="title">r</span></span><br><span class="line"><span class="title">Thread</span> <span class="title">model</span>: <span class="title">single</span></span><br><span class="line"><span class="title">gcc</span> <span class="title">version</span> 4.9.3 20150529 (<span class="title">release</span>) [<span class="title">ARM</span>/<span class="title">embedded</span>-4<span class="title">_9</span>-<span class="title">branch</span> <span class="title">revision</span> 227977] (<span class="title">GNU</span> <span class="title">Tools</span> <span class="title">for</span> <span class="title">ARM</span> <span class="title">Embedded</span> <span class="title">Processors</span>)</span><br><span class="line"><span class="title">PS</span> <span class="title">C</span>:\<span class="title">Users</span>&gt; <span class="title">python</span> -<span class="title">V</span></span><br><span class="line"><span class="title">Python</span> 2.7.10</span><br><span class="line"><span class="title">PS</span> <span class="title">C</span>:\<span class="title">Users</span>&gt; <span class="title">scons</span> -<span class="title">v</span></span><br><span class="line"><span class="title">SCons</span> <span class="title">by</span> <span class="title">Steven</span> <span class="title">Knight</span> <span class="title">et</span> <span class="title">al</span>.:</span><br><span class="line">        <span class="title">script</span>: <span class="title">v2</span>.4.0.<span class="title">rel_2</span>.4.0:3365:9259<span class="title">ea1c13d7</span>, 2015/09/21 14:03:43, <span class="title">by</span> <span class="title">bdbaddog</span> <span class="title">on</span> <span class="title">hpmicrodog</span></span><br><span class="line">        <span class="title">engine</span>: <span class="title">v2</span>.4.0.<span class="title">rel_2</span>.4.0:3365:9259<span class="title">ea1c13d7</span>, 2015/09/21 14:03:43, <span class="title">by</span> <span class="title">bdbaddog</span> <span class="title">on</span> <span class="title">hpmicrodog</span></span><br><span class="line">        <span class="title">engine</span> <span class="title">path</span>: ['<span class="title">C</span>:\\<span class="title">Python27</span>\\<span class="title">scons</span>-2.4.0\\<span class="title">SCons</span>']</span><br><span class="line"><span class="title">Copyright</span> (<span class="title">c</span>) 2001 - 2015 <span class="title">The</span> <span class="title">SCons</span> <span class="title">Foundation</span></span><br><span class="line"><span class="title">PS</span> <span class="title">C</span>:\<span class="title">Users</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>至此，所有的系统配置已经完成</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/scons/">scons</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1476,92 +1548,6 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/IAR/">IAR</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-personal-and-platform" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/05/29/personal-and-platform/" class="article-date">
-  	<time datetime="2014-05-29T04:48:16.000Z" itemprop="datePublished">2014-05-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/29/personal-and-platform/">个人与平台</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote><p>总结自己短暂却又不失跌宕的职业生活（没敢说生涯），尤其到了今年，所有重要抑或不重要的故事勾勒出一幅画面。随着自己的不断进步，却发现越来越多的无奈，不断坚持后，又随着事务的不断解决，越来越悟出一个道理：个人，要想进步，必须要有个适合你的平台。</p>
-<footer><strong>divivy</strong><cite><a href="http://blog.sina.com.cn/divivy" target="_blank" rel="external">Divivy's Heaven</a></cite></footer></blockquote>
-<pre><code>注：原文转载自 &lt;<span class="string">http:</span><span class="comment">//blog.sina.com.cn/s/blog_414bbec30100gepf.html&gt; ，转载请注明原出处</span>
-</code></pre><p>有朋友EMAIL我说：“我现在在的公司里我能力最强（我笑），每天干的最多，老板是很倚重我，但又不肯给我想要的待遇。不想做了，跳一跳，到时候让老板知道没我了他会多后悔。”  </p>
-<p>我没正面回应他，因为我知道那种感觉不是几句话能够说动的。后来他告诉我说，他走了，去了另外一个公司，发现事情有些不按照自己想法前进。新的公司更加过分，原来的公司在自己走了后自己本来一个部门的竞争对手竟然升到了部门经理，待遇直接翻倍了。不胜后悔！</p>
-<p>对于这种事情，我个人是有着切身体会的。在毕业后第一个公司时，每天我做的最多的事情就是感慨自己的“怀才不遇”，认为自己应该是理所应当的领导，为什么却要天天去做那些随便一个初中生都可以做的琐碎工作。于是消极抵抗，甚至无心工作，最后结果是一些小的事情都做不好，却让领导更加反感。最后选择离开！</p>
-<p>公司的老总在我离职后也许嗅到了一些味道，两个同来的都迅速的升职，一个做项目经理一个做了技术部副经理，待遇也是随之上涨。当然我并不后悔，不过这也是后话了。当时还是有些小后悔的！</p>
-<p>以上两个故事说明一个什么问题呢？那就是：<strong> 对于一个公司，你自己远远没有你想的那么重要！</strong></p>
-<p>如果有合作公司老板打电话给你要你过去，待遇要比现在高，你怎么办？我的直观反应会是：“你要知道你是凭借什么才有这种资格接到这种电话。当然，你的努力和能力很重要，但是如果没有公司这个大平台，你会有今天吗？没有今天，你怎么能让别人认可你。人要学会感恩。即使对方开出的价码实在让你无法拒绝，但是你还要考虑一个你过去后能够适应的问题。”</p>
-<p>再就是在个体中表现最为强烈的一种“意识形态”了。对于成立时间并不长的公司，人才，尤其是合适的人才是非常重要的。不一定要求对方的能力强到世界第一，而是要合适。公司从成立到现在，发掘了很多“合适”的人才。他们在进公司后，凭借自身努力和公司提供的宽松环境，将自己的能力发挥的淋漓尽致，为公司成长立下了汗马功劳的同时，个人能力也不断进步。</p>
-<p>新公司局限于资源和自身条件，很难去储备较多的管理人才。所以招来的每个人都是依据公司缺人的职位，不断甄选，最终找到符合该职位的人选，可谓“一个钉子一个铆”。这样造成的结果有正反方面两个，一是这个人越来越合适这个工作，工作手法越来越熟练，越来越得心应手，效率更高；另一方面，随着公司的更加倚重，他听到的夸赞越来越多。这种夸赞渐渐就让人内心深处出现了“骄傲”的情绪，滋长着“没我不行”的呐喊。<br>这时候对于双方，无论公司或者个人，都是比较危险的时刻。</p>
-<p>对于个人，因为觉得自己的“不可或缺”，就会产生多种复杂思维。就好像一个得了“肥胖症”的患者，接下来就会诱发如高血压、高血脂、高血糖、糖尿病等各类并发症。他们会理所当然的认为自己既然如此重要，那么老板你要提高我的职位，你要给我更高的待遇，你要给我更大的管理权力，你要给予我更多的尊重；他们会在和同事相处时表现的更加咄咄逼人，更加的骄傲和难以接受；他们会在处理工作时表现的更加眼高手低，觉得自己应该做更高一层的职位。武断的自我抬高会让自己的虚荣心不断上升，处理事务更加的独断和难以接受，他们会尝试着插手别人的分内事务，从而引起同事的不满，继而是失误的增多和更多的人心向背。</p>
-<p>对于公司，培养一个合适的人选不容易。看着自己辛苦培养出来的人如此的自我膨胀，却无计可施。因为你不可能答应他的条件，否则以后他会更加不可一世，别人看到后也会群起而仿效。但是看着他越滑越远，最难过的应该是公司一方。如果这个人走了，结果应该是“双输”。</p>
-<p>但是个人请永远不能低估公司作为一个平台的强大造血功能和新陈代谢能力。新公司对于一个“合适”的人离去是可以接受的，因为所有“合适”的人在同时间离开可能性不是没有，但概率却是很小的。你走了，我需要做的也许只是去再招人。也许短时间内会有些贫血，但只要人找到了，再经过培养，依然可用，造血只是个迟早的过程。而平台其他血细胞，在这种关键时刻也是完全可以到达失血位置支援的。</p>
-<p>这个时候我们返回来去思索一下，作为一个个体，应该如何正确处理自己作为一个和公司这个平台的关系。总结自己的个人经验，提出如下几点：</p>
-<h3 id="一、打倒自己心中的鬼，让自己变得一文不值">一、打倒自己心中的鬼，让自己变得一文不值</h3><p><strong>记住，不管到哪里，什么时候，自己永远没有自己想的那么重要</strong>。没有那个地方没你不行，没你地球照转，太阳天天东升西落。千万不要让自己觉得自己可以扭转地球自转的规律。平台是个大机器，而且随着不断进步，内部机械运转更加趋于合理，强大的机制才是真正的内核和发动机。个体只不过是这个巨大机器上的一颗螺丝钉，螺丝钉之于发动机，相差了N个数量级样的光年。平台和个人同时发展，大家各司其职，发动机性能更加优越，螺丝钉越来越牢固，机器运转才会越来越稳定。你有没有想起雷锋叔叔？</p>
-<h3 id="二、做好自己分内的事，先把平台推上去">二、做好自己分内的事，先把平台推上去</h3><p>一个人的价值体现是随着平台的不断进步而不断提高的。试想现在你是一个一文不名的小公司项目经理，没人知道你，你说出去别人会说：“你们能按月发工资吗？”若干年后，你的公司成了万科级别的公司，别人看你那叫高山仰止。要想自己站得高，首先要先努力把平台推上去。做好自己分内的工作，同时尽量站在自己上一级领导的位置去思考，你能取得平台和个人同步提升。</p>
-<h3 id="三、平台有多高，你就能看多远">三、平台有多高，你就能看多远</h3><p>也就是常说的“屁股决定脑袋”。如果你仅仅是个小职员，你认识的人就很难有项目经理或者部门主管。如果你是项目经理，你也很难接触到其他公司的高管或者老总。但是如果把你放在高官的位置，你处理事务时，思路就会比站在项目经理或者普通职员位置上更加开阔。这时，你就能理解，为什么有时候接到上边的指令之初会觉得难以执行，但做着做着就渐渐的开始佩服。当然，给你这个平台，前提是你要有相当的能力。给一个科员水平的人去坐处长的位子，那叫勉为其难，那不是在提拔人，是在糟践人。</p>
-<h3 id="四、永远不要骄傲">四、永远不要骄傲</h3><font color="red"> <strong> 一个人成功的程度，取决于其控制性格中不好方面的能力。</strong> </font>
-
-<p>骄傲，是所有人都有的性格。但是就像自负和自信一样，稍不留意，你就会骄傲的让自己摸不到头脑。骄傲，会让你失去细心，严谨，脚踏实地等一系列的优秀性格，你会觉得自己不可一世。</p>
-<p>也许你还没有到觉得“没你不行”的地步，但是你自己想想自己是否有以下表现中的一种或者几种：</p>
-<ul>
-<li>你是不是越来越不想听你上级的指令了，越来越觉得他是错的</li>
-<li>你是不是越来越懈怠，可以玩物丧志，可以不重视公司的纪律</li>
-<li>你是不是越来越听不进别人的话了，对上级的指令感觉越来越刺耳</li>
-<li>你是不是越来越开始游离于公司管理制度的灰色地带</li>
-<li>你是不是开始对同级或者下属在生活中开始更多“命令式”的说话</li>
-</ul>
-<p>自控和自我反省能力是一个人要做好事情的基本前提。尤其对于“塑形期”的年轻人。尤其现代社会，压力大，人会变得越来越浮躁，没有方向感和归属感。所以要多看书，多学习，多做有意义的事情，切忌不要沉迷于某种不好的事物或者情绪中。</p>
-<p>世界因你而动，follow your heart，多倾听自己内心的声音，让自己变得更加的强大后，你才会有更多维和正确的选择观。</p>
-<p>让我们一起努力吧！</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/转载/">转载</a>
 	</div>
 
 

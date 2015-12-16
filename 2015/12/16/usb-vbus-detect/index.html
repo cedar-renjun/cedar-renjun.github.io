@@ -3,17 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015 | Simple</title>
+  <title>USB VBUS检测 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术的终极目标是简洁">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Simple">
-<meta property="og:url" content="cedar-renjun.github.io/archives/2015/page/3/index.html">
+  <meta name="description" content="重新设计了USB硬件，兼容所有F4系列64Pin封装芯片但下载USB程序，PC检测不到USB设备
+看了下ST提供的代码，主要是以下几个问题
+
+晶振问题库使用的是25MHz晶振，我焊接的是8MHz晶振代码修改如下
+#define PLL_M    8
+#define HSE_VALUE    ((uint32_t)8000000) /!&amp;lt; Value of the External oscil">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USB VBUS检测">
+<meta property="og:url" content="cedar-renjun.github.io/2015/12/16/usb-vbus-detect/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="技术的终极目标是简洁">
+<meta property="og:description" content="重新设计了USB硬件，兼容所有F4系列64Pin封装芯片但下载USB程序，PC检测不到USB设备
+看了下ST提供的代码，主要是以下几个问题
+
+晶振问题库使用的是25MHz晶振，我焊接的是8MHz晶振代码修改如下
+#define PLL_M    8
+#define HSE_VALUE    ((uint32_t)8000000) /!&amp;lt; Value of the External oscil">
+<meta property="og:updated_time" content="2015-12-16T09:17:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Simple">
-<meta name="twitter:description" content="技术的终极目标是简洁">
+<meta name="twitter:title" content="USB VBUS检测">
+<meta name="twitter:description" content="重新设计了USB硬件，兼容所有F4系列64Pin封装芯片但下载USB程序，PC检测不到USB设备
+看了下ST提供的代码，主要是以下几个问题
+
+晶振问题库使用的是25MHz晶振，我焊接的是8MHz晶振代码修改如下
+#define PLL_M    8
+#define HSE_VALUE    ((uint32_t)8000000) /!&amp;lt; Value of the External oscil">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -174,181 +190,120 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-usb-vbus-detect" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2015/12/16/usb-vbus-detect/" class="article-date">
+  	<time datetime="2015-12-16T09:05:09.000Z" itemprop="datePublished">2015-12-16</time>
+</a>
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      USB VBUS检测
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/06/Set-Up-scons-environment/" class="archive-article-date">
-  	<time datetime="2015-10-06T01:49:41.000Z" itemprop="datePublished">Oct 6</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/06/Set-Up-scons-environment/">建立scons开发环境</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>重新设计了USB硬件，兼容所有F4系列64Pin封装芯片<br>但下载USB程序，PC检测不到USB设备</p>
+<p>看了下ST提供的代码，主要是以下几个问题</p>
+<ol>
+<li>晶振问题<br>库使用的是25MHz晶振，我焊接的是8MHz晶振<br>代码修改如下<ol>
+<li>#define PLL_M    8</li>
+<li>#define HSE_VALUE    ((uint32_t)8000000) /<em>!&lt; Value of the External oscillator in Hz </em>/</li>
+</ol>
+</li>
+<li>VBUS检测问题<br>默认情况下，STM32用PA9来检测VBUS电压，并设置对应的上拉模式<br>所以可以在OTG_FS_GCCFG寄存器中，置位NOVBUSSENS，关闭VBUS检测功能，强制使用上拉模式<br>这样，外部DP，DM就不需要使用1.5K上拉电阻</li>
+</ol>
+<p>手册摘录如下：</p>
+<blockquote>
+<p>Bit 21 NOVBUSSENS: VBUS sensing disable option<br>When this bit is set, VBUS is considered internally to be always at VBUS valid level (5 V). This option removes the need for a dedicated VBUS pad, and leave this pad free to be used for other purposes such as a shared functionality. VBUS connection can be remapped on another general purpose input pad and monitored by software.<br>This option is only suitable for host-only or device-only applications.<br>0: VBUS sensing available by hardware<br>1: VBUS sensing not available by hardware.</p>
+</blockquote>
+<p><strong>参考资料</strong></p>
+<ol>
+<li><a href="http://sttext.eefocus.com/data/st/06/e3/9e/1371713070198251.pdf" target="_blank" rel="external">STM32 OTG_FS/HS 模块</a></li>
+</ol>
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/scons/">scons</a>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/" class="archive-article-date">
-  	<time datetime="2015-10-04T12:17:54.000Z" itemprop="datePublished">Oct 4</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/04/Use-gdb-debug-cortex-m-mcu-via-jlink-gdb-server/">用gdb调试Cortex-M系列芯片</a>
-    </h1>
   
+    <a href="/2015/12/14/libusb-on-mac/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MAC环境下，QT上使用libusb</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Jlink/">Jlink</a><a class="article-category-link" href="/categories/Jlink/gcc/">gcc</a>
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/02/Create-your-IAR-project-template/" class="archive-article-date">
-  	<time datetime="2015-10-02T05:29:55.000Z" itemprop="datePublished">Oct 2</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/02/Create-your-IAR-project-template/">创建IAR模版工程</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/IAR/">IAR</a>
-	</div>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="usb-vbus-detect" data-title="USB VBUS检测" data-url="cedar-renjun.github.io/2015/12/16/usb-vbus-detect/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/02/IAR-projects-template/" class="archive-article-date">
-  	<time datetime="2015-10-02T02:35:55.000Z" itemprop="datePublished">Oct 2</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/02/IAR-projects-template/">IAR 工程文件分析</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/IAR/">IAR</a>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/01/Introduce-Raspberry-2B/" class="archive-article-date">
-  	<time datetime="2015-10-01T13:25:40.000Z" itemprop="datePublished">Oct 1</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/01/Introduce-Raspberry-2B/">“树莓派2B＋学习笔记-开篇”</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/树莓派/">树莓派</a>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2015/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/2015/">1</a><a class="page-number" href="/archives/2015/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
-  
 
 </div>
       <footer id="footer">
@@ -374,8 +329,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
