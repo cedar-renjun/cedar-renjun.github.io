@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,71 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-QT-MultiThread-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/17/QT-MultiThread-1/" class="article-date">
+  	<time datetime="2015-12-17T09:08:29.000Z" itemprop="datePublished">2015-12-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/17/QT-MultiThread-1/">QT 多线程－Timer模拟</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="前言">前言</h4><p>利用Timer回调事件来模拟多线程效果</p>
+<h4 id="基本思路">基本思路</h4><ol>
+<li>在QTimer的回调事件中，关联一个任务函数，用于模拟独立线程</li>
+<li>在独立线程中，更新计数器，并更新标签显示值</li>
+<li>10S倒计时结束后，关闭定时器任务</li>
+</ol>
+<h4 id="效果">效果</h4><ol>
+<li>截图<br><img src="http://cedar-renjun.github.io/images/2015/12/17/2.png" alt="开始界面框架图"><br><img src="http://cedar-renjun.github.io/images/2015/12/17/3.png" alt="软件运行中"></li>
+<li>视频效果<br><a href="http://cedar-renjun.github.io/images/2015/12/17/4.mov">http://cedar-renjun.github.io/images/2015/12/17/4.mov</a></li>
+</ol>
+<h4 id="源码下载">源码下载</h4><p><a href="http://cedar-renjun.github.io/assets/2015/12/17/multi_thread_1.zip">http://cedar-renjun.github.io/assets/2015/12/17/multi_thread_1.zip</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QT/">QT</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Day-8-USB" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1705,79 +1770,6 @@
 
       
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-elf-format-3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/11/02/elf-format-3/" class="article-date">
-  	<time datetime="2015-11-02T10:21:08.000Z" itemprop="datePublished">2015-11-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/02/elf-format-3/">ELF文件分析之3 － 动态链接</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="概述">概述</h3><p>相对于静态链接，动态链接和加载机制更加复杂，但对于系统来说，动态加载能更节省内存和其它计算资源</p>
-<p>这里面涉及到的主要技术点为：</p>
-<ol>
-<li>GOT表</li>
-<li>PLT表</li>
-<li>延迟绑定</li>
-</ol>
-<p>基本过程为</p>
-<ol>
-<li>调用系统加载程序</li>
-<li>调用程序所需要的动态库，并分配程序段地址</li>
-<li>进行初始化，构建运行时环境（Run Time)</li>
-<li>运行程序，第一次遇到动态未定义符号时，调用动态解析函数，找到符号地址，将信息写入绑定表</li>
-<li>第二次调用符号时，直接进入查找表，调用对应函数</li>
-</ol>
-<p>所以，下面，分别介绍GOT和PLT，然后用实例来分析函数符号动态加载机制</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/11/02/elf-format-3/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>

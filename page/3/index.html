@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,76 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Networking-and-the-BSD-Sockets-APIs" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" class="article-date">
+  	<time datetime="2015-10-07T03:56:59.000Z" itemprop="datePublished">2015-10-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/">Networking and the BSD Sockets APIs</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>by Michael Beam<br>12/27/2002</p>
+<p>原文链接: <a href="http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1">http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1</a></p>
+<p>We’ve spend a great deal of time talking about Rendezvous in the previous two columns, but Rendezvous can’t exist in a vacuum. Having user-friendly service discovery does us no good unless we can make our applications talk to one another. Indeed, Rendezvous has absolutely no provisions for facilitating general network communications between applications, as it is only a protocol for advertising and discovering services on a network. It is a discovery protocol, not a communications protocol.</p>
+<p>Today we shift gears into the communications side of this business; we will have very little to say about Rendezvous. Due to its Unix lineage, Mac OS X is a wonderful platform for learning about networking, since it has such a rich set of APIs to offer; in particular, we can program with the venerable BSD sockets API. Today we’ll learn about this API, and in doing so we will write a tiny pair of C applications that demonstrate how clients and servers can be made to talk with one another. In the next column, we will finish RCE with what we learn today by adding some Cocoa.</p>
+<h4 id="Concerning_Sockets">Concerning Sockets</h4><p>Most of us have likely heard of sockets in the course of our experiences programming. I had always heard about sockets, but up until about half a year ago, I had never had the pleasure of programming with them. Having heard of something is far from understanding it, which is essential to being able to effectively use a technology. In this column and the next, I hope to spark some interest in the subject to give you a feel for the technology. Hopefully, many of you who had previously shied away from sockets and networking will go on to learn more about this interesting and relevant topic.</p>
+<p>So just what is a socket? The man page for the socket() function, which we use to create sockets, describes this little thing in four words: an endpoint for communication. The analogy often used to relate sockets to everyday experiences is that of a telephone, which, as we will see, is indeed an accurate comparison. A telephone is, after all, an endpoint, or an interface, to a communications network that we use to communicate with other people.</p>
+<p>In the same way that we speak into and listen to a phone, applications both send data across a network by writing to a socket, and receive data sent by a remote host by reading from the socket. If you are familiar with the Unix APIs for reading and writing to a file, you will be comfortable with sockets, as the same functions for file I/O are used for socket I/O – namely, read() and write().</p>
+<p>Like two telephones that facilitate a conversation between two people, network connections exist between a pair of sockets, one for each end of the connection. Sockets are often talked about in pairs: one for the server side of the application, and one for the client side. The networking model that we are accustomed to is that of the relationship between a client and a server. A server is an application that is listening for connection requests from clients, and handling them appropriately. A client is a program that connects to a server. Usually client and servers are two completely different applications, as is the case with a Web client and server: Apache is a Web server, while OmniWeb, Internet Explorer, and Mozilla are all Web clients.</p>
+<p>We will see in the next column how this distinction between server and client blurs when we talk about peer-to-peer chat applications like RCE. Sometimes, one application is both a client and a server that allows connections from other like applications. This is especially true of peer-to-peer applications, such as the chat application we’re building. We’ll get into this more in the next column, but understand as we progress through our discussion today that RCE will have both server functionality and client functionality.</p>
+<h4 id="Working_With_Sockets">Working With Sockets</h4><p>Because of the differing tasks of a server and a client, their use of sockets is accordingly different. The role each side takes in establishing a communications link is reflected in the nature of the sockets each side uses. To wit, servers use what are known as passive sockets, and clients use active sockets.</p>
+<p>When a server process starts up, it must create a socket; bind it to a local, unused port; tell that socket to listen for new connections from clients; and finally, begin waiting for new connections. This socket is often referred to as a listening socket, or a passive socket, or a server socket. All of these names suggest that the role of the socket is to sit patiently while listening to its assigned port for clients requesting a connection with the server. In the analogy of the telephone, creating the socket is like buying a phone, binding is akin to getting a hookup from the phone company, listening is plugging your phone into the wall, and finally, accepting is the act of answering the phone when it rings.</p>
+<p>When a connection is received by the listening socket, the server must accept the connection and return a new connected socket that is used to communicate with the client. This new socket has an established connection to the client’s remote socket. By creating a new socket to handle the new connection, the listening socket is free to continue doing its thing, listening for connections from other clients.</p>
+<p>Clients use sockets in a different way. A client creates a socket in the same way as a server; however, after the socket is created the use of the socket differs. With a socket in hand, the client uses that socket to attempt to connect to a server. Once the connection has been accepted by the server, the client can begin sending and receiving data from the server. Referring back to our phone analogy, connecting is no different than dialing a phone number for someone you want to talk to.</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/socket/">socket</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Port-to-gcc" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1481,75 +1551,6 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
         <p class="article-more-link">
           <a  href="/2014/09/17/state-machine-timer-resource-management/#more">more >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-missing-you" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/09/01/missing-you/" class="article-date">
-  	<time datetime="2014-09-01T14:33:39.000Z" itemprop="datePublished">2014-09-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/01/missing-you/">那些人，珍重便好</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote><p>“人生有时候，总是很讽刺。一转身可能就是一世。说好永远的，不知怎么就散了。最后自己想来想去竟然也搞不清当初是什么原因分开彼此的。然后，你忽然醒悟，感情原来是这么脆弱的。经得起风雨，却经不起平凡；风雨同船，天晴便各自散了。也许只是赌气，也许只是因为小小的事。幻想着和好的甜蜜，或重逢时的拥抱，那个时候会是边流泪边捶打对方，还傻笑着。该是多美的画面。没想到的是，一别竟是一辈子了。”</p>
-<footer><strong>张爱玲 《有些人我们一直在错过》</strong></footer></blockquote>
-<pre><code>有些人，渐行渐远
-有些人，来去如风
-有些人，或许不会再见
-有些人，珍重便好
-</code></pre><p>某年回家，在车上偶遇多年未见的同学，一路上聊起来，我问他是怎么认出我来的，他说：“这些年你都没有怎么变”，我笑笑说：“还是跟以前一样傻逼吧”，他也笑笑。他说：“你现在在哪工作”，“武汉读书”，忽然他就提高了音调，“还在读书呀，读大学吧，你看你都读老了，不要读成书呆子”，接着自顾自地说了一堆，“我们打工的那个厂里面一堆大学生，你看现在，什么都缺，就是不缺大学生，读书有什么用，你读出来还不是跟我一样去打工……”听着他唠叨了一大堆，我就只有颔首而笑的份，我明白，我只有用笑容来表示我对他的尊重。下车前，我们互留了电话号码，告别以留下“常联系”这句话后的背影作为结束。号码也只是藏在电话本里的某个角落，只有在过年的时候才会互道一声问候，虽然想打电话联系，但是不知道说什么好，怕尴尬，怕那种只能挤出牙缝的陌生，索性在某次清理通讯录的时候，我把他从我的通讯录里删除了。</p>
-<p>这让我想起了我一位高中同学，很长一段时间，我和他坐同桌。他平时就是打篮球，上网和睡觉，篮球打得很棒，各方面也不错，但是有一点，就是不喜欢学习，考试都是比较糟糕。曾想过帮他，但是后来发现这是一件很难的事情，人各有志，命里无时莫强求，也许学习这条路对于每个人并不是都是合适的，每个人都有适合自己的事做，最后高考考完他就消失了，填志愿的时候他也没来，还没来得及道别，后来QQ上也没见他上过线。常言道“天下没有不散的宴席”，但有时却是，宴席还没有摆上，还没来得及陪君醉笑三千场，不诉离殇，就有人抽身而去，连一个身影都没有留下。后来有一次，辗转了解到毕业后他就回家了，之后喜当爹了，现在孩子应该可以打酱油了吧，也不知道他现在在做什么，希望应该比学习有趣吧。</p>
-<p>打开邮箱，看到同学发来的这样一份邮件，“毕业的，没毕业的，上班的，没上班的，我们都开始忙碌了；好像越来越少有时间，去问候和想念；会不会有天，我们真的都忘记了彼此，遗忘了那些最美丽的回忆？我们曾在某个时间相遇，曾在某个时段某个时候，在一起。然后，因为这样那样的原因，我们不常联系。只是想轻轻地告诉你：我很好，希望你也很好。”看到这个心里觉得矫情，但我们终究会明白，每个人总会走上自己选择的路，不管怎样，还是希望听到他们的好消息。</p>
-<p>在一个地方待得太久，就会渐渐的忘记时间，曾经以为这样的日子会长久，但终究在这样一个宁静的午后戛然而止。我们各自背上行囊，或许道一声珍重，或许相顾无言，各自奔走天涯。多年以后，你是否会记得那个喧嚣或者沉默的下午，那个远去的背影消失在遥远的尽头，那趟踏上远方的列车，我们各自转身，不再回头。可叹人世多错过，两人彼此遍寻不着，只存一份念想；淡淡的眷恋潜浮于眸，深深的情愫隐藏于心，在时间里慢慢发酵，酝酿出那一番醇香。王家卫导演在解释《一代宗师》张震的戏份太少时曾说过，有时候生命中遇见一些人，但之后就再也没见到过了，这是一部分的人生。</p>
-<p>我们从久远走来，相濡以沫或者相忘于江湖，江南说：江湖是这么一个地方，你在这里生，也不介意在这里死去。可你想过没有，多年以后，或许江湖还是那个江湖，你已不是当年的那个你，曾经的那些美好都成为了过往，就算时光真的可以倒流，你会发现，一切早已经面目全非。所有的相遇，都是久别重逢，那么所有的重逢，都是时光之约，里面装满了风尘与岁月。</p>
-<p>最后，这些东西都慢慢的幻化成回忆，这个世界有太多我们无能为力的东西，回不到的过去，无法预知的未来，以及那些那些再也没有见到过的人……</p>
-<p>如果哪天那些人和你从此不会再见了，不是有一些新的人取而代之了，新的阶段出现了，就是遥远的我们都“懒”了。</p>
-<p>曲终人会散，人走茶会凉，最后，收拾心情，背上行囊，继续上路。</p>
-<p>文/阿飞 <a href="http://www.douban.com/note/295698799/" target="_blank" rel="external">http://www.douban.com/note/295698799/</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/杂谈/">杂谈</a>
-	</div>
-
-
       
       <div class="clearfix"></div>
     </div>

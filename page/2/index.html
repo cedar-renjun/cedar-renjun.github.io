@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,79 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-elf-format-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/02/elf-format-3/" class="article-date">
+  	<time datetime="2015-11-02T10:21:08.000Z" itemprop="datePublished">2015-11-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/02/elf-format-3/">ELF文件分析之3 － 动态链接</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述">概述</h3><p>相对于静态链接，动态链接和加载机制更加复杂，但对于系统来说，动态加载能更节省内存和其它计算资源</p>
+<p>这里面涉及到的主要技术点为：</p>
+<ol>
+<li>GOT表</li>
+<li>PLT表</li>
+<li>延迟绑定</li>
+</ol>
+<p>基本过程为</p>
+<ol>
+<li>调用系统加载程序</li>
+<li>调用程序所需要的动态库，并分配程序段地址</li>
+<li>进行初始化，构建运行时环境（Run Time)</li>
+<li>运行程序，第一次遇到动态未定义符号时，调用动态解析函数，找到符号地址，将信息写入绑定表</li>
+<li>第二次调用符号时，直接进入查找表，调用对应函数</li>
+</ol>
+<p>所以，下面，分别介绍GOT和PLT，然后用实例来分析函数符号动态加载机制</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELF/">ELF</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/11/02/elf-format-3/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-elf-format-2" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1608,76 +1681,6 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 	</div>
 
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-Networking-and-the-BSD-Sockets-APIs" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/" class="article-date">
-  	<time datetime="2015-10-07T03:56:59.000Z" itemprop="datePublished">2015-10-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/">Networking and the BSD Sockets APIs</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>by Michael Beam<br>12/27/2002</p>
-<p>原文链接: <a href="http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1">http://www.macdevcenter.com/pub/a/mac/2002/12/26/cocoa.html?page=1</a></p>
-<p>We’ve spend a great deal of time talking about Rendezvous in the previous two columns, but Rendezvous can’t exist in a vacuum. Having user-friendly service discovery does us no good unless we can make our applications talk to one another. Indeed, Rendezvous has absolutely no provisions for facilitating general network communications between applications, as it is only a protocol for advertising and discovering services on a network. It is a discovery protocol, not a communications protocol.</p>
-<p>Today we shift gears into the communications side of this business; we will have very little to say about Rendezvous. Due to its Unix lineage, Mac OS X is a wonderful platform for learning about networking, since it has such a rich set of APIs to offer; in particular, we can program with the venerable BSD sockets API. Today we’ll learn about this API, and in doing so we will write a tiny pair of C applications that demonstrate how clients and servers can be made to talk with one another. In the next column, we will finish RCE with what we learn today by adding some Cocoa.</p>
-<h4 id="Concerning_Sockets">Concerning Sockets</h4><p>Most of us have likely heard of sockets in the course of our experiences programming. I had always heard about sockets, but up until about half a year ago, I had never had the pleasure of programming with them. Having heard of something is far from understanding it, which is essential to being able to effectively use a technology. In this column and the next, I hope to spark some interest in the subject to give you a feel for the technology. Hopefully, many of you who had previously shied away from sockets and networking will go on to learn more about this interesting and relevant topic.</p>
-<p>So just what is a socket? The man page for the socket() function, which we use to create sockets, describes this little thing in four words: an endpoint for communication. The analogy often used to relate sockets to everyday experiences is that of a telephone, which, as we will see, is indeed an accurate comparison. A telephone is, after all, an endpoint, or an interface, to a communications network that we use to communicate with other people.</p>
-<p>In the same way that we speak into and listen to a phone, applications both send data across a network by writing to a socket, and receive data sent by a remote host by reading from the socket. If you are familiar with the Unix APIs for reading and writing to a file, you will be comfortable with sockets, as the same functions for file I/O are used for socket I/O – namely, read() and write().</p>
-<p>Like two telephones that facilitate a conversation between two people, network connections exist between a pair of sockets, one for each end of the connection. Sockets are often talked about in pairs: one for the server side of the application, and one for the client side. The networking model that we are accustomed to is that of the relationship between a client and a server. A server is an application that is listening for connection requests from clients, and handling them appropriately. A client is a program that connects to a server. Usually client and servers are two completely different applications, as is the case with a Web client and server: Apache is a Web server, while OmniWeb, Internet Explorer, and Mozilla are all Web clients.</p>
-<p>We will see in the next column how this distinction between server and client blurs when we talk about peer-to-peer chat applications like RCE. Sometimes, one application is both a client and a server that allows connections from other like applications. This is especially true of peer-to-peer applications, such as the chat application we’re building. We’ll get into this more in the next column, but understand as we progress through our discussion today that RCE will have both server functionality and client functionality.</p>
-<h4 id="Working_With_Sockets">Working With Sockets</h4><p>Because of the differing tasks of a server and a client, their use of sockets is accordingly different. The role each side takes in establishing a communications link is reflected in the nature of the sockets each side uses. To wit, servers use what are known as passive sockets, and clients use active sockets.</p>
-<p>When a server process starts up, it must create a socket; bind it to a local, unused port; tell that socket to listen for new connections from clients; and finally, begin waiting for new connections. This socket is often referred to as a listening socket, or a passive socket, or a server socket. All of these names suggest that the role of the socket is to sit patiently while listening to its assigned port for clients requesting a connection with the server. In the analogy of the telephone, creating the socket is like buying a phone, binding is akin to getting a hookup from the phone company, listening is plugging your phone into the wall, and finally, accepting is the act of answering the phone when it rings.</p>
-<p>When a connection is received by the listening socket, the server must accept the connection and return a new connected socket that is used to communicate with the client. This new socket has an established connection to the client’s remote socket. By creating a new socket to handle the new connection, the listening socket is free to continue doing its thing, listening for connections from other clients.</p>
-<p>Clients use sockets in a different way. A client creates a socket in the same way as a server; however, after the socket is created the use of the socket differs. With a socket in hand, the client uses that socket to attempt to connect to a server. Once the connection has been accepted by the server, the client can begin sending and receiving data from the server. Referring back to our phone analogy, connecting is no different than dialing a phone number for someone you want to talk to.</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/socket/">socket</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/07/Networking-and-the-BSD-Sockets-APIs/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
