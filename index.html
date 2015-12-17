@@ -202,17 +202,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="前言">前言</h4><p>利用Timer回调事件来模拟多线程效果</p>
-<h4 id="基本思路">基本思路</h4><ol>
+        <h4 id="0_前言">0 前言</h4><p>利用Timer回调事件来模拟多线程效果</p>
+<h4 id="1_基本思路">1 基本思路</h4><ol>
 <li>在QTimer的回调事件中，关联一个任务函数，用于模拟独立线程</li>
 <li>在独立线程中，更新计数器，并更新标签显示值</li>
 <li>10S倒计时结束后，关闭定时器任务</li>
 </ol>
-<h4 id="效果">效果</h4><ol>
+<h4 id="2_效果">2 效果</h4><ol>
 <li>截图<br><img src="http://cedar-renjun.github.io/images/2015/12/17/2.png" alt="开始界面框架图"><br><img src="http://cedar-renjun.github.io/images/2015/12/17/3.png" alt="软件运行中"></li>
 <li>视频效果<br><a href="http://cedar-renjun.github.io/images/2015/12/17/4.mov">http://cedar-renjun.github.io/images/2015/12/17/4.mov</a></li>
 </ol>
-<h4 id="源码下载">源码下载</h4><p><a href="http://cedar-renjun.github.io/assets/2015/12/17/multi_thread_1.zip">http://cedar-renjun.github.io/assets/2015/12/17/multi_thread_1.zip</a></p>
+<h4 id="3_源码下载">3 源码下载</h4><p><a href="http://cedar-renjun.github.io/assets/2015/12/17/multi_thread_1.zip">http://cedar-renjun.github.io/assets/2015/12/17/multi_thread_1.zip</a></p>
+<h4 id="4_注意事项">4 注意事项</h4><p>软件定时器，最多只能达到20ms的精度；需要更高精度时，必须调用系统硬件定时器</p>
 
       
     </div>
