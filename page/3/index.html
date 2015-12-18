@@ -176,6 +176,85 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Setup-STM32F7-develop-environment" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/08/Setup-STM32F7-develop-environment/" class="article-date">
+  	<time datetime="2015-10-07T17:25:59.000Z" itemprop="datePublished">2015-10-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/08/Setup-STM32F7-develop-environment/">建立STM32 F7 MDK 开发环境</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="安装MDK5开发环境">安装MDK5开发环境</h3><ol>
+<li>下载最新版<a href="http://www2.keil.com/mdk5/" target="_blank" rel="external">MDK5</a></li>
+<li>利用<a href="http://cedar-renjun.github.io/assets/2015/10/8/Keil_ARM_MDK_5.00_Keygen_serial_Crack.exe.zip">工具</a> 破解MDK5</li>
+</ol>
+<p>以上两步比较简单，不详描述</p>
+<h3 id="安装CubeF7">安装CubeF7</h3><p>CubeMX是ST提供的一套库和框架标准，也是一种工程模版</p>
+<ol>
+<li>下载<a href="http://www.st.com/web/en/catalog/tools/PF261909" target="_blank" rel="external">http://www.st.com/web/en/catalog/tools/PF261909</a></li>
+<li>下载完成后，利用MDK5打开STM32Cube_FW_F7_V1.1.0\Projects\STM32746G-Discovery\Demonstration\MDK-ARM\Project.uvprojx</li>
+</ol>
+<h3 id="更新ST-Link驱动和固件">更新ST-Link驱动和固件</h3><ol>
+<li>进入ST官网<a href="http://www.st.com/web/catalog/tools/FM146/CL1984/SC720/SS1450/PF251168?s_searchtype=partnumber" target="_blank" rel="external">http://www.st.com/web/catalog/tools/FM146/CL1984/SC720/SS1450/PF251168?s_searchtype=partnumber</a></li>
+<li>通过<a href="http://www.st.com/web/en/catalog/tools/PF260219" target="_blank" rel="external">STSW-LINK009</a>更新st-link驱动</li>
+<li>通过<a href="http://www.st.com/web/en/catalog/tools/PF258194" target="_blank" rel="external">STSW-LINK005</a>来更新固件</li>
+</ol>
+<h3 id="连接F7_Discovery开发板">连接F7 Discovery开发板</h3><ol>
+<li>将<code>JP1</code>的跳帽安装到<code>5V-link</code></li>
+<li>找一根mini USB线，插入<code>CN14</code></li>
+<li>插入电脑USB口，这时系统会枚举出ST-link设备，然后F7会启动固件，在屏幕上显示图标</li>
+</ol>
+<h3 id="常见问题">常见问题</h3><h4 id="1_插入USB后，屏幕没亮；将USB插入充电器口，屏幕不亮">1 插入USB后，屏幕没亮；将USB插入充电器口，屏幕不亮</h4><p>因为默认通过ST-link来供电，插入电脑USB接口后，只有枚举成功后，才会开启MCU的供电系统<br>枚举的时候，100mA；枚举成功后，才能供电500mA，如果电脑USB不接受500mA或者使用USB，就会枚举失败<br>详细的信息，请参考<a href="http://www.st.com/st-web-ui/static/active/en/resource/technical/document/user_manual/DM00190424.pdf" target="_blank" rel="external">手册Power章节</a></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">STM32F746G-DISCO discovery board can be powered <span class="built_in">from</span> ST-LINK USB connector CN14 (<span class="number">5</span>V link), but only ST-LINK circuit has</span><br><span class="line"><span class="operator">the</span> power <span class="keyword">before</span> USB enumeration, because <span class="operator">the</span> host PC only provides <span class="number">100</span>mA <span class="built_in">to</span> <span class="operator">the</span> board <span class="keyword">at</span> that <span class="built_in">time</span>. During <span class="operator">the</span> USB</span><br><span class="line">enumeration, STM32F746G-DISCO board asks <span class="keyword">for</span> <span class="operator">the</span> <span class="number">500</span>mA power <span class="built_in">to</span> <span class="operator">the</span> host PC. If <span class="operator">the</span> host is able <span class="built_in">to</span> provide <span class="operator">the</span> required</span><br><span class="line">power, <span class="operator">the</span> enumeration finishes <span class="keyword">by</span> <span class="operator">a</span> “SetConfiguration” <span class="command"><span class="keyword">command</span> <span class="title">and</span> <span class="title">then</span>, <span class="title">the</span> <span class="title">power</span> <span class="title">transistor</span> <span class="title">U8</span> (<span class="title">ST890</span>) <span class="title">is</span> <span class="title">switched</span></span></span><br><span class="line">ON, <span class="operator">the</span> red LED LD2 is turned ON, thus STM32F746G-DISCO board can consume maximum <span class="number">500</span>mA current, but no more. If <span class="operator">the</span></span><br><span class="line">host is <span class="operator">not</span> able <span class="built_in">to</span> provide <span class="operator">the</span> requested current, <span class="operator">the</span> enumeration fails. Therefore <span class="operator">the</span> ST890 (U8) remains OFF <span class="operator">and</span> <span class="operator">the</span></span><br><span class="line">MCU part including <span class="operator">the</span> extension board won’t be powered. As <span class="operator">a</span> consequence <span class="operator">the</span> red LED LD2 remains turned OFF. In this</span><br><span class="line"><span class="keyword">case</span> <span class="keyword">it</span> is mandatory <span class="built_in">to</span> use <span class="operator">an</span> external power supply.</span><br></pre></td></tr></table></figure>
+<h4 id="2_用MDK5编译工程后，下载到板子，图标显示不正常">2 用MDK5编译工程后，下载到板子，图标显示不正常</h4><p>MDK的download工具，默认没有支持外部Flash的算法，所以会导致没有图标的部分，没有烧录到FLASH芯片</p>
+<p>解决方案</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- Open STM32 ST-Link Utility V3.<span class="number">6</span>, click on "External Loader" from the bar menu then check "N25Q128A_STM32F746G-DISCO" box </span><br><span class="line">- Connect the STM32746G-DISCOVERY board to PC with USB cable through CN14</span><br><span class="line">- Use "STM32CubeDemo_STM32746G-DISCO_V1.<span class="number">0</span>.<span class="number">1</span>.hex" file with STM32 ST-Link Utility to program both internal Flash and external QSPI memory</span><br><span class="line">- Run the demonstration</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/STM32F7/">STM32F7</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-Networking-and-the-BSD-Sockets-APIs" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1489,67 +1568,6 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
       
         <p class="article-more-link">
           <a  href="/2014/09/21/good-blog-about-coroutines/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-state-machine-timer-resource-management" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/09/17/state-machine-timer-resource-management/" class="article-date">
-  	<time datetime="2014-09-17T07:00:29.000Z" itemprop="datePublished">2014-09-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/17/state-machine-timer-resource-management/">在状态机中管理时间资源</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="写在前面的话">写在前面的话</h2><p>在嵌入式系统中，经常会使用到延时(Delay)函数，延时有长，有短；500us以下的延时，可以完全用软件来做；较长的延时，可以用硬件Timer或者调用RTOS的时间管理函数。</p>
-<p>在简单的MCU中，由于资源限制，无法使用常规的RTOS，这时就需要自己写相应的协调式调度算法，常见的有协程和时间片轮询机制等，万变不离其宗，它们其中的核心是状态机，在状态机中一个核心原则是：<strong>函数不能长时间阻塞MCU</strong>，否则就会导致整个系统调度失效。也就是说：<strong>无法使用纯软件延时</strong></p>
-<p>例如，在系统中严禁出现下面代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay_s</span><span class="params">(uint8_t tick_s)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Code Snippet 1</span></span><br><span class="line"></span><br><span class="line">delay_s(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Code Snippet 2</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/教程/">教程</a><a class="article-category-link" href="/categories/教程/框架/">框架</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2014/09/17/state-machine-timer-resource-management/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

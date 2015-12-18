@@ -176,6 +176,111 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Day-9-USB" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/18/Day-9-USB/" class="article-date">
+  	<time datetime="2015-12-18T11:55:15.000Z" itemprop="datePublished">2015-12-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/18/Day-9-USB/">Day9 USB设备速度识别</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1_识别原理">1 识别原理</h4><p>默认情况下，USB主机端口的DP，DM都有一个15K的下拉电阻，在设备没有插入时，DP／DM信号电平为低；当有设备插入时，因为设备端DP／DM中有上拉电阻，所以会<br>把DP或者DM拉高；</p>
+<p>USB主机通过DP，DM线的高电平变化情况，可以识别到设备插入和拔出，识别不同USB Device的速度</p>
+<p>对于USB2.0来说，有三个等级的设备速度：低速／全速／高速</p>
+<ol>
+<li><p>低速识别<br>在设备DM端接一个1.5K的上拉电阻，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/12/18/0.png" alt="USB 低速设备"></p>
+</li>
+<li><p>全速识别<br>在设备DP端接一个1.5K的上拉电阻，如下图所示<br><img src="http://cedar-renjun.github.io/images/2015/12/18/1.png" alt="USB 全速设备"></p>
+</li>
+<li><p>高速识别<br>在设备DP端接一个1.5K的上拉电阻，和全速设备一样；但复位后，USB设备会通过一系列的软硬件握手协议来和HUB协商速度<br>具体过程，如下所示</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>High-speed Detection Handshake (not performed if low-speed device detected by hub):</strong><br>Note: In the following handshake, both the hub and device are required to detect Chirp J’s and K’s of specified minimum durations. It is strongly recommended that “gaps” in these Chirp signals as short as 16 high-speed bit times should restart the duration timers.</p>
+<ol>
+<li>The high-speed device leaves the D+ pull-up resistor connected, leaves the high-speed terminations disabled, and drives the high-speed signaling current into the D- line. This creates a Chirp K on the bus. The device chirp must last no less than 1.0 ms (TUCH) and must end no more than 7.0 ms (TUCHEND) after high-speed Reset time T0.</li>
+<li>The hub must detect the device chirp after it has seen assertion of the Chirp K for no less than 2.5 μs (TFILT). If the hub does not detect a device chirp, it must continue the assertion of SE0 until the end of reset.</li>
+<li>No more than 100 μs (TWTDCH) after the bus leaves the Chirp K state, the hub must begin to send an alternating sequence of Chirp K’s and Chirp J’s. There must be no Idle states on the bus between the J’s and K’s. This sequence must continue until a time (TDCHSE0) no more than 500 μs before and no less than 100 μs before the end of Reset. (This will guarantee that the bus remains active, preventing the device from entering the high-speed Suspend state.) Each individual Chirp K and Chirp J must last no less than 40 μs and no more than 60 μs (TDCHBIT).</li>
+<li>After completing the hub chirp sequence, the hub asserts SE0 until end of Reset. At the end of reset, the hub must transition to the high-speed Enabled state without causing any transitions on the data lines.</li>
+<li>After the device completes its chirp, it looks for the high-speed hub chirp. At a minimum, the device is required to see the sequence Chirp K-J-K-J-K-J in order to detect a valid hub chirp. Each individual Chirp K and Chirp J must be detected for no less than 2.5 μs (TFILT).<br>a) If the device detects the sequence Chirp K-J-K-J-K-J, then no more than 500 μs (TWTHS) after detection, the device is required to disconnect the D+ pull-up resistor, enable the high-speed terminations, and enter the high-speed Default state.<br>b) If the device has not detected the sequence Chirp K-J-K-J-K-J by a time no less than 1.0 ms and no more than 2.5 ms (TWTFS) after completing its own chirp, then the device is required to revert to the full-speed Default state and wait for the end of Reset.</li>
+</ol>
+</blockquote>
+<h4 id="2_注意事项">2 注意事项</h4><ol>
+<li>对于STM32F105/107/F2/F4来说，内部已经集成上拉／下拉，并根据对应的设备角色和行为，USB内核会自动切换合适电阻；所以外部无需接额外的电阻；<br>但是对STM32F103系列来说，必须要外接合适的上拉电阻</li>
+<li><strong>上拉电平的范围是3.0~3.6V</strong></li>
+<li>电阻的精度可以为5%</li>
+</ol>
+<h3 id="每日推荐">每日推荐</h3><ol>
+<li>暗时间–刘未鹏.pdf</li>
+</ol>
+<p>一本关于心智模式、学习方法和时间利用的书籍，就像暗物质一样，看不见，摸不着，但充满了整个宇宙；时间也是类似，很多零碎的时间，如何有效利用起来，是一个很大的学问；</p>
+<p>关于作者:刘未鹏</p>
+<blockquote>
+<p>南京大学计算机系硕士毕业<br>现就职于微软亚洲研究院创新工程中心<br>兴趣爱好：计算机科学，人工智能，认知科学<br>博客名 Mind Hacks 的含义：</p>
+<ul>
+<li>Mind Hacks 是一本书</li>
+<li>Mind Hacks 是一系列思维工具</li>
+<li>Mind Hacks 有一个漫长的前生—一个有着近6年历史的技术博客</li>
+<li>在CSDN上有超过120万的访问量</li>
+</ul>
+</blockquote>
+<p>豆瓣书评：<a href="http://book.douban.com/subject/6709809/" target="_blank" rel="external">http://book.douban.com/subject/6709809/</a><br>PS：百度一下，有PDF版本可以下载</p>
+<p>2015-12-18</p>
+<p>－－－－－分割线－－－－－<br><strong>注意事项</strong></p>
+<ol>
+<li><p>本订阅号（微信搜 McuProgramming ）主要发布一些嵌入式相关的知识和技巧，涉及到软件，硬件，射频，协议栈等；如果您有感兴趣的领域，请通过回复订阅号告诉我</p>
+</li>
+<li><p>本订阅号主要是简单文字为主，内含少量代码段，但绝不会发布大量的代码。<br>因为根据自己的体会，在手机微信端看代码的体验非常糟糕，一方面屏幕比较小，显示效果不好；另一方面，玩手机时，精力不会集中，更不会有大量时间。<br>cedar-renjun.github.io 个人博客会发一些技术细节的东西，感兴趣的，可以深入研究这里的博文</p>
+</li>
+<li><p>微信的编辑功能比较弱，不能贴链接，代码啥的，，，所有文章均发表在个人博客，可以通过点击原文来查看，原文有代码语法高亮，显示图片，带链接等效果</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信订阅号/">微信订阅号</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-QT-MultiThread-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1697,76 +1802,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BLE4-0/">BLE4.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CC26xx/">CC26xx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TI/">TI</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-parallel-technology-in-programmer" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/11/05/parallel-technology-in-programmer/" class="article-date">
-  	<time datetime="2015-11-04T16:53:35.000Z" itemprop="datePublished">2015-11-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/05/parallel-technology-in-programmer/">烧录器中的并行技术</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="0_前言">0    前言</h3><p>利用RTOS的并行技术，我们能充分的发挥宿主MCU的性能，从而最大程度的提高程序烧写速度</p>
-<h3 id="1_理论基础">1    理论基础</h3><ol>
-<li>烧写器的烧写速度瓶颈不在于传输速率</li>
-<li>CPU在DMA烧写FLASH的同时，可以在RAM中同时接收数据</li>
-<li>一个FLASH控制器，只允许一个DMA操作</li>
-</ol>
-<h3 id="2_基本思路">2    基本思路</h3><ol>
-<li>采用RAM FIFO机制，假设为A，B Block</li>
-<li>先填充A，然后启动DMA，开始烧录扇区1</li>
-<li>填充B，等待扇区1烧录完毕，配置DMA，烧录扇区2</li>
-<li>填充A，等待扇区2烧录完毕，然后配置DMA</li>
-<li>重复3.4步骤，直到完成</li>
-</ol>
-<h3 id="3_注意事项">3    注意事项</h3><ol>
-<li>可以根据DMA的速率和系统总线速率，调整Block的大小和数据，从而尽可能的让DMA接近全负荷运行，从而达到理论FLASH理论烧写速率</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugger/">Debugger</a></li></ul>
 	</div>
 
       
