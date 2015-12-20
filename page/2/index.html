@@ -176,6 +176,104 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Learn-CC26xx-with-me-lesson-00" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/05/Learn-CC26xx-with-me-lesson-00/" class="article-date">
+  	<time datetime="2015-11-04T17:37:05.000Z" itemprop="datePublished">2015-11-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/05/Learn-CC26xx-with-me-lesson-00/">跟我学蓝牙4.0之－CC26xx系列教程－00</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_认识TI_SimpleLink_系列">0    认识TI SimpleLink 系列</h3><p>TI的无线产品线非常丰富，从低频RFID/NFC，到Sub－1G系列，再到BLE4.0，Zigbee，Wi-Fi等各种芯片，应有尽有，足以满足您苛刻的应用场景。<br>可以细分为以下几个系列</p>
+<ol>
+<li>RF430<br>13.56MHz NFC/RFID SOC 解决方案</li>
+<li>CC430<br>Sub-1G 工业无线网络解决方案</li>
+<li>SimpleLink CC1x<br>最新一代的Sub－1G SOC 解决方案，采用最新RF内核，功耗更低，性能更加强劲</li>
+<li>SimpleLink CC2x<br>新一代2.4G 解决方案，可用于BLE4.0，Zigbee协议栈</li>
+<li>SimpleLink CC3x<br>Wi-Fi SOC解决方案，双核架构，内置TCP／IP协议栈，性能最高，已通过FCC, IC, CE and TELEC认证</li>
+</ol>
+<p>随着物联网的到来，SOC无线芯片已经是一个趋势，但射频开发中，还是会出现很多问题：</p>
+<ol>
+<li>天线设计门槛很高，需要精通射频知识</li>
+<li>无线协议栈学习成本过高</li>
+<li>多种软件协议标准，应用层软件不兼容</li>
+</ol>
+<p>针对上面的问题，TI推出<code>SimpleLink</code>系列无线芯片，在软件层面上兼容现有的无线协议，从而达到学会一种CC系列芯片，掌握全系列的无线的效果；<br>同时，TI提供很多天线参考设计，完完全全的交钥匙(Turn-Key)方案，用户可以直接使用这些参考设计，从而加速产品上市</p>
+<h3 id="1_认识TI_CC26xx系列">1    认识TI CC26xx系列</h3><p>我们的重点是来学习TI CC26xx 2.4G无线蓝牙4.0产品系列，TI将CC2x系列细分为以下三种</p>
+<ol>
+<li>CC2630系列<br>802.15.4 MESH解决方案，用于实现Zigbee或者6LoWPAN MESH网络</li>
+<li>CC2640系列<br>2.4G 蓝牙4.1系列芯片</li>
+<li>CC2650系列<br>全能芯片，兼容CC2630/CC2640，能实现蓝牙4.0／Zigbee／6LoWPAN协议，从而实现一个芯片多种协议</li>
+</ol>
+<h3 id="2_开发环境和开发工具">2    开发环境和开发工具</h3><p>TI CC26xx支持很多IDE开发工具，具体包括：</p>
+<ol>
+<li>IAR</li>
+<li>CCS</li>
+<li>MDK</li>
+<li>GCC</li>
+<li>BLE Studuio</li>
+</ol>
+<p>更多工具信息，请参考<a href="http://processors.wiki.ti.com/index.php/CC13xx_CC26xx_Tools_Overview" target="_blank" rel="external">wiki－开发工具页面</a></p>
+<p>这么多工具，我们学习CC26xx时，该怎么选呢？<br>我们推荐</p>
+<ol>
+<li>IAR 7.4</li>
+<li>XDS110</li>
+</ol>
+<p>因为TI官方协议栈，都是用IAR来管理工程的，所以安装IAR能为我们的学习避免很多潜在的问题<br>另外，XDS110的调试速度很快，不会像某些Jlink一样，总是丢失固件</p>
+<p>总之一句话：我们是学习蓝牙4.0的，要选择稳定的工具，不要把精力浪费在调试工具上</p>
+<p>下一篇，我们将介绍怎么安装IAR和TI蓝牙4.0协议栈</p>
+<h3 id="3_参考资料">3    参考资料</h3><ol>
+<li><a href="http://www.ti.com/lsds/ti/microcontrollers_16-bit_32-bit/wireless_mcus/overview.page" target="_blank" rel="external">TI SimpleLink</a></li>
+<li><a href="http://www.ti.com/lsds/ti/microcontrollers_16-bit_32-bit/wireless_mcus/simplelink_cc1x/overview.page" target="_blank" rel="external">CC1x 系列</a></li>
+<li><a href="http://www.ti.com/lsds/ti/microcontrollers_16-bit_32-bit/wireless_mcus/simplelink_cc2x/overview.page" target="_blank" rel="external">CC2x 系列</a></li>
+<li><a href="http://www.ti.com/lsds/ti/microcontrollers_16-bit_32-bit/wireless_mcus/simplelink_cc3x/overview.page" target="_blank" rel="external">CC3x 系列</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BLE4-0/">BLE4.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CC26xx/">CC26xx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TI/">TI</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-parallel-technology-in-programmer" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1569,95 +1667,6 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 <li><a href="http://www.rs-online.com/designspark/electronics/knowledge-item/raspberry-pi---%E8%B0%83%E6%95%B4%E4%BD%A0%E7%9A%84sd%E5%8D%A1%E5%88%86%E5%89%B2%E5%8C%BA%E7%9A%84%E5%A4%A7%E5%B0%8F" target="_blank" rel="external">http://www.rs-online.com/designspark/electronics/knowledge-item/raspberry-pi---%E8%B0%83%E6%95%B4%E4%BD%A0%E7%9A%84sd%E5%8D%A1%E5%88%86%E5%89%B2%E5%8C%BA%E7%9A%84%E5%A4%A7%E5%B0%8F</a></li>
 <li><a href="http://www.computerhope.com/unix/udf.htm" target="_blank" rel="external">http://www.computerhope.com/unix/udf.htm</a></li>
 <li><a href="http://www.cnblogs.com/peida/archive/2012/12/07/2806483.html" target="_blank" rel="external">http://www.cnblogs.com/peida/archive/2012/12/07/2806483.html</a></li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/树莓派/">树莓派</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-Build-Raspberry-Kernel" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/11/Build-Raspberry-Kernel/" class="article-date">
-  	<time datetime="2015-10-10T16:27:06.000Z" itemprop="datePublished">2015-10-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/11/Build-Raspberry-Kernel/">编译树莓派内核</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言">前言</h3><p>拿到树莓派后，刚好手里有个360 Wi-Fi网卡（MT7601的芯片），就准备放树莓派上使用<br>插上去不识别，一搜才知道要重新编译内核，编译驱动什么的</p>
-<p>原来没折腾过linux的编译，所以趁此机会，好好学习一下<br>期间查了网上很多资料，尝试，然后各种错误，最后还是<strong>官网资料英文资料最靠谱</strong></p>
-<h3 id="搭建ubuntu环境">搭建ubuntu环境</h3><p>这个比较简单，请参考网上教程，完成ubuntu基本环境的搭建</p>
-<h3 id="搭建交叉编译环境">搭建交叉编译环境</h3><p>编译内核，可以在树莓派上进行，也可以在PC主机上进行编译，因为PC主机内存大，CPU性能高，所以一般都是在PC上进行<br>这里就引入了一个名次“交叉编译环境”</p>
-<p>其实，刚听说交叉编译时，以为是多么高大上的技术，后来发现，就是在PC上安装工具，为CPU编译出可执行文件<br>我们一直以来用MDK，IAR开发STM32，AVR，也算是交叉编译了，，，哈哈</p>
-<p>这里不做过多解释</p>
-<p>树莓派官方为我们提供了对应的编译工具</p>
-<p>官方推荐用git来下载，命令如下<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/raspberrypi/tools</span><br></pre></td></tr></table></figure></p>
-<p>但实际下载时，git的速度实在难以恭维，建议直接用浏览器去github页面点击”Down as zip”下载</p>
-<p>特别注意：下载完成后，注意检查下载包是否完整，不然在编译时会出现一堆莫名其妙的错误</p>
-<p>下载完成后，将tools解压到某一个目录(XXX)下，那么tools的可执行目录为</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">32</span>-bit 版本</span><br><span class="line">XXX/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin</span><br><span class="line"></span><br><span class="line"><span class="number">64</span>-bit 版本</span><br><span class="line">XXX/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin</span><br></pre></td></tr></table></figure>
-<p>接下来，我们将这个路径添加到PATH环境变量中</p>
-<p>这里有一个小插曲，因为我用的是普通用户，添加路径到.bashrc文件中后，编译源码的时候，提示没有系统权限，所以又加了sudo来提升权限<br>但是仍然编译出错，提示找不到gcc和ld工具，找了半天原因，发现<br>1）下载的tools压缩包不完整，丢失了一些文件，所以重新下载了tools<br>2）普通用户的.bashrc和超级用户的.bashrc不在同一个目录，即便是把PATH添加到/etc/profile中也不能，仍然会提示超级用户找不到gcc之类的错误<br>解决方法就是先通过<code>sudo su</code>来切换为超级用户，然后把PATH添加到root的.bashrc文件中</p>
-<p>添加方法如下</p>
-<ol>
-<li>打开<code>root/.bashrc</code></li>
-<li>在最后一行，添加<code>export PATH=$PATH:XXX/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin</code></li>
-</ol>
-<p>添加完成后，注销超级用户，然后重新切换为超级用户，在shell下输入<code>arm-linux-gnueabihf-gcc -v</code>来验证PATH变量是否生效</p>
-<h3 id="下载内核源码">下载内核源码</h3><p>到git上下载源码<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone --depth=<span class="number">1</span> https://github.com/raspberrypi/linux</span><br></pre></td></tr></table></figure></p>
-<p>还是那句话，git速度太慢，建议网页直接下载，但注意检查文件完整性<br>事后证明，很多错误，都是因为下载的源代码不完整导致的</p>
-<p>下载后，随意放一个目录下，将目录名改为<code>linux</code></p>
-<h3 id="编译内核">编译内核</h3><p>进入<code>linux</code>目录，输入下面的命令</p>
-<p>树莓派1代<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ KERNEL=kernel</span><br><span class="line">$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcmrpi_defconfig</span><br><span class="line">$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs</span><br></pre></td></tr></table></figure></p>
-<p>树莓派2代<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ KERNEL=kernel7</span><br><span class="line">$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2709_defconfig</span><br><span class="line">$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs</span><br></pre></td></tr></table></figure></p>
-<p>然后就是漫长的编译时间，在mac下，大概编译了一个小时左右<br>如果你电脑是多核的，可以在make 命令中增加<code>-jn</code>进行多线程编译<br>原则上，n是你处理器个数多1.5倍，比如我是4核电脑，就可以-j6</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make -j6 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs</span><br></pre></td></tr></table></figure>
-<p>编译完成后的安装过程，请参考<a href="https://www.raspberrypi.org/documentation/linux/kernel/building.md" target="_blank" rel="external">INSTALL DIRECTLY ONTO THE SD<br>CARD</a></p>
-<p>最后，当我编译完成后，突然发现树莓派4.1.y内核已经默认支持了我的360wifi 2代，所以就没有继续编译网卡驱动了<br>^_^</p>
-<h3 id="参考资料">参考资料</h3><ol>
-<li><a href="https://www.raspberrypi.org/documentation/linux" target="_blank" rel="external">官方：树莓派Linux文档主页</a></li>
-<li><a href="https://www.raspberrypi.org/documentation/linux/kernel/building.md" target="_blank" rel="external">官方：内核编译</a></li>
-<li><a href="https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md" target="_blank" rel="external">官方：无线连接</a></li>
 </ol>
 
       
