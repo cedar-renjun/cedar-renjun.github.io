@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/Nucleo/" style="font-size: 10px;">Nucleo</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F4/" style="font-size: 10px;">STM32F4</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,73 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-kill-your-self-in-CC25xx-CC24xx-SOC" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/08/kill-your-self-in-CC25xx-CC24xx-SOC/" class="article-date">
+  	<time datetime="2015-11-07T16:58:35.000Z" itemprop="datePublished">2015-11-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/08/kill-your-self-in-CC25xx-CC24xx-SOC/">编写自杀式代码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0_前言">0    前言</h3><p>在制作TI调试器时，需要在RAM中执行代码，并擦除原有固件，然后接收调试器发来的数据文件，写入FLASH中，从而完成系统烧写和调试功能</p>
+<p>该技术可以用作自杀式入侵代码，完成工作后，清除所有代码信息，然后重启<br>已经测试通过，并十分有效，简单的说一下基本思路，详细信息不便透露</p>
+<h3 id="1_基本步骤">1    基本步骤</h3><ol>
+<li>调试器连接MCU</li>
+<li>更新固件</li>
+<li>完成系统初始化和C－Runtime初始化</li>
+<li>映射RAM执行缓冲区，设置断点</li>
+<li>执行RAM函数，使用DMA擦除固件信息，准备接收调试器发送的数据资料</li>
+</ol>
+<h3 id="2_特别说明">2    特别说明</h3><ol>
+<li>我已经在用STM32来调试CC25xx/CC23xx系列芯片，同时具备烧写功能</li>
+<li>该技术可以和缓冲区漏洞结合起来，得到系统固件，并擦除自身，完全不留任何作案信息</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugger/">Debugger</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Learn-CC26xx-with-me-lesson-00" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1588,85 +1655,6 @@ libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果�
 <li><a href="http://opencv.org/" target="_blank" rel="external">opencv官网</a></li>
 <li><a href="http://docs.opencv.org/3.0-last-rst/doc/tutorials/introduction/linux_install/linux_install.html" target="_blank" rel="external">官方编译指导</a></li>
 <li><a href="http://docs.opencv.org/doc/tutorials/introduction/display_image/display_image.html" target="_blank" rel="external">Opencv例程显示图片</a></li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/树莓派/">树莓派</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-resize-raspberry-sd-volume" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/11/resize-raspberry-sd-volume/" class="article-date">
-  	<time datetime="2015-10-11T10:10:36.000Z" itemprop="datePublished">2015-10-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/11/resize-raspberry-sd-volume/">充分使用树莓派SD卡容量</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言">前言</h3><p>在编译opencv的时候，出现内存不够的情况，/root使用率100%，导致编译错误，所以需要拓展SD卡容量</p>
-<p>google了一下，发现树莓派在默认情况下，仅仅使用了SD卡的4G容量，剩下的空间，属于空白分区，完全没有利用起来<br>所以，我们可以通过<code>df</code>命令，来调整linux分区的size</p>
-<h3 id="操作步骤">操作步骤</h3><ol>
-<li>重新树莓派，进入命令行页面</li>
-<li>登陆树莓派，用户名<code>pi</code>，密码<code>raspberry</code></li>
-<li><code>sudo su</code><br>切换至超级用户</li>
-<li><code>df -h</code><br>显示出当前分区的状态和使用率</li>
-<li>输入<code>fdisk /dev/mmcblk0</code> 加载SD卡</li>
-<li><code>p</code>打印当前分区<br>你应该会看到三个分区(mmcblk0, mmcblk0p1, mmcblk0p2)，现在把分区2的信息写下来（/dev/mmcblk0p2）<br>我主要记录了开始扇区（122880）和结束扇区（8447999）的数值</li>
-<li>按<code>d</code>开始删除分区</li>
-<li>系统提示输入删除分区号，输入<code>2</code></li>
-<li>按<code>n</code>新建分区，然后依次输入<code>p</code>, <code>2</code></li>
-<li>接下来输入原来记录的2扇区开始号(122880)，记得替换成你自己的数字</li>
-<li>按<code>w</code>保持配置</li>
-<li>输入<code>reboot</code>重启树莓派</li>
-<li>输入<code>sudo resize2fs /dev/mmcblk0p2</code> 更新系统</li>
-<li>输入<code>df -h</code>看看，是不是已经完全使用了剩余空间</li>
-</ol>
-<h3 id="参考文档">参考文档</h3><ol>
-<li><a href="http://ray.dotnetage.com/posts/2015-5-15/rpi-resize-sd/" target="_blank" rel="external">http://ray.dotnetage.com/posts/2015-5-15/rpi-resize-sd/</a></li>
-<li><a href="http://m.blog.csdn.net/blog/lichao_ustc/46740443" target="_blank" rel="external">http://m.blog.csdn.net/blog/lichao_ustc/46740443</a></li>
-<li><a href="http://www.rs-online.com/designspark/electronics/knowledge-item/raspberry-pi---%E8%B0%83%E6%95%B4%E4%BD%A0%E7%9A%84sd%E5%8D%A1%E5%88%86%E5%89%B2%E5%8C%BA%E7%9A%84%E5%A4%A7%E5%B0%8F" target="_blank" rel="external">http://www.rs-online.com/designspark/electronics/knowledge-item/raspberry-pi---%E8%B0%83%E6%95%B4%E4%BD%A0%E7%9A%84sd%E5%8D%A1%E5%88%86%E5%89%B2%E5%8C%BA%E7%9A%84%E5%A4%A7%E5%B0%8F</a></li>
-<li><a href="http://www.computerhope.com/unix/udf.htm" target="_blank" rel="external">http://www.computerhope.com/unix/udf.htm</a></li>
-<li><a href="http://www.cnblogs.com/peida/archive/2012/12/07/2806483.html" target="_blank" rel="external">http://www.cnblogs.com/peida/archive/2012/12/07/2806483.html</a></li>
 </ol>
 
       

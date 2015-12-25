@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/Nucleo/" style="font-size: 10px;">Nucleo</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F4/" style="font-size: 10px;">STM32F4</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,120 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-nucleo-stm32F410rb" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/25/nucleo-stm32F410rb/" class="article-date">
+  	<time datetime="2015-12-25T14:40:23.000Z" itemprop="datePublished">2015-12-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/25/nucleo-stm32F410rb/">STM32 F410RB Nucleo</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="STM32F410RB_Nucleo测评">STM32F410RB Nucleo测评</h3><h4 id="1_综述">1    综述</h4><p>最近拿到一块STM32F410的Nucleo板子，给大家介绍一下ST新出的F410系列</p>
+<p><img src="http://www.st.com/st-web-ui/static/active/en/fragment/product_related/rpn_information/board_photo/nucleo-F4.jpg" alt="ST32F410"></p>
+<h4 id="2_STM32F410芯片">2    STM32F410芯片</h4><p>F410是ST新推出的一款M4内核MCU，主频100MHz，主打低功耗，动态功耗竟然达到了89uA/MHz，Stop模式待机电流6uA。堪称里程碑！</p>
+<p>什么概念呢？<br>在保持同等运算性能的情况下，功耗是F405的1/10，直逼L4系列，要知道L4是ST的低功耗，高性能产品线代表作品</p>
+<p>F410的出现给大家多了一个M4选择：功能强劲，价格足够低，低功耗能力非常突出</p>
+<p>我的新产品，准备用这颗F410来做</p>
+<h5 id="2-_1_主打特性">2.    1    主打特性</h5><ol>
+<li>Dynamic Efficiency Line with BAM (Batch Acquisition Mode)<br>Core: ARM®32-bit Cortex®-M4 CPU with FPU, Adaptive real-time accelerator (ART Accelerator™) allowing 0-wait state execution from Flash memory, frequency up to 100 MHz, memory protection unit, 125 DMIPS/1.25 DMIPS/MHz (Dhrystone 2.1), and DSP instructions<br>Memories</li>
+<li>Up to 128 Kbytes of Flash memory</li>
+<li>512 bytes of OTP memory</li>
+<li>32 Kbytes of SRAM</li>
+<li>Clock, reset and supply management</li>
+<li>1.7 V to 3.6 V application supply and I/Os</li>
+<li>POR, PDR, PVD and BOR</li>
+<li>4-to-26 MHz crystal oscillator</li>
+<li>Power consumption<br>Run: 89 μA/MHz (peripheral off)<br>Stop (Flash in Stop mode, fast wakeup time): 40 μA Typ @ 25 °C; 49 μA max @25 °C<br>Stop (Flash in Deep power down mode, fast wakeup time): down to 6 μA @ 25 °C; 14 μA max @25 °C<br>Standby: 2.4 μA @25 °C / 1.7 V without RTC; 12 μA @85 °C @1.7 V<br>VBATsupply for RTC: 1 μA @25 °C</li>
+<li>1×12-bit, 2.4 MSPS ADC: up to 16 channels</li>
+<li>1×12-bit D/A converter</li>
+<li>General-purpose DMA: 16-stream DMA controllers with FIFOs and burst support</li>
+<li>Up to 9 timers</li>
+<li>One 16-bit advanced motor-control timer</li>
+<li>One low-power timer (available in Stop mode)</li>
+<li>Three 16-bit general purpose timers</li>
+<li>One 32-bit timer up to 100 MHz with up to four IC/OC/PWM or pulse counter and quadrature (incremental) encoder input</li>
+</ol>
+<h5 id="2-2_功耗">2.2    功耗</h5><blockquote>
+<p>Power consumption</p>
+<ol>
+<li>Run: 89 μA/MHz (peripheral off)</li>
+<li>Stop (Flash in Stop mode, fast wakeup time): 40 μA Typ @ 25 °C; 49 μA max @25 °C</li>
+<li>Stop (Flash in Deep power down mode, fast wakeup time): down to 6 μA @ 25 °C; 14 μA max @25 °C</li>
+<li>Standby: 2.4 μA @25 °C / 1.7 V without RTC; 12 μA @85 °C @1.7 V</li>
+<li>VBATsupply for RTC: 1 μA @25 °C</li>
+</ol>
+</blockquote>
+<h5 id="2-3_价格优势">2.3    价格优势</h5><p>F410在保持M4高性能，DMA低功耗的特征下，裁剪了FLASH，RAM和一部分外设，价格是F405的1/3，2个美金左右，性价比非常非常高</p>
+<h4 id="3_用户群">3    用户群</h4><ol>
+<li>学生<br>可以通过ST Nucleo 开发板和ST提供的软件来学习STM32系列MCU</li>
+<li>系统工程师<br>在需要使用高性能和低功耗的场景下，同时应用不需要太高的FLASH，RAM，F410系列是你不二的选择：性能强劲，功耗表现优异，性价比非常高</li>
+</ol>
+<h4 id="4_Nucleo系列开发板">4    Nucleo系列开发板</h4><p>ST 推出Nucleo系列，就是为了让各位以最低的成本，快速熟悉STM32 MCU；使用Nucleo兼容库，快速创建自己的产品原型</p>
+<p>在设计之初，Nucleo就考虑到了兼容性，所以可以兼容F1/2/3/4系列MCU，对外接口兼容Arduino，同时还有ST自己的专用拓展接口，从而达到最大程度的兼容性，拓展性</p>
+<h5 id="4-1_硬件">4.1    硬件</h5><ol>
+<li>64Pin的LQFP封装</li>
+<li>自带SWD调试接口</li>
+<li>自带ST-Link/V2-1</li>
+<li>USB供电和通讯</li>
+</ol>
+<p>F410的原理图，点击这个链接<a href="http://www.st.com/st-web-ui/static/active/en/resource/technical/document/data_brief/DM00105918.pdf" target="_blank" rel="external">http://www.st.com/st-web-ui/static/active/en/resource/technical/document/data_brief/DM00105918.pdf</a></p>
+<p>可以查看具体MCU的管脚分配情况和具体用法</p>
+<h5 id="4-2_软件">4.2    软件</h5><p>软件方面，Nucleo使用HAL层来兼容所有的Nucleo板，也提供了非常丰富的软件用例，无缝切换</p>
+<p>编译器方面，Nucleo支持IAR,Keil,GCC, Mbed等各种编译器开发环境，无所不包</p>
+<h4 id="5_开发板购买链接">5    开发板购买链接</h4><p>STM32推出的Nucleo STM32F410开发板价格相当实惠，10个美金左右，折合人民币（含税）也就是80块钱左右</p>
+<p>各位可以去mouser上下单订购，很方便，链接如下<br><a href="http://www.mouser.cn/ProductDetail/STMicroelectronics/NUCLEO-F410RB/?qs=%2fha2pyFaduj0LE%252bzmDN2WGsLI%2fSHDmqnrJvkB00UMkqt9XNS%252b5tWLg%3d%3d" target="_blank" rel="external">http://www.mouser.cn/ProductDetail/STMicroelectronics/NUCLEO-F410RB/?qs=%2fha2pyFaduj0LE%252bzmDN2WGsLI%2fSHDmqnrJvkB00UMkqt9XNS%252b5tWLg%3d%3d</a></p>
+<h4 id="6_参考资料">6    参考资料</h4><ol>
+<li><a href="http://www.st.com/web/en/catalog/mmc/FM141/SC1169" target="_blank" rel="external">ST Cortex-M MCU</a></li>
+<li><a href="http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1577" target="_blank" rel="external">STM32F4 系列</a></li>
+<li><a href="http://www.st.com/web/catalog/tools/FM116/SC959/SS1532/LN1847?sc=stm32nucleo" target="_blank" rel="external">ST Nucleo开发板</a></li>
+<li><a href="www.mbed.org">Mbed</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nucleo/">Nucleo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32F4/">STM32F4</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-USB-reference-documents" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1693,73 +1807,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-kill-your-self-in-CC25xx-CC24xx-SOC" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/11/08/kill-your-self-in-CC25xx-CC24xx-SOC/" class="article-date">
-  	<time datetime="2015-11-07T16:58:35.000Z" itemprop="datePublished">2015-11-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/08/kill-your-self-in-CC25xx-CC24xx-SOC/">编写自杀式代码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="0_前言">0    前言</h3><p>在制作TI调试器时，需要在RAM中执行代码，并擦除原有固件，然后接收调试器发来的数据文件，写入FLASH中，从而完成系统烧写和调试功能</p>
-<p>该技术可以用作自杀式入侵代码，完成工作后，清除所有代码信息，然后重启<br>已经测试通过，并十分有效，简单的说一下基本思路，详细信息不便透露</p>
-<h3 id="1_基本步骤">1    基本步骤</h3><ol>
-<li>调试器连接MCU</li>
-<li>更新固件</li>
-<li>完成系统初始化和C－Runtime初始化</li>
-<li>映射RAM执行缓冲区，设置断点</li>
-<li>执行RAM函数，使用DMA擦除固件信息，准备接收调试器发送的数据资料</li>
-</ol>
-<h3 id="2_特别说明">2    特别说明</h3><ol>
-<li>我已经在用STM32来调试CC25xx/CC23xx系列芯片，同时具备烧写功能</li>
-<li>该技术可以和缓冲区漏洞结合起来，得到系统固件，并擦除自身，完全不留任何作案信息</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugger/">Debugger</a></li></ul>
 	</div>
 
       
