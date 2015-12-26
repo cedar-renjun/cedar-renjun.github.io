@@ -203,7 +203,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="0_序">0 序</h4><p>最近在做高速USB（480Mbps）项目，用STM32需要外接一个PHY，比如USB3300芯片，额外增加了硬件成本，于是找了一下自带高速USB PHY的芯片，别说，还真有！而且性能非常劲爆</p>
-<p>NXP <a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/32-bit-arm-cortex-m4-m0-mcu-up-to-1-mb-flash-and-136-kb-sram-ethernet-two-high-speed-usb-lcd-emc:LPC4337JET100" target="_blank" rel="external">LPC4300系列芯片</a></p>
+<p>NXP <a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/32-bit-arm-cortex-m4-m0-mcu-up-to-1-mb-flash-and-136-kb-sram-ethernet-two-high-speed-usb-lcd-emc:LPC4337JET100">LPC4300系列芯片</a></p>
 <p>芯片主要的特性：</p>
 <ol>
 <li>204MHz M0/M4双核芯片</li>
@@ -213,94 +213,8 @@
 <li>自定义IO接口，速度高达100MHz</li>
 <li>自带LCD控制器，支持1024 H x 768 V</li>
 </ol>
-<p>额外的特性，请访问<a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/32-bit-arm-cortex-m4-m0-mcu-up-to-1-mb-flash-and-136-kb-sram-ethernet-two-high-speed-usb-lcd-emc:LPC4337JET100" target="_blank" rel="external">LPC43xx主页</a><br>反正NXP LPC系列MCU各种牛X，秒杀STM32F4系列，，，</p>
+<p>额外的特性，请访问<a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/32-bit-arm-cortex-m4-m0-mcu-up-to-1-mb-flash-and-136-kb-sram-ethernet-two-high-speed-usb-lcd-emc:LPC4337JET100">LPC43xx主页</a><br>反正NXP LPC系列MCU各种牛X，秒杀STM32F4系列，，，</p>
 <h4 id="1_LPC_Xpresso4337_开发板">1 LPC Xpresso4337 开发板</h4><p>LPC针对4300系列，提供2款评估板</p>
-<ol>
-<li><a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/lpc4330-xplorer-board:OM13027" target="_blank" rel="external">OM13027: LPC4330-Xplorer Board </a></li>
-</ol>
-<p><img src="http://cache.nxp.com/documents/marcom_graphics/Xplorer-board.jpg" alt="Pic"></p>
-<blockquote>
-<p><strong>Features</strong></p>
-<ol>
-<li>Controller: LPC4330, 100 pin BGA</li>
-<li>PCB: 4-layer (86 mm x 40 mm, RoHS Compliant)</li>
-<li>Two LEDs</li>
-<li>One user switch and one reset switch</li>
-<li>Boot select switch</li>
-<li>32 Mb Quad SPI flash</li>
-<li>On board crystals for controller, RTC and audio codec</li>
-<li>On board Ethernet PHY, 50 MHz Oscillator and RJ45 connector with magnetics</li>
-<li>On board audio codec and audio jacks</li>
-<li>On board USB host power switch</li>
-<li>On board Micro SD card slot</li>
-<li>Two USB ports, one HS (High speed) port and one FS (Full Speed) port</li>
-<li>10-pin cortex debug header</li>
-<li>Unused I/Os brought to a header</li>
-</ol>
-</blockquote>
-<p><br></p>
-<p>另一款是</p>
-<ol>
-<li><a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/lpcxpresso4337-development-board:OM13070?fsrch=1&amp;sr=2&amp;pageNum=1" target="_blank" rel="external">OM13070: LPCXpresso4337 Development Board</a><br><img src="http://cache.nxp.com/documents/marcom_graphics/OM13070_image.png" alt="Pic"></li>
-</ol>
-<blockquote>
-<p><strong>Features</strong></p>
-<ol>
-<li>LPC4337 dual-core (M4F and M0+) MCU running at up to 208 MHz</li>
-<li>On-board high-speed USB based debug probe with CMSIS-DAP and LPCXpresso IDE Redlink protocol options, can debug the on-board LPC4337 or external target</li>
-<li>Support for external debug probes</li>
-<li>Tri-color LED</li>
-<li>Target Reset, ISP and WAKE buttons</li>
-<li>Expansion options based on Arduino UNO R3 and Pmod™, plus additional expansion port pins</li>
-<li>On-board Ethernet PHY (output available at expansion connectors)</li>
-<li>High speed USB A/B connector for host or slave operation</li>
-<li>8 Mb Macronix quad SPI flash</li>
-<li>UART, I²C and SPI port bridging from LPC4337 target to USB via the on-board debug probe</li>
-<li>FTDI UART connector</li>
-</ol>
-</blockquote>
-<p><br></p>
-<p>从高速USB的角度来看，二者都符合自带两个高速USB AB接口，OTG接口，均能符合我的要求，但<a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/lpcxpresso4337-development-board:OM13070?fsrch=1&amp;sr=2&amp;pageNum=1" target="_blank" rel="external">OM13070: LPCXpresso4337 Development Board</a>板载调试器，支持CMSIS-DAP调试协议，可以不用额外购买<a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/lpc-link2:OM13054?fsrch=1&amp;sr=4&amp;pageNum=1" target="_blank" rel="external">NXP Link-II调试器</a></p>
-<p>所以决定购买LPC Xpresso4337的板子来测试高速USB性能</p>
-<p>在购买的过程中，选定了element，digikey，mouser这几个大的代理商，其中以<a href="http://www.mouser.com/ProductDetail/NXP/OM13070598/?qs=%2fha2pyFaduivyg0n0nASJEQOTDbix%252bVEQfzwQ%252b%252bYqHfQCOBAqJcahw%3d%3d" target="_blank" rel="external">mouser</a>购买流程最为方便，购买流程清晰，简单，也支持支付宝付款；相比之下，其他两家在注册时，需要填写一大堆信息，绑定信用卡操作等等，偶尔还会网站无响应，，，</p>
-<p>现在<a href="http://www.mouser.com/ProductDetail/NXP/OM13070598/?qs=%2fha2pyFaduivyg0n0nASJEQOTDbix%252bVEQfzwQ%252b%252bYqHfQCOBAqJcahw%3d%3d" target="_blank" rel="external">mouser</a>上购买4337的板子，很便宜，25美金左右，值得入手，手慢无！！！</p>
-<p>购买链接<a href="http://www.mouser.com/ProductDetail/NXP/OM13070598/?qs=%2fha2pyFaduivyg0n0nASJEQOTDbix%252bVEQfzwQ%252b%252bYqHfQCOBAqJcahw%3d%3d" target="_blank" rel="external">OM13070</a></p>
-<h4 id="2_快速上手">2    快速上手</h4><p>购买后，mouser发国际快递，从国外原厂寄到深圳，大概花了一个星期的时间，效率还是很高的</p>
-<p>拿到板子后，到NXP官网找资料，上手，下载固件，测试USB高速性能，大概花了30分钟左右</p>
-<p>先说结论吧</p>
-<blockquote>
-<p>简单的USB高速Bulk写，512长度，PC每次读64K，进行640M读数据的压力测试，最后结果是40MB/S</p>
-</blockquote>
-<p>下面详细的介绍过程</p>
-<h5 id="2-1_开发板原理图">2.1 开发板原理图</h5><p>抱歉，在官网找了几个小时，愣是没找到原理图，然后在lib的资料里面，显示原理图TBD状态（To Be Done），最后Google了很久，还是没有找到，，，</p>
-<p>有兴趣的朋友可以定期刷刷<a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/lpcxpresso4337-development-board:OM13070?" target="_blank" rel="external">LPCXpresso4337 Development Board主页</a>，没准哪天就出来了</p>
-<p>NXP的4337板子的配套资料太少！！！<br>习惯了ST，TI的丰富文档，对NXP MCU的资料，简直崩溃，，，</p>
-<h5 id="2-2_芯片手册">2.2 芯片手册</h5><p>先下载<a href="http://cache.nxp.com/documents/data_sheet/LPC435X_3X_2X_1X.pdf?fpsp=1&amp;WT_TYPE=Data%20Sheets&amp;WT_VENDOR=FREESCALE&amp;WT_FILE_FORMAT=pdf&amp;WT_ASSET=Documentation&amp;fileExt=.pdf" target="_blank" rel="external">数据手册</a>，看一下具体芯片的参数，外设配置和电流消耗等数据</p>
-<p>板载的芯片为<br><strong>LPC4337JET100: 32-bit ARM Cortex-M4/M0 MCU; up to 1 MB flash and 136 kB SRAM; Ethernet, two High-speed USB, LCD, EMC</strong></p>
-<p>看完数据手册后，下载<a href="http://cache.nxp.com/documents/user_manual/UM10503.pdf?fpsp=1&amp;WT_TYPE=Users%20Guides&amp;WT_VENDOR=FREESCALE&amp;WT_FILE_FORMAT=pdf&amp;WT_ASSET=Documentation&amp;fileExt=.pdf" target="_blank" rel="external">User Manual</a>来仔细看看整体架构，USB寄存器部分</p>
-<p>更多的AN和 Errata资料，可以到<a href="http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/lpc-arm-cortex-m-mcus/lpc-dual-core-cortex-m0-m4f/lpc4300/32-bit-arm-cortex-m4-m0-mcu-up-to-1-mb-flash-and-136-kb-sram-ethernet-two-high-speed-usb-lcd-emc:LPC4337JET100?fpsp=1&amp;tab=Documentation_Tab" target="_blank" rel="external">这里</a>下载</p>
-<h5 id="2-3_芯片代码库">2.3 芯片代码库</h5><p>NXP专门提供了一个<a href="https://www.lpcware.com/content/nxpfile/lpcopen-software-development-platform-lpc43xx-packages" target="_blank" rel="external">文档网站</a>，可以找到LPC Xpresso4337板子的代码库资料</p>
-<p>库分为两种，分别适配不同的编译器</p>
-<ol>
-<li>LPCXpresso v7.6.2_326</li>
-<li>IAR EWARM 7.30.3／Keil MDK-ARM v5.12</li>
-</ol>
-<p>LPCXpresso为NXP推出的基于Eclipse的IDE，有丰富的插件，看起来比较牛，有兴趣的童鞋可以下载研究</p>
-<p>我mac已经有IAR和Keil，所有就直接下载IAR工程包了，<a href="http://www.lpcware.com/system/files/lpcopen_2_16_keil_iar_nxp_lpcxpresso_4337.zip" target="_blank" rel="external">点击下载</a></p>
-<h5 id="2-4_修改固件代码">2.4 修改固件代码</h5><p>下载代码包后，解压到任一目录，然后打开NXP\lpcopen_2_16_keil_iar_nxp_lpcxpresso_4337\applications\lpc18xx_43xx\examples\usbd_rom\目录下的IAR工程空间</p>
-<p>首先编译chip和board两个工程，分别生成对应的*.a库文件<br>然后打开bwtest工程，rebuild<br>看看readme.txt，如下所示</p>
-<blockquote>
-<p>USB Band Width test and WCID examples for USB ROM API.</p>
-<p>Example description<br>The example shows how to us USBD ROM stack to creates a WCID based bandwidth test port.<br>The examples shows how to handle Microsoft’s specific component identifier (WCID) requests<br>for install less WinUSB operation. Check <a href="https://github.com/pbatard/libwdi/wiki/WCID-Devices" target="_blank" rel="external">https://github.com/pbatard/libwdi/wiki/WCID-Devices</a><br>for more details.<br>No driver install is required on Windows 8 and Windows 7 systems which can update<br>automatically connecting “Windows update server”. For WinXP and Windows 7 machine which<br>can’t update automatically use latest version of Zadig tool available at<br><a href="http://sourceforge.net/projects/libwdi/files/zadig/" target="_blank" rel="external">http://sourceforge.net/projects/libwdi/files/zadig/</a> to install drivers. When Zadig<br>is used restart of the machine is required for the test tool to recognize the device.</p>
-<p>Special connection requirements<br>Connect the USB cable between micro connector on board and to a Windows host.<br>Run LPCUsbTest.exe on the host. The executable uses .net 3.5 framework.<br>Once the application is running click “Find LPC Device” button. Check if the<br>list box shows whether the app detected the device. Then select “Rx” or “Tx” radio<br>buttons before clicking “Start Test” button. Rx and Tx numbers are based on host receiving<br>and transmitting data. Since this example is just interested in through-put test it use<br>same memory area for Rx and Tx. </p>
-<p>Build procedures:<br>Visit the <a href="http://www.lpcware.com/content/project/lpcopen-platform-nxp-lpc-microcontrollers/lpcopen-v200-quickstart-guides" target="_blank" rel="external">LPCOpen quickstart guides</a><br>to get started building LPCOpen projects.</p>
-</blockquote>
-<p>然后很不幸，没有找到文档中的<code>LPCUsbTest.exe</code>工具，google之后，发现很多老外朋友，也在找NXP要这个工具，仍然没找到，，，</p>
-<p><code>Where is LPCUsbTest.exe tools???</code></p>
-<p>最后，用VS建了一个工程，libusb测试读写性能，刚开始已经提到了，未优化的前提下，达到37MB/S！已经很牛<br>后门再优化一下，用DMA很可能能达到USB 批量传输的理论55MB/S</p>
-<h4 id="3_最后">3 最后</h4><p>玩了两天，最大的感受是：NXP MCU性能No1，配套资料有很大提升空间，希望NXP加大资料手册文档的投入力度</p>
-<p>但是NXP的USB库使用起来相当简单，LPC Xpresso4337是高速USB开发的不二选择</p>
-
       
     </div>
     
@@ -313,6 +227,10 @@
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/12/26/LPC-Xpresso-4337/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
