@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/Nucleo/" style="font-size: 10px;">Nucleo</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F4/" style="font-size: 10px;">STM32F4</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/LPC/" style="font-size: 10px;">LPC</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/NXP/" style="font-size: 10px;">NXP</a> <a href="/tags/Nucleo/" style="font-size: 10px;">Nucleo</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 10px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F4/" style="font-size: 10px;">STM32F4</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
 					</div>
 				</section>
 				
@@ -175,6 +175,79 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-install-opencv-on-raspberry2B" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/12/install-opencv-on-raspberry2B/" class="article-date">
+  	<time datetime="2015-10-12T11:14:59.000Z" itemprop="datePublished">2015-10-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/12/install-opencv-on-raspberry2B/">安装opencv</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>一直对opencv比较好奇，所以就尝试着在树莓派上面编译安装了opencv，参考了网上不少资料，各种折腾，最终搞定<br>最大的体会是要有耐心，装opencv折腾了2天多，下文主要记录安装步骤和注意事项</p>
+<p>树莓派系统4.1.7</p>
+<h3 id="开始折腾">开始折腾</h3><p>首先参考了这个 <a href="http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/" target="_blank" rel="external">http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/</a><br>文章，老外讲如何在树莓派上面利用opencv操纵CSI接口的摄像头，他用的是2.7版本的python和2.4版本的opencv，刚开始进行很顺利</p>
+<p>到第二步的时候，找不到<code>libjpeg8-dev libtiff4-dev</code>这两个源，提示可以用<code>libjpeg-dev
+libtiff5-dev</code>来替换，替换就替换吧，以为没事儿呢，结果到最后编译时，提示找不到<code>libtiff4-dev</code>的库文件，编译失败，，，，，</p>
+<p>又卸载了各种安装包，参考官网教程安装了oepncv3.0和相关的库，这里就不贴步骤了，请参考<a href="http://docs.opencv.org/3.0-last-rst/doc/tutorials/introduction/linux_install/linux_install.html" target="_blank" rel="external">http://docs.opencv.org/3.0-last-rst/doc/tutorials/introduction/linux_install/linux_install.html</a></p>
+<p>注意一点，在下面步骤之后<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/&lt;my_working_directory&gt;</span><br><span class="line">git clone https://github.com/Itseez/opencv.git</span><br><span class="line">git clone https://github.com/Itseez/opencv_contrib.git</span><br></pre></td></tr></table></figure></p>
+<p>下载的两个目录文件，要合并到同一个目录中，比如<code>source</code>目录，然后在source同级目录下建立<code>build</code>目录，然后按照官方的编译步骤，一步步来进行<br>这些步骤耗时比较长，可以通过PC用迅雷下载好，然后scp拷贝到树莓派中，进行编译<br>消耗的大致时间，请参考资料1中的耗时，还是比较准确的</p>
+<p>编译完成后，install进行安装</p>
+<p>然后通过编译读取图片的例子，参考C语言版本的 <a href="http://blog.csdn.net/moc062066/article/details/6312216" target="_blank" rel="external">http://blog.csdn.net/moc062066/article/details/6312216</a></p>
+<p>编译完成后，记得terminal ssh<br>无法执行这个文件或者执行后看不到窗口，需要进入桌面环境来打开，如果你直接有一个显示器，那就可以直接运行，显示出来图片<br>没有的话，可以用VNC来远程显示桌面，不过记得要用realvnc的viewer和server，网上流行的tightvncserver会导致显示时出现RAND错误</p>
+<p>当你按照步骤，执行完，opencv环境就搭建完毕</p>
+<p>接下来，enjoy opencv</p>
+<h3 id="参考资料">参考资料</h3><ol>
+<li><a href="http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/" target="_blank" rel="external">install-opencv-and-python-on-your-raspberry-pi-2-and-b</a></li>
+<li><a href="http://opencv.org/" target="_blank" rel="external">opencv官网</a></li>
+<li><a href="http://docs.opencv.org/3.0-last-rst/doc/tutorials/introduction/linux_install/linux_install.html" target="_blank" rel="external">官方编译指导</a></li>
+<li><a href="http://docs.opencv.org/doc/tutorials/introduction/display_image/display_image.html" target="_blank" rel="external">Opencv例程显示图片</a></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/树莓派/">树莓派</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-resize-raspberry-sd-volume" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1552,69 +1625,6 @@ git <span class="operator"><span class="keyword">commit</span> -<span class="key
 	</div>
 
 
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-mbed-iot-device-platform" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/10/09/mbed-iot-device-platform/" class="article-date">
-  	<time datetime="2014-10-09T14:23:27.000Z" itemprop="datePublished">2014-10-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/09/mbed-iot-device-platform/">Mbed IoT Device Platform</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong><br>Mark：ARM推出了Mbed平台，试图统一IOT平台，原来看过Mbed的源码，写的很赞，用C++做封装，事件调度机制，非常适合小型系统，最近又看到它们支持各种协议栈，和Thread一样，借助大企业平台的优势，Mbed以后会发展的很好，特此转发ARM文章
-</strong></p>
-<p><br/></p>
-<p><img src="!--￼0--&gt;/images/2014/10/09/ARM-mbed-IoT-platform.png" alt=""></p>
-<h2 id="About_Mbed">About Mbed</h2><p>The Internet of Things (IoT) is about devices and services delivering end-to-end solutions. <a href="http://mbed.org/">The ARM® mbed™ IoT Device Platform</a> is the fastest way to create commercial and interoperable connected IoT devices based on ARM microcontrollers. Interoperability between nodes and cloud services across market segments will unleash the full potential of the IoT. Although the IoT market is made up of many vertical segments, most applications that can make use of Internet connected devices have a common foundation. For example - smart cities, basic wearables and smart home devices require basic OS functionality like drivers, device security and provisioning support. In addition, network connectivity varies from application to application, in general however, the IP networking, security, application layer and device management needs are all common.</p>
-<p>The ARM mbed IoT Device Platform provides all the key ingredients to build secure and efficient IoT applications through ARM’s mbed OS, mbed Device Server and mbed Community Ecosystem.</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Mbed/">Mbed</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2014/10/09/mbed-iot-device-platform/#more">more >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
