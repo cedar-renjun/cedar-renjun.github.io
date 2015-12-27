@@ -3,18 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>stm32 usb in produce | Simple</title>
+  <title>USB IN事务的注意事项 | Simple</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术的终极目标是简洁">
+  <meta name="description" content="因为USB属于主机控制总线，所以Device端要发送数据时，只能被动的等待轮询
+所以，对于USB IN事务的首次触发，需要特殊对待
+常用的方法有
+
+先设置有效长度为0，然后使能IN端点这样，HOST就可以直接发送IN事务，获取0字节长度，然后触发Device的IN中断；Device在触发IN中断后，就可以发送有效数据了
+先设置IN断电为STALL状态，HOST要读取数据时，只有先发送一个OUT事务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="stm32 usb in produce">
+<meta property="og:title" content="USB IN事务的注意事项">
 <meta property="og:url" content="cedar-renjun.github.io/2015/12/27/stm32-usb-in-produce/index.html">
 <meta property="og:site_name" content="Simple">
-<meta property="og:description" content="技术的终极目标是简洁">
-<meta property="og:updated_time" content="2015-12-27T05:57:52.000Z">
+<meta property="og:description" content="因为USB属于主机控制总线，所以Device端要发送数据时，只能被动的等待轮询
+所以，对于USB IN事务的首次触发，需要特殊对待
+常用的方法有
+
+先设置有效长度为0，然后使能IN端点这样，HOST就可以直接发送IN事务，获取0字节长度，然后触发Device的IN中断；Device在触发IN中断后，就可以发送有效数据了
+先设置IN断电为STALL状态，HOST要读取数据时，只有先发送一个OUT事务">
+<meta property="og:updated_time" content="2015-12-27T09:15:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="stm32 usb in produce">
-<meta name="twitter:description" content="技术的终极目标是简洁">
+<meta name="twitter:title" content="USB IN事务的注意事项">
+<meta name="twitter:description" content="因为USB属于主机控制总线，所以Device端要发送数据时，只能被动的等待轮询
+所以，对于USB IN事务的首次触发，需要特殊对待
+常用的方法有
+
+先设置有效长度为0，然后使能IN端点这样，HOST就可以直接发送IN事务，获取0字节长度，然后触发Device的IN中断；Device在触发IN中断后，就可以发送有效数据了
+先设置IN断电为STALL状态，HOST要读取数据时，只有先发送一个OUT事务">
   
     <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
   
@@ -192,7 +207,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      stm32 usb in produce
+      USB IN事务的注意事项
     </h1>
   
 
@@ -200,6 +215,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -208,7 +227,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>因为USB属于主机控制总线，所以Device端要发送数据时，只能被动的等待轮询</p>
+<p>所以，对于USB IN事务的首次触发，需要特殊对待</p>
+<p>常用的方法有</p>
+<ol>
+<li>先设置有效长度为0，然后使能IN端点<br>这样，HOST就可以直接发送IN事务，获取0字节长度，然后触发Device的IN中断；<br>Device在触发IN中断后，就可以发送有效数据了</li>
+<li>先设置IN断电为STALL状态，HOST要读取数据时，只有先发送一个OUT事务，通知Device把数据准备好，然后HOST再次去请求IN事务</li>
+</ol>
+
       
     </div>
     
@@ -257,7 +283,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="stm32-usb-in-produce" data-title="stm32 usb in produce" data-url="cedar-renjun.github.io/2015/12/27/stm32-usb-in-produce/"></div>
+	<div class="ds-thread" data-thread-key="stm32-usb-in-produce" data-title="USB IN事务的注意事项" data-url="cedar-renjun.github.io/2015/12/27/stm32-usb-in-produce/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

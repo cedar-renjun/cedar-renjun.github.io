@@ -321,7 +321,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/27/stm32-usb-in-produce/">stm32 usb in produce</a>
+      <a class="article-title" href="/2015/12/27/stm32-usb-in-produce/">USB IN事务的注意事项</a>
     </h1>
   
 
@@ -330,13 +330,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>因为USB属于主机控制总线，所以Device端要发送数据时，只能被动的等待轮询</p>
+<p>所以，对于USB IN事务的首次触发，需要特殊对待</p>
+<p>常用的方法有</p>
+<ol>
+<li>先设置有效长度为0，然后使能IN端点<br>这样，HOST就可以直接发送IN事务，获取0字节长度，然后触发Device的IN中断；<br>Device在触发IN中断后，就可以发送有效数据了</li>
+<li>先设置IN断电为STALL状态，HOST要读取数据时，只有先发送一个OUT事务，通知Device把数据准备好，然后HOST再次去请求IN事务</li>
+</ol>
+
       
     </div>
     
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USB/">USB</a></li></ul>
+	</div>
+
       
 
       
