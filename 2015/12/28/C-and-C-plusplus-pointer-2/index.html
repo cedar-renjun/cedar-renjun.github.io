@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>[转载]嗯，让我们彻底搞懂C/C++函数指针吧（二） | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。http://hipercomer.blog.51cto.com/4415661/792301
+
+3.4 函数指针作为参数如果你已经明白了函数的参数机制，而且完全理解并实践了3.3节的内容，这一节其实是很简单的。只需要在函数的参数列表中，声明一个函数指针类型的参数即可，然后再调用的时候传给它一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[转载]嗯，让我们彻底搞懂C/C++函数指针吧（二）">
+<meta property="og:url" content="cedar-renjun.github.io/2015/12/28/C-and-C-plusplus-pointer-2/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。http://hipercomer.blog.51cto.com/4415661/792301
+
+3.4 函数指针作为参数如果你已经明白了函数的参数机制，而且完全理解并实践了3.3节的内容，这一节其实是很简单的。只需要在函数的参数列表中，声明一个函数指针类型的参数即可，然后再调用的时候传给它一个">
+<meta property="og:updated_time" content="2015-12-28T12:43:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[转载]嗯，让我们彻底搞懂C/C++函数指针吧（二）">
+<meta name="twitter:description" content="原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。http://hipercomer.blog.51cto.com/4415661/792301
+
+3.4 函数指针作为参数如果你已经明白了函数的参数机制，而且完全理解并实践了3.3节的内容，这一节其实是很简单的。只需要在函数的参数列表中，声明一个函数指针类型的参数即可，然后再调用的时候传给它一个">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/C/" style="font-size: 12.5px;">C</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/LPC/" style="font-size: 10px;">LPC</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/NXP/" style="font-size: 10px;">NXP</a> <a href="/tags/Nucleo/" style="font-size: 10px;">Nucleo</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F4/" style="font-size: 10px;">STM32F4</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/VS2013/" style="font-size: 10px;">VS2013</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/公司/" style="font-size: 10px;">公司</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-C-and-C-plusplus-pointer-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/28/C-and-C-plusplus-pointer-2/" class="article-date">
+  	<time datetime="2015-12-28T11:57:29.000Z" itemprop="datePublished">2015-12-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [转载]嗯，让我们彻底搞懂C/C++函数指针吧（二）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。<a href="http://hipercomer.blog.51cto.com/4415661/792301" target="_blank" rel="external">http://hipercomer.blog.51cto.com/4415661/792301</a></p>
+</blockquote>
+<h4 id="3-4_函数指针作为参数">3.4 函数指针作为参数</h4><p>如果你已经明白了函数的参数机制，而且完全理解并实践了3.3节的内容，这一节其实是很简单的。只需要在函数的参数列表中，声明一个函数指针类型的参数即可，然后再调用的时候传给它一个实参就可以了。你可以这么想象，就是把函数指针的赋值语句的等号换成了形参和实参结合的模式就行。<br>下面给一个简单的例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/* </span><br><span class="line">*	Author	:Choas Lee </span><br><span class="line">*	Date	:2012-02-28 </span><br><span class="line">*/ </span><br><span class="line"> </span><br><span class="line">#include&lt;stdio.h&gt; </span><br><span class="line"> </span><br><span class="line">float add(float a,float b)&#123;return a+b;&#125; </span><br><span class="line"> </span><br><span class="line">float minus(float a,float b)&#123;return a-b;&#125; </span><br><span class="line"> </span><br><span class="line">float multiply(float a,float b)&#123;return a*b;&#125; </span><br><span class="line"> </span><br><span class="line">float divide(float a,float b)&#123;return a/b;&#125; </span><br><span class="line"> </span><br><span class="line">int pass_func_pointer(float (*pFunction)(float a,float b)) </span><br><span class="line"> </span><br><span class="line">&#123; </span><br><span class="line">	float result=pFunction(10.0,12.0); </span><br><span class="line">	printf("result=%f\n",result); </span><br><span class="line"> </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">	pass_func_pointer(add); </span><br><span class="line">	pass_func_pointer(minus); </span><br><span class="line">	pass_func_pointer(multiply); </span><br><span class="line">	pass_func_pointer(divide); </span><br><span class="line"></span><br><span class="line">	return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<a id="more"></a>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result=22.000000 &#10;result=-2.000000 &#10;result=120.000000 &#10;result=0.833333</span><br></pre></td></tr></table></figure>
+<h4 id="3-5_使用函数指针作为返回值">3.5 使用函数指针作为返回值</h4><p>函数指针可以作为返回值。我们先类比的思考一下，如果说整型可以作为返回值，你会怎么声明函数？嗯，应该是下面这个样子的：</p>
+<pre><code><span class="built_in">int</span> <span class="function"><span class="keyword">func</span><span class="params">()</span>{}</span>
+</code></pre><p>整数对应的类型为int。同样再类比以下，如果说整型指针可以作为返回值，你会怎么声明？嗯，这个貌似难度也不大：</p>
+<pre><code><span class="built_in">int</span> * <span class="function"><span class="keyword">func</span><span class="params">()</span>{}</span>
+</code></pre><p>好吧，现在说函数指针如果可以作为返回值，你该怎么声明？首先要保证的一点就是返回的函数指针的类型必须是能够明显的表达在这个函数的声明或者定义形式中的，也就是说在这个形式中，要能够包含函数指针所对应的能够确定函数类型的信息：这个函数类型的返回值类型，这个函数类型的参数个数，这个函数类型的参数类型。，<br>现在我们在类比一次，如果要返回浮点型指针，那么返回类型应该表达为：</p>
+<pre><code><span class="keyword">float</span> *
+</code></pre><p>如果要函数指针对应的函数是返回值为浮点型，带有两个参数，两个参数都是浮点型，那么返回类型应该表达为下面的表达形式：</p>
+<pre><code>float <span class="list">(<span class="keyword">*</span>)</span><span class="list">(<span class="keyword">float</span> ,float )</span>
+</code></pre><p>嗯，没办法，函数的语义比较复杂，对应的表现就是形式的复杂性了。对于返回为浮点型指针的情况，定义的函数的名称放在“float <em>”的后面，而对于返回为上面类型的函数指针的话，定义的函数就要放在“（</em>）”这个括号中的*的后面了。<br>所以对于以下形式：</p>
+<pre><code>float <span class="list">(<span class="keyword">*</span> func<span class="list">(<span class="keyword">char</span> op)</span> )</span> <span class="list">(<span class="keyword">float</span> ,float)</span>
+</code></pre><p>其具体含义就是，声明了这样一个函数：</p>
+<blockquote>
+<p>其名称为func，其参数的个数为1个；<br>其各个参数的类型为：op—char；<br>其返回变量（函数指针）类型为：float(*)(float,float)</p>
+</blockquote>
+<p>再次强调：函数指针时变量哦。<br>到了这里之后，我们再来分析一下unix的系统调用函数signal的定义形式：</p>
+<pre><code><span class="keyword">void</span> (*<span class="keyword">signal</span>)(<span class="keyword">int</span> signo,<span class="keyword">void</span> (*func)(<span class="keyword">int</span>)))(<span class="keyword">int</span>);
+</code></pre><p>其具体含义为就是，声明了这样一个函数：</p>
+<blockquote>
+<p>其函数名称为：signal<br>其参数个数为：2<br>其各个参数的类型为：signo–int, func— void (<em>)(int)<br>其返回的变量（函数指针）的类型为：void(</em>)(int)</p>
+</blockquote>
+<p>上面这个函数比较经典，有一个参数类型为函数指针，返回值还是函数指针。<br>哦，我的天，如果你一步一步看到这里了，就快大功告成啦。嘿嘿，接下来看一个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line">*	Author	:Choas Lee </span><br><span class="line">*	Date	:2012-02-28 </span><br><span class="line">*/</span> </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">add</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span></span>&#123;<span class="keyword">return</span> a+b;&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">minus</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span></span>&#123;<span class="keyword">return</span> a-b;&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">multiply</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span></span>&#123;<span class="keyword">return</span> a*b;&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">divide</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span></span>&#123;<span class="keyword">return</span> a/b;&#125; </span><br><span class="line"> </span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line"><span class="keyword">float</span>(* FunctionMap(<span class="keyword">char</span> op) )(<span class="keyword">float</span>,<span class="keyword">float</span>) </span><br><span class="line"> </span><br><span class="line">&#123; </span><br><span class="line">	<span class="keyword">switch</span>(op) </span><br><span class="line">	&#123; </span><br><span class="line">		<span class="keyword">case</span> <span class="string">'+'</span>: </span><br><span class="line">			<span class="keyword">return</span> add; </span><br><span class="line"></span><br><span class="line">			<span class="keyword">break</span>; </span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> <span class="string">'-'</span>: </span><br><span class="line">			<span class="keyword">return</span> minus; </span><br><span class="line"></span><br><span class="line">			<span class="keyword">break</span>; </span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> <span class="string">'*'</span>: </span><br><span class="line">			<span class="keyword">return</span> multiply; </span><br><span class="line"></span><br><span class="line">			<span class="keyword">break</span>; </span><br><span class="line"></span><br><span class="line">		<span class="keyword">case</span> <span class="string">'\\'</span>: </span><br><span class="line">			<span class="keyword">return</span> divide; </span><br><span class="line"></span><br><span class="line">			<span class="keyword">break</span>; </span><br><span class="line"></span><br><span class="line">		<span class="keyword">default</span>: </span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">1</span>); </span><br><span class="line"></span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span><br><span class="line"></span>&#123; </span><br><span class="line"> </span><br><span class="line">	<span class="keyword">float</span> a=<span class="number">10</span>,b=<span class="number">5</span>; </span><br><span class="line">	<span class="keyword">char</span> ops[]=&#123;<span class="string">'+'</span>,<span class="string">'-'</span>,<span class="string">'*'</span>,<span class="string">'\\'</span>&#125;; </span><br><span class="line">	<span class="keyword">int</span> len=<span class="built_in">strlen</span>(ops); </span><br><span class="line">	<span class="keyword">int</span> i=<span class="number">0</span>; </span><br><span class="line">	<span class="keyword">float</span> (*returned_function_pointer)(<span class="keyword">float</span>,<span class="keyword">float</span>); </span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;len;i++) </span><br><span class="line">	&#123; </span><br><span class="line"></span><br><span class="line">		returned_function_pointer=FunctionMap(ops[i]); </span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"the result caculated by the operator %c is %f\n"</span>,ops[i],returned_function_pointer(a,b)); </span><br><span class="line"></span><br><span class="line">	&#125; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>// 计算的结果为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the result caculated by the operator + is 15.000000 &#10;the result caculated by the operator - is 5.000000 &#10;the result caculated by the operator * is 50.000000 &#10;the result caculated by the operator \ is 2.000000</span><br></pre></td></tr></table></figure>
+<p> 为什么还提示我大于80000字符？清除冗余格式？？哼~ 不好意思啊，详见下一篇</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/28/C-and-C-plusplus-pointer-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          [转载]嗯，让我们彻底搞懂C/C++函数指针吧（三）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/28/C-and-C-plusplus-pointer-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">[转载]嗯，让我们彻底搞懂C/C++函数指针吧（一）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="C-and-C-plusplus-pointer-2" data-title="[转载]嗯，让我们彻底搞懂C/C++函数指针吧（二）" data-url="cedar-renjun.github.io/2015/12/28/C-and-C-plusplus-pointer-2/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

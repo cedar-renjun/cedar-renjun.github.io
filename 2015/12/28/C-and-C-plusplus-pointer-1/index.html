@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>[转载]嗯，让我们彻底搞懂C/C++函数指针吧（一） | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。http://hipercomer.blog.51cto.com/4415661/792300
+
+摘要：这篇文章详细介绍C/C++的函数指针，请先看以下几个主题：使用函数指针定义新的类型、使用函数指针作为参数、使用函数指针作为返回值、使用函数指针作为回调函数、使用函数指针数组，使用类的静态函数成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[转载]嗯，让我们彻底搞懂C/C++函数指针吧（一）">
+<meta property="og:url" content="cedar-renjun.github.io/2015/12/28/C-and-C-plusplus-pointer-1/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。http://hipercomer.blog.51cto.com/4415661/792300
+
+摘要：这篇文章详细介绍C/C++的函数指针，请先看以下几个主题：使用函数指针定义新的类型、使用函数指针作为参数、使用函数指针作为返回值、使用函数指针作为回调函数、使用函数指针数组，使用类的静态函数成">
+<meta property="og:updated_time" content="2015-12-28T12:26:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[转载]嗯，让我们彻底搞懂C/C++函数指针吧（一）">
+<meta name="twitter:description" content="原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。http://hipercomer.blog.51cto.com/4415661/792300
+
+摘要：这篇文章详细介绍C/C++的函数指针，请先看以下几个主题：使用函数指针定义新的类型、使用函数指针作为参数、使用函数指针作为返回值、使用函数指针作为回调函数、使用函数指针数组，使用类的静态函数成">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/C/" style="font-size: 12.5px;">C</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/LPC/" style="font-size: 10px;">LPC</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/NXP/" style="font-size: 10px;">NXP</a> <a href="/tags/Nucleo/" style="font-size: 10px;">Nucleo</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F4/" style="font-size: 10px;">STM32F4</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/VS2013/" style="font-size: 10px;">VS2013</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/公司/" style="font-size: 10px;">公司</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-C-and-C-plusplus-pointer-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/28/C-and-C-plusplus-pointer-1/" class="article-date">
+  	<time datetime="2015-12-28T11:57:25.000Z" itemprop="datePublished">2015-12-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [转载]嗯，让我们彻底搞懂C/C++函数指针吧（一）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原创作品，允许转载，转载时请务必以超链接形式标明文章 原始出处 、作者信息和本声明。否则将追究法律责任。<a href="http://hipercomer.blog.51cto.com/4415661/792300" target="_blank" rel="external">http://hipercomer.blog.51cto.com/4415661/792300</a></p>
+</blockquote>
+<p>摘要：这篇文章详细介绍C/C++的函数指针，请先看以下几个主题：使用函数指针定义新的类型、使用函数指针作为参数、使用函数指针作为返回值、使用函数指针作为回调函数、使用函数指针数组，使用类的静态函数成员的函数指针、使用类的普通函数成员的指针、定义函数指针数组类型、使用函数指针实现后绑定以及在结构体中定义函数指针。如果您对以上这几个主题都很了解，那么恭喜您，这篇文章不适合您啦~。在一些开源软件中，如Boost, Qt, lam-mpi中我们经常看到函数指针，本文目的是彻底搞定函数指针的语法和语义，至于怎样将函数指针应用到系统架构中不在此文的讨论范围中。各位看官，有砖拍砖啊~</p>
+<h3 id="1-_无处不见的函数指针">1.    无处不见的函数指针</h3><p>使用函数指针可以设计出更优雅的程序，比如设计一个集群的通信框架的底层通信系统：首先将要每个消息的对应处理函数的指针保存映射表中（使用STL的map，键是消息的标志，值是对应的函数指针），然后启动一个线程在结点上的某个端口侦听，收到消息后，根据消息的编号，从映射表中找到对应的函数入口，将消息体数据作为参数传给相应的函数。我曾看过lam-mpi在启动集群中每个结点的进程时的实现，该模块的最上层就是一个结构体，这个结构体中仅是由函数指针构成，每个函数指针都指向一个子模块，这样做的好处就是在运行时期间可以自由的切换子模块。比如某个子模块不适合某个体系结构，只需要改动函数指针，指向另外一个模块就可。<br>在平时的程序设计中，经常遇到函数指针。如EnumWindows这个函数的参数，C语言库函数qsort的参数，定义新的线程时，这些地方函数指针都是作为回调函数来应用的。<br>还有就是unix的库函数signal（sys/signal.h）（这个函数我们将多次用到）的声明形式为：</p>
+<pre><code><span class="keyword">void</span> (*<span class="keyword">signal</span>)(<span class="keyword">int</span> signo,<span class="keyword">void</span> (*func)(<span class="keyword">int</span>)))(<span class="keyword">int</span>);
+</code></pre><a id="more"></a>
+<p>这个形式是相当复杂的，因为它不仅使用函数指针作为参数，而且返回类型还是函数指针（虽然这个函数在POSIX中不被推荐使用了）。<br>还有些底层实现实际上也用到了函数指针，可能你已经猜到了。嗯，就是C++中的多态。这是一个典型的迟绑定（late-binding）的例子，因为在编译时是无法确定到底绑定到哪个函数上执行，只有在运行时的时候才能确定。这个可以通过下面这个例子来帮助理解：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Shape *pSh;</span><br><span class="line"><span class="built_in">scanf</span>(“%d”,&amp;choice);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(choice)</span><br><span class="line">&#123;</span><br><span class="line">	pSh= <span class="keyword">new</span> Rectangle();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	pSh= <span class="keyword">new</span> Square();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pSh-&gt;display();</span><br></pre></td></tr></table></figure>
+<p>对于上面这段代码，做以下几个假设：</p>
+<ol>
+<li>Square继承自Rectange</li>
+<li>Rectangle继承自Shape</li>
+<li>display为虚函数，在每个Shape的子类链中都必须实现</li>
+</ol>
+<p>正是因为在编译期间无法确定choice的值，所以在编译到最后一行的时候无法确定应该绑定到那个一个函数上，只能在运行期间根据choice的值，来确定要绑定的函数的地址。<br>总之，使用指针可以让我们写出更加优雅，高效，灵活的程序。另外，和普通指针相比，函数指针还有一个好处就是你不用担心内存释放问题。<br>但是，函数指针确实很难学的，我认为难学的东西主要有两个原因：</p>
+<ol>
+<li>语法过于复杂</li>
+<li>语义过于复杂</li>
+</ol>
+<p>从哲学上讲，可以对应为</p>
+<ol>
+<li>形式过于复杂</li>
+<li>内容过于复杂</li>
+</ol>
+<p>比如，如果我们要描述“美女”这种动物（老婆不要生气啊~），如果在原始时代，我们可能需要通过以下这种方式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> \/,---&#60;                &#38;&#38;&#38;&#38;&#38;&#38;\ \&#10; ( )c~c~~@~@            )- - &#38;&#38;\ \&#10;  C   &#62;/                \&#60;   |&#38;/&#10;   \_O/ - &#21703;&#22622;          _`*-&#39;_/ /&#10; ,- &#62;o&#60;-.              / ____ _/&#10; /   \/   \            / /\  _)_)&#10;/ /|  | |\ \          / /  )   |&#10;\ \|  | |/ /          \ \ /    |&#10; \_\  | |_/            \ \_    |&#10; /_/`___|_\            /_/\____|&#10;   |  | |                  \  \|&#10;   |  | |                   `. )&#10;   |  | |                   / /&#10;   |__|_|_                 /_/|&#10;   (____)_)                |\_\_</span><br></pre></td></tr></table></figure>
+<p>而现在我们只需要用语言来抽象就行，即用两个汉字“美女”或者英文“beauty”就行了。这就是形式上的简化，也就方便了我们的交流。另外一种就是内容上的复杂度过高，一个高度抽象的表达式后面蕴含着巨大的复杂度对于我们理解问题也是很难的，例如：<br><code>P=NP</code></p>
+<p>由于接触过的书上所讲的关于函数指针方面的都是蜻蜓点水一样，让我很不满足。我认为C/C++语言函数指针难学的主要原因是由于其形式上的定义过于复杂，但是在内容上我们一定要搞清楚函数的本质。函数的本质就是表达式的抽象，它在内存中对应的数据结构为堆栈帧，它表示一段连续指令序列，这段连续指令序列在内存中有一个确定的起始地址，它执行时一般需要传入参数，执行结束后会返回一个参数。和函数相关的，应该大致就是这些内容吧。</p>
+<h3 id="2_函数指针简单介绍">2 函数指针简单介绍</h3><h4 id="2-1_什么是函数指针">2.1 什么是函数指针</h4><p>函数指针是一个指向函数的指针（呃，貌似是废话），函数指针表示一个函数的入口地址。使用函数指针的好处就是在处理“在运行时根据数据的具体状态来选择相应的处理方式”这种需求时更加灵活。</p>
+<h4 id="2-2_一个简单的例子">2.2 一个简单的例子</h4><p>下面是一个简单的使用函数指针取代switch-case语句的例子，为了能够比较出二者效率差异，所以在循环中进行了大量的计算。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* </span><br><span class="line">*	Author	:Choas Lee </span><br><span class="line">*	Date	:2012-02-28 </span><br><span class="line">*/</span> </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> UNIXEVN </span></span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> defined(UNIXENV) </span></span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;sys/time.h&gt;</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> N <span class="number">1000000</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> COE <span class="number">1000000</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">add</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span></span>&#123;<span class="keyword">return</span> a+b;&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">minus</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span></span>&#123;<span class="keyword">return</span> a-b;&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">multiply</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span></span>&#123;<span class="keyword">return</span> a*b;&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">divide</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span></span>&#123;<span class="keyword">return</span> a/b;&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">float</span> <span class="params">(*pf)</span><span class="params">(<span class="keyword">float</span>,<span class="keyword">float</span>)</span></span>; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">switch_impl</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b,<span class="keyword">char</span> op)</span> </span><br><span class="line"> </span><br><span class="line"></span>&#123; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">float</span> result=<span class="number">0.0</span>; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">switch</span>(op) </span><br><span class="line"> </span><br><span class="line">      &#123; </span><br><span class="line"> </span><br><span class="line">             <span class="keyword">case</span> <span class="string">'+'</span>: </span><br><span class="line"> </span><br><span class="line">                    result=add(a,b); </span><br><span class="line"> </span><br><span class="line">                    <span class="keyword">break</span>; </span><br><span class="line"> </span><br><span class="line">             <span class="keyword">case</span> <span class="string">'-'</span>: </span><br><span class="line"> </span><br><span class="line">                    result=minus(a,b); </span><br><span class="line"> </span><br><span class="line">                    <span class="keyword">break</span>; </span><br><span class="line"> </span><br><span class="line">             <span class="keyword">case</span> <span class="string">'*'</span>: </span><br><span class="line"> </span><br><span class="line">                    result=multiply(a,b); </span><br><span class="line"> </span><br><span class="line">                    <span class="keyword">break</span>; </span><br><span class="line"> </span><br><span class="line">             <span class="keyword">case</span> <span class="string">'/'</span>: </span><br><span class="line"> </span><br><span class="line">                    result=divide(a,b); </span><br><span class="line"> </span><br><span class="line">                    <span class="keyword">break</span>; </span><br><span class="line"> </span><br><span class="line">      &#125; </span><br><span class="line"> </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">switch_fp_impl</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b,pf p)</span> </span><br><span class="line"> </span><br><span class="line"></span>&#123; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">float</span> result=<span class="number">0.0</span>; </span><br><span class="line"> </span><br><span class="line">      result=p(a,b); </span><br><span class="line"> </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">conversion</span><span class="params">(<span class="keyword">struct</span> timeval tmp_time)</span> </span><br><span class="line"> </span><br><span class="line"></span>&#123; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">return</span> tmp_time.tv_sec*COE+tmp_time.tv_usec; </span><br><span class="line"> </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span><br><span class="line"> </span><br><span class="line"></span>&#123; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">int</span> i=<span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> defined(UNIXENV) </span></span><br><span class="line"> </span><br><span class="line">      <span class="keyword">struct</span> timeval start_point,end_point; </span><br><span class="line"> </span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line">      gettimeofday(&amp;start_point,<span class="literal">NULL</span>); </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span> </span></span><br><span class="line"> </span><br><span class="line">      <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++) </span><br><span class="line"> </span><br><span class="line">      &#123; </span><br><span class="line"> </span><br><span class="line">             switch_impl(<span class="number">12.32</span>,<span class="number">54.14</span>,<span class="string">'-'</span>); </span><br><span class="line"> </span><br><span class="line">      &#125; </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> defined(UNIXENV) </span></span><br><span class="line"> </span><br><span class="line">      gettimeofday(&amp;end_point,<span class="literal">NULL</span>); </span><br><span class="line"> </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"check point 1:%d\n"</span>,conversion(end_point)-conversion(start_point)); </span><br><span class="line"> </span><br><span class="line">      </span><br><span class="line"> </span><br><span class="line">      gettimeofday(&amp;start_point,<span class="literal">NULL</span>); </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span> </span></span><br><span class="line"> </span><br><span class="line">      <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++) </span><br><span class="line"> </span><br><span class="line">      &#123; </span><br><span class="line"> </span><br><span class="line">             switch_fp_impl(<span class="number">12.32</span>,<span class="number">54.14</span>,minus); </span><br><span class="line"> </span><br><span class="line">      &#125; </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> defined(UNIXENV) </span></span><br><span class="line"> </span><br><span class="line">      gettimeofday(&amp;end_point,<span class="literal">NULL</span>); </span><br><span class="line"> </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"check point 2:%d\n"</span>,conversion(end_point)-conversion(start_point)); </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span> </span></span><br><span class="line"> </span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是执行结果：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;[lichao@sg01 replaceswitch]$ ./replaceswitch &#10; &#10;check point 1:22588 &#10; &#10;check point 2:19407 &#10; &#10;[lichao@sg01 replaceswitch]$ ./replaceswitch &#10; &#10;check point 1:22656 &#10; &#10;check point 2:19399 &#10; &#10;[lichao@sg01 replaceswitch]$ ./replaceswitch &#10; &#10;check point 1:22559 &#10; &#10;check point 2:19380 &#10; &#10;[lichao@sg01 replaceswitch]$ ./replaceswitch &#10; &#10;check point 1:22181 &#10; &#10;check point 2:19667 &#10; &#10;[lichao@sg01 replaceswitch]$ ./replaceswitch &#10; &#10;check point 1:22226 &#10; &#10;check point 2:19813 &#10; &#10;[lichao@sg01 replaceswitch]$ ./replaceswitch &#10; &#10;check point 1:22141 &#10; &#10;check point 2:19893 &#10; &#10;[lichao@sg01 replaceswitch]$ ./replaceswitch &#10; &#10;check point 1:21640 &#10; &#10;check point 2:19745</span><br></pre></td></tr></table></figure>
+<p>从上面可以看出，使用函数指针：</p>
+<ol>
+<li>在某种程度上简化程序的设计</li>
+<li>可以提高效率。在这个例子中，使用函数指针可以提高10%的效率。</li>
+</ol>
+<p><strong>注意：以上代码在unix环境下实现的，如果要在windows下运行，可以稍微改下，把“#define UNIXENV”行删掉即可</strong></p>
+<h3 id="3_C/C++函数指针的语法">3 C/C++函数指针的语法</h3><p>从语法上讲，有两种不兼容的函数指针形式：</p>
+<ol>
+<li>指向C语言函数和C++静态成员函数的函数指针</li>
+<li>指向C++非静态成员函数的函数指针</li>
+</ol>
+<p>不兼容的原因是因为在使用C++非静态成员函数的函数指针时，需要一个指向类的实例的this指针，而前一类不需要。</p>
+<h4 id="3-1_定义一个函数指针">3.1 定义一个函数指针</h4><p>指针是变量，所以函数指针也是变量，因此可以使用变量定义的方式来定义函数指针，对于普通的指针，可以这么定义：</p>
+<pre><code><span class="keyword">int</span> a=<span class="number">10</span>;
+<span class="keyword">int</span> *pa=&amp;a;
+</code></pre><p>这里，pa是一个指向整型的指针，定义这个指针的形式为：</p>
+<pre><code><span class="keyword">int</span> * pa;
+</code></pre><p>区别于定义非指针的普通变量的“形式”就是在类型中间和指针名称中间加了一个“*”，所以能够表达不同的“内容”。这种形式对于表达的内容是完备的，因为它说明了两点：（1）这是一个指针（2）这是一个指向整型变量的指针<br>以下给出三个函数指针定义的形式，第一个是C语言的函数指针，第二个和第三个是C++的函数指针的定义形式（都是指向非静态函数成员的函数指针）：</p>
+<pre><code><span class="keyword">int</span> (*pFunction)(<span class="keyword">float</span>,<span class="keyword">char</span>,<span class="keyword">char</span>)=<span class="literal">NULL</span>;
+<span class="keyword">int</span> (MyClass::*pMemberFunction)(<span class="keyword">float</span>,<span class="keyword">char</span>,<span class="keyword">char</span>)=<span class="literal">NULL</span>;
+<span class="keyword">int</span> (MyClass::*pConstMemberFunction)(<span class="keyword">float</span>,<span class="keyword">char</span>,<span class="keyword">char</span>) <span class="keyword">const</span>=<span class="literal">NULL</span>;
+</code></pre><p>我们先不管函数指针的定义形式，如果让我们自己来设计指向函数的函数指针的定义形式的话，我们会怎么设计？<br>首先，要记住一点的就是形式一定要具备完备性，能表达出我们所要表达的内容，即指向函数这个事实。我们知道普通变量指针可以指向对应类型的任何变量，同样函数指针也应该能够指向对应类型的任何变量。对应的函数类型靠什么来确定？这个我们可以想一下C++的函数重载靠什么来区分不同的函数？这里，函数类型是靠这几个方面来确定的：（1）函数的参数个数（2）函数的参数类型（3）函数的返回值类型。所以我们要设计一种形式，这种形式定义的函数指针能够准确的指向这种函数类型的任何函数。<br>在C语言中这种形式为：</p>
+<pre><code>返回类型 <span class="comment">(*函数指针名称)</span><span class="comment">(参数类型,参数类型,参数类型，…)</span>;
+</code></pre><p>嗯，定义变量的形式显然不是我们通常见到的这种形式：<code>类型名称 变量名称</code></p>
+<p>但是，这也是为了表达函数这种相对复杂的语义而不得已采用的非一致表示形式的方法。因为定义的这个函数指针变量，能够明确的表达出它指向什么类型的函数，这个函数都有哪些类型的参数这些信息，确切的说，它是完备的。你可能会问为什么要加括号？形式上讲能不能更简洁点？不能，因为不加括号就会产生二义性：</p>
+<pre><code>返回类型 *函数指针名称(参数类型,参数类型,参数类型，…)<span class="comment">;</span>
+</code></pre><p>这样的定义形式定义了一个“返回类型为‘返回类型*’参数为(参数类型,参数类型,参数类型，…)的函数而不是函数指针了。<br>接下来，对于C++来说，下面这样的定义形式也就不难理解了（加上类名称是为了区分不同类中定义的相同名称的成员函数）：</p>
+<pre><code><span class="label">返回类型 （类名称::</span>*函数成员名称）（参数类型，参数类型，参数类型，….）
+</code></pre><h4 id="3-2_函数的调用规则">3.2 函数的调用规则</h4><p>一般来说，不用太关注这个问题。调用规则主要是指函数被调用的方式，常见的有<code>_stdcall</code>,<code>_fastcall</code>,<code>_pascal</code>,<code>_cdecl</code>等规则。不同的规则在参数压入堆栈的顺序是不同的，同时在有调用者清理压入堆栈的参数还是由被调用者清理压入堆栈的参数上也是不同的。一般来说，如果你没有显式的说明调用规则的话，编译器会统一按照_cdecl来处理。</p>
+<h4 id="3-3_给函数指针赋值和调用">3.3 给函数指针赋值和调用</h4><p>给函数指针赋值，就是为函数指针指定一个函数名称。这个过程很简单，下面是两个例子：</p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">(<span class="keyword">float</span> f,<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>{<span class="keyword">return</span> f*a/b;}
+<span class="function"><span class="keyword">int</span> <span class="title">func2</span><span class="params">(<span class="keyword">float</span> f,<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>{<span class="keyword">return</span> f*a*b}
+</code></pre><p>然后我们给函数指针pFunction赋值：</p>
+<pre><code>pFunction=func1<span class="comment">;</span>
+pFunction=&amp;func2<span class="comment">;</span>
+</code></pre><p>上面这段代码说明了两个问题：</p>
+<ol>
+<li>一个函数指针可以多次赋值（想想C++中的引用）</li>
+<li>取地址符号是可选的，却是推荐使用的。</li>
+</ol>
+<p>我们可以思考一下为什么取地址符号是可选的，在普通的指针变量赋值时，如上面所示，需要加取地址符号，而这里却是可选的？这是由于要同时考虑到两个因素（1）避免二义性（2）形式一致性。在普通指针赋值，需要加取地址符号是为了区别于将地址还是将内容赋给指针。而在函数赋值时没有这种考虑，因为这里的语义是清晰的，加上&amp;符号是为了和普通指针变量一致—“因为一致的时候就不容易出错”。<br>最后我们来使用这个函数</p>
+<pre><code>pFunction<span class="list">(<span class="number">10.0</span>,’a’,’b’)</span><span class="comment">;</span>
+<span class="list">(<span class="keyword">*pFunction</span>)</span><span class="list">(<span class="number">10.0</span>,’a’,’b’)</span><span class="comment">;</span>
+</code></pre><p>上面这两种使用函数指针调用函数的方式都是可以的，原因和上面一样。<br>下面来说明C++中的函数指针赋值和调用，这里说明非静态函数成员的情况，C++中规则要求的严格的多了。让我感觉C++就像函数指针的后爸一样，对函数指针要求特别死，或许是因为他有一个函数对象这个亲儿子。<br>在C++中，对于赋值，你必须要加“&amp;”，而且你还必须再次之前已经定义好了一个类实例，取地址符号要操作于这个类实例的对应的函数成员上。在使用成员函数的指针调用成员函数时，你必须要加类实例的名称，然后再使用.<em>或者-&gt;</em>来使用成员函数指针。举例如下：</p>
+<pre><code>MyClass
+{
+<span class="keyword">public</span>:
+      <span class="function"><span class="keyword">int</span> <span class="title">func1</span><span class="params">(<span class="keyword">float</span> f,<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span>
+      </span>{
+          <span class="keyword">return</span> f*a*b;
+      }
+      <span class="function"><span class="keyword">int</span> <span class="title">func2</span><span class="params">(<span class="keyword">float</span> f,<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span> <span class="keyword">const</span>
+      </span>{
+          <span class="keyword">return</span> f*a/b;
+      }
+}
+</code></pre><p>首先来赋值：</p>
+<pre><code>MyClass mc<span class="comment">;</span>
+pMemberFunction= &amp;mc.func1<span class="comment">;  //必须要加取地址符号</span>
+pConstMemberFunction = &amp;mc.func2<span class="comment">;</span>
+</code></pre><p>接下来，调用函数：</p>
+<pre><code><span class="list">(<span class="keyword">mc.*pMemberFunction</span>)</span><span class="list">(<span class="keyword">10.0</span>,’a’,’b’)</span><span class="comment">;</span>
+<span class="list">(<span class="keyword">mc.*pConstMemberFunction</span>)</span><span class="list">(<span class="keyword">10.0</span>,’a’,’b’)</span><span class="comment">;</span>
+</code></pre><p>我感觉，C++简直在虐待函数指针啊。<br>下面是一个完整的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line"> </span><br><span class="line">*Author:Choas Lee </span><br><span class="line"> </span><br><span class="line">*Date:2012-02-28 </span><br><span class="line"> </span><br><span class="line">*/</span> </span><br><span class="line"> </span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">func1</span><span class="params">(<span class="keyword">float</span> f,<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span> </span><br><span class="line"> </span><br><span class="line"></span>&#123; </span><br><span class="line"> </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"func1\n"</span>); </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">return</span> f*a/b; </span><br><span class="line"> </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">float</span>  <span class="title">func2</span><span class="params">(<span class="keyword">float</span> f,<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span> </span><br><span class="line"> </span><br><span class="line"></span>&#123; </span><br><span class="line"> </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"func2\n"</span>); </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">return</span> f*a*b; </span><br><span class="line"> </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> MyClass </span><br><span class="line"> </span><br><span class="line">&#123; </span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line"> </span><br><span class="line">      MyClass(<span class="keyword">float</span> f) </span><br><span class="line"> </span><br><span class="line">      &#123; </span><br><span class="line"> </span><br><span class="line">             factor=f; </span><br><span class="line"> </span><br><span class="line">      &#125; </span><br><span class="line"> </span><br><span class="line">      <span class="function"><span class="keyword">float</span> <span class="title">func1</span><span class="params">(<span class="keyword">float</span> f,<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span> </span><br><span class="line"> </span><br><span class="line">      </span>&#123; </span><br><span class="line"> </span><br><span class="line">             <span class="built_in">printf</span>(<span class="string">"MyClass::func1\n"</span>); </span><br><span class="line"> </span><br><span class="line">             <span class="keyword">return</span> f*a/b*factor;      </span><br><span class="line"> </span><br><span class="line">      &#125; </span><br><span class="line"> </span><br><span class="line">      <span class="function"><span class="keyword">float</span> <span class="title">func2</span><span class="params">(<span class="keyword">float</span> f,<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span> <span class="keyword">const</span> </span><br><span class="line"> </span><br><span class="line">      </span>&#123; </span><br><span class="line"> </span><br><span class="line">             <span class="built_in">printf</span>(<span class="string">"MyClass::func2\n"</span>); </span><br><span class="line"> </span><br><span class="line">             <span class="keyword">return</span> f*a*b*factor; </span><br><span class="line"> </span><br><span class="line">      &#125; </span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>: </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">float</span> factor; </span><br><span class="line"> </span><br><span class="line">&#125;; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span> </span><br><span class="line"> </span><br><span class="line"></span>&#123; </span><br><span class="line"> </span><br><span class="line">      </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">float</span> (*pFunction)(<span class="keyword">float</span>,<span class="keyword">char</span>,<span class="keyword">char</span>)=<span class="literal">NULL</span>; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">float</span> (MyClass::*pMemberFunction)(<span class="keyword">float</span>,<span class="keyword">char</span>,<span class="keyword">char</span>)=<span class="literal">NULL</span>; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">float</span> (MyClass::*pConstMemberFunction)(<span class="keyword">float</span>,<span class="keyword">char</span>,<span class="keyword">char</span>)<span class="keyword">const</span>=<span class="literal">NULL</span>; </span><br><span class="line"> </span><br><span class="line">      </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">float</span> f=<span class="number">10.0</span>; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">char</span> a=<span class="string">'a'</span>,b=<span class="string">'b'</span>; </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">float</span> result; </span><br><span class="line"> </span><br><span class="line">      pFunction=func1; </span><br><span class="line"> </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"pointer pFunction's address is:%x\n"</span>,pFunction); </span><br><span class="line"> </span><br><span class="line">      result=(*pFunction)(f,a,b); </span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"result=%f\n"</span>,result); </span><br><span class="line"> </span><br><span class="line">      </span><br><span class="line"> </span><br><span class="line">      pFunction=&amp;func2; </span><br><span class="line"> </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"pointer pFunction's address is:%x\n"</span>,pFunction); </span><br><span class="line"> </span><br><span class="line">      result=pFunction(f,a,b); </span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"result=%f\n"</span>,result); </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">if</span>(func1!=pFunction) </span><br><span class="line"> </span><br><span class="line">             <span class="built_in">printf</span>(<span class="string">"not equal.\n"</span>); </span><br><span class="line"> </span><br><span class="line">      </span><br><span class="line"> </span><br><span class="line">      pMemberFunction=&amp;MyClass::func1; </span><br><span class="line"> </span><br><span class="line">      <span class="function">MyClass <span class="title">mc1</span><span class="params">(<span class="number">0.2</span>)</span></span>; </span><br><span class="line"> </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"pointer pMemberFunction's address is:%x\n"</span>,pMemberFunction); </span><br><span class="line"> </span><br><span class="line">      result=(mc1.*pMemberFunction)(f,a,b); </span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"result=%f\n"</span>,result); </span><br><span class="line"> </span><br><span class="line">      pConstMemberFunction=&amp;MyClass::func2; </span><br><span class="line"> </span><br><span class="line">      <span class="function">MyClass <span class="title">mc2</span><span class="params">(<span class="number">2</span>)</span></span>; </span><br><span class="line"> </span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"pointer pConstMemberFunction's address is:%x\n"</span>,pConstMemberFunction); </span><br><span class="line"> </span><br><span class="line">      result=(mc2.*pConstMemberFunction)(f,a,b); </span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"result=%f\n"</span>,result); </span><br><span class="line"> </span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<pre><code><span class="type">pointer</span> pFunction's address <span class="keyword">is</span>:<span class="number">400882</span> 
+
+func1 
+
+<span class="literal">result</span>=<span class="number">9</span>.<span class="number">897959</span> 
+
+<span class="type">pointer</span> pFunction's address <span class="keyword">is</span>:<span class="number">400830</span> 
+
+func2 
+
+<span class="literal">result</span>=<span class="number">95060</span>.<span class="number">000000</span> 
+
+<span class="keyword">not</span> equal. 
+
+<span class="type">pointer</span> pMemberFunction's address <span class="keyword">is</span>:<span class="number">400952</span> 
+
+<span class="type">MyClass</span>::func1 
+
+<span class="literal">result</span>=<span class="number">1</span>.<span class="number">979592</span> 
+
+<span class="type">pointer</span> pConstMemberFunction's address <span class="keyword">is</span>:<span class="number">4008</span>f2 
+
+<span class="type">MyClass</span>::func2 
+
+<span class="literal">result</span>=<span class="number">190120</span>.<span class="number">000000</span> 
+</code></pre><p>注意：上面的代码还说明了一点就是函数指针的一些基本操作，函数指针没有普通变量指针的算术操作，但是可以进行比较操作。如上面代码所示。<br>使用类的静态函数成员的函数指针和使用C语言的函数很类似，这里仅仅给出一个例子和其执行结果：<br>程序代码为：</p>
+<pre><code class="C++"><span class="comment">/* 
+
+*Author:Chaos Lee 
+
+*Date:2012-02-28 
+
+*/</span> 
+
+<span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span> </span>
+
+<span class="keyword">class</span> MyClass 
+
+{ 
+
+<span class="keyword">public</span>: 
+
+      <span class="function"><span class="keyword">static</span> <span class="keyword">float</span> <span class="title">plus</span><span class="params">(<span class="keyword">float</span> a,<span class="keyword">float</span> b)</span> 
+
+      </span>{ 
+
+             <span class="keyword">return</span> a+b; 
+
+      }     
+
+}; 
+
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> 
+
+</span>{ 
+
+      <span class="keyword">float</span> result,a=<span class="number">10.0</span>,b=<span class="number">10.0</span>; 
+
+      <span class="keyword">float</span> (*p)(<span class="keyword">float</span>,<span class="keyword">float</span>); 
+
+      p=&amp;MyClass::plus; 
+
+      result=p(a,b); 
+
+      <span class="built_in">printf</span>(<span class="string">"result=%f\n"</span>,result); 
+
+      <span class="keyword">return</span> <span class="number">0</span>; 
+
+} 
+<span class="comment">// 执行结果为：</span>
+<span class="comment">// result=20.000000</span>
+</code></pre>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/28/C-and-C-plusplus-pointer-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          [转载]嗯，让我们彻底搞懂C/C++函数指针吧（二）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/28/C-C-Pointer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C/C++ 函数指针</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="C-and-C-plusplus-pointer-1" data-title="[转载]嗯，让我们彻底搞懂C/C++函数指针吧（一）" data-url="cedar-renjun.github.io/2015/12/28/C-and-C-plusplus-pointer-1/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
