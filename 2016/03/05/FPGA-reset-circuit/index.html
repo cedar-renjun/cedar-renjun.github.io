@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>转－FPGA复位电路的实现及其时序分析 | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Note：原文地址http://blog.chinaaet.com/coyoo/p/34513#
+概述大部分的FPGA和ASIC设计都是基于大量flip-flop或者寄存器的同步系统设计，所以所有这些同步单元的起始状态或者将要返回的状态是一个已知状态（罗辑‘1’或者‘0’）就显得非常重要。这一个功能通常都是由一个“reset”电路来完成。一个设计或者一个FPGA器件通常都使用或输入有一个或者多个复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转－FPGA复位电路的实现及其时序分析">
+<meta property="og:url" content="cedar-renjun.github.io/2016/03/05/FPGA-reset-circuit/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="Note：原文地址http://blog.chinaaet.com/coyoo/p/34513#
+概述大部分的FPGA和ASIC设计都是基于大量flip-flop或者寄存器的同步系统设计，所以所有这些同步单元的起始状态或者将要返回的状态是一个已知状态（罗辑‘1’或者‘0’）就显得非常重要。这一个功能通常都是由一个“reset”电路来完成。一个设计或者一个FPGA器件通常都使用或输入有一个或者多个复">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11182845556787.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11183614013332.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11184094814062.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11184737386250.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11185435643841.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11185895064837.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11186237955714.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11186710954442.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11187258986759.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11187670202404.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11188324159658.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11188669238600.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11188981705221.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11189235671735.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11189755935163.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11190122847577.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11190552945855.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11190965259537.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11191261963040.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11191580218878.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11192147278992.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11192553651038.jpg">
+<meta property="og:image" content="http://files.chinaaet.com/images/blog/2013/12/24/11193141462084.jpg">
+<meta property="og:updated_time" content="2016-03-05T08:28:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="转－FPGA复位电路的实现及其时序分析">
+<meta name="twitter:description" content="Note：原文地址http://blog.chinaaet.com/coyoo/p/34513#
+概述大部分的FPGA和ASIC设计都是基于大量flip-flop或者寄存器的同步系统设计，所以所有这些同步单元的起始状态或者将要返回的状态是一个已知状态（罗辑‘1’或者‘0’）就显得非常重要。这一个功能通常都是由一个“reset”电路来完成。一个设计或者一个FPGA器件通常都使用或输入有一个或者多个复">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/C/" style="font-size: 15px;">C</a> <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12.5px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 15px;">ELF</a> <a href="/tags/FPGA/" style="font-size: 12.5px;">FPGA</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12.5px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12.5px;">IDA</a> <a href="/tags/IU/" style="font-size: 10px;">IU</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/LPC/" style="font-size: 10px;">LPC</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12.5px;">NFC</a> <a href="/tags/NXP/" style="font-size: 10px;">NXP</a> <a href="/tags/Nucleo/" style="font-size: 10px;">Nucleo</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 12.5px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F4/" style="font-size: 10px;">STM32F4</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/VS2013/" style="font-size: 10px;">VS2013</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/music/" style="font-size: 10px;">music</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/公司/" style="font-size: 10px;">公司</a> <a href="/tags/微信订阅号/" style="font-size: 17.5px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12.5px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-FPGA-reset-circuit" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/05/FPGA-reset-circuit/" class="article-date">
+  	<time datetime="2016-03-05T08:11:18.000Z" itemprop="datePublished">2016-03-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      转－FPGA复位电路的实现及其时序分析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code><span class="constant">Note</span>：原文地址<span class="symbol">http:</span>/<span class="regexp">/blog.chinaaet.com/coyoo</span><span class="regexp">/p/</span><span class="number">34513</span><span class="comment">#</span>
+</code></pre><h3 id="概述">概述</h3><p>大部分的FPGA和ASIC设计都是基于大量flip-flop或者寄存器的同步系统设计，所以所有这些同步单元的起始状态或者将要返回的状态是一个已知状态（罗辑‘1’或者‘0’）就显得非常重要。这一个功能通常都是由一个“reset”电路来完成。一个设计或者一个FPGA器件通常都使用或输入有一个或者多个复位信号，同时伴随一些其它控制逻辑电路来共同完成此“复位”功能。本文探讨各种复位电路，同步的、异步的以及同步化的异步复位，分析这些不同复位电路的优缺点。展现实现这些不同复位电路的技巧，并使用Altera的TimeQuest时序分析器来对它们进行正确的时序分析。</p>
+<p>我们通常意义上的同步电路通常是由两种复位方式来进行电路的复位，即同步复位和异步复位。同步复位的复位频率同步与寄存器的时钟域，而异步复位按性质，其影响寄存器和寄存器的时钟之间没有确定的时序关系。正因为如此，获取异步复位信号的时序关系是非常困难的。如前所述，这里即将讨论的第三种复位，无法更好的为其命名，大家更多的时候叫其同步化的异步复位，就是一个异步复位被同步到系统时钟域，有时候大家也称这种过程为异步复位同步释放。这种同步化的异步复位，具有同步复位的好处，却没有同步复位的缺点；同时他们还避免了纯粹异步复位的缺陷。后面论述中我们将看到，这种同步化的异步复位应该是FPGA电路设计时复位电路的首选。</p>
+<h3 id="同步复位">同步复位</h3><p>所谓同步复位是基于这样的一个前提，即服务信号只是在寄存器时钟的有效沿时影响该寄存器的状态。同步的典型优点是它们能确保电路为百分百的同步电路。同步复位的另一个优点是它们的时序可以很容易被静态时序分析器比如Altera的TimeQuest分析器分析。由于同步复位信号是被时钟启动（Launch）和锁存（Latch），而启动和锁存的时钟彼此同步，所以复位信号的到达时间（Arrival time）和所需时间（Required time）就能很轻易的确定并进行正确的slack分析。同步复位还有一个优点是它们更易于仿真当它们作用于一些基于周期机制的功能模块时。</p>
+<p>同步复位也有自己的缺点。例如，它们可能要求脉冲宽度满足一定要求，以保证在需要复位的时钟沿复位信号是有效的，所以这时候电路中也许需要脉冲延伸器或者说脉冲扩展器。也许更重要的是，同步复位总是需要一个时钟来完成对电路的复位。如果因为某些因素导致复位信号的启动时钟沿错误，那么就会导致整个电路复位功能的失败。</p>
+<p>在Altera<br>FPGA中，有两种方法可以将复位信号送达寄存器。一种是随数据门控输入，如图1所示，另一种是使用LAB宽控制信号，如synclr，如图2所示。<br><a id="more"></a><br><img src="http://files.chinaaet.com/images/blog/2013/12/24/11182845556787.jpg" alt="img"></p>
+<p>图1：使用组合逻辑的同步复位</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11183614013332.jpg" alt="img"></p>
+<p>图2：LAB-wide控制信号</p>
+<p>我们看，第一种方法存在潜在的缺陷，即额外的门延时可能不得不被添加到逻辑电路当中，从而导致复位信号数据到达时间（Data Arrival Time）增加。在这种情况下，就可能会导致建立时间的slack为负。第二种方法依赖于LAB到寄存器的专用布线资源。尽管如此，还是比异步复位到同一个寄存器要慢。如图3所示，同步清零（synclr）到达寄存器的路径上经过了一个与门，而异步清零（aclr）到同一个寄存器的路径是直接到达的。此外从图3我们可以看到每个LAB的控制信号里边，只有一个同步清零（synclr），却有两个异步清零（aclr）。所以使用大量同步复位信号会导致fitter工具使用更多的LAB模块。然而，如果没有使用这些LAB范围内的同步清零信号，逻辑单元（LC）利用率可能会增加。这些都是在FPGA中采用同步复位时必须要做出的权衡。幸运的是，在Quartus II提供了一些控制措施来让用户在这两种方法选择采用哪种方法。这些控制可以是全局控制，也可以是只施加于给定的模块（entity）上，但是不能针对单个寄存器施加此控制。在AE中可以添加以下两类约束来进行此控制，分别是ALLOW_SYNCH_CLEAR_USAGE 和FORCE_SYNCH_CLEAR。第一个设置将允许综合器在需要的时候使用LAB范围同步清零信号，第二个设置，迫使工具总是使用它。无论哪种方式，同步复位将是比异步复位慢，在FPGA设计中不是最好的方式。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11184094814062.jpg" alt="img"></p>
+<p>图3：ALM细节</p>
+<p>如果我要检视同步复位信号的时序，那么有两种同步复位信号需要考虑，即外部同步复位和内部同步复位信号。所谓外部同步复位信号是该同步复位同步于FPGA外部时钟域，只是这种同步复位在一般FPGA设计中是不常见的。图4显示了一个外部同步复位的例子。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11184737386250.jpg" alt="img"></p>
+<p>图4：外部同步复位原理图</p>
+<p>如图4所示，一个上电异步复位信号por_n在外部被系统时钟寄存两次后才输入到FPGA。而在FPGA内部，该复位信号和数据一同经过一个与门后作为一个寄存器的数据输入，产生一个同步复位。图5显示了一个图4所示原理图电路的Verilog代码，需要注意的是当使用同步复位时，复位信号不能放在进程的敏感列表中，否则就是异步复位了。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11185435643841.jpg" alt="img"><br>图5：外部同步复位Verilog代码</p>
+<p>上述电路的时序约束如图6所示，由于外部复位信号是同步复位，所以只需要将reset_n约束为普通的输入信号，可以施加set_input_delay约束。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11185895064837.jpg" alt="img"></p>
+<p>图6：SDC文件中约束外部同步复位信号</p>
+<p>而大部分时候，输入到FPGA的复位信号是异步信号，在这种情况下，复位信号必须在内部先同步后再送达寄存器。如图7所示，现在同步寄存器位于FPGA内部。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11186237955714.jpg" alt="img"></p>
+<p>图7：内部同步复位原理图</p>
+<p>相应的，等效图7电路等效Verilog代码如图8所示。同样地，注意这里时钟沿还是唯一敏感列表。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11186710954442.jpg" alt="img"></p>
+<p>图8：内部同步复位Verilog代码</p>
+<p>SDC文件里的约束和外部同步复位类似，只是现在复位输入信号不能被约束，因为它是一个异步输入信号，所以它应该被施加一个伪路径约束，如图9所示，这样就可以避免这样的路径被系统认为是未约束的路径。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11187258986759.jpg" alt="img"></p>
+<p>图9：SDC文件中约束内部同步复位信号</p>
+<p>同步复位的另一个问题是图8中的同步寄存器的输入是异步信号，而常常有可能该异步信号的脉宽比较小（小于一个时钟周期）。一方面，这可以看作是一个缺点，因为异步信号同步的时候必须保证脉宽至少要一个时钟周期长，这样才能保证异步复位信号在第一个同步寄存器被捕获。另一方面，这又可以看作是一个优点，因为短脉宽增加了其抗噪声性能。这个异步输入上的一些虚假脉冲，如毛刺，很有有机会被第一个寄存器捕获，所以它们也就不会触发同步复位。在某些情况下，我们可能需要进一步增强抗干扰能力，可以让电路拒绝比如任何小于n个时钟周期的脉冲触发同步复位。这其实也非常有益于对异步输入的复位信号进行去抖动。为了做到这一点，应将电路作出以下修改，如图10所示。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11187670202404.jpg" alt="img"></p>
+<p>图10：经过脉冲扩展的内部同步复位原理图</p>
+<p>在许多设计中，可能不止一个时钟信号。在这些情况下，每一个时钟域都应该采用一个独立的复位同步电路。如果设计中使用了PLL，那么使用的时候有些地方需要格外注意。如果采用PLL的输出时钟来创建同步电路，那么这些时钟域将不会被复位，直到PLL锁定和PLL的输出时钟已经稳定。另外值得一提的是，如果PLL使用了复位信号，那么这个复位信号没有必要同步到PLL的输入时钟。一个异步复位即可用来复位PLL。同样，PLL使用复位，当PLL的输出时钟域都使用内部同步复位的时候，将进一步拖延这些时钟域同步复位置位。这个问题我们将在同步化的异步复位中再讨论，而且我们将看到这个问题被同步化的异步复位很好的解决。</p>
+<h3 id="异步复位">异步复位</h3><p>长时间以来，异步复位在电路设计中经常被采用，特别是ASIC设计中。这样的设计非常受欢迎，比如一个异步输入到器件，然后给该异步信号分配全局布线资源，并连接这个异步信号到器件中每一个（几乎所有）寄存器的异步复位引脚。在某些情况下，这种方法有它的优点，但是它并不是没有缺陷。比如并不是每一个设计，器件中的每一个寄存器都需要复位的。所以说这个方法也不是完全不需要消耗布线资源以及LAB范围控制信号，最好的做法是只将复位连接到那些需要复位的寄存器。</p>
+<p>异步复位的一个最大优点是，它们没有象同步复位那样插入到数据路径中。因此，异步复位对寄存器之间的数据到达时间不产生任何负面影响。另一个优点是，它们一般都是即刻生效。只要寄存器收到复位脉冲，寄存器将被即刻复位，而不管相对于时钟的时序关系。所以异步复位不象同步复位那样依赖于时钟。</p>
+<p>电路使用异步并没有任何问题，只是在复位被释放的时候可能会出现问题，所谓的复位释放（Release）有时候也被称为复位去除（Removal）。当复位撤除时，它必须满足异步微建立时间，即µtSU。这个可以在TimeQuest里使用Recovery时间检查来得到确认。此外，复位撤除时，它也必须要满足微保持时间，即µtH。同样可以在TimeQuest使用Removal时间检查来得到确认。总之，上述两种Check被称为Rcovery/Removal分析。</p>
+<p>当复位信号为置无效（Deasserted）时，并且不能通过时序分析里的Recovery和Removal检查时，那么复位信号边沿就会很可能落入了一个亚稳态区域，如图11所示。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11188324159658.jpg" alt="img"></p>
+<p>图11：亚稳态曲线</p>
+<p>亚稳态带来的后果是寄存器的输出（基于输入到寄存器的输入数据）需要花费更多的时间来回复到其正确的状态。这个额外增加的时间可能会导致寄存器下一级的建立时间失败，从而导致系统错误。显然，需要不惜一切代价来避免这种情况。</p>
+<p>避免亚稳态的方法之一是在寄存该异步复位的寄存器后增加一系列寄存器，然后使用这些寄存器的输出作为设计的复位。后面增加的寄存器通过将数据同步到时钟的方式来去除亚稳态问题。设计中后续寄存器越接近这些寄存器越好，这样可以最大限度减少布线延时，降低了数据的到达时间，从而增加了平均无故障时间（MTBF）。需要注意，重要的是这些额外增加的寄存器本身不但没有被复位，而且有几个时钟周期通过“冲刷”掉它们当前或者初始状态而被初始化。图12显示了这样一个电路的例子。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11188669238600.jpg" alt="img"><br>图12：异步复位跟随几个寄存器的原理图</p>
+<p>在一般情况下，象图12所示的没有反馈电路的流水线设计，它不依赖于时序电路的初始状态，并如果电路能够在跳出复位状态后等待几个周期才开始运作的话，这种类型的复位还是可以接受的。</p>
+<p>图12所示电路的Verilog代码如图13所示。请注意与同步复位代码的差异。现在，复位的有效沿已经位于进程的敏感列表中了。同样重要的是，后续两个寄存器不是在第一个进程的“else”部分，而是位于另外一个进程中，因为如果位于第一个进程的“else”部分，复位信号取反后被连接到寄存器的时钟使能端口，从而将会被推导出时钟使能。可以看到后面两个寄存器在第二个进程中使用了非阻塞赋值。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11188981705221.jpg" alt="img"></p>
+<p>图13：异步复位跟随寄存器代码</p>
+<p>约束一个异步复位非常简单，根据定义，异步复位和它们将要复位的寄存器的时钟域之间没有任何确定的时间关系。因此，对这些复位进行静态时序分析是不太可能，它们通常在SDC文件中使用set_false_path语句来进行切割，如图14所示。由于寄存器的复位和时钟之间的时序关系是未知的，所以在TimeQuest中无法对这些路径进行Recovery和Removal分析，即使试图尝试这样做，也不会获得期望的路径报告。即使没有使用假路径约束语句对路径进行切割，也不会有这些路径上的Recovery和Removal报告。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11189235671735.jpg" alt="img"></p>
+<p>图14：SDC中对异步复位的约束</p>
+<p>异步复位除了上述潜在的亚稳态问题，另一个问题是它们对噪声的易感染性。一个“嘈杂”的异步复位，很可能导致虚假的复位。出于这个原因，对异步复位进行滤波和去抖是非常重要的。如前所述，由于同步复位经过了时钟寄存，所以同步复位是不太容易出现此问题（虽然不是绝对免疫）。后面我们将看到的同步化的异步复位，会讨论完全避免这个问题的方法。</p>
+<p>同样的，异步复位最大的问题也许还是涉及到复位的释放（移除）。除了潜在的亚稳态问题外，无法保证每个寄存器的异步复位和时钟之间时序关系都是一样的，因为这些寄存器被布局布线于整个器件的各处。如此带来的影响是有些寄存器会及时复位，而有些寄存器不会，而是要等到下一个时钟周期才能复位。对于类似这种一个寄存器的下一个输出依赖与其它寄存器的当前输出反馈电路将带来潜在的灾难性影响。一个常见的例子就是带状态机的电路。One-Hot状态机尤其会有这种问题，因为其一次只有一个状态位被设置。由于有些状态位跳出复位状态，而其它状态位没有，那么就会有多于一个状态位被置高（即有效），这样这个状态机就会进入非法状态。如果使用二进制编码状态机，它可以创建未使用的状态来过渡到复位状态，这使得其成为一个确定性的状态机。这样就允许一个非法的或者闲置的状态得到完美的恢复。</p>
+<p>注：现在的Quartus II软件中有一个“Safe State Machine”的综合设置，可以用来保证设计的状态机从非法状态完美恢复。只是这个设置默认是没有打开的。</p>
+<p>尽管我们看到有办法解决异步复位产生的这些问题，但是还是尽可能避免使用异步复位。如何避免上述复位的问题，只能是改变复位的结构，后面我们将会看到一种不同的复位机制，即同步化的异步复位。</p>
+<h3 id="异步复位同步化（同步化的异步复位）">异步复位同步化（同步化的异步复位）</h3><p>为了避免纯粹的同步复位和纯粹异步复位的问题，可以使用一种叫做同步化的异步复位，我们称其为第三类复位。这种复位完全结合了异步复位和同步复位的优势，我们知道异步复位的优势是不参与数据路径，所以不影响数据路径速度，而复位几乎是瞬间起作用；而同步复位的优势是百分百地同步时序分析且具有抗噪声性能。这种复位其实就是通常我们所说的异步复位同步释放。就如同我之前讨论的那样，异步地进入复位是最好的，只是异步地退出复位会导致一些类似亚稳态和由同步电路参与反馈而引起不想要的状态之类的危害等问题。</p>
+<p>后面我们会讨论如何来实现这样的同步化的异步复位。我先来如图15所示的电路，同步寄存器（Synchronizer Register）象同步复位那样被使用，不过被同步后的异步复位和原始异步复位经过门控以后用来异步地复位后续寄存器。这个电路中异步复位信号异步地复位后续电路，并且复位是异步地释放。它的缺点就是复位路径上引入了门电路的延迟。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11189755935163.jpg" alt="img"></p>
+<p>图15：带门控的同步化异步复位原理图</p>
+<p>一种更好的实现方法如图16所示，这个电路去除了图15中复位路径上门电路延迟。异步复位输入直接连接到同步寄存器（Synchronizer Register）的CLRN端口上，这样复位立即生效。当复位撤除（释放）时，一个逻辑“1”从同步器（Synchronizer）被时钟打出用来同步地释放后续寄存器的复位。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11190122847577.jpg" alt="img"></p>
+<p>图16：不带门控的同步化异步复位原理图</p>
+<p>图16等效的Verilog代码如图17所示，第一个进程模块用来产生同步复位输出rst_n，rst_n作为第二个进程模块的异步复位。两个进程模块的复位信号都位于各自的敏感列表中。其实第一个进程模块就是将系统输入的异步复位进行同步，产生一个后续逻辑使用的同步化了的异步复位，所以我们看到第二个进程模块里将这个已经同步化了的复位信号当作异步复位使用。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11190552945855.jpg" alt="img"></p>
+<p>图17：同步化异步复位的Verilog代码</p>
+<p>同样，为了减少亚稳态对上述同步器中的两个寄存器的影响，同时也是为了增加平均无故障时间（MTBF），这两个寄存器应该在FPGA中被放置的越靠近越好，以尽量减少在器件中的布线延迟。Quartus II的fitter将会自动认识到这些寄存器是用于同步器，所以会自动地进行上述处理，作为本例这两个寄存器将会被布局到同一个LAB中。</p>
+<p>尽管reset_n已经进行了上述同步化处理，时序约束的时候还是要使用set_false_path命令将其进行切割，而从同步寄存器输出的复位rst_n现在可以使用TimeQuest进行准确地Recovery和Removal分析。本设计的SDC约束和图14是一样，所以现在我们在Quartus II中编译这个设计并运行TimeQuest时序分析器，那么我们将会得到这个电路的Recovery和Removal的slack报告，如图18所示。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11190965259537.jpg" alt="img"><br>图18：同步化异步复位的Recovery和Removal分析</p>
+<p>上述分析结果表明，两条路径（reg4到reg1和reg4到reg2）都进行了Recovery和Removal检查。这个电路的Recovery时间检查（就象建立时间检测一样）差不多有9ns的slack，而Removal（就象保持时间检查一样）也有660ps的slack。两个检查都得到通过，意味着这个电路没有时序错误路径。</p>
+<p>使用上述同步化异步复位的一个代价是它们很容易受到噪声和窄脉冲的干扰。同样地，如果可能最好对输入到FPGA的异步复位先进行滤波和去抖动。图16中的同步化异步复位原理图可以确保同步后的异步至少有一个时钟周期的长度，如果需要扩展复位长度到n个时钟周期，那么可以增加同步器中的寄存器个数到n+1个。请一定确保外部输入的异步复位reset_n连接到了所有同步器寄存器的CLRN端口，这样确保使得产生的同步化异步复位能够被异步地置位。</p>
+<p>当有PLL涉及时，有些特殊情况需要考虑。比如我们来如图19所示的电路。需要同步的复位跟之前一样直接接到了同步器中寄存器的CLRN端口，而同步后的寄存器也同样接到了reg1和reg2的CLRN端口，同时也被接到PLL的areset端口。所有寄存器包括同步器中的寄存器的驱动时钟来自PLL的输出时钟。虽然看起来PLL使用了同步后的复位，实际上这是行不通的。当PLL处于复位状态时，PLL的c0是没有时钟输出的，因此同步器中的寄存器将无法清除复位（意思是复位无法得到释放）。结果是，这个电路将永远无法跳出复位。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11191261963040.jpg" alt="img"></p>
+<p>图19：使用PLL时不正确实现同步化异步复位的原理图</p>
+<p>为了解决这个问题，PLL的复位应该使用FPGA原始输入的异步复位reset_n（如图20所示，这里进行了取反，这主要取决于复位是‘0’有效还是‘1’有效，这里不讨论），而不是同步后的复位。此外，使用PLL的Lock输出来作为同步器中寄存器的时钟使能，是个不错的做法。因为这将防止同步后的复位在PLL的输出时钟稳定之前提前释放。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11191580218878.jpg" alt="img"></p>
+<p>图20：使用PLL时正确实现同步化异步复位的原理图</p>
+<p>图21显示了图20所示是PLL正确实现同步化异步复位原理图的Verilog代码。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11192147278992.jpg" alt="img"><br>图21：使用PLL时正确实现同步化异步复位的Verilog代码</p>
+<p>注意到上述代码中同步器的进程模块中多一个条件，即PLL的Locked信号，它作为同步器中的寄存器的同步时钟使能信号。同时注意下面例化的PLL以及两个个进程模块的时钟，这些都是当加入PLL时仅有的变化。</p>
+<p>图22是需要给这个电路加入的SDC时序约束，基本和没有使用PLL相同，唯一的区别是需要使用create_generated_clock语句为PLL的输出时钟加约束（注意其实使用PLL后，可以直接使用语句derive_pll_clocks来简单地进行约束）。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11192553651038.jpg" alt="img"></p>
+<p>图22：使用PLL时实现同步化异步复位的时序约束</p>
+<p>最后，还有一个值得一提的例子。如前所述，设计中的不同时钟域的寄存器如果需要复位，应该首先将复位同步到当前的时钟域后再使用，也就是说每个时钟都需要有一套自己的复位同步器寄存器。而且，有的时候设计的某些部分可能需要比其它部分先从复位状态释放，所以这就需要一个复位释放顺序的安排。图23给出了这样一个例子，同步寄存器都通过类似菊花链方式串起来，我们看到最上面的同步器具有最高优先级从复位状态跳出来。图23所示的电路中，所有的复位都同时有效，但是rst_a_n具有从复位状态跳出的最高优先级，接着是rst_b_n具有中等优先级，rst_c_n是最后被释放的。当然，如果在不同复位之间需要更长的间隔时间，可以在同步器中添加任意个数寄存器来达到需要的间隔长度。</p>
+<p><img src="http://files.chinaaet.com/images/blog/2013/12/24/11193141462084.jpg" alt="img"></p>
+<p>图23：不同时钟域同步化异步复位释放优先级安排</p>
+<h3 id="总结">总结</h3><p>本文介绍了不同复位的优缺点，比如同步复位，异步复位以及同步化的异步复位。同步复位需要一个时钟，所以窄复位脉冲将会被忽略，然后同时增加了系统的抗干扰能力。同步复位是百分之一百的同步电路，所以不存在亚稳态问题。只是同步复位会带来额外的资源消耗以及数据路径上的延迟，基于此我们说同步复位不是最佳复位选择。TimeQuest可以象分析其它数据路径那样分析同步复位。</p>
+<p>异步复位通常立即起作用，也容易被实现，而且由于它们不象同步复位那样会给数据路径引入额外的延迟，所以复位速度很快。同时相比同步复位，异步复位消耗更少的逻辑资源。比较不幸的是，它们无法通过TimeQuest来进行时序分析（其它静态时序分析器也无法分析），而且如果处理不当还会给电路带来亚稳态问题。异步复位的最大弱点是它们无法确保所有的寄存器在同一个时钟沿处跳出复位状态。这在带反馈的同步设计中是会有问题的，比如状态机设计。</p>
+<p>在将异步复位连接到寄存器的异步输入端口前给它加入一个同步器，这样就创造一个叫同步化了的异步复位。这种复位具有异步复位那样的立即将复位作用于电路好处，同时又提高电路速度，因为它们不会给数据路径带来额外的延迟。同时，这种复位象同步复位那样避免了亚稳态问题，而且保证所有的寄存器能够同时从复位状态跳出。不象异步复位，同步化了异步复位可以在TimeQuest里分析Recovery和Removal。正是由于这些原因，同步化了的异步复位是大部分FPGA设计中复位电路首先方法。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/28/FPGA-principle/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">FPGA principle</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="FPGA-reset-circuit" data-title="转－FPGA复位电路的实现及其时序分析" data-url="cedar-renjun.github.io/2016/03/05/FPGA-reset-circuit/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
