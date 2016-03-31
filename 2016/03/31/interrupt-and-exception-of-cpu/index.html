@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>[repost] Exception and Interrupt handling in the MIPS architecture | Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionIn this unit, you will learn how to add interrupt and exception support to your multicycle CPU design. For additional information, please refer section 5.6 and appendix A in the Hennessy a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[repost] Exception and Interrupt handling in the MIPS architecture">
+<meta property="og:url" content="cedar-renjun.github.io/2016/03/31/interrupt-and-exception-of-cpu/index.html">
+<meta property="og:site_name" content="Simple">
+<meta property="og:description" content="IntroductionIn this unit, you will learn how to add interrupt and exception support to your multicycle CPU design. For additional information, please refer section 5.6 and appendix A in the Hennessy a">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2016/3/31/wave.jpg">
+<meta property="og:image" content="http://cedar-renjun.github.io/images/2016/3/31/arch.jpg">
+<meta property="og:updated_time" content="2016-03-31T14:30:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[repost] Exception and Interrupt handling in the MIPS architecture">
+<meta name="twitter:description" content="IntroductionIn this unit, you will learn how to add interrupt and exception support to your multicycle CPU design. For additional information, please refer section 5.6 and appendix A in the Hennessy a">
+  
+    <link rel="alternative" href="/atom.xml" title="Simple" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Do one thing and do it well</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BLE4-0/" style="font-size: 10px;">BLE4.0</a> <a href="/tags/C/" style="font-size: 16px;">C</a> <a href="/tags/C/" style="font-size: 16px;">C++</a> <a href="/tags/CC26xx/" style="font-size: 10px;">CC26xx</a> <a href="/tags/Debugger/" style="font-size: 12px;">Debugger</a> <a href="/tags/ELF/" style="font-size: 16px;">ELF</a> <a href="/tags/FPGA/" style="font-size: 14px;">FPGA</a> <a href="/tags/GPIO/" style="font-size: 10px;">GPIO</a> <a href="/tags/Hacker/" style="font-size: 12px;">Hacker</a> <a href="/tags/IAR/" style="font-size: 10px;">IAR</a> <a href="/tags/IDA/" style="font-size: 12px;">IDA</a> <a href="/tags/IU/" style="font-size: 10px;">IU</a> <a href="/tags/Jlink/" style="font-size: 10px;">Jlink</a> <a href="/tags/LPC/" style="font-size: 10px;">LPC</a> <a href="/tags/M1/" style="font-size: 10px;">M1</a> <a href="/tags/NFC/" style="font-size: 12px;">NFC</a> <a href="/tags/NXP/" style="font-size: 10px;">NXP</a> <a href="/tags/Nucleo/" style="font-size: 10px;">Nucleo</a> <a href="/tags/PN532/" style="font-size: 10px;">PN532</a> <a href="/tags/QT/" style="font-size: 12px;">QT</a> <a href="/tags/RFID/" style="font-size: 10px;">RFID</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/STM32F4/" style="font-size: 10px;">STM32F4</a> <a href="/tags/STM32F7/" style="font-size: 10px;">STM32F7</a> <a href="/tags/TI/" style="font-size: 10px;">TI</a> <a href="/tags/USB/" style="font-size: 20px;">USB</a> <a href="/tags/VS2013/" style="font-size: 10px;">VS2013</a> <a href="/tags/elua/" style="font-size: 10px;">elua</a> <a href="/tags/lua/" style="font-size: 10px;">lua</a> <a href="/tags/music/" style="font-size: 10px;">music</a> <a href="/tags/sublime-text/" style="font-size: 10px;">sublime text</a> <a href="/tags/公司/" style="font-size: 10px;">公司</a> <a href="/tags/微信订阅号/" style="font-size: 18px;">微信订阅号</a> <a href="/tags/树莓派/" style="font-size: 12px;">树莓派</a> <a href="/tags/示波器/" style="font-size: 10px;">示波器</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.miaoxiong.net/">喵兄</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://ahnniu.github.io/">牛工</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">Cedar, 嵌入式软件工程师，玩过各种MCU，熟悉无线协议栈，USB，RTOS，半个软件架构师，最近在折腾调试器. QQ: 819280802</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Do one thing and do it well</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Do one thing and do it well</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/cedar-renjun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/1995742315/profile?topnav=1&wvr=6" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-interrupt-and-exception-of-cpu" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/31/interrupt-and-exception-of-cpu/" class="article-date">
+  	<time datetime="2016-03-31T13:39:58.000Z" itemprop="datePublished">2016-03-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [repost] Exception and Interrupt handling in the MIPS architecture
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction">Introduction</h2><p>In this unit, you will learn how to add interrupt and exception support to your multicycle CPU design. For additional information, please refer section 5.6 and appendix A in the Hennessy and Patterson textbook. Note: you will only be implementing a subset of the exception and interrupt functionality of the MIPS architecture. Therefore, use this page as your definitive source of information regarding this unit.</p>
+<h2 id="Exceptions_and_Interrupts_defined">Exceptions and Interrupts defined</h2><p>Exceptions and interrupts are unexpected events that disrupt the normal flow of instruction execution. An exception is an unexpected event from within the processor. An interrupt is an unexpected event from outside the processor. You are to implement exception and interrupt handling in your multicycle CPU design.</p>
+<p>When an exception or interrupt occurs, the hardware begins executing code that performs an action in response to the exception. This action may involve killing a process, outputting a error message, communicating with an external device, or horribly crashing the entire computer system by initiating a “Blue Screen of Death” and halting the CPU. The instructions responsible for this action reside in the operating system kernel, and the code that performs this action is called the interrupt handler code. You can think of handler code as an operating system subroutine. After the handler code is executed, it may be possible to continue execution after the instruction where the execution or interrupt occurred.</p>
+<h2 id="Exceptions:_Types">Exceptions: Types</h2><p>For your project, there are three events that will trigger an exception: arithmetic overflow, undefined instruction, and system call.</p>
+<p><strong>Arithmetic overflow</strong> occurs during the execution of an add, addi, or sub instruction. If the result of the computation is too large or too small to hold in the result register, the Overflow output of the ALU will become high during the execute state. This event triggers an exception.</p>
+<p><strong>Undefined instruction</strong> occurs when an unknown instruction is fetched. This exception is caused by an instruction in the IR that has an unknown opcode or an R-type instruction that has an unknown function code.</p>
+<p><strong>System call</strong> occurs when the processor executes a syscall instruction. Syscall instructions are used to implement operating system services (functions).</p>
+<h2 id="Interrupts">Interrupts</h2><p>We also want to have to ability to service external interrupts. This is useful if a device external to the processor<br>needs attention. To do this, we’ll add 2 pins to the processor. The first pin, called IRQ (interrupt request), will be<br>an input that will allow an external device to interrupt the processor. Since we don’t want the processor to service any<br>external interrupts before it is finished executing the current instruction, we may have to make the external device<br>wait for several clock cycles. Because of this, we need a way to tell the external device that we’ve serviced its<br>interrupt. We’ll solve this problem by adding the second pin, called IACK (interrupt acknowledge), that will be an<br>output. The following waveform defines the timing for external interrupt requests.</p>
+<p><img src="http://cedar-renjun.github.io/images/2016/3/31/wave.jpg" alt="Fig1"></p>
+<h2 id="What_to_do_when_an_exception_or_interrupt_occurs">What to do when an exception or interrupt occurs</h2><p>When an exception or interrupt occurs, your processor may perform the following actions:</p>
+<ul>
+<li>move the current PC into another register, call the EPC</li>
+<li>record the reason for the exception in the Cause register</li>
+<li>automatically disable further interrupts or execptions from occuring, by left-shifting the Status register</li>
+<li>change control (jump) to a hardwired exception handler address</li>
+</ul>
+<p>To return from a handler, your processor may perform the following actions:</p>
+<ul>
+<li>move the contents of the EPC register to the PC.</li>
+<li>re-enable interrupts and exceptions, by right-shifting the Status register</li>
+</ul>
+<h2 id="Dealing_with_multiple_types_of_exceptions_and_interrupts">Dealing with multiple types of exceptions and interrupts</h2><p>In a situation where multiple types of exceptions and interrupts can occur, there must be a mechanism in place where different handler code can be executed for different types of events. In general, there are two methods for handling this problem: polled interrupts and vectored interrupts.</p>
+<ol>
+<li>The processor can branch to a certain address that begins a sequence of instructions that check the cause of the exception and branch to handler code for the type of exception encountered. This is called polled exception handling.</li>
+<li>The processor can branch to a different address for each type of exception. Each exception address is separated by only one word. A jump instruction is placed at each of these addresses that forces the processor to jump to the handler code for each type of exception. This method is called vectored exception handling.</li>
+</ol>
+<p>MIPS uses the first method (polled interrupts), so we’ll implement exception handling that way. So, in our case, all exceptions will cause the processor to jump to a “hardwired” instruction address. A sequence of instructions starting at this address will check the cause of the exception and act accordingly. We will set this address to 00000004 (in hex). Also, we’ll need to use the Cause register to record the cause of the exception or interrupt before jumping to the handler code.</p>
+<h2 id="Cause_register">Cause register</h2><p>The Cause register is a 32-bit register, but only certain fields on that register will be used. Bits 1 down to 0 will be set to describe the cause of the last interrupt/exception. The following table codes the interrupt/exception causes:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Number</th>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">00</td>
+<td style="text-align:left">INT</td>
+<td style="text-align:left">External Interrupt</td>
+</tr>
+<tr>
+<td style="text-align:left">01</td>
+<td style="text-align:left">IBUS</td>
+<td style="text-align:left">Instruction bus error (invalid instruction)</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">OVF</td>
+<td style="text-align:left">Arithmetic overflow</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left">SYSCALL</td>
+<td style="text-align:left">System call</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Disabling_interrupts_and_exceptions">Disabling interrupts and exceptions</h2><p>We require a way to disable interrupts and exceptions. This is necessary to prevent exceptions and interrupts from<br>occuring during handler execution. In order to be able to do this, we need an additional register that can be used to<br>mask exception and interrupt types. This is called the Status register.</p>
+<h2 id="Status_register">Status register</h2><p>The status register is also a 32-bit register. It too, only has certain fields that are used by the processor. Bits 3 down to 0 will define masks for the three types of interrupts/exceptions. If an interrupt/exception occurs when its mask bit is current set to 0, then the interrupt/exception will be ignored. The mask bits are used according to the following table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Bit</th>
+<th style="text-align:left">Interrupt/exception</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">INT</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">IBUS</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">OVF</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">SYSCALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Control_for_exceptions">Control for exceptions</h2><p>You will need to add control and datapaths to support exceptions and interrupts. When an exception or interrupt occurs, the following must be done:</p>
+<pre><code>EPC &lt;= PC
+Cause &lt;= <span class="list">(<span class="keyword">cause</span> code for event)</span>
+Status &lt;= Status &lt;&lt; <span class="number">4</span>
+PC &lt;= <span class="list">(<span class="keyword">handler</span> address)</span>
+</code></pre><p>To return from an exception or datapath, the following must be done:</p>
+<pre><code><span class="constant">PC</span> &lt;= <span class="constant">EPC</span>
+<span class="constant">Status</span> &lt;= <span class="constant">Status</span> <span class="prompt">&gt;&gt; </span><span class="number">4</span>
+</code></pre><p>You will also have to add control to support four additional instructions, mfc0, mtc0, syscall, and rte.</p>
+<p><img src="http://cedar-renjun.github.io/images/2016/3/31/arch.jpg" alt="Fig2"></p>
+<h2 id="Additional_instructions_needed">Additional instructions needed</h2><p>Several instructions must be added to your instruction set in order to use the interrupt/exception functionality of your processor. These instructions are mfc0 rt,rd and mtc0 rd,rt, which stand for “move from coprocessor 0” and “move from coprocessor 0”. The new registers that facilite interrupt and exception handling, Status, Cause, and EPC, can be accessed via these instructions. These new instructions transfer data between the exception registers and the general-purpose registers. Also, you will need the syscall instruction. These instructions are encoded in the following way:</p>
+<h2 id="syscall">syscall</h2><p>Executes a system call. The system call number should be set in register $v0 prior to executing the system call.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">31-26</th>
+<th style="text-align:left">25-6</th>
+<th style="text-align:left">5-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">000000</td>
+<td style="text-align:left">00000000000000000000</td>
+<td style="text-align:left">001100</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rfe">rfe</h2><p>Return from exception.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">31-26</th>
+<th style="text-align:left">25</th>
+<th style="text-align:left">24-6</th>
+<th style="text-align:left">5-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">010000</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0000000000000000000</td>
+<td style="text-align:left">010000</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mfc0_rd,_rt">mfc0 rd, rt</h2><p>Moves data from coprocessor 0 register rt to general purpose register rd.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">31-26</th>
+<th style="text-align:left">25-21</th>
+<th style="text-align:left">20-16</th>
+<th style="text-align:left">15-11</th>
+<th style="text-align:left">10-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">010000</td>
+<td style="text-align:left">00000</td>
+<td style="text-align:left">rt</td>
+<td style="text-align:left">rd</td>
+<td style="text-align:left">00000000000</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mtc0_rd,_rt">mtc0 rd, rt</h2><p>Moves data from general purpose register rt to coprocessor 0 register rd.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">31-26</th>
+<th style="text-align:left">25-21</th>
+<th style="text-align:left">20-16</th>
+<th style="text-align:left">15-11</th>
+<th style="text-align:left">10-0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">010000</td>
+<td style="text-align:left">00100</td>
+<td style="text-align:left">rt</td>
+<td style="text-align:left">rd</td>
+<td style="text-align:left">00000000000</td>
+</tr>
+</tbody>
+</table>
+<p>The following table defines coprocessor 0’s register set:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Register name</th>
+<th style="text-align:left">Register number</th>
+<th style="text-align:left">Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Status</td>
+<td style="text-align:left">12</td>
+<td style="text-align:left">Interrupt mask and enable bits</td>
+</tr>
+<tr>
+<td style="text-align:left">Cause</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">Exception type</td>
+</tr>
+<tr>
+<td style="text-align:left">EPC</td>
+<td style="text-align:left">14</td>
+<td style="text-align:left">Register containing the following address of the instruction where the exception occurred</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/05/FPGA-reset-circuit/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">转－FPGA复位电路的实现及其时序分析</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="interrupt-and-exception-of-cpu" data-title="[repost] Exception and Interrupt handling in the MIPS architecture" data-url="cedar-renjun.github.io/2016/03/31/interrupt-and-exception-of-cpu/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"cedar-renjun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Do one thing and do it well
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
